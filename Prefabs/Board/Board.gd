@@ -19,7 +19,6 @@ func Init(size: Vector2i):
 			row.append(board_cell)
 			add_child(board_cell)
 			
-
 func _ready() -> void:
 	pass
 
@@ -63,7 +62,6 @@ func select_cell(to_cell: BoardCell):
 			elif _selected_cell.occupying_piece._can_move(cell):
 				cell.can_move = true
 				cell.set_color(BoardCell.color_move)
-		
 		
 func deselect_cell():
 	if _selected_cell == null:
