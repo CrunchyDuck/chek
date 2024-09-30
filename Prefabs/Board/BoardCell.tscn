@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://clqodp7ecd7hr"]
+[gd_scene load_steps=3 format=3 uid="uid://clqodp7ecd7hr"]
 
+[ext_resource type="Texture2D" uid="uid://b1qabkf21xqld" path="res://Sprites/Board/WhiteTile.png" id="1_6ypeu"]
 [ext_resource type="Script" path="res://Prefabs/Board/BoardCell.gd" id="1_63bnx"]
 
-[node name="BoardCell" type="Node2D"]
+[node name="BoardCell" type="Sprite2D"]
+texture = ExtResource("1_6ypeu")
+centered = false
 script = ExtResource("1_63bnx")

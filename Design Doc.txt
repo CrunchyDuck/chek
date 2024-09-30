@@ -1,35 +1,53 @@
 Up to 4 players
 
+
+
 Modes:
 
 Normal
 Concurrent - everyone takes their turn at the same time, on a cooldown
 
+Victory conditions:
+Kill the opponent's {Piece}
+Kill all opponent pieces
+Kill (x number) opponent pieces.
+
 Build own team mode
 Change board size
-Checkers
-Randomized start positions
-Randomized pieces
+
 Moves per turn customization
-Win is always by capture
-Wrapping board
-Traitor piece - capturing this piece turns the capturer to the other team
-NO RETREAT - Pieces can only move forward or horizontal, till reaching the end; Then they turn around and repeat.
-REINFORCEMENTS - When a piece is killed, it respawns, killing whatever was at the spawn.
+
+
 knights can move in a line of 3 long
-Jumping pieces - pieces can move through other pieces
-kamakazi chess - a capturing piece also dies
 fluxx chess/knightmare chess
-Chained captures
-Drop in chess - pieces can be placed in from a reserve on any spawn point
-Quash the rebellion - Pieces are not removed from the board when captured, but relocated to a new location
-Obliteration - Victory is attained by killing all pieces
-Inverted positions - players swap positions
-Risk positions - Players place pieces one after the other
-Piece that moves like king, but can also teleport to any empty space
-Own pieces can be captured
-Piece capable of moving other pieces
+
+FORMATION BROKEN - Randomized start positions
+B TEAM - Piece types are randomized at the start of the round.
+ROUND EARTH - The board edges wrap around.
+NO RETREAT - Pieces can only move forward or horizontal, till reaching the end; Then they turn around and repeat.
+HO CHI MINH - pieces can move through other pieces
+DIVINE WIND - a capturing piece also dies
+Chained captures - Limitation???
+EXPENDABLE - When a piece is killed, it respawns, killing whatever was at the spawn.
+REINFORCEMENTS - pieces can be placed in from a reserve on any spawn point
+CIVIL WAR - Pieces are not removed from the board when captured, but relocated to a new location
+OUT OF POSITION - players swap positions
+RISKY DEPLOYMENT - Players place pieces one after the other
+SUMO - Pieces are not captured, instead they are knocked back. Knocking off the board eliminates.
+FIRING SQUAD - Pieces do not move when they kill other pieces
+FOREIGN GROUND - Fog of war
+GREATER GOOD - Own pieces can be captured
+COLD WAR - Each turn, choose a friendly piece to die.
+SIEGE - When not on spawn, if a piece cannot move, it dies.
+COORDINATED - Every piece that can move, must move. Resets once all pieces have either moved or cannot move.
+LOYALTY - X piece cannot be killed by Y piece
+PROMOTION - Pieces are promoted upon getting a kill. Or restart their career.
+
+Piece that explodes when captured, killing all surrounding units.
 Piece with a terrifying presence - Enemies cannot move into squares surrounding it
-Sumo chess - Pieces are not captured, instead they are knocked back. Knocking off the board eliminates.
+Piece that moves/captures like king, but can also teleport to any empty space
+Piece capable of moving other pieces
+Traitor piece - capturing this piece turns the capturer to the other team
+Checker's piece
 
 Hoard - one side has a bunch of pawns

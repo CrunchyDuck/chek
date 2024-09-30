@@ -8,25 +8,35 @@ var move_count: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-  pass # Replace with function body.
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-  pass
+	pass
 
 # Bit of a mouthful - This lets us rotate vectors to be from the perspective of its team.
 # y = 1 for the top of the board (Black, in a normal game), will be y = -1 relative to their facing.
-func RotateVectorRelativeToTravelDirection(vec: Vector2i) -> Vector2i:
-  # TODO: Implementation.
-  return vec
+func _rotate_vector_relative_to_travel_direction(vec: Vector2i) -> Vector2i:
+	# TODO: Implementation.
+	return vec
 
-# Abstract functions
-func Move(x: int, y: int) -> void:
-  pass
-  
-func CanAttack(attack_pos: Vector2i) -> bool:
-  return false
-  
-func CanMove(move_pos: Vector2i) -> bool:
-  return false
+# Abstract base functions
+func _move(to: BoardCell) -> void:
+	pass
+	
+func _can_attack(attack_pos: BoardCell) -> bool:
+	if attack_pos.occupying_piece == null:
+		return false
+	return false
+	
+func _can_move(move_pos: BoardCell) -> bool:
+	if move_pos.occupying_piece != null:
+		return false
+	return false
+
+func _on_kill() -> void:
+	pass
+	
+func _on_killed() -> void:
+	pass
