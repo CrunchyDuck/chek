@@ -3,8 +3,6 @@ extends Node2D
 
 # References
 @onready var sprite: Sprite2D = $Sprite2D
-@onready var area: Area2D = $Area2D
-@onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
 
 var occupying_piece: ChessPiece = null
 var cell_position: Vector2i
@@ -33,13 +31,6 @@ func Init(parent_board: Board, cell_position: Vector2i):
   if (cell_position.x + cell_position.y) % 2 == 0:
     self.cell_color_normal = color_white
   set_color(self.cell_color_normal)
-  self.collision_shape.shape.size = Board.cell_size
-  self.collision_shape.position = Board.cell_size / 2
-  self.area.input_event.connect(_on_click)
-
-func _on_click(viewport: Node, event: InputEvent, shape_idx: int):
-  if event is InputEventMouseButton:
-    print("here")
 
 func set_color(color):
   sprite.self_modulate = color

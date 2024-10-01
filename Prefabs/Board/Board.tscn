@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cwb8r55swf37x"]
 
-[ext_resource type="Script" path="res://Prefabs/Board/Board.gd" id="1_qswva"]
+[ext_resource type="Script" path="res://Scripts/Board.gd" id="1_qswva"]
 
 [node name="Board" type="Node2D"]
 position = Vector2(64, 64)

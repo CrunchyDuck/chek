@@ -1,20 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://clqodp7ecd7hr"]
+[gd_scene load_steps=3 format=3 uid="uid://clqodp7ecd7hr"]
 
 [ext_resource type="Texture2D" uid="uid://b1qabkf21xqld" path="res://Sprites/Board/WhiteTile.png" id="1_6ypeu"]
-[ext_resource type="Script" path="res://Prefabs/Board/BoardCell.gd" id="1_63bnx"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6e4lg"]
-size = Vector2(64, 64)
+[ext_resource type="Script" path="res://Scripts/BoardCell.gd" id="1_63bnx"]
 
 [node name="BoardCell" type="Node2D"]
 script = ExtResource("1_63bnx")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_6e4lg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -100
 z_as_relative = false
 texture = ExtResource("1_6ypeu")
+centered = false
