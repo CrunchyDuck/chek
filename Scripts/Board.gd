@@ -1,8 +1,8 @@
 class_name Board
 extends Node2D
 
-var prefab_board_cell = preload("res://Prefabs/Board/BoardCell.tscn")
-var prefab_pawn = preload("res://Prefabs/Pieces/Pawn.tscn")
+var prefab_board_cell: PackedScene = preload("res://Prefabs/Board/BoardCell.tscn")
+var prefab_pawn: PackedScene = preload("res://Prefabs/Pieces/Pawn.tscn")
 var size: Vector2i = Vector2i(8, 8)
 const cell_size : Vector2i = Vector2i(64, 64)
 var bounds: Vector2:
@@ -27,11 +27,8 @@ func Init(_size: Vector2i):
       row.append(board_cell)
     cells.append(row)
   
-  var pawn = prefab_pawn.instantiate()
-  var parent_cell = cells[3][2]
-  parent_cell.add_child(pawn)
-  parent_cell.occupying_piece = pawn
-  pawn.Init(self, parent_cell, ChessPiece.Orientation.North)
+  spawn_piece(prefab_pawn, Vector2i(2, 3), ChessPiece.Orientation.South)
+  spawn_piece(prefab_pawn, Vector2i(3, 4), ChessPiece.Orientation.North)
       
 func _ready() -> void:
   Init(Vector2i(8, 8))
@@ -118,3 +115,11 @@ func attack_to_cell(to_cell: BoardCell):
 # TODO: Implement
 func move_to_cell(to_cell: BoardCell):
   pass
+
+func spawn_piece(piece_prefab: PackedScene, coordinate: Vector2i, orientation: ChessPiece.Orientation) -> ChessPiece:
+  var piece = prefab_pawn.instantiate()
+  var parent_cell = cells[coordinate.y][coordinate.x]
+  parent_cell.add_child(piece)
+  parent_cell.occupying_piece = piece
+  piece.Init(self, parent_cell, orientation)
+  return piece

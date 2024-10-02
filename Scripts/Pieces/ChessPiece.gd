@@ -4,57 +4,58 @@ extends Node2D
 var board: Board
 var in_cell: BoardCell
 var pos: Vector2i:
-	get:
-		return in_cell.cell_coordinates
+  get:
+    return in_cell.cell_coordinates
 var move_count: int = 0
 #var player_owner
 var orientation: ChessPiece.Orientation = Orientation.North
 
 func Init(board: Board, cell: BoardCell, orientation: ChessPiece.Orientation) -> void:
-	self.board = board
-	self.in_cell = cell
-	self.orientation = orientation
+  self.board = board
+  self.in_cell = cell
+  self.orientation = orientation
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+  pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+  pass
 
 # This lets us rotate vectors to be from the perspective of its team.
 # y = 1 for the top of the board (Black, in a normal game), will be y = -1 relative to their facing.
 func _rotate_to_orientation(vec: Vector2i) -> Vector2i:
-	var v = Vector2(vec)
-	v = v.rotated(deg_to_rad(orientation)).round()
-	# As we only rotate by 90, 180 or 270 degrees, integer inputs will always have integer outputs.
-	# Thus, this case loses no information.
-	return Vector2i(v)
+  var v = Vector2(vec)
+  v = v.rotated(deg_to_rad(orientation)).round()
+  # As we only rotate by 90, 180 or 270 degrees, integer inputs will always have integer outputs.
+  # Thus, this case loses no information.
+  return Vector2i(v)
 
 # Abstract base functions
 func _highlight_board_cells():
-	pass
-	
+  pass
+  
 func _highlight_attacks():
-	pass
+  pass
 
 func _highlight_moves():
-	pass
-	
+  pass
+  
 func _move(to: BoardCell) -> void:
-	pass
+  pass
 
 func _on_kill() -> void:
-	pass
-	
+  pass
+  
 func _on_killed() -> void:
-	pass
+  pass
 
 enum Orientation {
-	North = 0,
-	East = 90,
-	South = 180,
-	West = 270,
+  # South is the start as y is down in Godot.
+  South = 0,
+  West = 90,
+  North = 180,
+  East = 270,
 }

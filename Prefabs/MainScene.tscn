@@ -6,6 +6,5 @@
 [node name="MainScene" type="Node"]
 
 [node name="ColorPalette" parent="." instance=ExtResource("1_h37ii")]
-visible = false
 
 [node name="Board" parent="." instance=ExtResource("2_rtxgs")]
