@@ -14,7 +14,8 @@ var _selected_cell: BoardCell = null
 
 var board_wrapping: bool = false
 
-func Init(size: Vector2i):
+func Init(_size: Vector2i):
+	size = _size
 	# Create cells
 	for y in size.y:
 		var row = []
@@ -29,10 +30,25 @@ func Init(size: Vector2i):
 	var pawn = prefab_pawn.instantiate()
 	var parent_cell = cells[3][2]
 	parent_cell.add_child(pawn)
+	parent_cell.occupying_piece = pawn
 	pawn.Init(self, parent_cell, ChessPiece.Orientation.North)
 			
 func _ready() -> void:
 	Init(Vector2i(8, 8))
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.is_pressed():
+		if event.button_index != MouseButton.MOUSE_BUTTON_LEFT:
+			deselect_cell()
+		else:
+			_on_click(event)
+			
+func _on_click(_event: InputEventMouseButton):
+	var new_cell = position_to_cell(get_global_mouse_position())
+	if new_cell != null:
+		click_on_cell(new_cell)
+	else:
+		deselect_cell()
 
 func grid_to_position(x: int, y: int) -> Vector2:
 	var pos: Vector2
@@ -62,24 +78,10 @@ func get_cell(pos: Vector2i) -> BoardCell:
 	
 	return cells[y][x]
 
-func _unhandled_input(event):
-	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index != MouseButton.MOUSE_BUTTON_LEFT:
-			deselect_cell()
-		else:
-			_on_click(event)
-			
-func _on_click(event: InputEventMouseButton):
-	var new_cell = position_to_cell(get_global_mouse_position())
-	if new_cell != null:
-		click_on_cell(new_cell)
-	else:
-		deselect_cell()
-
 func click_on_cell(new_cell: BoardCell):
-	if new_cell == null:
-		select_cell(new_cell)
-		
+	if new_cell == null or new_cell.selected:
+		deselect_cell()
+	
 	if new_cell.can_attack:
 		attack_to_cell(new_cell)
 		return
@@ -95,31 +97,18 @@ func select_cell(to_cell: BoardCell):
 	_selected_cell = to_cell
 	if _selected_cell == null:
 		return
-	_selected_cell.set_color(BoardCell.color_selected)
+	_selected_cell.selected = true
 	
 	# Check attack/moves on cells
 	if _selected_cell.occupying_piece == null:
 		return
-	for column in cells:
-		for cell in column:
-			if cell == _selected_cell:
-				continue
-			if _selected_cell.occupying_piece._can_attack(cell):
-				cell.can_attack = true
-				cell.set_color(BoardCell.color_attack)
-			elif _selected_cell.occupying_piece._can_move(cell):
-				cell.can_move = true
-				cell.set_color(BoardCell.color_move)
+	
+	_selected_cell.occupying_piece._highlight_board_cells()
 		
 func deselect_cell():
-	if _selected_cell == null:
-		return
-		
 	for column in cells:
 		for cell in column:
-			cell.set_color(cell.cell_color_normal)
-			cell.can_move = false
-			cell.can_attack = false
+			cell.reset_state()
 	_selected_cell = null
 
 # TODO: Implement
