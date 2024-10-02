@@ -1,37 +1,27 @@
 class_name Board
 extends Node2D
 
-var prefab_board_cell: PackedScene = preload("res://Prefabs/Board/BoardCell.tscn")
-var prefab_pawn: PackedScene = preload("res://Prefabs/Pieces/Pawn.tscn")
 var size: Vector2i = Vector2i(8, 8)
 const cell_size : Vector2i = Vector2i(64, 64)
 var bounds: Vector2:
   get:
     return size * cell_size
-var cells = []  # x/y 2D array
+var grid = []  # x/y 2D array
 
 var _selected_cell: BoardCell = null
 
 var board_wrapping: bool = false
 
-func Init(_size: Vector2i):
-  size = _size
-  # Create cells
+func Init(grid):
+  self.grid = grid
+  size = Vector2i(grid.size(), grid[0].size())
+  # Add cells as children
   for y in size.y:
-    var row = []
     for x in size.x:
-      var board_cell = prefab_board_cell.instantiate()
+      var board_cell = grid[y][x]
       add_child(board_cell)  # _ready() is not called till this is done!
       board_cell.Init(self, Vector2i(x, y))
       board_cell.position = self.grid_to_position(x, y)
-      row.append(board_cell)
-    cells.append(row)
-  
-  spawn_piece(prefab_pawn, Vector2i(2, 3), ChessPiece.Orientation.South)
-  spawn_piece(prefab_pawn, Vector2i(3, 4), ChessPiece.Orientation.North)
-      
-func _ready() -> void:
-  Init(Vector2i(8, 8))
 
 func _input(event: InputEvent) -> void:
   if event is InputEventMouseButton and event.is_pressed():
@@ -61,7 +51,7 @@ func position_to_cell(pos: Vector2) -> BoardCell:
   var x = int(pos.x) / cell_size.x
   var y = int(pos.y) / cell_size.y
   
-  return cells[y][x]
+  return grid[y][x]
 
 func get_cell(pos: Vector2i) -> BoardCell:
   var x = pos.x
@@ -73,7 +63,7 @@ func get_cell(pos: Vector2i) -> BoardCell:
   if x < 0 or y < 0 or x > size.x - 1 or y > size.y - 1:
     return null
   
-  return cells[y][x]
+  return grid[y][x]
 
 func click_on_cell(new_cell: BoardCell):
   if new_cell == null or new_cell.selected:
@@ -96,14 +86,14 @@ func select_cell(to_cell: BoardCell):
     return
   _selected_cell.selected = true
   
-  # Check attack/moves on cells
+  # Check attack/moves on grid
   if _selected_cell.occupying_piece == null:
     return
   
   _selected_cell.occupying_piece._highlight_board_cells()
     
 func deselect_cell():
-  for column in cells:
+  for column in grid:
     for cell in column:
       cell.reset_state()
   _selected_cell = null
@@ -115,11 +105,3 @@ func attack_to_cell(to_cell: BoardCell):
 # TODO: Implement
 func move_to_cell(to_cell: BoardCell):
   pass
-
-func spawn_piece(piece_prefab: PackedScene, coordinate: Vector2i, orientation: ChessPiece.Orientation) -> ChessPiece:
-  var piece = prefab_pawn.instantiate()
-  var parent_cell = cells[coordinate.y][coordinate.x]
-  parent_cell.add_child(piece)
-  parent_cell.occupying_piece = piece
-  piece.Init(self, parent_cell, orientation)
-  return piece

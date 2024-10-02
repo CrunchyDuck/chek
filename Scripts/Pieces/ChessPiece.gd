@@ -1,19 +1,24 @@
 class_name ChessPiece
 extends Node2D
 
-var board: Board
+var board: Board:
+  get:
+    if in_cell == null:
+      return null
+    return in_cell.board
 var in_cell: BoardCell
 var pos: Vector2i:
   get:
     return in_cell.cell_coordinates
 var move_count: int = 0
-#var player_owner
+var owned_by: Player
 var orientation: ChessPiece.Orientation = Orientation.North
 
-func Init(board: Board, cell: BoardCell, orientation: ChessPiece.Orientation) -> void:
-  self.board = board
+# TODO: Make pieces use different spite based on owner
+func Init(cell: BoardCell, orientation: ChessPiece.Orientation, owned_by: Player) -> void:
   self.in_cell = cell
   self.orientation = orientation
+  self.owned_by = owned_by
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -51,6 +56,13 @@ func _on_kill() -> void:
   
 func _on_killed() -> void:
   pass
+  
+func _can_move(target_cell: BoardCell) -> bool:
+  return target_cell != null and target_cell.unobstructed
+  
+func _can_attack(target_cell: BoardCell) -> bool:
+  return target_cell != null and target_cell.occupying_piece != null and\
+      not owned_by.friendly.has(target_cell.occupying_piece.owned_by)
 
 enum Orientation {
   # South is the start as y is down in Godot.

@@ -4,10 +4,18 @@ extends Node2D
 # References
 @onready var sprite: Sprite2D = $Sprite2D
 
-var occupying_piece: ChessPiece = null
+var board: Board = null
+var _occupying_piece: ChessPiece = null
+var occupying_piece: ChessPiece:
+  get:
+    return _occupying_piece
+  set(piece):
+    remove_child(_occupying_piece)
+    _occupying_piece = piece
+    if _occupying_piece != null:
+      add_child(piece)
 var cell_coordinates: Vector2i
 var color_normal: Color
-var board: Board
 
 var unobstructed: bool:
   get:
@@ -51,8 +59,8 @@ const color_attack: Color = ColorController.colors["c2"]
 const color_blocked: Color = ColorController.colors["c3"]
 const color_selected: Color = ColorController.colors["c4"]
 
-func Init(parent_board: Board, cell_coordinates: Vector2i):
-  self.board = parent_board
+func Init(board: Board, cell_coordinates: Vector2i):
+  self.board = board
   self.cell_coordinates = cell_coordinates
   self.color_normal = color_black
   if (cell_coordinates.x + cell_coordinates.y) % 2 == 0:
