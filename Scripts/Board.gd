@@ -102,6 +102,9 @@ func deselect_cell():
 func attack_to_cell(to_cell: BoardCell):
   pass
   
-# TODO: Implement
 func move_to_cell(to_cell: BoardCell):
-  pass
+  var piece = _selected_cell.occupying_piece
+  piece.move_count += 1
+  _selected_cell.occupying_piece = null
+  to_cell.occupying_piece = piece
+  deselect_cell()

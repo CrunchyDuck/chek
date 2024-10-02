@@ -10,10 +10,14 @@ var occupying_piece: ChessPiece:
   get:
     return _occupying_piece
   set(piece):
-    remove_child(_occupying_piece)
+    if _occupying_piece != null:
+      remove_child(_occupying_piece)
+      _occupying_piece.in_cell = null
+      
     _occupying_piece = piece
     if _occupying_piece != null:
       add_child(piece)
+      _occupying_piece.in_cell = self
 var cell_coordinates: Vector2i
 var color_normal: Color
 

@@ -20,8 +20,8 @@ func start_game():
   var players = [p1, p2]
   
   var grid = create_grid(board_size)
-  spawn_piece(prefab_pawn, grid[4][3], ChessPiece.Orientation.West, players[0])
-  spawn_piece(prefab_pawn, grid[3][2], ChessPiece.Orientation.East, players[0])
+  spawn_piece(prefab_pawn, grid[4][3], ChessPiece.Orientation.North, players[0])
+  spawn_piece(prefab_pawn, grid[3][2], ChessPiece.Orientation.South, players[0])
   board = prefab_board.instantiate()
   add_child(board)
   board.Init(grid)
