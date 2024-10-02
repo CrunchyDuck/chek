@@ -36,7 +36,7 @@ func Init(_size: Vector2i):
 func _ready() -> void:
   Init(Vector2i(8, 8))
 
-func _unhandled_input(event):
+func _input(event: InputEvent) -> void:
   if event is InputEventMouseButton and event.is_pressed():
     if event.button_index != MouseButton.MOUSE_BUTTON_LEFT:
       deselect_cell()
