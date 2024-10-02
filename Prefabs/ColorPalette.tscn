@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4jnawyvuqiwv"]
+
+[ext_resource type="Shader" path="res://Shaders/ColorPalette.gdshader" id="1_78mtv"]
+[ext_resource type="Texture2D" uid="uid://cb7m2c3nbt804" path="res://Sprites/Palettes/rust-gold-Trigo Mathmancer.png" id="2_cuomj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d2coh"]
+shader = ExtResource("1_78mtv")
+shader_parameter/palette = ExtResource("2_cuomj")
+
+[node name="ColorPalette" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_d2coh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
