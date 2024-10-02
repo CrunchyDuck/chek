@@ -100,7 +100,11 @@ func deselect_cell():
 
 # TODO: Implement
 func attack_to_cell(to_cell: BoardCell):
-  pass
+  var piece = _selected_cell.occupying_piece
+  piece.on_kill()
+  to_cell.occupying_piece.on_killed()
+  to_cell.occupying_piece = null
+  move_to_cell(to_cell)
   
 func move_to_cell(to_cell: BoardCell):
   var piece = _selected_cell.occupying_piece
