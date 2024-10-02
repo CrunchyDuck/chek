@@ -2,6 +2,11 @@ class_name GameController
 extends Node
 
 var prefab_pawn: PackedScene = preload("res://Prefabs/Pieces/Pawn.tscn")
+var prefab_queen: PackedScene = preload("res://Prefabs/Pieces/Queen.tscn")
+var prefab_king: PackedScene = preload("res://Prefabs/Pieces/King.tscn")
+var prefab_rook: PackedScene = preload("res://Prefabs/Pieces/Rook.tscn")
+var prefab_knight: PackedScene = preload("res://Prefabs/Pieces/Knight.tscn")
+var prefab_bishop: PackedScene = preload("res://Prefabs/Pieces/Bishop.tscn")
 var prefab_board: PackedScene = preload("res://Prefabs/Board/Board.tscn")
 var prefab_board_cell: PackedScene = preload("res://Prefabs/Board/BoardCell.tscn")
 
@@ -45,6 +50,16 @@ func standard_board_setup() -> BoardState:
   p1.add_piece(prefab_pawn, Vector2i(5, 1), ChessPiece.Orientation.South)
   p1.add_piece(prefab_pawn, Vector2i(6, 1), ChessPiece.Orientation.South)
   p1.add_piece(prefab_pawn, Vector2i(7, 1), ChessPiece.Orientation.South)
+  
+  p1.add_piece(prefab_queen, Vector2i(3, 0), ChessPiece.Orientation.South)
+  p1.add_piece(prefab_king, Vector2i(4, 0), ChessPiece.Orientation.South)
+  
+  p1.add_piece(prefab_rook, Vector2i(0, 0), ChessPiece.Orientation.South)
+  p1.add_piece(prefab_rook, Vector2i(7, 0), ChessPiece.Orientation.South)
+  p1.add_piece(prefab_knight, Vector2i(1, 0), ChessPiece.Orientation.South)
+  p1.add_piece(prefab_knight, Vector2i(6, 0), ChessPiece.Orientation.South)
+  p1.add_piece(prefab_bishop, Vector2i(2, 0), ChessPiece.Orientation.South)
+  p1.add_piece(prefab_bishop, Vector2i(5, 0), ChessPiece.Orientation.South)
   board.players.append(p1)
   
   p2.add_piece(prefab_pawn, Vector2i(0, 6), ChessPiece.Orientation.North)
@@ -55,6 +70,16 @@ func standard_board_setup() -> BoardState:
   p2.add_piece(prefab_pawn, Vector2i(5, 6), ChessPiece.Orientation.North)
   p2.add_piece(prefab_pawn, Vector2i(6, 6), ChessPiece.Orientation.North)
   p2.add_piece(prefab_pawn, Vector2i(7, 6), ChessPiece.Orientation.North)
+  
+  p2.add_piece(prefab_queen, Vector2i(3, 7), ChessPiece.Orientation.North)
+  p2.add_piece(prefab_king, Vector2i(4, 7), ChessPiece.Orientation.North)
+  
+  p2.add_piece(prefab_rook, Vector2i(0, 7), ChessPiece.Orientation.North)
+  p2.add_piece(prefab_rook, Vector2i(7, 7), ChessPiece.Orientation.North)
+  p2.add_piece(prefab_knight, Vector2i(1, 7), ChessPiece.Orientation.North)
+  p2.add_piece(prefab_knight, Vector2i(6, 7), ChessPiece.Orientation.North)
+  p2.add_piece(prefab_bishop, Vector2i(2, 7), ChessPiece.Orientation.North)
+  p2.add_piece(prefab_bishop, Vector2i(5, 7), ChessPiece.Orientation.North)
   board.players.append(p2)
   
   return board
@@ -70,7 +95,7 @@ func create_grid(grid_size: Vector2i) -> Array:
   return cells
   
 func spawn_piece(piece_prefab: PackedScene, cell: BoardCell, orientation: ChessPiece.Orientation, owned_by: Player) -> ChessPiece:
-  var piece = prefab_pawn.instantiate()
+  var piece = piece_prefab.instantiate()
   cell.occupying_piece = piece
   piece.Init(cell, orientation, owned_by)
   return piece

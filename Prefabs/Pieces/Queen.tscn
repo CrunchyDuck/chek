@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://caga8n4w6p8bg"]
+
+[ext_resource type="Texture2D" uid="uid://v3pro00bo2cp" path="res://Sprites/Pieces/Queen.png" id="1_lsu5j"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Queen.gd" id="2_k7ren"]
+
+[node name="Queen" type="Sprite2D"]
+z_index = 100
+z_as_relative = false
+texture = ExtResource("1_lsu5j")
+centered = false
+script = ExtResource("2_k7ren")

@@ -1,14 +1,5 @@
 extends ChessPiece
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-  pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-  pass
-
 func _highlight_board_cells():
   _highlight_moves()
   _highlight_attacks()
@@ -19,6 +10,7 @@ func _highlight_moves():
   if _can_move(target_cell):
     target_cell.can_move = true
   
+  # TODO: Stop this from jumping pieces.
   if move_count == 0:
     target_cell = board.get_cell(pos + _rotate_to_orientation(Vector2i(0, 2)))
     if _can_move(target_cell):

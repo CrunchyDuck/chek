@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://e3wust1d8xhy"]
+
+[ext_resource type="Texture2D" uid="uid://cemxhksq3gtpd" path="res://Sprites/Pieces/Bishop.png" id="1_0h2sj"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Bishop.gd" id="2_8p3yd"]
+
+[node name="Bishop" type="Sprite2D"]
+z_index = 100
+z_as_relative = false
+texture = ExtResource("1_0h2sj")
+centered = false
+script = ExtResource("2_8p3yd")

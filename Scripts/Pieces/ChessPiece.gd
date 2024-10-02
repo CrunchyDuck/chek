@@ -20,15 +20,6 @@ func Init(cell: BoardCell, orientation: ChessPiece.Orientation, owned_by: GameCo
   self.orientation = orientation
   self.owned_by = owned_by
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-  pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-  pass
-
 # This lets us rotate vectors to be from the perspective of its team.
 # y = 1 for the top of the board (Black, in a normal game), will be y = -1 relative to their facing.
 func _rotate_to_orientation(vec: Vector2i) -> Vector2i:
@@ -42,15 +33,6 @@ func _rotate_to_orientation(vec: Vector2i) -> Vector2i:
 func _highlight_board_cells():
   pass
   
-func _highlight_attacks():
-  pass
-
-func _highlight_moves():
-  pass
-  
-func _move(to: BoardCell) -> void:
-  pass
-
 func on_kill() -> void:
   pass
   
@@ -64,6 +46,37 @@ func _can_attack(target_cell: BoardCell) -> bool:
   return target_cell != null and target_cell.occupying_piece != null and\
       not owned_by.friendly.has(target_cell.occupying_piece.owned_by)
 
+# Try to move in a line, or attack what blocks that line.
+func _move_attack_in_line(direction: Vector2i):
+  var dist: int = 1
+  while dist < 50:  # Arbitrary cap to prevent infinite loop
+    var target_cell = board.get_cell(pos + _rotate_to_orientation(direction * dist))
+    if target_cell == null:
+      break
+    elif _can_attack(target_cell):
+      target_cell.can_attack = true
+    elif _can_move(target_cell):
+      target_cell.can_move = true
+    
+    if target_cell.occupying_piece != null:
+      break
+    
+    dist += 1
+    if dist == 50:
+      print("Reached iteration cap for piece highlighting")
+
+func _move_attack(cell: Vector2i) -> bool:
+  var target_cell = board.get_cell(cell)
+  if target_cell == null:
+    return false
+  elif _can_attack(target_cell):
+    target_cell.can_attack = true
+    return true
+  elif _can_move(target_cell):
+    target_cell.can_move = true
+    return true
+  return false
+    
 enum Orientation {
   # South is the start as y is down in Godot.
   South = 0,
