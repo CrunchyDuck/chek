@@ -39,18 +39,7 @@ var blocked: bool:
 	set(value):
 		_blocked = value
 		_update_color()
-var can_move: bool:
-	get:
-		return _can_move
-	set(value):
-		_can_move = value
-		_update_color()
-var can_attack: bool:
-	get:
-		return _can_attack
-	set(value):
-		_can_attack = value
-		_update_color()
+var contained_action: GameController.GameAction = null
 
 var _selected = false
 var _blocked: bool = false
@@ -75,8 +64,6 @@ func Init(board: Board, cell_coordinates: Vector2i):
 
 func reset_state():
 	blocked = false
-	can_attack = false
-	can_move = false
 	selected = false
 	_update_color()
 
@@ -86,10 +73,14 @@ func _update_color():
 		color = color_selected
 	elif blocked:
 		color = color_blocked	
-	elif can_attack:
-		color = color_attack
-	elif can_move:
-		color = color_move
+	elif contained_action != null:
+		match contained_action.type:
+			GameController.eActionType.Move:
+				color = color_move
+			GameController.eActionType.Attack:
+				color = color_attack
+			_:
+				assert(false, "Unhandled eActionType in BoardCell " + str(cell_coordinates))
 	else:
 		color = color_normal
 

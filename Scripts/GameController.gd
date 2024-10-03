@@ -138,11 +138,13 @@ class Player:
 
 class GameAction:
 	# Describes an action that has taken place on the board.
+	var player: PlayerID
 	var type: eActionType
 	var source: Vector2i
 	var target: Vector2i
 	
-	func _init(type: eActionType, source: Vector2i, target: Vector2i) -> void:
+	func _init(player: PlayerID, type: eActionType, source: Vector2i, target: Vector2i) -> void:
+		self.player = player
 		self.type = type
 		self.source = source
 		self.target = target

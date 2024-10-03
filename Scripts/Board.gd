@@ -68,16 +68,11 @@ func get_cell(pos: Vector2i) -> BoardCell:
 func click_on_cell(new_cell: BoardCell):
 	if new_cell == null or new_cell.selected:
 		deselect_cell()
-	
-	if new_cell.can_attack:
-		attack_to_cell(new_cell)
-		return
-	
-	if new_cell.can_move:
-		move_to_cell(new_cell)
-		return
-
-	select_cell(new_cell)
+	elif new_cell.contained_action != null:
+		perform_action(new_cell.contained_action)
+		deselect_cell()
+	else:
+		select_cell(new_cell)
 
 func select_cell(to_cell: BoardCell):
 	deselect_cell()
@@ -99,8 +94,17 @@ func deselect_cell():
 			cell.reset_state()
 	_selected_cell = null
 
-# TODO: Implement
-func attack_to_cell(to_cell: BoardCell):
+func perform_action(action: GameController.GameAction):
+	# Check if action is allowed with GameController/Player object.
+	match action.type:
+		GameController.eActionType.Move:
+			pass
+		GameController.eActionType.Attack:
+			pass
+		_:
+			assert(false, "Unhandled eActionType type in perform_action")
+
+func _attack_to_cell(to_cell: BoardCell):
 	var killer = _selected_cell.occupying_piece
 	var victim = to_cell.occupying_piece
 	killer.on_kill.emit(killer, victim)
@@ -108,7 +112,7 @@ func attack_to_cell(to_cell: BoardCell):
 	to_cell.occupying_piece = null
 	move_to_cell(to_cell)
 	
-func move_to_cell(to_cell: BoardCell):
+func _move_to_cell(to_cell: BoardCell):
 	var piece = _selected_cell.occupying_piece
 	piece.move_count += 1
 	_selected_cell.occupying_piece = null
