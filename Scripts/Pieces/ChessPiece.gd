@@ -58,8 +58,8 @@ func _can_attack(target_position: Vector2i) -> bool:
 			not owned_by.friendly.has(target_cell.occupying_piece.owned_by)
 
 # Try to move in a line, or attack what blocks that line.
-func _act_in_line(direction: Vector2i) -> Array:
-	var actions: Array = []
+func _act_in_line(direction: Vector2i) -> Array[GameController.GameAction]:
+	var actions: Array[GameController.GameAction] = []
 	var dist: int = 1
 	while dist < 50:  # Arbitrary cap to prevent infinite loop
 		var target_cell = board.get_cell(pos + _rotate_to_orientation(direction * dist))
@@ -67,9 +67,9 @@ func _act_in_line(direction: Vector2i) -> Array:
 		if target_cell == null:
 			break
 		elif _can_attack(target_cell.cell_coordinates):
-			actions.append(GameController.GameAction.new(GameController.eActionType.Attack, pos, target_cell))
+			actions.append(GameController.GameAction.new(GameController.eActionType.Attack, pos, target_cell.cell_coordinates))
 		elif _can_move(target_cell.cell_coordinates):
-			actions.append(GameController.GameAction.new(GameController.eActionType.Move, pos, target_cell))
+			actions.append(GameController.GameAction.new(GameController.eActionType.Move, pos, target_cell.cell_coordinates))
 		
 		# Will be replaced with a modifier check in the future.
 		if target_cell.occupying_piece != null:

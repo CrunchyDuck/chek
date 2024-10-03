@@ -16,5 +16,5 @@ func _get_actions() -> Array[GameController.GameAction]:
 	for target_pos in target_positions:
 		var act = _act_on_cell(target_pos)
 		if act != null:
-			actions += act 
+			actions.append(act)
 	return actions
