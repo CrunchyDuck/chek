@@ -1,14 +1,20 @@
 extends ChessPiece
 
-func _highlight_board_cells():
-  _move_attack(pos + Vector2i(1, 2))
-  _move_attack(pos + Vector2i(2, 1))
-
-  _move_attack(pos + Vector2i(1, -2))
-  _move_attack(pos + Vector2i(2, -1))
-  
-  _move_attack(pos + Vector2i(-1, 2))
-  _move_attack(pos + Vector2i(-2, 1))
-
-  _move_attack(pos + Vector2i(-1, -2))
-  _move_attack(pos + Vector2i(-2, -1))
+func _get_actions() -> Array[GameController.GameAction]:
+	var target_positions = [
+		pos + Vector2i(1, 2),
+		pos + Vector2i(2, 1),
+		pos + Vector2i(1, -2),
+		pos + Vector2i(2, -1),
+		pos + Vector2i(-1, 2),
+		pos + Vector2i(-2, 1),
+		pos + Vector2i(-1, -2),
+		pos + Vector2i(-2, -1),
+	]
+	var actions: Array[GameController.GameAction] = []
+	
+	for target_pos in target_positions:
+		var act = _act_on_cell(target_pos)
+		if act != null:
+			actions += act 
+	return actions
