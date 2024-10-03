@@ -35,11 +35,7 @@ func _rotate_to_orientation(vec: Vector2i) -> Vector2i:
 func highlight_board_cells(actions: Array[GameController.GameAction]):
 	for action in actions:
 		var target_cell = board.get_cell(action.target)
-		match action.type:
-			GameController.eActionType.Move:
-				target_cell.can_move = true
-			GameController.eActionType.Attack:
-				target_cell.can_attack = true
+		target_cell.contained_action = action
 		
 # Gets a nicely serializable description of possible moves/attacks a piece can do
 func _get_actions() -> Array[GameController.GameAction]:
@@ -67,7 +63,7 @@ func _act_in_line(direction: Vector2i) -> Array[GameController.GameAction]:
 		if target_cell == null:
 			break
 		elif _can_attack(target_cell.cell_coordinates):
-			actions.append(GameController.GameAction.new(owned_by.id, GameController.eActionType.Attack, pos, target_cell.cell_coordinates))
+			actions.append(GameController.GameAction.new(owned_by.id, GameController.eActionType.AttackMove, pos, target_cell.cell_coordinates))
 		elif _can_move(target_cell.cell_coordinates):
 			actions.append(GameController.GameAction.new(owned_by.id, GameController.eActionType.Move, pos, target_cell.cell_coordinates))
 		
@@ -86,7 +82,7 @@ func _act_in_line(direction: Vector2i) -> Array[GameController.GameAction]:
 # A standard move or attack to a cell.
 func _act_on_cell(cell: Vector2i) -> GameController.GameAction:
 	if _can_attack(cell):
-		return GameController.GameAction.new(owned_by.id, GameController.eActionType.Attack, pos, cell)
+		return GameController.GameAction.new(owned_by.id, GameController.eActionType.AttackMove, pos, cell)
 	elif _can_move(cell):
 		return GameController.GameAction.new(owned_by.id, GameController.eActionType.Move, pos, cell)
 	return null

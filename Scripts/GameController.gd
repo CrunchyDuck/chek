@@ -14,6 +14,7 @@ var prefab_board: PackedScene = preload("res://Prefabs/Board/Board.tscn")
 var prefab_board_cell: PackedScene = preload("res://Prefabs/Board/BoardCell.tscn")
 
 var board: Board
+var players: Dictionary = {}
 
 func _ready():
 	start_game()
@@ -21,11 +22,11 @@ func _ready():
 func start_game():
 	var p1 = Player.new(PlayerID.Player1)
 	var p2 = Player.new(PlayerID.Player2)
-	var players = [p1, p2]
+	var players: Array[Player] = [p1, p2]
 	
 	load_board_state(standard_board_setup(), players)
 
-func load_board_state(state: BoardState, players: Array):
+func load_board_state(state: BoardState, players: Array[Player]):
 	if players.size() != state.players.size():
 		print("Incorrect number of players for board state!")
 		return
@@ -38,7 +39,7 @@ func load_board_state(state: BoardState, players: Array):
 			spawn_piece(piece.type, grid[piece.position.y][piece.position.x], piece.orientation, player)
 	board = prefab_board.instantiate()
 	add_child(board)
-	board.Init(grid)
+	board.Init(grid, players)
 
 func standard_board_setup() -> BoardState:
 	var board = BoardState.new(Vector2i(8, 8))
@@ -132,6 +133,7 @@ class Player:
 	var id: PlayerID
 	var friendly = [self]
 	var init_state: PlayerState
+	var can_act: bool = true  # Will be changed to a property.
 	
 	func _init(id: PlayerID):
 		self.id = id
@@ -142,14 +144,15 @@ class GameAction:
 	var type: eActionType
 	var source: Vector2i
 	var target: Vector2i
+	var next_action: GameAction
 	
-	func _init(player: PlayerID, type: eActionType, source: Vector2i, target: Vector2i) -> void:
+	func _init(player: PlayerID, type: eActionType, source: Vector2i, target: Vector2i, next_action: GameAction = null) -> void:
 		self.player = player
 		self.type = type
 		self.source = source
 		self.target = target
+		self.next_action = next_action
 		
-	
 enum PlayerID {
 	Player1,
 	Player2,
@@ -169,4 +172,6 @@ enum ePieces {
 enum eActionType {
 	Move,
 	Attack,
+	AttackMove,  # Not quite, but almost shorthand for "attack this tile, then move then." Changed by some modifiers.
+	Spawn,
 }

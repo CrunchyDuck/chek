@@ -1,6 +1,7 @@
 class_name Board
 extends Node2D
 
+var players: Array[GameController.Player] = []
 var size: Vector2i = Vector2i(8, 8)
 const cell_size : Vector2i = Vector2i(64, 64)
 var bounds: Vector2:
@@ -9,10 +10,10 @@ var bounds: Vector2:
 var grid = []  # x/y 2D array
 
 var _selected_cell: BoardCell = null
-
 var board_wrapping: bool = false
 
-func Init(grid):
+func Init(grid: Array, players: Array[GameController.Player]):
+	self.players = players
 	self.grid = grid
 	size = Vector2i(grid.size(), grid[0].size())
 	# Add cells as children
@@ -96,25 +97,54 @@ func deselect_cell():
 
 func perform_action(action: GameController.GameAction):
 	# Check if action is allowed with GameController/Player object.
-	match action.type:
-		GameController.eActionType.Move:
-			pass
-		GameController.eActionType.Attack:
-			pass
-		_:
-			assert(false, "Unhandled eActionType type in perform_action")
+	var performing_player = players[int(action.player)]
+	if not performing_player.can_act:
+		return
+	
+	var anything_performed = false
+	while action != null:
+		match action.type:
+			GameController.eActionType.Move:
+				if not _move_to_cell(action.source, action.target):
+					break
+			GameController.eActionType.Attack:
+				if not _attack_to_cell(action.source, action.target):
+					break
+			GameController.eActionType.AttackMove:
+				if not _attack_to_cell(action.source, action.target):
+					break
+				if not _move_to_cell(action.source, action.target):
+					break
+			GameController.eActionType.Spawn:
+				pass
+			_:
+				assert(false, "Unhandled eActionType type in perform_action")
+		anything_performed = true
+		action = action.next_action
+	# Reduce player action count.
+	if anything_performed:
+		deselect_cell()
+		pass
 
-func _attack_to_cell(to_cell: BoardCell):
-	var killer = _selected_cell.occupying_piece
-	var victim = to_cell.occupying_piece
+func _attack_to_cell(source: Vector2i, destination: Vector2i) -> bool:
+	var killer = get_cell(source).occupying_piece
+	var victim = get_cell(destination).occupying_piece
+	if killer == null or victim == null:
+		return false
 	killer.on_kill.emit(killer, victim)
 	victim.on_killed.emit(killer, victim)
-	to_cell.occupying_piece = null
-	move_to_cell(to_cell)
+	get_cell(destination).occupying_piece = null
+	return true
 	
-func _move_to_cell(to_cell: BoardCell):
-	var piece = _selected_cell.occupying_piece
+func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
+	var source_cell = get_cell(source)
+	var destination_cell = get_cell(destination)
+	if source_cell.occupying_piece == null:
+		return false
+	if destination_cell.occupying_piece != null:
+		return false
+	var piece = 	source_cell.occupying_piece
 	piece.move_count += 1
-	_selected_cell.occupying_piece = null
-	to_cell.occupying_piece = piece
-	deselect_cell()
+	source_cell.occupying_piece = null
+	destination_cell.occupying_piece = piece
+	return true
