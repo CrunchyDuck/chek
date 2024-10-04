@@ -1,6 +1,6 @@
 extends ChessPiece
 
-func _get_actions() -> Array[GameController.GameAction]:
+func _get_actions() -> Array[Board.GameAction]:
 	var target_positions = [
 		pos + Vector2i(1, 2),
 		pos + Vector2i(2, 1),
@@ -11,7 +11,7 @@ func _get_actions() -> Array[GameController.GameAction]:
 		pos + Vector2i(-1, -2),
 		pos + Vector2i(-2, -1),
 	]
-	var actions: Array[GameController.GameAction] = []
+	var actions: Array[Board.GameAction] = []
 	
 	for target_pos in target_positions:
 		var act = _act_on_cell(target_pos)

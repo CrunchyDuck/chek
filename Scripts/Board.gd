@@ -95,7 +95,7 @@ func deselect_cell():
 			cell.reset_state()
 	_selected_cell = null
 
-func perform_action(action: GameController.GameAction):
+func perform_action(action: Board.GameAction):
 	# Check if action is allowed with GameController/Player object.
 	var performing_player = players[int(action.player)]
 	if not performing_player.can_act:
@@ -104,18 +104,18 @@ func perform_action(action: GameController.GameAction):
 	var anything_performed = false
 	while action != null:
 		match action.type:
-			GameController.eActionType.Move:
+			Board.eActionType.Move:
 				if not _move_to_cell(action.source, action.target):
 					break
-			GameController.eActionType.Attack:
+			Board.eActionType.Attack:
 				if not _attack_to_cell(action.source, action.target):
 					break
-			GameController.eActionType.AttackMove:
+			Board.eActionType.AttackMove:
 				if not _attack_to_cell(action.source, action.target):
 					break
 				if not _move_to_cell(action.source, action.target):
 					break
-			GameController.eActionType.Spawn:
+			Board.eActionType.Spawn:
 				pass
 			_:
 				assert(false, "Unhandled eActionType type in perform_action")
@@ -148,3 +148,50 @@ func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	source_cell.occupying_piece = null
 	destination_cell.occupying_piece = piece
 	return true
+
+class GameAction:
+	# Describes an action that has taken place on the board.
+	var player: GameController.PlayerID
+	var type: Board.eActionType
+	var source: Vector2i
+	var target: Vector2i
+	var next_action: GameAction
+	
+	func _init(player: GameController.PlayerID, type: Board.eActionType, source: Vector2i, target: Vector2i, next_action: GameAction = null) -> void:
+		self.player = player
+		self.type = type
+		self.source = source
+		self.target = target
+		self.next_action = next_action
+
+# Really need to find a nicer place to put these.
+class BoardState:
+	# Describes the state of the board
+	var size: Vector2i
+	var players: Array
+	
+	func _init(size: Vector2i):
+		self.size = size
+	
+class PlayerState:
+	var pieces: Array = []
+	
+	func add_piece(piece: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
+		pieces.append(PieceState.new(piece, position, orientation))
+
+class PieceState:
+	var type: GameController.ePieces
+	var position: Vector2i
+	var orientation: ChessPiece.Orientation
+	
+	func _init(type: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
+		self.type = type
+		self.position = position
+		self.orientation = orientation
+
+enum eActionType {
+	Move,
+	Attack,
+	AttackMove,  # Not quite, but almost shorthand for "attack this tile, then move then." Changed by some modifiers.
+	Spawn,
+}

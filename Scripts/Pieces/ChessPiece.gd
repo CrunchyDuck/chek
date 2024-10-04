@@ -32,13 +32,13 @@ func _rotate_to_orientation(vec: Vector2i) -> Vector2i:
 	# Thus, this case loses no information.
 	return Vector2i(v)
 
-func highlight_board_cells(actions: Array[GameController.GameAction]):
+func highlight_board_cells(actions: Array[Board.GameAction]):
 	for action in actions:
 		var target_cell = board.get_cell(action.target)
 		target_cell.contained_action = action
 		
 # Gets a nicely serializable description of possible moves/attacks a piece can do
-func _get_actions() -> Array[GameController.GameAction]:
+func _get_actions() -> Array[Board.GameAction]:
 	assert(false, "_get_actions not overridden in " + get_class())
 	return []
 	
@@ -54,8 +54,8 @@ func _can_attack(target_position: Vector2i) -> bool:
 			not owned_by.friendly.has(target_cell.occupying_piece.owned_by)
 
 # Try to move in a line, or attack what blocks that line.
-func _act_in_line(direction: Vector2i) -> Array[GameController.GameAction]:
-	var actions: Array[GameController.GameAction] = []
+func _act_in_line(direction: Vector2i) -> Array[Board.GameAction]:
+	var actions: Array[Board.GameAction] = []
 	var dist: int = 1
 	while dist < 50:  # Arbitrary cap to prevent infinite loop
 		var target_cell = board.get_cell(pos + _rotate_to_orientation(direction * dist))
@@ -63,9 +63,9 @@ func _act_in_line(direction: Vector2i) -> Array[GameController.GameAction]:
 		if target_cell == null:
 			break
 		elif _can_attack(target_cell.cell_coordinates):
-			actions.append(GameController.GameAction.new(owned_by.id, GameController.eActionType.AttackMove, pos, target_cell.cell_coordinates))
+			actions.append(Board.GameAction.new(owned_by.id, Board.eActionType.AttackMove, pos, target_cell.cell_coordinates))
 		elif _can_move(target_cell.cell_coordinates):
-			actions.append(GameController.GameAction.new(owned_by.id, GameController.eActionType.Move, pos, target_cell.cell_coordinates))
+			actions.append(Board.GameAction.new(owned_by.id, Board.eActionType.Move, pos, target_cell.cell_coordinates))
 		
 		# Will be replaced with a modifier check in the future.
 		if target_cell.occupying_piece != null:
@@ -80,11 +80,11 @@ func _act_in_line(direction: Vector2i) -> Array[GameController.GameAction]:
 	return actions
 
 # A standard move or attack to a cell.
-func _act_on_cell(cell: Vector2i) -> GameController.GameAction:
+func _act_on_cell(cell: Vector2i) -> Board.GameAction:
 	if _can_attack(cell):
-		return GameController.GameAction.new(owned_by.id, GameController.eActionType.AttackMove, pos, cell)
+		return Board.GameAction.new(owned_by.id, Board.eActionType.AttackMove, pos, cell)
 	elif _can_move(cell):
-		return GameController.GameAction.new(owned_by.id, GameController.eActionType.Move, pos, cell)
+		return Board.GameAction.new(owned_by.id, Board.eActionType.Move, pos, cell)
 	return null
 		
 enum Orientation {

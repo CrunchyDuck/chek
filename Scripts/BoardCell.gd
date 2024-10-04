@@ -39,7 +39,7 @@ var blocked: bool:
 	set(value):
 		_blocked = value
 		_update_color()
-var contained_action: GameController.GameAction:
+var contained_action: Board.GameAction:
 	get:
 		return _contained_action
 	set(value):
@@ -48,7 +48,7 @@ var contained_action: GameController.GameAction:
 
 var _selected = false
 var _blocked: bool = false
-var _contained_action: GameController.GameAction = null
+var _contained_action: Board.GameAction = null
 
 # TODO: Tile colours
 const color_white: Color = ColorController.colors["primary"]
@@ -80,9 +80,9 @@ func _update_color():
 		color = color_blocked	
 	elif contained_action != null:
 		match contained_action.type:
-			GameController.eActionType.Move:
+			Board.eActionType.Move:
 				color = color_move
-			GameController.eActionType.Attack, GameController.eActionType.AttackMove:
+			Board.eActionType.Attack, Board.eActionType.AttackMove:
 				color = color_attack
 			_:
 				assert(false, "Unhandled eActionType in BoardCell " + str(cell_coordinates))

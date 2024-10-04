@@ -26,7 +26,7 @@ func start_game():
 	
 	load_board_state(standard_board_setup(), players)
 
-func load_board_state(state: BoardState, players: Array[Player]):
+func load_board_state(state: Board.BoardState, players: Array[Player]):
 	if players.size() != state.players.size():
 		print("Incorrect number of players for board state!")
 		return
@@ -34,17 +34,17 @@ func load_board_state(state: BoardState, players: Array[Player]):
 	var grid = create_grid(state.size)
 	for i in state.players.size():
 		var player: Player = players[i]
-		var player_state: PlayerState = state.players[i]
+		var player_state: Board.PlayerState = state.players[i]
 		for piece in player_state.pieces:
 			spawn_piece(piece.type, grid[piece.position.y][piece.position.x], piece.orientation, player)
 	board = prefab_board.instantiate()
 	add_child(board)
 	board.Init(grid, players)
 
-func standard_board_setup() -> BoardState:
-	var board = BoardState.new(Vector2i(8, 8))
-	var p1 = PlayerState.new()
-	var p2 = PlayerState.new()
+func standard_board_setup() -> Board.BoardState:
+	var board = Board.BoardState.new(Vector2i(8, 8))
+	var p1 = Board.PlayerState.new()
+	var p2 = Board.PlayerState.new()
 	
 	p1.add_piece(ePieces.Pawn, Vector2i(0, 1), ChessPiece.Orientation.South)
 	p1.add_piece(ePieces.Pawn, Vector2i(1, 1), ChessPiece.Orientation.South)
@@ -104,54 +104,14 @@ func spawn_piece(piece_type: ePieces, cell: BoardCell, orientation: ChessPiece.O
 	piece.Init(cell, orientation, owned_by)
 	return piece
 
-# Really need to find a nicer place to put these.
-class BoardState:
-	# Describes the state of the board
-	var size: Vector2i
-	var players: Array
-	
-	func _init(size: Vector2i):
-		self.size = size
-	
-class PlayerState:
-	var pieces: Array = []
-	
-	func add_piece(piece: ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
-		pieces.append(PieceState.new(piece, position, orientation))
-
-class PieceState:
-	var type: ePieces
-	var position: Vector2i
-	var orientation: ChessPiece.Orientation
-	
-	func _init(type: ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
-		self.type = type
-		self.position = position
-		self.orientation = orientation
-	
 class Player:
 	var id: PlayerID
 	var friendly = [self]
-	var init_state: PlayerState
+	var init_state: Board.PlayerState
 	var can_act: bool = true  # Will be changed to a property.
 	
 	func _init(id: PlayerID):
 		self.id = id
-
-class GameAction:
-	# Describes an action that has taken place on the board.
-	var player: PlayerID
-	var type: eActionType
-	var source: Vector2i
-	var target: Vector2i
-	var next_action: GameAction
-	
-	func _init(player: PlayerID, type: eActionType, source: Vector2i, target: Vector2i, next_action: GameAction = null) -> void:
-		self.player = player
-		self.type = type
-		self.source = source
-		self.target = target
-		self.next_action = next_action
 		
 enum PlayerID {
 	Player1,
@@ -167,11 +127,4 @@ enum ePieces {
 	Bishop,
 	King,
 	Queen,
-}
-
-enum eActionType {
-	Move,
-	Attack,
-	AttackMove,  # Not quite, but almost shorthand for "attack this tile, then move then." Changed by some modifiers.
-	Spawn,
 }
