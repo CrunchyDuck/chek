@@ -1,6 +1,7 @@
 class_name GameController
 extends Node
 
+# TODO: Make use PrefabController
 var piece_prefabs = {
 	ePieces.Pawn: preload("res://Prefabs/Pieces/Pawn.tscn"),
 	ePieces.Queen: preload("res://Prefabs/Pieces/Queen.tscn"),
@@ -10,9 +11,6 @@ var piece_prefabs = {
 	ePieces.Bishop: preload("res://Prefabs/Pieces/Bishop.tscn"),
 }
 
-var prefab_board: PackedScene = preload("res://Prefabs/Board/Board.tscn")
-var prefab_board_cell: PackedScene = preload("res://Prefabs/Board/BoardCell.tscn")
-
 var board: Board
 var players: Dictionary = {}
 
@@ -20,10 +18,12 @@ func _ready():
 	start_game()
 
 func start_game():
-	var p1 = Player.new(PlayerID.Player1)
-	var p2 = Player.new(PlayerID.Player2)
-	self.players[PlayerID.Player1] = p1
-	self.players[PlayerID.Player2] = p2
+	var p1 = Player.new(Player.PlayerID.Player1, self)
+	add_child(p1)
+	var p2 = Player.new(Player.PlayerID.Player2, self)
+	add_child(p2)
+	self.players[Player.PlayerID.Player1] = p1
+	self.players[Player.PlayerID.Player2] = p2
 	var players: Array[Player] = [p1, p2]
 	p1.actions_remaining = 1
 	
@@ -40,7 +40,7 @@ func load_board_state(state: Board.BoardState, players: Array[Player]):
 		var player_state: Board.PlayerState = state.players[i]
 		for piece in player_state.pieces:
 			spawn_piece(piece.type, grid[piece.position.y][piece.position.x], piece.orientation, player)
-	board = prefab_board.instantiate()
+	board = PrefabController.get_prefab("Board").instantiate()
 	add_child(board)
 	board.Init(grid, self)
 	board.action_performed.connect(on_action)
@@ -97,7 +97,7 @@ func create_grid(grid_size: Vector2i) -> Array:
 	for y in grid_size.y:
 		var row = []
 		for x in grid_size.x:
-			var board_cell = prefab_board_cell.instantiate()
+			var board_cell = PrefabController.get_prefab("BoardCell").instantiate()
 			row.append(board_cell)
 		cells.append(row)
 	return cells
@@ -123,22 +123,6 @@ func is_action_legal(action: Board.GameAction):
 	if p.actions_remaining > 0:
 		return true
 	return false
-	
-class Player:
-	var id: PlayerID
-	var friendly = [self]
-	var init_state: Board.PlayerState
-	var actions_remaining = 0
-	
-	func _init(id: PlayerID):
-		self.id = id
-		
-enum PlayerID {
-	Player1,
-	Player2,
-	Player3,
-	Player4,
-}
 
 enum ePieces {
 	Pawn,

@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4jnawyvuqiwv"]
+[gd_scene load_steps=4 format=3 uid="uid://c1ws01dn2gocj"]
 
 [ext_resource type="Shader" path="res://Shaders/ColorPalette.gdshader" id="1_78mtv"]
-[ext_resource type="Texture2D" uid="uid://dyo2u63wonn81" path="res://Sprites/Palettes/slso8-Luis Miguel Maldonado.png" id="2_8ej12"]
+[ext_resource type="Texture2D" uid="uid://cb7m2c3nbt804" path="res://Sprites/Palettes/rust-gold-Trigo Mathmancer.png" id="2_8yhjn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d2coh"]
 shader = ExtResource("1_78mtv")
-shader_parameter/palette = ExtResource("2_8ej12")
+shader_parameter/palette = ExtResource("2_8yhjn")
 
 [node name="ColorPalette" type="CanvasLayer"]
 

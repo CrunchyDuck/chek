@@ -1,18 +1,14 @@
-extends Node
+extends Player
 
-var controller: GameController = null
+var reaction_time: float = 1  # Try to move every x seconds
+var reaction_timer: float = 0
 
-var move_time: float = 1  # Try to move every x seconds
-var move_timer: float = 0
-
-var pieces: Array[ChessPiece] = []
-var can_move: bool = false  # This should be a property later.
 var rng = RandomNumberGenerator.new()
 
 func _process(delta: float) -> void:
-	move_timer -= delta
-	if move_timer <= 0:
-		move_timer += move_time
+	reaction_timer -= delta
+	if reaction_timer <= 0:
+		reaction_timer += reaction_time
 		try_move()
 		
 func try_move():

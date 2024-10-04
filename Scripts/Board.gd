@@ -152,13 +152,13 @@ func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 
 class GameAction:
 	# Describes an action that has taken place on the board.
-	var player: GameController.PlayerID
+	var player: Player.PlayerID
 	var type: Board.eActionType
 	var source: Vector2i
 	var target: Vector2i
 	var next_action: GameAction
 	
-	func _init(player: GameController.PlayerID, type: Board.eActionType, source: Vector2i, target: Vector2i, next_action: GameAction = null) -> void:
+	func _init(player: Player.PlayerID, type: Board.eActionType, source: Vector2i, target: Vector2i, next_action: GameAction = null) -> void:
 		self.player = player
 		self.type = type
 		self.source = source

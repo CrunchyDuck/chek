@@ -11,14 +11,14 @@ var pos: Vector2i:
 	get:
 		return in_cell.cell_coordinates
 var move_count: int = 0
-var owned_by: GameController.Player
+var owned_by: Player
 var orientation: ChessPiece.Orientation = Orientation.North
 
 signal on_kill(killer, victim)
 signal on_killed(killer, victim)
 
 # TODO: Make pieces use different spite based on owner
-func Init(cell: BoardCell, orientation: ChessPiece.Orientation, owned_by: GameController.Player) -> void:
+func Init(cell: BoardCell, orientation: ChessPiece.Orientation, owned_by: Player) -> void:
 	self.in_cell = cell
 	self.orientation = orientation
 	self.owned_by = owned_by
