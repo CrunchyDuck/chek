@@ -22,7 +22,10 @@ func _ready():
 func start_game():
 	var p1 = Player.new(PlayerID.Player1)
 	var p2 = Player.new(PlayerID.Player2)
+	self.players[PlayerID.Player1] = p1
+	self.players[PlayerID.Player2] = p2
 	var players: Array[Player] = [p1, p2]
+	p1.actions_remaining = 1
 	
 	load_board_state(standard_board_setup(), players)
 
@@ -39,7 +42,8 @@ func load_board_state(state: Board.BoardState, players: Array[Player]):
 			spawn_piece(piece.type, grid[piece.position.y][piece.position.x], piece.orientation, player)
 	board = prefab_board.instantiate()
 	add_child(board)
-	board.Init(grid, players)
+	board.Init(grid, self)
+	board.action_performed.connect(on_action)
 
 func standard_board_setup() -> Board.BoardState:
 	var board = Board.BoardState.new(Vector2i(8, 8))
@@ -104,11 +108,27 @@ func spawn_piece(piece_type: ePieces, cell: BoardCell, orientation: ChessPiece.O
 	piece.Init(cell, orientation, owned_by)
 	return piece
 
+func on_action(action: Board.GameAction):
+	var id = action.player
+	var p = players[id]
+	p.actions_remaining -= 1
+	
+	# Is turn finished?
+	if p.actions_remaining <= 0:
+		var next_player = players[wrapi(int(id) + 1, 0, players.size())]
+		next_player.actions_remaining += 1
+
+func is_action_legal(action: Board.GameAction):
+	var p = players[action.player]
+	if p.actions_remaining > 0:
+		return true
+	return false
+	
 class Player:
 	var id: PlayerID
 	var friendly = [self]
 	var init_state: Board.PlayerState
-	var can_act: bool = true  # Will be changed to a property.
+	var actions_remaining = 0
 	
 	func _init(id: PlayerID):
 		self.id = id

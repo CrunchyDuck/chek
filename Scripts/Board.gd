@@ -1,7 +1,7 @@
 class_name Board
 extends Node2D
 
-var players: Array[GameController.Player] = []
+var controller: GameController = null
 var size: Vector2i = Vector2i(8, 8)
 const cell_size : Vector2i = Vector2i(64, 64)
 var bounds: Vector2:
@@ -12,8 +12,10 @@ var grid = []  # x/y 2D array
 var _selected_cell: BoardCell = null
 var board_wrapping: bool = false
 
-func Init(grid: Array, players: Array[GameController.Player]):
-	self.players = players
+signal action_performed(action: Board.GameAction)
+
+func Init(grid: Array, controller: GameController):
+	self.controller = controller
 	self.grid = grid
 	size = Vector2i(grid.size(), grid[0].size())
 	# Add cells as children
@@ -97,34 +99,33 @@ func deselect_cell():
 
 func perform_action(action: Board.GameAction):
 	# Check if action is allowed with GameController/Player object.
-	var performing_player = players[int(action.player)]
-	if not performing_player.can_act:
+	if not controller.is_action_legal(action):
 		return
 	
 	var anything_performed = false
-	while action != null:
-		match action.type:
+	var current_action = action
+	while current_action != null:
+		match current_action.type:
 			Board.eActionType.Move:
-				if not _move_to_cell(action.source, action.target):
+				if not _move_to_cell(current_action.source, current_action.target):
 					break
 			Board.eActionType.Attack:
-				if not _attack_to_cell(action.source, action.target):
+				if not _attack_to_cell(current_action.source, current_action.target):
 					break
 			Board.eActionType.AttackMove:
-				if not _attack_to_cell(action.source, action.target):
+				if not _attack_to_cell(current_action.source, current_action.target):
 					break
-				if not _move_to_cell(action.source, action.target):
+				if not _move_to_cell(current_action.source, current_action.target):
 					break
 			Board.eActionType.Spawn:
 				pass
 			_:
 				assert(false, "Unhandled eActionType type in perform_action")
 		anything_performed = true
-		action = action.next_action
-	# Reduce player action count.
+		current_action = current_action.next_action
+		
 	if anything_performed:
-		deselect_cell()
-		pass
+		action_performed.emit(action)
 
 func _attack_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	var killer = get_cell(source).occupying_piece
@@ -191,6 +192,7 @@ class PieceState:
 
 enum eActionType {
 	Move,
+	# TODO: add "Jump" movetype, which does not do line-cast checks.
 	Attack,
 	AttackMove,  # Not quite, but almost shorthand for "attack this tile, then move then." Changed by some modifiers.
 	Spawn,
