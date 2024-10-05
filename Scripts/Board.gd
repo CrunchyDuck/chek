@@ -97,10 +97,10 @@ func deselect_cell():
 			cell.reset_state()
 	_selected_cell = null
 
-func perform_action(action: Board.GameAction):
+func perform_action(action: Board.GameAction) -> bool:
 	# Check if action is allowed with GameController/Player object.
 	if not controller.is_action_legal(action):
-		return
+		return false
 	
 	var anything_performed = false
 	var current_action = action
@@ -126,6 +126,8 @@ func perform_action(action: Board.GameAction):
 		
 	if anything_performed:
 		action_performed.emit(action)
+		return true
+	return false
 
 func _attack_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	var killer = get_cell(source).occupying_piece

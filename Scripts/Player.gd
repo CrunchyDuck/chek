@@ -2,6 +2,9 @@ class_name Player
 extends Node
 
 var controller: GameController
+var board: Board:
+	get:
+		return controller.board
 
 var id: Player.PlayerID
 var friendly: Array[Player] = [self]

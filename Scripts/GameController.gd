@@ -20,8 +20,9 @@ func _ready():
 func start_game():
 	var p1 = Player.new(Player.PlayerID.Player1, self)
 	add_child(p1)
-	var p2 = Player.new(Player.PlayerID.Player2, self)
+	var p2 = AIPlayer.new(Player.PlayerID.Player2, self)
 	add_child(p2)
+	
 	self.players[Player.PlayerID.Player1] = p1
 	self.players[Player.PlayerID.Player2] = p2
 	var players: Array[Player] = [p1, p2]
@@ -68,7 +69,6 @@ func standard_board_setup() -> Board.BoardState:
 	p1.add_piece(ePieces.Knight, Vector2i(6, 0), ChessPiece.Orientation.South)
 	p1.add_piece(ePieces.Bishop, Vector2i(2, 0), ChessPiece.Orientation.South)
 	p1.add_piece(ePieces.Bishop, Vector2i(5, 0), ChessPiece.Orientation.South)
-	board.players.append(p1)
 	
 	p2.add_piece(ePieces.Pawn, Vector2i(0, 6), ChessPiece.Orientation.North)
 	p2.add_piece(ePieces.Pawn, Vector2i(1, 6), ChessPiece.Orientation.North)
@@ -88,7 +88,9 @@ func standard_board_setup() -> Board.BoardState:
 	p2.add_piece(ePieces.Knight, Vector2i(6, 7), ChessPiece.Orientation.North)
 	p2.add_piece(ePieces.Bishop, Vector2i(2, 7), ChessPiece.Orientation.North)
 	p2.add_piece(ePieces.Bishop, Vector2i(5, 7), ChessPiece.Orientation.North)
+	
 	board.players.append(p2)
+	board.players.append(p1)
 	
 	return board
 
@@ -103,9 +105,10 @@ func create_grid(grid_size: Vector2i) -> Array:
 	return cells
 	
 func spawn_piece(piece_type: ePieces, cell: BoardCell, orientation: ChessPiece.Orientation, owned_by: Player) -> ChessPiece:
-	var piece = piece_prefabs[piece_type].instantiate()
+	var piece: ChessPiece = piece_prefabs[piece_type].instantiate()
 	cell.occupying_piece = piece
 	piece.Init(cell, orientation, owned_by)
+	owned_by.pieces.append(piece)
 	return piece
 
 func on_action(action: Board.GameAction):
