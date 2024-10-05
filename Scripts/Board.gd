@@ -1,13 +1,16 @@
 class_name Board
-extends Node2D
+extends Control
 
 var controller: GameController = null
-var size: Vector2i = Vector2i(8, 8)
+var grid_size: Vector2i = Vector2i(8, 8)
 const cell_size : Vector2i = Vector2i(64, 64)
 var bounds: Vector2:
 	get:
-		return size * cell_size
+		return grid_size * cell_size
 var grid = []  # x/y 2D array
+var board_size: Vector2:
+	get:
+		return Vector2(grid_size * cell_size) * scale
 
 var _selected_cell: BoardCell = null
 var board_wrapping: bool = false
@@ -17,14 +20,15 @@ signal action_performed(action: Board.GameAction)
 func Init(grid: Array, controller: GameController):
 	self.controller = controller
 	self.grid = grid
-	size = Vector2i(grid.size(), grid[0].size())
+	grid_size = Vector2i(grid.size(), grid[0].size())
 	# Add cells as children
-	for y in size.y:
-		for x in size.x:
+	for y in grid_size.y:
+		for x in grid_size.x:
 			var board_cell = grid[y][x]
 			add_child(board_cell)  # _ready() is not called till this is done!
 			board_cell.Init(self, Vector2i(x, y))
 			board_cell.position = self.grid_to_position(x, y)
+	_position_board()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
@@ -48,7 +52,7 @@ func grid_to_position(x: int, y: int) -> Vector2:
 
 func position_to_cell(pos: Vector2) -> BoardCell:
 	# Relative to our position
-	pos -= position 
+	pos -= position
 	if pos.x < 0 or pos.y < 0 or pos.x > bounds.x or pos.y > bounds.x:
 		return null
 	var x = int(pos.x) / cell_size.x
@@ -60,10 +64,10 @@ func get_cell(pos: Vector2i) -> BoardCell:
 	var x = pos.x
 	var y = pos.y
 	if board_wrapping:
-		x = wrapi(x, 0, size.x - 1)
-		y = wrapi(x, 0, size.y - 1)
+		x = wrapi(x, 0, grid_size.x - 1)
+		y = wrapi(x, 0, grid_size.y - 1)
 	
-	if x < 0 or y < 0 or x > size.x - 1 or y > size.y - 1:
+	if x < 0 or y < 0 or x > grid_size.x - 1 or y > grid_size.y - 1:
 		return null
 	
 	return grid[y][x]
@@ -151,6 +155,11 @@ func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	source_cell.occupying_piece = null
 	destination_cell.occupying_piece = piece
 	return true
+	
+func _position_board():
+	var new_position = get_viewport_rect().size / 2
+	new_position -= board_size / 2
+	position = new_position
 
 class GameAction:
 	# Describes an action that has taken place on the board.

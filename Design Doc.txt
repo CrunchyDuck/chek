@@ -15,6 +15,19 @@ Kill the opponent's {Piece}
 Kill all opponent pieces
 Kill (x number) opponent pieces.
 
+name
+ping
+num moves/can move
+bot/human
+team
+
+chat/team chat
+
+board
+board scrolling
+
+game rules
+
 Build own team mode
 Change board size
 
@@ -46,6 +59,7 @@ COORDINATED - Every piece that can move, must move. Resets once all pieces have 
 LOYALTY - X piece cannot be killed by Y piece
 PROMOTION - Pieces are promoted upon getting a kill. Or restart their career.
 BRAVE AND STUPID - If there is are pieces that can attack, one of them must attack.
+DENIABLE OPS - Pieces are invisible on dark tiles.
 
 Piece that explodes when captured, killing all surrounding units.
 Piece with a terrifying presence - Enemies cannot move into squares surrounding it
