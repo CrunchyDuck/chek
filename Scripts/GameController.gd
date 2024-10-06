@@ -27,9 +27,11 @@ func _ready():
 
 func start_game():
 	var p1 = Player.new(Player.PlayerID.Player1, self)
+	p1.name = "Oskar Stanislav"
 	add_child(p1)
 	player_slots[int(p1.id)].assigned_player = p1
 	var p2 = AIPlayer.new(Player.PlayerID.Player2, self)
+	p2.name = "Fyodor Danilski"
 	add_child(p2)
 	player_slots[int(p2.id)].assigned_player = p2
 	

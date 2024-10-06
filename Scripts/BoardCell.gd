@@ -56,7 +56,7 @@ const color_black: Color = ColorController.colors["secondary"]
 const color_move: Color = ColorController.colors["c2"]
 const color_attack: Color = ColorController.colors["c5"]
 const color_blocked: Color = ColorController.colors["c6"]
-const color_selected: Color = ColorController.colors["c2"]
+const color_selected: Color = ColorController.colors["c3"]
 
 func Init(board: Board, cell_coordinates: Vector2i):
 	self.board = board

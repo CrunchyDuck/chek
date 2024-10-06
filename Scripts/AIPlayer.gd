@@ -2,11 +2,13 @@ class_name AIPlayer
 extends Player
 
 var reaction_time: float = 1  # Try to move every x seconds
-var reaction_timer: float = 0
+var reaction_timer: float = 2
 
 var rng = RandomNumberGenerator.new()
 
 func _process(delta: float) -> void:
+	if not can_move:
+		return
 	reaction_timer -= delta
 	if reaction_timer <= 0:
 		reaction_timer += reaction_time

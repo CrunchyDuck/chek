@@ -5,6 +5,7 @@ var ai_sprite = load("res://Sprites/AIPlayer.png")
 var player_sprite = load("res://Sprites/Player.png")
 var sprite_positive = load("res://Sprites/PositiveLight.png")
 var sprite_negative = load("res://Sprites/NegativeLight.png")
+
 @onready var node_player_type = $HBoxContainer/PlayerType
 @onready var node_can_move = $HBoxContainer/VBoxContainer/CanMove
 @onready var node_name = $HBoxContainer/Name
