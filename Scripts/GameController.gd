@@ -13,15 +13,25 @@ var piece_prefabs = {
 
 var board: Board
 var players: Dictionary = {}
+@onready
+var player_slots: Array[PlayerSlot] = [
+	$PlayerStates/PlayerSlot,
+	$PlayerStates/PlayerSlot2,
+	$PlayerStates/PlayerSlot3,
+	$PlayerStates/PlayerSlot4,
+]
 
 func _ready():
+	
 	start_game()
 
 func start_game():
 	var p1 = Player.new(Player.PlayerID.Player1, self)
 	add_child(p1)
+	player_slots[int(p1.id)].assigned_player = p1
 	var p2 = AIPlayer.new(Player.PlayerID.Player2, self)
 	add_child(p2)
+	player_slots[int(p2.id)].assigned_player = p2
 	
 	self.players[Player.PlayerID.Player1] = p1
 	self.players[Player.PlayerID.Player2] = p2

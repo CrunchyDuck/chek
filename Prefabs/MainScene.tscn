@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPalette.tscn" id="1_h37ii"]
-[ext_resource type="PackedScene" path="res://Prefabs/GameController.tscn" id="2_ed83s"]
+[ext_resource type="PackedScene" uid="uid://myxbcp6rur31" path="res://Prefabs/GameController.tscn" id="2_ed83s"]
 
 [node name="MainScene" type="Node"]
 
