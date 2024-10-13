@@ -1,60 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://myxbcp6rur31"]
+[gd_scene load_steps=2 format=3 uid="uid://myxbcp6rur31"]
 
 [ext_resource type="Script" path="res://Scripts/GameController.gd" id="1_3m8l7"]
-[ext_resource type="PackedScene" uid="uid://ud4v6rltpdcx" path="res://Prefabs/PlayerSlot.tscn" id="2_c6cs0"]
 
 [node name="GameController" type="Node"]
 script = ExtResource("1_3m8l7")
-
-[node name="Lobby" type="Node" parent="."]
-
-[node name="PlayerStates" type="VBoxContainer" parent="Lobby"]
-offset_top = 152.0
-offset_right = 341.0
-offset_bottom = 368.0
-theme_override_constants/separation = 8
-
-[node name="PlayerSlot" parent="Lobby/PlayerStates" instance=ExtResource("2_c6cs0")]
-layout_mode = 2
-
-[node name="PlayerSlot2" parent="Lobby/PlayerStates" instance=ExtResource("2_c6cs0")]
-layout_mode = 2
-
-[node name="PlayerSlot3" parent="Lobby/PlayerStates" instance=ExtResource("2_c6cs0")]
-layout_mode = 2
-
-[node name="PlayerSlot4" parent="Lobby/PlayerStates" instance=ExtResource("2_c6cs0")]
-layout_mode = 2
-
-[node name="ConnectionAddress" type="HBoxContainer" parent="Lobby"]
-offset_right = 204.0
-offset_bottom = 66.0
-theme_override_constants/separation = 16
-
-[node name="Labels" type="VBoxContainer" parent="Lobby/ConnectionAddress"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="IP" type="Label" parent="Lobby/ConnectionAddress/Labels"]
-layout_mode = 2
-text = "IP:"
-
-[node name="Port" type="Label" parent="Lobby/ConnectionAddress/Labels"]
-layout_mode = 2
-text = "Port:"
-
-[node name="Inputs" type="VBoxContainer" parent="Lobby/ConnectionAddress"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="IPAddress" type="LineEdit" parent="Lobby/ConnectionAddress/Inputs"]
-custom_minimum_size = Vector2(130, 0)
-layout_mode = 2
-text = "xxx.xxx.xxx.xxx"
-max_length = 18
-
-[node name="PortAddress" type="LineEdit" parent="Lobby/ConnectionAddress/Inputs"]
-custom_minimum_size = Vector2(130, 0)
-layout_mode = 2
-text = "25565"
-max_length = 18

@@ -1,31 +1,62 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=4 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPalette.tscn" id="1_h37ii"]
-[ext_resource type="PackedScene" uid="uid://myxbcp6rur31" path="res://Prefabs/GameController.tscn" id="2_ed83s"]
+[ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
+[ext_resource type="PackedScene" uid="uid://dc8t2e7fykcp2" path="res://Prefabs/StartScreen.tscn" id="3_awhth"]
 
 [node name="MainScene" type="Node"]
 
+[node name="Lobby" parent="." instance=ExtResource("1_qe0gb")]
+
 [node name="ColorPalette" parent="." instance=ExtResource("1_h37ii")]
 
-[node name="GameController" parent="." instance=ExtResource("2_ed83s")]
+[node name="GameController" parent="." instance=ExtResource("3_awhth")]
 
 [node name="CentralScreen" type="BoxContainer" parent="."]
 texture_filter = 1
-offset_left = 455.0
-offset_top = 75.0
-offset_right = 1109.0
-offset_bottom = 725.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -327.0
+offset_top = -325.0
+offset_right = 327.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="StartScreen" type="BoxContainer" parent="CentralScreen"]
+[node name="StartScreen" type="Control" parent="CentralScreen"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="CentralScreen/StartScreen"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.5
+offset_top = 64.0
+offset_right = 96.5
+offset_bottom = 174.0
+grow_horizontal = 2
 theme_override_font_sizes/font_size = 80
 text = "Chek"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CentralScreen/StartScreen"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -38.5
+offset_right = 53.0
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
 
 [node name="Start" type="Label" parent="CentralScreen/StartScreen/VBoxContainer"]
 layout_mode = 2
@@ -38,7 +69,3 @@ text = "Join Training"
 [node name="Settings" type="Label" parent="CentralScreen/StartScreen/VBoxContainer"]
 layout_mode = 2
 text = "Setting"
-
-[node name="ReferenceRect" type="ReferenceRect" parent="CentralScreen"]
-custom_minimum_size = Vector2(650, 650)
-layout_mode = 2

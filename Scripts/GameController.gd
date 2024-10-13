@@ -15,14 +15,13 @@ var board: Board
 var players: Dictionary = {}
 @onready
 var player_slots: Array[PlayerSlot] = [
-	$PlayerStates/PlayerSlot,
-	$PlayerStates/PlayerSlot2,
-	$PlayerStates/PlayerSlot3,
-	$PlayerStates/PlayerSlot4,
+	$"../Lobby/PlayerStates/PlayerSlot1",
+	$"../Lobby/PlayerStates/PlayerSlot2",
+	$"../Lobby/PlayerStates/PlayerSlot3",
+	$"../Lobby/PlayerStates/PlayerSlot4",
 ]
 
 func _ready():
-	
 	start_game()
 
 func start_game():

@@ -43,7 +43,7 @@ offset_right = 341.0
 offset_bottom = 368.0
 theme_override_constants/separation = 8
 
-[node name="PlayerSlot" parent="PlayerStates" instance=ExtResource("1_bulfq")]
+[node name="PlayerSlot1" parent="PlayerStates" instance=ExtResource("1_bulfq")]
 layout_mode = 2
 
 [node name="PlayerSlot2" parent="PlayerStates" instance=ExtResource("1_bulfq")]
