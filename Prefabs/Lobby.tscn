@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://jak4nhe12qk3"]
+[gd_scene load_steps=3 format=3 uid="uid://jak4nhe12qk3"]
 
 [ext_resource type="PackedScene" uid="uid://ud4v6rltpdcx" path="res://Prefabs/PlayerSlot.tscn" id="1_bulfq"]
+[ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/Theme.tres" id="1_hn4vo"]
 
 [node name="Lobby" type="Node"]
 
 [node name="ConnectionAddress" type="HBoxContainer" parent="."]
 offset_right = 204.0
 offset_bottom = 74.0
+theme = ExtResource("1_hn4vo")
 theme_override_constants/separation = 16
 
 [node name="Labels" type="VBoxContainer" parent="ConnectionAddress"]
@@ -41,6 +43,7 @@ max_length = 18
 offset_top = 152.0
 offset_right = 341.0
 offset_bottom = 368.0
+theme = ExtResource("1_hn4vo")
 theme_override_constants/separation = 8
 
 [node name="PlayerSlot1" parent="PlayerStates" instance=ExtResource("1_bulfq")]

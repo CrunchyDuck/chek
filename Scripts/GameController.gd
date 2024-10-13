@@ -21,7 +21,29 @@ var player_slots: Array[PlayerSlot] = [
 	$"../Lobby/PlayerStates/PlayerSlot4",
 ]
 
+
+# Filled in _ready
+@onready
+var central_screen: Control = $"../CentralScreen"
+@onready
+var start_screen: Control = central_screen.get_node("StartScreen")
+@onready
+var button_start: Button = start_screen.get_node("VBoxContainer/Start")
+@onready
+var button_join: Button = start_screen.get_node("VBoxContainer/Join")
+@onready
+var button_settings: Button = start_screen.get_node("VBoxContainer/Settings")
+
 func _ready():
+	
+	button_start = start_screen.get_node("VBoxContainer/Start")
+	button_join = start_screen.get_node("VBoxContainer/Join")
+	button_settings = start_screen.get_node("VBoxContainer/Settings")
+	
+	button_start.pressed.connect(_start_button_pressed)
+
+func _start_button_pressed():
+	central_screen.remove_child(start_screen)
 	start_game()
 
 func start_game():
