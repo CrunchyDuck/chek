@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=7 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPalette.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/MainMenu.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/Theme.tres" id="4_qgfyp"]
 [ext_resource type="PackedScene" uid="uid://myxbcp6rur31" path="res://Prefabs/GameController.tscn" id="5_cfjj3"]
+[ext_resource type="Script" path="res://VBoxRigid.gd" id="6_vmg2g"]
 
 [node name="MainScene" type="Node"]
 
@@ -24,11 +25,36 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -327.0
 offset_top = -325.0
-offset_right = 327.0
+offset_right = 323.0
 offset_bottom = 325.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_qgfyp")
 
 [node name="StartScreen" parent="CentralScreen" instance=ExtResource("4_8ew3x")]
+visible = false
+layout_mode = 2
+
+[node name="Settings" type="Control" parent="CentralScreen"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Settings1" type="VBoxContainer" parent="CentralScreen/Settings"]
+custom_minimum_size = Vector2(650, 650)
+layout_mode = 0
+offset_right = 650.0
+offset_bottom = 650.0
+script = ExtResource("6_vmg2g")
+
+[node name="Title" type="Label" parent="CentralScreen/Settings/Settings1"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "CONFIGURATION"
+
+[node name="Control" type="Control" parent="CentralScreen/Settings/Settings1"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CentralScreen/Settings/Settings1"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
