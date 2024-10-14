@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1ws01dn2gocj"]
+[gd_scene load_steps=5 format=3 uid="uid://c1ws01dn2gocj"]
 
 [ext_resource type="Shader" path="res://Shaders/ColorPalette.gdshader" id="1_78mtv"]
-[ext_resource type="Texture2D" uid="uid://dyo2u63wonn81" path="res://Sprites/Palettes/slso8-Luis Miguel Maldonado.png" id="2_rgcoj"]
+[ext_resource type="Script" path="res://Scripts/ColorPaletteLayer.gd" id="1_o27a2"]
+[ext_resource type="Texture2D" uid="uid://dcrr1v00nbarj" path="res://Sprites/Palettes/ammo 8.png" id="3_2sjnn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d2coh"]
 shader = ExtResource("1_78mtv")
-shader_parameter/palette = ExtResource("2_rgcoj")
+shader_parameter/palette = ExtResource("3_2sjnn")
 
 [node name="ColorPalette" type="CanvasLayer"]
+script = ExtResource("1_o27a2")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_d2coh")
@@ -16,4 +18,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2

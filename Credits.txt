@@ -3,3 +3,8 @@ Tsar CrunchyDuck for all
 (Colour palette credts)
 Retro Gaming font by Daymarius on DAFont
 Pidgezz for help developing console 3D model
+
+Palettes commandeered from Lospec:
+ammo 8 by rsvp asap
+rust gold by Trigo Mathmancer
+slso8 by Luis Miguel Maldonado

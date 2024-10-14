@@ -22,28 +22,38 @@ var player_slots: Array[PlayerSlot] = [
 ]
 
 
-# Filled in _ready
-@onready
-var central_screen: Control = $"../CentralScreen"
-@onready
-var start_screen: Control = central_screen.get_node("StartScreen")
-@onready
-var button_start: Button = start_screen.get_node("VBoxContainer/Start")
-@onready
-var button_join: Button = start_screen.get_node("VBoxContainer/Join")
-@onready
-var button_settings: Button = start_screen.get_node("VBoxContainer/Settings")
+var screen_central: Control
+
+# Start screen
+var scene_start: Control
+var button_start: Button
+var button_join: Button
+var button_settings: Button
+
+# Settings screen
+var scene_settings: Control
+var settings_button_back: Button
+
 
 func _ready():
-	
-	button_start = start_screen.get_node("VBoxContainer/Start")
-	button_join = start_screen.get_node("VBoxContainer/Join")
-	button_settings = start_screen.get_node("VBoxContainer/Settings")
+	_get_references()
 	
 	button_start.pressed.connect(_start_button_pressed)
+	
+func _get_references():
+	screen_central = $"../CentralScreen"
+
+	# Start screen
+	scene_start = screen_central.get_node("StartScreen")
+	button_start = scene_start.get_node("VBoxContainer/Start")
+	button_join = scene_start.get_node("VBoxContainer/Join")
+	button_settings = scene_start.get_node("VBoxContainer/Settings")
+
+	# Settings screen
+	scene_settings = screen_central.get_node("Settings")
 
 func _start_button_pressed():
-	central_screen.remove_child(start_screen)
+	screen_central.remove_child(scene_start)
 	start_game()
 
 func start_game():

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcrr1v00nbarj"
-path="res://.godot/imported/ammo-8-rsvp asap.png-4548abebb5ae477b303bf2e611d7aabc.ctex"
+uid="uid://dyo2u63wonn81"
+path="res://.godot/imported/slso8.png-3280d739c922943201ab5076b4fcbd47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Palettes/ammo-8-rsvp asap.png"
-dest_files=["res://.godot/imported/ammo-8-rsvp asap.png-4548abebb5ae477b303bf2e611d7aabc.ctex"]
+source_file="res://Sprites/Palettes/slso8.png"
+dest_files=["res://.godot/imported/slso8.png-3280d739c922943201ab5076b4fcbd47.ctex"]
 
 [params]
 
