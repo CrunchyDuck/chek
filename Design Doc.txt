@@ -40,6 +40,7 @@ fluxx chess/knightmare chess
 FORMATION BROKEN - Randomized start positions
 B TEAM - Piece types are randomized at the start of the round.
 ROUND EARTH - The board edges wrap around.
+ADVANCED WARFARE - Piece take multiple attacks to be killed.
 NO RETREAT - Pieces can only move forward or horizontal, till reaching the end; Then they turn around and repeat.
 HO CHI MINH - pieces can move through other pieces
 PATIENCE - Players may skip their turns.

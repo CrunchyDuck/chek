@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/MainMenu.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/Theme.tres" id="4_qgfyp"]
 [ext_resource type="PackedScene" uid="uid://myxbcp6rur31" path="res://Prefabs/GameController.tscn" id="5_cfjj3"]
-[ext_resource type="Script" path="res://VBoxRigid.gd" id="6_vmg2g"]
+[ext_resource type="Script" path="res://Scripts/CustomNodes/VBoxRigid.gd" id="6_vmg2g"]
 [ext_resource type="Script" path="res://Prefabs/SettingsPalette.gd" id="7_23ipe"]
 
 [node name="MainScene" type="Node"]

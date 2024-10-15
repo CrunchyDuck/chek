@@ -28,6 +28,12 @@ signal palette_updated
 
 func _ready():
 	_load_palettes()
+	
+func _input(event):
+	if event.is_action_pressed("PreviousPalette"):
+		previous_palette()
+	elif event.is_action_pressed("NextPalette"):
+		next_palette()
 
 func _load_palettes():
 	palettes = {}
