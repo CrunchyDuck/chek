@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=3 uid="uid://yujq3knh7lks"]
+
+[ext_resource type="Script" path="res://Scripts/CustomNodes/VBoxRigid.gd" id="1_3et6b"]
+[ext_resource type="Script" path="res://Scripts/SettingsPalette.gd" id="2_v8kt2"]
+
+[node name="SettingsScreen" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 650.0
+offset_bottom = 650.0
+size_flags_horizontal = 3
+
+[node name="Settings1" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(650, 650)
+layout_mode = 0
+offset_right = 650.0
+offset_bottom = 650.0
+script = ExtResource("1_3et6b")
+fixed_height = 30.0
+
+[node name="TitleBack" type="Control" parent="Settings1"]
+custom_minimum_size = Vector2(650, 30)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Settings1/TitleBack"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_right = 247.0
+offset_bottom = 16.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "CONFIGURATION"
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="Settings1/TitleBack"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -10.5
+offset_bottom = 10.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "BACK"
+
+[node name="Blank" type="Control" parent="Settings1"]
+custom_minimum_size = Vector2(650, 30)
+layout_mode = 2
+
+[node name="Palette" type="Control" parent="Settings1"]
+custom_minimum_size = Vector2(650, 30)
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Settings1/Palette"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.5
+offset_right = 73.0
+offset_bottom = 10.5
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "COLORS"
+vertical_alignment = 1
+
+[node name="PaletteValue" type="HBoxContainer" parent="Settings1/Palette"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = -10.5
+offset_bottom = 10.5
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("2_v8kt2")
+
+[node name="Previous" type="Button" parent="Settings1/Palette/PaletteValue"]
+layout_mode = 2
+text = "F1"
+
+[node name="PaletteName" type="Label" parent="Settings1/Palette/PaletteValue"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "PALETTE NAME"
+horizontal_alignment = 1
+
+[node name="Next" type="Button" parent="Settings1/Palette/PaletteValue"]
+layout_mode = 2
+text = "F2"

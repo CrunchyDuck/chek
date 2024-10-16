@@ -21,3 +21,7 @@ func _process(delta: float):
 		child.size.y = _height
 		child.size.x = self.custom_minimum_size.x
 		child.custom_minimum_size.x = self.custom_minimum_size.x
+
+
+func _on_button_pressed() -> void:
+	pass # Replace with function body.

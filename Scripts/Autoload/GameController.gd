@@ -1,4 +1,3 @@
-class_name GameController
 extends Node
 
 # TODO: Make use PrefabController
@@ -24,37 +23,51 @@ var player_slots: Array[PlayerSlot] = [
 
 var screen_central: Control
 
-# Start screen
-var scene_start: Control
-var button_start: Button
-var button_join: Button
-var button_settings: Button
-
-# Settings screen
-var scene_settings: Control
-var settings_button_back: Button
-
+var character_name: String = "O. Stanislav"
+var port: int
+var ip: String
 
 func _ready():
 	_get_references()
 	
-	button_start.pressed.connect(_start_button_pressed)
-	
 func _get_references():
 	screen_central = $"../CentralScreen"
+	
+func start_lobby():
+	screen_central.get_node("StartScreen").visible = false
+	screen_central.get_node("LobbyHosting").visible = true
+	
+	var peer = ENetMultiplayerPeer.new()
+	peer.create_server(port, 4)
+	multiplayer.multiplayer_peer = peer
+	
+	multiplayer.peer_connected.connect(peer_connected)
+	multiplayer.peer_disconnected.connect(peer_disconnected)
+	
+func join_lobby():
+	screen_central.get_node("StartScreen").visible = false
+	screen_central.get_node("LobbyJoining").visible = true
+	
+	multiplayer.connection_failed.connect(connection_failed)
+	
+	var peer = ENetMultiplayerPeer.new()
+	peer.create_client(ip, port)
+	multiplayer.multiplayer_peer = peer
 
-	# Start screen
-	scene_start = screen_central.get_node("StartScreen")
-	button_start = scene_start.get_node("VBoxContainer/Start")
-	button_join = scene_start.get_node("VBoxContainer/Join")
-	button_settings = scene_start.get_node("VBoxContainer/Settings")
+func peer_connected():
+	print("peer connected")
 
-	# Settings screen
-	scene_settings = screen_central.get_node("Settings")
+func peer_disconnected():
+	print("peer disconnected")
+	
+func connection_successful():
+	print("connected to server")
+	
+func connection_failed():
+	print("failed to connected to server")
 
-func _start_button_pressed():
-	screen_central.remove_child(scene_start)
-	start_game()
+func disconnected():
+	print("disconnected from server")
 
 func start_game():
 	var p1 = Player.new(Player.PlayerID.Player1, self)

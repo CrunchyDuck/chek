@@ -1,6 +1,8 @@
 extends Control
 
 @onready
+var screen_central: Control = $"../.."
+@onready
 var palette_name: Label = $PaletteName
 @onready
 var button_previous: Button = $Previous
