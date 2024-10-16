@@ -3,9 +3,6 @@ extends Node
 var prefabs: Dictionary = {}
 var prefabs_filled = false
 
-func _ready():
-	fill_prefabs()
-
 func fill_prefabs():
 	var dir = DirAccess.open("res://Prefabs")
 	_parse_directory(dir, [])

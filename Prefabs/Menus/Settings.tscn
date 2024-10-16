@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://yujq3knh7lks"]
 
 [ext_resource type="Script" path="res://Scripts/CustomNodes/VBoxRigid.gd" id="1_3et6b"]
-[ext_resource type="Script" path="res://Scripts/SettingsPalette.gd" id="2_v8kt2"]
+[ext_resource type="Script" path="res://Prefabs/Menus/Settings.gd" id="2_v8kt2"]
 
 [node name="SettingsScreen" type="Control"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 650.0
 offset_bottom = 650.0
 size_flags_horizontal = 3
+script = ExtResource("2_v8kt2")
 
 [node name="Settings1" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(650, 650)
@@ -84,7 +84,6 @@ offset_top = -10.5
 offset_bottom = 10.5
 grow_horizontal = 0
 grow_vertical = 2
-script = ExtResource("2_v8kt2")
 
 [node name="Previous" type="Button" parent="Settings1/Palette/PaletteValue"]
 layout_mode = 2
