@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dihhwegssrkam"]
+
+[ext_resource type="StyleBox" uid="uid://c4vsgyyiveoas" path="res://Styles & Fonts/StyleboxSelected.tres" id="1_cqbnr"]
+[ext_resource type="StyleBox" uid="uid://dbiemgh8uhi0v" path="res://Styles & Fonts/StyleboxPlain.tres" id="2_wmmwh"]
+[ext_resource type="StyleBox" uid="uid://dbl801ngp40qh" path="res://Styles & Fonts/StyleboxPressed.tres" id="3_kbiqn"]
+[ext_resource type="FontFile" uid="uid://bpylilti85meq" path="res://Styles & Fonts/Retro Gaming.ttf" id="4_6lavs"]
+
+[resource]
+default_font = ExtResource("4_6lavs")
+Button/styles/focus = ExtResource("1_cqbnr")
+Button/styles/hover = ExtResource("1_cqbnr")
+Button/styles/normal = ExtResource("2_wmmwh")
+Button/styles/pressed = ExtResource("3_kbiqn")
+LineEdit/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+LineEdit/styles/focus = ExtResource("2_wmmwh")
+LineEdit/styles/normal = ExtResource("2_wmmwh")
+LineEdit/styles/read_only = ExtResource("2_wmmwh")

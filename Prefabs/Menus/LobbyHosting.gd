@@ -21,5 +21,8 @@ func _on_back():
 	queue_free()
 	
 func _on_done():
-	# TODO: Start server
-	pass
+	if not GameController.start_lobby(int(input_port.text)):
+		# TODO: Print error in chat
+		return
+	$"..".add_child(PrefabController.get_prefab("Menus.LobbySetup").instantiate())
+	queue_free()

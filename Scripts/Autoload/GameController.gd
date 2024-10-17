@@ -29,43 +29,38 @@ var ip: String
 
 func _ready():
 	_get_references()
+	multiplayer.peer_connected.connect(peer_connected)
+	multiplayer.peer_disconnected.connect(peer_disconnected)
 	
 func _get_references():
 	screen_central = $"../CentralScreen"
 	
-func start_lobby():
-	screen_central.get_node("StartScreen").visible = false
-	screen_central.get_node("LobbyHosting").visible = true
-	
+func start_lobby(_port: int) -> bool:
 	var peer = ENetMultiplayerPeer.new()
-	peer.create_server(port, 4)
+	var err = peer.create_server(port, 4)
+	if err:
+		return false
+	port = _port
 	multiplayer.multiplayer_peer = peer
+	return true
 	
-	multiplayer.peer_connected.connect(peer_connected)
-	multiplayer.peer_disconnected.connect(peer_disconnected)
-	
-func join_lobby():
-	screen_central.get_node("StartScreen").visible = false
-	screen_central.get_node("LobbyJoining").visible = true
-	
-	multiplayer.connection_failed.connect(connection_failed)
-	
+func join_lobby(_ip: String, _port: int) -> bool:
 	var peer = ENetMultiplayerPeer.new()
-	peer.create_client(ip, port)
+	var err = peer.create_client(_ip, _port)
+	if err:
+		return false
+		
+	ip = _ip
+	port = _port
 	multiplayer.multiplayer_peer = peer
+	return true
 
-func peer_connected():
+func peer_connected(id: int):
 	print("peer connected")
 
-func peer_disconnected():
+func peer_disconnected(id: int):
 	print("peer disconnected")
 	
-func connection_successful():
-	print("connected to server")
-	
-func connection_failed():
-	print("failed to connected to server")
-
 func disconnected():
 	print("disconnected from server")
 
@@ -159,7 +154,7 @@ func create_grid(grid_size: Vector2i) -> Array:
 			row.append(board_cell)
 		cells.append(row)
 	return cells
-	
+
 func spawn_piece(piece_type: ePieces, cell: BoardCell, orientation: ChessPiece.Orientation, owned_by: Player) -> ChessPiece:
 	var piece: ChessPiece = piece_prefabs[piece_type].instantiate()
 	cell.occupying_piece = piece

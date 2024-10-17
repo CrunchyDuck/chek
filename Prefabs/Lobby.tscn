@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://jak4nhe12qk3"]
 
 [ext_resource type="PackedScene" uid="uid://ud4v6rltpdcx" path="res://Prefabs/PlayerSlot.tscn" id="1_bulfq"]
-[ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/Theme.tres" id="1_hn4vo"]
+[ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="1_hn4vo"]
 
 [node name="Lobby" type="Node"]
 

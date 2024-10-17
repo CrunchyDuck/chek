@@ -3,7 +3,7 @@ shader_type canvas_item;
 uniform sampler2D palette : source_color;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 
-void fragment() { 
+void fragment() {
 	vec4 color = texture(screen_texture, SCREEN_UV);
   float value = color.x;  // this is gross
 	COLOR = texture(palette, vec2(value, 0));
