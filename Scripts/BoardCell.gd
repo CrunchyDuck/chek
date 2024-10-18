@@ -5,28 +5,16 @@ extends Node2D
 @onready var sprite: Sprite2D = $Sprite2D
 
 var board: Board = null
+var cell_coordinates: Vector2i
 var _occupying_piece: ChessPiece = null
 # I don't like how much is implicitly done here.
 # If this proves to cause issues, I should go through signals instead, like on_kill
-var occupying_piece: ChessPiece:
-	get:
-		return _occupying_piece
-	set(piece):
-		if _occupying_piece != null:
-			remove_child(_occupying_piece)
-			_occupying_piece.in_cell = null
-			
-		_occupying_piece = piece
-		if _occupying_piece != null:
-			add_child(piece)
-			_occupying_piece.in_cell = self
-var cell_coordinates: Vector2i
-var color_normal: Color
+var occupying_piece: ChessPiece
 
+#region States
 var unobstructed: bool:
 	get:
 		return not blocked and occupying_piece == null
-
 var selected: bool:
 	get:
 		return _selected
@@ -49,22 +37,16 @@ var contained_action: Board.GameAction:
 var _selected = false
 var _blocked: bool = false
 var _contained_action: Board.GameAction = null
+#endregion
 
-# TODO: Tile colours
+#region Colours
 const color_white: Color = ColorController.colors["primary"]
 const color_black: Color = ColorController.colors["secondary"]
 const color_move: Color = ColorController.colors["c2"]
 const color_attack: Color = ColorController.colors["c5"]
 const color_blocked: Color = ColorController.colors["c6"]
 const color_selected: Color = ColorController.colors["c3"]
-
-func Init(board: Board, cell_coordinates: Vector2i):
-	self.board = board
-	self.cell_coordinates = cell_coordinates
-	self.color_normal = color_black
-	if (cell_coordinates.x + cell_coordinates.y) % 2 == 0:
-		self.color_normal = color_white
-	_update_color()
+#endregion
 
 func reset_state():
 	blocked = false
@@ -87,6 +69,8 @@ func _update_color():
 			_:
 				assert(false, "Unhandled eActionType in BoardCell " + str(cell_coordinates))
 	else:
-		color = color_normal
+		color = color_black
+		if (cell_coordinates.x + cell_coordinates.y) % 2 == 0:
+			color = color_white
 
 	sprite.self_modulate = color

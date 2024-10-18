@@ -2,14 +2,14 @@ extends ChessPiece
 
 func _get_actions() -> Array[Board.GameAction]:
 	var target_positions = [
-		pos + Vector2i(1, 2),
-		pos + Vector2i(2, 1),
-		pos + Vector2i(1, -2),
-		pos + Vector2i(2, -1),
-		pos + Vector2i(-1, 2),
-		pos + Vector2i(-2, 1),
-		pos + Vector2i(-1, -2),
-		pos + Vector2i(-2, -1),
+		coordinates + Vector2i(1, 2),
+		coordinates + Vector2i(2, 1),
+		coordinates + Vector2i(1, -2),
+		coordinates + Vector2i(2, -1),
+		coordinates + Vector2i(-1, 2),
+		coordinates + Vector2i(-2, 1),
+		coordinates + Vector2i(-1, -2),
+		coordinates + Vector2i(-2, -1),
 	]
 	var actions: Array[Board.GameAction] = []
 	

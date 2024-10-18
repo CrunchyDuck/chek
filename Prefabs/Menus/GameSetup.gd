@@ -27,7 +27,6 @@ func start_game(json_game_settings: String):
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
 
-# Really need to find a nicer place to put these.
 class BoardState:
 	# Describes the state of the board
 	var size: Vector2i
@@ -46,6 +45,7 @@ class PieceState:
 	var type: GameController.ePieces
 	var position: Vector2i
 	var orientation: ChessPiece.Orientation
+	# TODO: PieceID to make it easier to reference over network?
 	
 	func _init(type: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
 		self.type = type

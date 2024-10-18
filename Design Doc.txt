@@ -71,3 +71,4 @@ Traitor piece - capturing this piece turns the capturer to the other team
 Checker's piece
 
 Hoard - one side has a bunch of pawns
+Trench warfare - 2x15 board size, 2 players

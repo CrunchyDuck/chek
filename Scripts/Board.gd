@@ -15,20 +15,26 @@ var board_size: Vector2:
 var _selected_cell: BoardCell = null
 var board_wrapping: bool = false
 
+@onready
+var node_cells: Control = $Cells
+
 signal action_performed(action: Board.GameAction)
 
-func Init(grid: Array, controller: GameController):
-	self.controller = controller
-	self.grid = grid
-	grid_size = Vector2i(grid.size(), grid[0].size())
-	# Add cells as children
-	for y in grid_size.y:
-		for x in grid_size.x:
-			var board_cell = grid[y][x]
-			add_child(board_cell)  # _ready() is not called till this is done!
-			board_cell.Init(self, Vector2i(x, y))
-			board_cell.position = self.grid_to_position(x, y)
-	_position_board()
+func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
+	for n in node_cells.get_children():
+		n.queue_free()
+
+	grid = []
+	for y in _grid_size.y:
+		var row = []
+		for x in _grid_size.x:
+			var board_cell: BoardCell = PrefabController.get_prefab("Board.BoardCell").instantiate()
+			board_cell.cell_coordinates = Vector2i(x, y)
+			board_cell.board = self
+			node_cells.add_child(board_cell)
+			row.append(board_cell)
+		grid.append(row)
+	return grid
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
@@ -150,10 +156,11 @@ func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 		return false
 	if destination_cell.occupying_piece != null:
 		return false
-	var piece = 	source_cell.occupying_piece
+	var piece =	source_cell.occupying_piece
 	piece.move_count += 1
 	source_cell.occupying_piece = null
 	destination_cell.occupying_piece = piece
+	piece.coordinates = destination_cell.cell_coordinates
 	return true
 	
 func _position_board():
