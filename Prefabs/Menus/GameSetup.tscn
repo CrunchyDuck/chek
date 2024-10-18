@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://vux5adtj7ccl"]
 
-[ext_resource type="Script" path="res://Prefabs/Menus/LobbySetup.gd" id="1_1hgox"]
+[ext_resource type="Script" path="res://Prefabs/Menus/GameSetup.gd" id="1_1hgox"]
 
 [node name="LobbySetup" type="Control"]
 layout_mode = 3

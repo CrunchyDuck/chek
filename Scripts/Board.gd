@@ -176,31 +176,6 @@ class GameAction:
 		self.target = target
 		self.next_action = next_action
 
-# Really need to find a nicer place to put these.
-class BoardState:
-	# Describes the state of the board
-	var size: Vector2i
-	var players: Array
-	
-	func _init(size: Vector2i):
-		self.size = size
-	
-class PlayerState:
-	var pieces: Array = []
-	
-	func add_piece(piece: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
-		pieces.append(PieceState.new(piece, position, orientation))
-
-class PieceState:
-	var type: GameController.ePieces
-	var position: Vector2i
-	var orientation: ChessPiece.Orientation
-	
-	func _init(type: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
-		self.type = type
-		self.position = position
-		self.orientation = orientation
-
 enum eActionType {
 	Move,
 	# TODO: add "Jump" movetype, which does not do line-cast checks.

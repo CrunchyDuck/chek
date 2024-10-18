@@ -37,12 +37,15 @@ func _on_done():
 		return
 	connecting_page.visible = true
 	info_page.visible = false
+	print("connecting")
 	
 func _on_success():
-	$"..".add_child(PrefabController.get_prefab("Menus.LobbySetup").instantiate())
+	$"..".add_child(PrefabController.get_prefab("Menus.GameSetup").instantiate())
 	queue_free()
+	print("connected")
 	
 func _on_fail():
 	connecting_page.visible = false
 	info_page.visible = true
+	print("failed to connect")
 	# TODO: Print error in chat.

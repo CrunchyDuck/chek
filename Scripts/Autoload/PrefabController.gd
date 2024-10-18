@@ -28,3 +28,14 @@ func get_prefab(path: String) -> PackedScene:
 	if not prefabs_filled:
 		fill_prefabs()
 	return prefabs[path]
+
+@rpc("any_peer", "call_local", "reliable")
+func spawn_networked_node(prefab_path: String, node_path: String, node_name: String) -> void:
+	var n = get_node(node_path)
+	if n == null:
+		print("Could not find node at path: " + node_path)
+		return
+	
+	var p = get_prefab(prefab_path).instantiate()
+	n.add_child(p)
+	n.name = node_name
