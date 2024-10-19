@@ -9,7 +9,7 @@ var board: Board:
 var player_type: Player.PlayerType
 var network_id: int
 var game_id: Player.PlayerID
-var friendly: Array[Player] = [self]
+var friendly: Array[PlayerID] = [game_id]
 var actions_remaining: int = 0
 
 var can_move: bool:

@@ -7,7 +7,6 @@ var move_count: int = 0
 var owned_by: Player.PlayerID
 var orientation: ChessPiece.Orientation = Orientation.North
 
-
 var owned_by_player: Player:
 	get:
 		if owned_by == null or board == null:

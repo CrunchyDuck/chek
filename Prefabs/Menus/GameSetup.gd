@@ -20,9 +20,7 @@ func _on_start():
 func start_game(json_game_settings: String):
 	$"..".add_child(PrefabController.get_prefab("Menus.GameLoading").instantiate())
 	queue_free()
-	if multiplayer.is_server:
-		GameController.start_game(json_game_settings)
-		print("here")
+	GameController.start_game(json_game_settings)
 
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)

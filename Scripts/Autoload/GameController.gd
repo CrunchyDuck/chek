@@ -3,12 +3,12 @@ extends Node
 
 # TODO: Make use PrefabController
 var piece_prefabs = {
-	ePieces.Pawn: preload("res://Prefabs/Pieces/Pawn.tscn"),
-	ePieces.Queen: preload("res://Prefabs/Pieces/Queen.tscn"),
-	ePieces.King: preload("res://Prefabs/Pieces/King.tscn"),
-	ePieces.Rook: preload("res://Prefabs/Pieces/Rook.tscn"),
-	ePieces.Knight: preload("res://Prefabs/Pieces/Knight.tscn"),
-	ePieces.Bishop: preload("res://Prefabs/Pieces/Bishop.tscn"),
+	ePieces.Pawn: "Pieces.Pawn",
+	ePieces.Queen: "Pieces.Queen",
+	ePieces.King: "Pieces.King",
+	ePieces.Rook: "Pieces.Rook",
+	ePieces.Knight: "Pieces.Knight",
+	ePieces.Bishop: "Pieces.Bishop",
 }
 
 var name_list = [
@@ -36,6 +36,7 @@ var ip: String
 var character_name: String
 
 var game_settings: GameSetup.GameSettings
+var players_loaded: int = 0
 
 func _ready():
 	_get_references()
@@ -89,10 +90,15 @@ func start_game(json_game_settings: String):
 	board.name = "Board"
 	
 	# Initialize board with size and pieces
+	load_board_state(game_settings, players)
+	
 	
 	# Set player states
+	players[0].actions_remaining = 1
 	
 	# Wait until all players are loaded.
+	player_loaded.rpc()
+	
 	pass
 	#var p1 = Player.new(Player.PlayerID.Player1, self)
 	#p1.name = "Oskar Stanislav"
@@ -110,6 +116,13 @@ func start_game(json_game_settings: String):
 	#
 	#load_board_state(standard_board_setup(), players)
 
+@rpc("any_peer", "call_local", "reliable")
+func player_loaded():
+	players_loaded += 1
+	if players_loaded == players.size():
+		board.visible = true
+		print("loaded")
+
 func load_board_state(state: GameSetup.BoardState, players: Array[Player]):
 	if players.size() != state.players.size():
 		print("Incorrect number of players for board state!")
@@ -125,7 +138,6 @@ func load_board_state(state: GameSetup.BoardState, players: Array[Player]):
 		var player_state: GameSetup.PlayerState = state.players[i]
 		for piece in player_state.pieces:
 			spawn_piece(piece.type, grid[piece.position.y][piece.position.x], piece.orientation, i)
-
 
 func standard_board_setup() -> GameSetup.BoardState:
 	var board = GameSetup.BoardState.new(Vector2i(8, 8))
@@ -176,7 +188,7 @@ func standard_board_setup() -> GameSetup.BoardState:
 	return board
 
 func spawn_piece(piece_type: ePieces, cell: BoardCell, orientation: ChessPiece.Orientation, owned_by: Player.PlayerID) -> ChessPiece:
-	var piece: ChessPiece = piece_prefabs[piece_type].instantiate()
+	var piece: ChessPiece = PrefabController.get_prefab(piece_prefabs[piece_type]).instantiate()
 	cell.occupying_piece = piece
 	piece.Init(cell.cell_coordinates, orientation, owned_by, board)
 	return piece
