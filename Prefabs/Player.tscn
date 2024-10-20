@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5ldood4xt4p4"]
+
+[ext_resource type="Script" path="res://Prefabs/Player.gd" id="1_b3tiu"]
+
+[node name="Player" type="Node"]
+script = ExtResource("1_b3tiu")

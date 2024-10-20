@@ -3,6 +3,8 @@ extends Node
 var prefabs: Dictionary = {}
 var prefabs_filled = false
 
+var networked_nodes: Dictionary
+
 func fill_prefabs():
 	var dir = DirAccess.open("res://Prefabs")
 	_parse_directory(dir, [])
@@ -29,13 +31,34 @@ func get_prefab(path: String) -> PackedScene:
 		fill_prefabs()
 	return prefabs[path]
 
-@rpc("any_peer", "call_local", "reliable")
-func spawn_networked_node(prefab_path: String, node_path: String, node_name: String) -> void:
-	var n = get_node(node_path)
-	if n == null:
+@rpc("authority", "call_remote", "reliable")
+func add_networked_node(prefab_path: String, node_path: String) -> void:
+	var node_parts = node_path.split("/")
+	var parent = get_node("/".join(node_parts.slice(0, -1)))
+	if parent == null:
 		print("Could not find node at path: " + node_path)
 		return
 	
 	var p = get_prefab(prefab_path).instantiate()
-	n.add_child(p)
-	n.name = node_name
+	parent.add_child(parent)
+	p.name = node_parts[-1]
+	networked_nodes[node_path] = prefab_path
+
+@rpc("authority", "call_remote", "reliable")
+func refresh_networked_nodes(servers_nodes: Dictionary):
+	var old_nodes := networked_nodes.duplicate()
+	networked_nodes = {}
+	for k in servers_nodes.keys():
+		var prefab_path = servers_nodes[k]
+		if old_nodes.has(k):
+			old_nodes.erase(k)
+			continue
+		add_networked_node(prefab_path, k)
+	
+	# Clear up stale objects
+	for k in old_nodes.keys():
+		var old_node = get_node(k)
+		if old_node:
+			old_node.queue_free()
+		
+		

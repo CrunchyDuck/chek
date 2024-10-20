@@ -11,6 +11,7 @@ var network_id: int = -1
 var game_id: Player.PlayerID
 var friendly: Array[PlayerID] = [game_id]
 var actions_remaining: int = 0
+var character_name: String
 
 var can_move: bool:
 	get:

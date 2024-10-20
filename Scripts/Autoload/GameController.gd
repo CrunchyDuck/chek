@@ -1,7 +1,6 @@
 extends Node
 # TODO: Maintain BoardState and PieceState throughout the game.
 
-# TODO: Make use PrefabController
 var piece_prefabs = {
 	ePieces.Pawn: "Pieces.Pawn",
 	ePieces.Queen: "Pieces.Queen",
@@ -18,8 +17,7 @@ var name_list = [
 ]
 
 var board: Board
-# Players, in order of PlayerID.
-var players: Array[Player]
+var players: Dictionary
 
 var screen_central: Control
 
@@ -38,10 +36,6 @@ func _ready():
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	
 	character_name = name_list.pick_random()
-	for i in range(4):
-		players[i] = Player.new()
-		players[i].controller = self
-		players[i].game_id = i
 	
 func _get_references():
 	screen_central = $"/root/MainScene/CentralScreen"
@@ -68,10 +62,9 @@ func join_lobby(_ip: String, _port: int) -> bool:
 	return true
 
 func peer_connected(id: int):
-	for p in players:
-		if p.player_type != Player.PlayerType.Human:
-			p.player_type = Player.PlayerType.Human
-			p.network_id = id
+	if multiplayer.is_server:
+		# Spawn new player object
+		PrefabController.spawn_networked_node.rpc("Player", "/root/GameController", "Player" + str(id))
 
 func peer_disconnected(id: int):
 	print("peer disconnected")
