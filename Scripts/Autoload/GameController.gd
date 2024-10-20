@@ -17,7 +17,13 @@ var name_list = [
 ]
 
 var board: Board
-var players: Dictionary
+var players: Dictionary = {}
+var players_by_game_id: Dictionary:
+	get:
+		var d = {}
+		for p in players.values():
+			d[p.game_id] = p
+		return d
 
 var screen_central: Control
 
@@ -63,8 +69,15 @@ func join_lobby(_ip: String, _port: int) -> bool:
 	return true
 
 func peer_connected(id: int):
-	if multiplayer.is_server():
-		PrefabController.spawn_networked_node.rpc("Player", "/root/GameController/Player" + str(id))
+		PrefabController.spawn_networked_node("Player", "/root/GameController/Player" + str(id))
+		var p: Player = get_node("/root/GameController/Player" + str(id))
+		p.network_id = id
+		players[id] = p
+		var gids = players_by_game_id
+		for i in range(4):
+			if not gids.has(i):
+				p.game_id = i
+				break
 
 func peer_disconnected(id: int):
 	players.erase(id)
@@ -138,7 +151,7 @@ func start_game(json_game_settings: String, board_state: GameSetup.BoardState):
 	board.name = "Board"
 	
 	# Initialize board with size and pieces
-	load_board_state(board_state, players)
+	load_board_state(board_state, players_by_game_id)
 	
 	# Set player states
 	players[0].actions_remaining = 1
@@ -163,7 +176,7 @@ func start_game(json_game_settings: String, board_state: GameSetup.BoardState):
 	#
 	#load_board_state(standard_board_setup(), players)
 
-func load_board_state(state: GameSetup.BoardState, players: Array[Player]):
+func load_board_state(state: GameSetup.BoardState, players: Dictionary):
 	if players.size() != state.players.size():
 		print("Incorrect number of players for board state!")
 		return

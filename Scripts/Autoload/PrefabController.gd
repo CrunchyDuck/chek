@@ -57,7 +57,7 @@ func refresh_networked_nodes(servers_nodes: Dictionary):
 		if old_nodes.has(k):
 			old_nodes.erase(k)
 			continue
-		add_networked_node(prefab_path, k)
+		register_networked_node(prefab_path, k)
 	
 	# Clear up stale objects
 	for k in old_nodes.keys():

@@ -14,13 +14,13 @@ func _ready() -> void:
 	game_settings = GameSettings.new()
 	
 func _on_start():
-	start_game.rpc(JsonClassConverter.class_to_json_string(game_settings))
+	start_game.rpc(JsonClassConverter.class_to_json_string(game_settings), GameController.standard_board_setup())
 	
 @rpc("authority", "call_local", "reliable")
-func start_game(json_game_settings: String):
+func start_game(json_game_settings: String, board_state: GameSetup.BoardState):
 	$"..".add_child(PrefabController.get_prefab("Menus.GameLoading").instantiate())
 	queue_free()
-	GameController.start_game(json_game_settings)
+	GameController.start_game(json_game_settings, board_state)
 
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
