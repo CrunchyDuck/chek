@@ -35,6 +35,7 @@ class BoardState:
 	
 class PlayerState:
 	var pieces: Array = []
+	var actions_remaining: int = 0
 	
 	func add_piece(piece: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
 		pieces.append(PieceState.new(piece, position, orientation))

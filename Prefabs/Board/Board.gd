@@ -18,6 +18,9 @@ var board_wrapping: bool = false
 @onready
 var node_cells: Control = $Cells
 
+@onready
+var node_pieces: Control = $Pieces
+
 signal action_performed(action: Board.GameAction)
 
 func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
@@ -36,6 +39,10 @@ func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
 		grid.append(row)
 	return grid
 
+func clear_pieces():
+	for n in node_pieces.get_children():
+		n.queue_free()
+		
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index != MouseButton.MOUSE_BUTTON_LEFT:

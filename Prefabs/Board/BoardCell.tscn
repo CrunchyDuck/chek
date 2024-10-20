@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://clqodp7ecd7hr"]
 
 [ext_resource type="Texture2D" uid="uid://b1qabkf21xqld" path="res://Sprites/Board/WhiteTile.png" id="1_6ypeu"]
-[ext_resource type="Script" path="res://Scripts/BoardCell.gd" id="1_63bnx"]
+[ext_resource type="Script" path="res://Prefabs/Board/BoardCell.gd" id="1_63bnx"]
 
 [node name="BoardCell" type="Node2D"]
 script = ExtResource("1_63bnx")

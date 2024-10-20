@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cwb8r55swf37x"]
 
-[ext_resource type="Script" path="res://Scripts/Board.gd" id="1_qswva"]
+[ext_resource type="Script" path="res://Prefabs/Board/Board.gd" id="1_qswva"]
 
 [node name="Board" type="Control"]
 custom_minimum_size = Vector2(50, 50)
@@ -17,6 +17,11 @@ grow_vertical = 2
 script = ExtResource("1_qswva")
 
 [node name="Cells" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Pieces" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

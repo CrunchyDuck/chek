@@ -20,13 +20,6 @@ var name_list = [
 var board: Board
 # Players, in order of PlayerID.
 var players: Array[Player]
-@onready
-var player_slots: Array[PlayerSlot] = [
-	$"../Lobby/PlayerStates/PlayerSlot1",
-	$"../Lobby/PlayerStates/PlayerSlot2",
-	$"../Lobby/PlayerStates/PlayerSlot3",
-	$"../Lobby/PlayerStates/PlayerSlot4",
-]
 
 var screen_central: Control
 
@@ -36,6 +29,7 @@ var ip: String
 var character_name: String
 
 var game_settings: GameSetup.GameSettings
+var board_state: GameSetup.BoardState
 var players_loaded: int = 0
 
 func _ready():
@@ -44,6 +38,10 @@ func _ready():
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	
 	character_name = name_list.pick_random()
+	for i in range(4):
+		players[i] = Player.new()
+		players[i].controller = self
+		players[i].game_id = i
 	
 func _get_references():
 	screen_central = $"/root/MainScene/CentralScreen"
@@ -70,7 +68,10 @@ func join_lobby(_ip: String, _port: int) -> bool:
 	return true
 
 func peer_connected(id: int):
-	print("peer connected")
+	for p in players:
+		if p.player_type != Player.PlayerType.Human:
+			p.player_type = Player.PlayerType.Human
+			p.network_id = id
 
 func peer_disconnected(id: int):
 	print("peer disconnected")
@@ -78,9 +79,10 @@ func peer_disconnected(id: int):
 func disconnected():
 	print("disconnected from server")
 
-func start_game(json_game_settings: String):
+func start_game(json_game_settings: String, board_state: GameSetup.BoardState):
 	if multiplayer.is_server:
 		multiplayer.multiplayer_peer.refuse_new_connections = true
+		# TODO: Bot takeover on disconnect
 	game_settings = JsonClassConverter.json_string_to_class(GameSetup.GameSettings, json_game_settings)
 	
 	# Spawn board on all clients
@@ -90,8 +92,7 @@ func start_game(json_game_settings: String):
 	board.name = "Board"
 	
 	# Initialize board with size and pieces
-	load_board_state(game_settings, players)
-	
+	load_board_state(board_state, players)
 	
 	# Set player states
 	players[0].actions_remaining = 1
@@ -127,17 +128,27 @@ func load_board_state(state: GameSetup.BoardState, players: Array[Player]):
 	if players.size() != state.players.size():
 		print("Incorrect number of players for board state!")
 		return
+		
+	# Update player states
+	for player_num in state.players.size():
+		var p = players[player_num]
+		p.pieces = []
+		p.actions_remaining = state.players[player_num].actions_remaining
 	
-	board = PrefabController.get_prefab("Board").instantiate()
-	board.controller = self
-	add_child(board)
-	board.action_performed.connect(on_action)
+	# Initialize board, if necessary
+	if board == null:
+		board = PrefabController.get_prefab("Board").instantiate()
+		board.controller = self
+		add_child(board)
+		board.action_performed.connect(on_action)
+		var grid = board.create_new_grid(state.size)
 	
-	var grid = board.create_new_grid(state.size)
-	for i in state.players.size():
-		var player_state: GameSetup.PlayerState = state.players[i]
+	# Spawn pieces
+	board.clear_pieces()
+	for player_num in state.players.size():
+		var player_state: GameSetup.PlayerState = state.players[player_num]
 		for piece in player_state.pieces:
-			spawn_piece(piece.type, grid[piece.position.y][piece.position.x], piece.orientation, i)
+			spawn_piece(piece.type, piece.position, piece.orientation, player_num)
 
 func standard_board_setup() -> GameSetup.BoardState:
 	var board = GameSetup.BoardState.new(Vector2i(8, 8))
@@ -187,10 +198,13 @@ func standard_board_setup() -> GameSetup.BoardState:
 	
 	return board
 
-func spawn_piece(piece_type: ePieces, cell: BoardCell, orientation: ChessPiece.Orientation, owned_by: Player.PlayerID) -> ChessPiece:
+func spawn_piece(piece_type: ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: Player.PlayerID) -> ChessPiece:
 	var piece: ChessPiece = PrefabController.get_prefab(piece_prefabs[piece_type]).instantiate()
+	var cell = board.get_cell(coordinate)
 	cell.occupying_piece = piece
-	piece.Init(cell.cell_coordinates, orientation, owned_by, board)
+	piece.Init(coordinate, orientation, owned_by, board)
+	var p = players[owned_by]
+	p.pieces.append(piece)
 	return piece
 
 func on_action(action: Board.GameAction):
