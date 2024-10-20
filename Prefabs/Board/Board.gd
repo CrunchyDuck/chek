@@ -114,6 +114,7 @@ func deselect_cell():
 			cell.reset_state()
 	_selected_cell = null
 
+# TODO: Move this to GameController, likely.
 func perform_action(action: Board.GameAction) -> bool:
 	# Check if action is allowed with GameController/Player object.
 	if not controller.is_action_legal(action):

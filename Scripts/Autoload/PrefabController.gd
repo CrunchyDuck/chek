@@ -31,8 +31,12 @@ func get_prefab(path: String) -> PackedScene:
 		fill_prefabs()
 	return prefabs[path]
 
+# Register a node that already exists as a networked node
+func register_networked_node(prefab_path: String, node_path: String) -> void:
+	networked_nodes[node_path] = prefab_path
+
 @rpc("authority", "call_remote", "reliable")
-func add_networked_node(prefab_path: String, node_path: String) -> void:
+func spawn_networked_node(prefab_path: String, node_path: String) -> void:
 	var node_parts = node_path.split("/")
 	var parent = get_node("/".join(node_parts.slice(0, -1)))
 	if parent == null:
@@ -42,7 +46,7 @@ func add_networked_node(prefab_path: String, node_path: String) -> void:
 	var p = get_prefab(prefab_path).instantiate()
 	parent.add_child(parent)
 	p.name = node_parts[-1]
-	networked_nodes[node_path] = prefab_path
+	register_networked_node(prefab_path, node_path)
 
 @rpc("authority", "call_remote", "reliable")
 func refresh_networked_nodes(servers_nodes: Dictionary):
@@ -60,5 +64,3 @@ func refresh_networked_nodes(servers_nodes: Dictionary):
 		var old_node = get_node(k)
 		if old_node:
 			old_node.queue_free()
-		
-		
