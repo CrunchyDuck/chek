@@ -17,11 +17,16 @@ var name_list = [
 ]
 
 var board: Board
-var players: Dictionary = {}
+var players_by_net_id: Dictionary:
+	get:
+		var d = {}
+		for p in Player.players.values():
+			d[p.network_id] = p
+		return d
 var players_by_game_id: Dictionary:
 	get:
 		var d = {}
-		for p in players.values():
+		for p in Player.players.values():
 			d[p.game_id] = p
 		return d
 
@@ -55,7 +60,7 @@ func start_lobby(_port: int) -> bool:
 		return false
 	port = _port
 	multiplayer.multiplayer_peer = peer
-	create_player(1)
+	create_player(1)  # Player for server
 	
 	print("listening on port " + str(port))
 	return true
@@ -81,7 +86,6 @@ func peer_connected(id: int):
 	create_player(id)
 
 func peer_disconnected(id: int):
-	players.erase(id)
 	get_node("/root/GameController/Player" + str(id)).queue_free()
 	
 func disconnected():
@@ -89,20 +93,10 @@ func disconnected():
 	print("disconnected from server")
 
 # TODO: Maybe move this to a centralized NetworkingController
-func resynchronize_client(clint_id: int):
-	pass
-
-func create_player(network_id: int):
-	var player_path = "/root/GameController/Player" + str(network_id)
-	var p = PrefabController.spawn_prefab("Player", player_path)
-	PrefabController.register_networked_node("Player", player_path)
-	p.network_id = network_id
-	players[network_id] = p
-	var gids = players_by_game_id
-	for i in range(4):
-		if not gids.has(i):
-			p.game_id = i
-			break
+func resynchronize_client(client_id: int):
+	# Sync player 
+	# Sync prefabs
+	PrefabController.refresh_networked_nodes.rpc_id(client_id, PrefabController.networked_nodes)
 #endregion
 
 #region Board setups
@@ -156,6 +150,18 @@ func standard_board_setup() -> GameSetup.BoardState:
 #endregion
 
 #region Standard functions
+func create_player(network_id: int):
+	var player_path = "/root/GameController/Player" + str(network_id)
+	var p = PrefabController.spawn_prefab("Player", player_path)
+	PrefabController.register_networked_node("Player", player_path)
+	p.network_id = network_id
+	players_by_net_id[network_id] = p
+	var gids = players_by_game_id
+	for i in range(4):
+		if not gids.has(i):
+			p.game_id = i
+			break
+
 func start_game(json_game_settings: String, board_state: GameSetup.BoardState):
 	if multiplayer.is_server:
 		multiplayer.multiplayer_peer.refuse_new_connections = true
@@ -172,7 +178,7 @@ func start_game(json_game_settings: String, board_state: GameSetup.BoardState):
 	load_board_state(board_state, players_by_game_id)
 	
 	# Set player states
-	players[0].actions_remaining = 1
+	players_by_game_id[0].actions_remaining = 1
 	
 	# Wait until all players are loaded.
 	player_loaded.rpc()
@@ -225,22 +231,22 @@ func spawn_piece(piece_type: ePieces, coordinate: Vector2i, orientation: ChessPi
 	var cell = board.get_cell(coordinate)
 	cell.occupying_piece = piece
 	piece.Init(coordinate, orientation, owned_by, board)
-	var p = players[owned_by]
+	var p = players_by_game_id[owned_by]
 	p.pieces.append(piece)
 	return piece
 
 func on_action(action: Board.GameAction):
 	var id = action.player
-	var p = players[id]
+	var p = players_by_net_id[id]
 	p.actions_remaining -= 1
 	
 	# Is turn finished?
 	if p.actions_remaining <= 0:
-		var next_player = players[wrapi(int(id) + 1, 0, players.size())]
+		var next_player = players_by_net_id[wrapi(int(id) + 1, 0, Player.players.size())]
 		next_player.actions_remaining += 1
 
 func is_action_legal(action: Board.GameAction):
-	var p = players[action.player]
+	var p = players_by_game_id[action.player]
 	if p.actions_remaining > 0:
 		return true
 	return false
@@ -250,7 +256,7 @@ func is_action_legal(action: Board.GameAction):
 @rpc("any_peer", "call_local", "reliable")
 func player_loaded():
 	players_loaded += 1
-	if players_loaded == players.size():
+	if players_loaded == Player.players.size():
 		board.visible = true
 		print("loaded")
 #endregion

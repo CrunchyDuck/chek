@@ -1,6 +1,8 @@
 extends Node
 class_name Player
 
+static var players = {}
+
 var controller: GameController
 var board: Board:
 	get:
@@ -19,6 +21,12 @@ var can_move: bool:
 
 var init_state: GameSetup.PlayerState
 var pieces: Array[ChessPiece] = []
+
+func _init():
+	players[self] = true
+	
+func _exit_tree() -> void:
+	players.erase(self)
 
 func do_synchronize():
 	if not multiplayer.is_server:

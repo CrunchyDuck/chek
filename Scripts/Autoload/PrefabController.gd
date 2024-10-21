@@ -5,8 +5,19 @@ var prefabs_filled = false
 
 # A node that is networked must fulfil the following criteria:
 # Its path in the node tree does not change
-# It has an 
+# It has a do_synchronize function, which will package variables call and RPC
 var networked_nodes: Dictionary
+
+var prefab_sync_time = 5
+var prefab_sync_timer = 0
+
+func _process(delta: float) -> void:
+	if not multiplayer.is_server():
+		return
+	prefab_sync_time -= delta
+	if prefab_sync_time <= 0:
+		prefab_sync_time += prefab_sync_timer
+		refresh_networked_nodes.rpc(networked_nodes)
 
 func fill_prefabs():
 	var dir = DirAccess.open("res://Prefabs")
