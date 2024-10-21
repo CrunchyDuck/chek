@@ -3,6 +3,9 @@ extends Node
 var prefabs: Dictionary = {}
 var prefabs_filled = false
 
+# A node that is networked must fulfil the following criteria:
+# Its path in the node tree does not change
+# It has an 
 var networked_nodes: Dictionary
 
 func fill_prefabs():
@@ -17,7 +20,6 @@ func _parse_directory(dir: DirAccess, path: PackedStringArray):
 		if parts[1] == "tscn":
 			path.append(parts[0])
 			prefabs[".".join(path)] = load(dir.get_current_dir() + "/" + file)
-			print(".".join(path))
 			path.remove_at(path.size() - 1)
 			
 	var folders = dir.get_directories()
@@ -31,12 +33,7 @@ func get_prefab(path: String) -> PackedScene:
 		fill_prefabs()
 	return prefabs[path]
 
-# Register a node that already exists as a networked node
-func register_networked_node(prefab_path: String, node_path: String) -> void:
-	networked_nodes[node_path] = prefab_path
-
-@rpc("authority", "call_remote", "reliable")
-func spawn_networked_node(prefab_path: String, node_path: String) -> void:
+func spawn_prefab(prefab_path: String, node_path: String) -> Node:
 	var node_parts = node_path.split("/")
 	var parent = get_node("/".join(node_parts.slice(0, -1)))
 	if parent == null:
@@ -44,8 +41,17 @@ func spawn_networked_node(prefab_path: String, node_path: String) -> void:
 		return
 	
 	var p = get_prefab(prefab_path).instantiate()
-	parent.add_child(parent)
+	parent.add_child(p)
 	p.name = node_parts[-1]
+	return p
+
+# Register a node that already exists as a networked node
+func register_networked_node(prefab_path: String, node_path: String) -> void:
+	networked_nodes[node_path] = prefab_path
+
+@rpc("authority", "call_remote", "reliable")
+func spawn_networked_node(prefab_path: String, node_path: String) -> void:
+	spawn_prefab(prefab_path, node_path)
 	register_networked_node(prefab_path, node_path)
 
 @rpc("authority", "call_remote", "reliable")

@@ -38,6 +38,7 @@ var players_loaded: int = 0
 
 func _ready():
 	_get_references()
+	PrefabController.register_networked_node("", get_path())
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	
@@ -54,6 +55,8 @@ func start_lobby(_port: int) -> bool:
 		return false
 	port = _port
 	multiplayer.multiplayer_peer = peer
+	create_player(1)
+	
 	print("listening on port " + str(port))
 	return true
 	
@@ -68,23 +71,38 @@ func join_lobby(_ip: String, _port: int) -> bool:
 	multiplayer.multiplayer_peer = peer
 	return true
 
+func connected_to_server():
+	# Request synchronization data from server
+	pass
+
 func peer_connected(id: int):
-		PrefabController.spawn_networked_node("Player", "/root/GameController/Player" + str(id))
-		var p: Player = get_node("/root/GameController/Player" + str(id))
-		p.network_id = id
-		players[id] = p
-		var gids = players_by_game_id
-		for i in range(4):
-			if not gids.has(i):
-				p.game_id = i
-				break
+	if not multiplayer.is_server():
+		return
+	create_player(id)
 
 func peer_disconnected(id: int):
 	players.erase(id)
 	get_node("/root/GameController/Player" + str(id)).queue_free()
 	
 func disconnected():
+	# TODO: Player cleanup
 	print("disconnected from server")
+
+# TODO: Maybe move this to a centralized NetworkingController
+func resynchronize_client(clint_id: int):
+	pass
+
+func create_player(network_id: int):
+	var player_path = "/root/GameController/Player" + str(network_id)
+	var p = PrefabController.spawn_prefab("Player", player_path)
+	PrefabController.register_networked_node("Player", player_path)
+	p.network_id = network_id
+	players[network_id] = p
+	var gids = players_by_game_id
+	for i in range(4):
+		if not gids.has(i):
+			p.game_id = i
+			break
 #endregion
 
 #region Board setups
