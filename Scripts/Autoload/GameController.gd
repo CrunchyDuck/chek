@@ -22,12 +22,14 @@ var players_by_net_id: Dictionary:
 		var d = {}
 		for p in Player.players.keys():
 			d[p.network_id] = p
+		print(d)
 		return d
 var players_by_game_id: Dictionary:
 	get:
 		var d = {}
 		for p in Player.players.keys():
 			d[p.game_id] = p
+		print(d)
 		return d
 
 var screen_central: Control
@@ -159,6 +161,7 @@ func create_player(network_id: int):
 	var gids = players_by_game_id
 	for i in range(4):
 		if not gids.has(i):
+			print(i)
 			p.game_id = i
 			break
 
