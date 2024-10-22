@@ -12,12 +12,14 @@ func _ready() -> void:
 		button_start.disabled = true
 	
 	game_settings = GameSettings.new()
+	print(get_path())
 	
 func _on_start():
 	start_game.rpc(JsonClassConverter.class_to_json_string(game_settings), GameController.standard_board_setup())
 	
 @rpc("authority", "call_local", "reliable")
 func start_game(json_game_settings: String, board_state: GameSetup.BoardState):
+	print("here")
 	$"..".add_child(PrefabController.get_prefab("Menus.GameLoading").instantiate())
 	queue_free()
 	GameController.start_game(json_game_settings, board_state)

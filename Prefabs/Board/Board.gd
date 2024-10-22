@@ -2,12 +2,18 @@ class_name Board
 extends Control
 
 var controller: GameController = null
-var grid_size: Vector2i = Vector2i(8, 8)
+var grid_size: Vector2i:
+	get:
+		var y = grid.size()
+		if y == 0:
+			return Vector2i(0, 0)
+		var x = grid[0].size()
+		return Vector2i(x, y)
 const cell_size : Vector2i = Vector2i(64, 64)
 var bounds: Vector2:
 	get:
 		return grid_size * cell_size
-var grid = []  # x/y 2D array
+var grid: Array[Array] = []  # x/y 2D array
 var board_size: Vector2:
 	get:
 		return Vector2(grid_size * cell_size) * scale
@@ -80,7 +86,7 @@ func get_cell(pos: Vector2i) -> BoardCell:
 		x = wrapi(x, 0, grid_size.x - 1)
 		y = wrapi(x, 0, grid_size.y - 1)
 	
-	if x < 0 or y < 0 or x > grid_size.x - 1 or y > grid_size.y - 1:
+	if x < 0 or y < 0 or x > (grid_size.x - 1) or y > (grid_size.y - 1):
 		return null
 	
 	return grid[y][x]

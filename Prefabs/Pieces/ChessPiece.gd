@@ -24,7 +24,7 @@ signal on_killed(killer, victim)
 
 # TODO: Make pieces use different spite based on owner
 func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: int, _board: Board) -> void:
-	self.coordinatess = _coordinates
+	self.coordinates = _coordinates
 	self.orientation = _orientation
 	self.owned_by = _owned_by
 	self.board = _board

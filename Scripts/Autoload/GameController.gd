@@ -22,14 +22,12 @@ var players_by_net_id: Dictionary:
 		var d = {}
 		for p in Player.players.keys():
 			d[p.network_id] = p
-		print(d)
 		return d
 var players_by_game_id: Dictionary:
 	get:
 		var d = {}
 		for p in Player.players.keys():
 			d[p.game_id] = p
-		print(d)
 		return d
 
 var screen_central: Control
@@ -161,7 +159,6 @@ func create_player(network_id: int):
 	var gids = players_by_game_id
 	for i in range(4):
 		if not gids.has(i):
-			print(i)
 			p.game_id = i
 			break
 
@@ -172,10 +169,6 @@ func start_game(json_game_settings: String, board_state: GameSetup.BoardState):
 	game_settings = JsonClassConverter.json_string_to_class(GameSetup.GameSettings, json_game_settings)
 	
 	# Spawn board on all clients
-	board = PrefabController.get_prefab("Board.Board").instantiate()
-	board.visible = false  # Hide until fully loaded
-	screen_central.add_child(board)
-	board.name = "Board"
 	
 	# Initialize board with size and pieces
 	load_board_state(board_state, players_by_game_id)
@@ -211,16 +204,18 @@ func load_board_state(state: GameSetup.BoardState, players: Dictionary):
 	# Update player states
 	for player_num in state.players.size():
 		var p = players[player_num]
-		p.pieces = []
+		p.pieces.clear()
 		p.actions_remaining = state.players[player_num].actions_remaining
 	
 	# Initialize board, if necessary
 	if board == null:
-		board = PrefabController.get_prefab("Board").instantiate()
+		board = PrefabController.get_prefab("Board.Board").instantiate()
+		board.visible = false  # Hide until fully loaded
 		board.controller = self
-		add_child(board)
+		screen_central.add_child(board)
+		board.name = "Board"
 		board.action_performed.connect(on_action)
-		var grid = board.create_new_grid(state.size)
+		board.create_new_grid(state.size)
 	
 	# Spawn pieces
 	board.clear_pieces()
