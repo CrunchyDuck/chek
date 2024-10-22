@@ -10,8 +10,8 @@ var board: Board:
 
 var player_type: Player.PlayerType = Player.PlayerType.None
 var network_id: int = -1
-var game_id: Player.PlayerID
-var friendly: Array[PlayerID] = [game_id]
+var game_id: int
+var friendly: Array[int] = [game_id]
 var actions_remaining: int = 0
 var character_name: String
 
@@ -43,13 +43,6 @@ func synchronize(data: Dictionary):
 	game_id = dat.game_id
 	friendly = dat.friendly
 	actions_remaining = dat.actions_remaining
-	
-enum PlayerID {
-	Player1,
-	Player2,
-	Player3,
-	Player4,
-}
 
 enum PlayerType {
 	None,
@@ -60,11 +53,11 @@ enum PlayerType {
 class PlayerData:
 	var player_type: Player.PlayerType
 	var network_id: int
-	var game_id: Player.PlayerID
-	var friendly: Array[Player.PlayerID]
+	var game_id: int
+	var friendly: Array[int]
 	var actions_remaining: int
 	
-	func _init(player_type: Player.PlayerType, network_id: int, game_id: Player.PlayerID, friendly: Array[Player.PlayerID], actions_remaining: int):
+	func _init(player_type: int, network_id: int, game_id: int, friendly: Array[int], actions_remaining: int):
 		self.player_type = player_type
 		self.network_id = network_id
 		self.game_id = game_id

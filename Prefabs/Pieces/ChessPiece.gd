@@ -4,7 +4,7 @@ extends Node2D
 var board: Board
 var coordinates: Vector2i
 var move_count: int = 0
-var owned_by: Player.PlayerID
+var owned_by: int
 var orientation: ChessPiece.Orientation = Orientation.North
 
 var owned_by_player: Player:
@@ -23,7 +23,7 @@ signal on_kill(killer, victim)
 signal on_killed(killer, victim)
 
 # TODO: Make pieces use different spite based on owner
-func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: Player.PlayerID, _board: Board) -> void:
+func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: int, _board: Board) -> void:
 	self.coordinatess = _coordinates
 	self.orientation = _orientation
 	self.owned_by = _owned_by

@@ -20,13 +20,13 @@ var board: Board
 var players_by_net_id: Dictionary:
 	get:
 		var d = {}
-		for p in Player.players.values():
+		for p in Player.players.keys():
 			d[p.network_id] = p
 		return d
 var players_by_game_id: Dictionary:
 	get:
 		var d = {}
-		for p in Player.players.values():
+		for p in Player.players.keys():
 			d[p.game_id] = p
 		return d
 
@@ -226,7 +226,7 @@ func load_board_state(state: GameSetup.BoardState, players: Dictionary):
 		for piece in player_state.pieces:
 			spawn_piece(piece.type, piece.position, piece.orientation, player_num)
 
-func spawn_piece(piece_type: ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: Player.PlayerID) -> ChessPiece:
+func spawn_piece(piece_type: ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int) -> ChessPiece:
 	var piece: ChessPiece = PrefabController.get_prefab(piece_prefabs[piece_type]).instantiate()
 	var cell = board.get_cell(coordinate)
 	cell.occupying_piece = piece
