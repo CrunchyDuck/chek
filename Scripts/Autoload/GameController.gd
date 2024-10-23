@@ -162,11 +162,12 @@ func create_player(network_id: int):
 			p.game_id = i
 			break
 
-func start_game(json_game_settings: String, board_state: GameSetup.BoardState):
+func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	if multiplayer.is_server:
 		multiplayer.multiplayer_peer.refuse_new_connections = true
 		# TODO: Bot takeover on disconnect
-	game_settings = JsonClassConverter.json_string_to_class(GameSetup.GameSettings, json_game_settings)
+	game_settings = GameSetup.GameSettings.deserialize(json_game_settings)
+	var board_state = GameSetup.BoardState.deserialize(json_board_state)
 	
 	# Spawn board on all clients
 	
