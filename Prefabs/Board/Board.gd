@@ -26,8 +26,6 @@ var node_cells: Control = $Cells
 @onready
 var node_pieces: Control = $Pieces
 
-signal action_performed(action: Board.GameAction)
-
 func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
 	for n in node_cells.get_children():
 		n.queue_free()
@@ -99,7 +97,7 @@ func click_on_cell(new_cell: BoardCell):
 	if new_cell == null or new_cell.selected:
 		deselect_cell()
 	elif new_cell.contained_action != null:
-		perform_action(new_cell.contained_action)
+		GameController.perform_action(new_cell.contained_action)
 		deselect_cell()
 	else:
 		select_cell(new_cell)
@@ -124,39 +122,6 @@ func deselect_cell():
 			cell.reset_state()
 	_selected_cell = null
 
-# TODO: Move this to GameController, likely.
-func perform_action(action: Board.GameAction) -> bool:
-	# Check if action is allowed with GameController/Player object.
-	if not GameController.is_action_legal(action):
-		return false
-	
-	var anything_performed = false
-	var current_action = action
-	while current_action != null:
-		match current_action.type:
-			Board.eActionType.Move:
-				if not _move_to_cell(current_action.source, current_action.target):
-					break
-			Board.eActionType.Attack:
-				if not _attack_to_cell(current_action.source, current_action.target):
-					break
-			Board.eActionType.AttackMove:
-				if not _attack_to_cell(current_action.source, current_action.target):
-					break
-				if not _move_to_cell(current_action.source, current_action.target):
-					break
-			Board.eActionType.Spawn:
-				pass
-			_:
-				assert(false, "Unhandled eActionType type in perform_action")
-		anything_performed = true
-		current_action = current_action.next_action
-		
-	if anything_performed:
-		action_performed.emit(action)
-		return true
-	return false
-
 func _attack_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	var killer = get_cell(source).occupying_piece
 	var victim = get_cell(destination).occupying_piece
@@ -179,6 +144,7 @@ func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	source_cell.occupying_piece = null
 	destination_cell.occupying_piece = piece
 	piece.coordinates = destination_cell.cell_coordinates
+	piece.position = cell_to_position(piece.coordinates)
 	return true
 	
 func _position_board():

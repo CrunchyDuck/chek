@@ -54,7 +54,7 @@ func _ready():
 func _get_references():
 	screen_central = $"/root/MainScene/CentralScreen"
 	
-#region Server signals
+#region Server events
 func start_lobby(_port: int) -> bool:
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_server(_port, max_players)
@@ -90,12 +90,6 @@ func peer_disconnected(id: int):
 func disconnected():
 	# TODO: Player cleanup
 	print("disconnected from server")
-
-# TODO: Maybe move this to a centralized NetworkingController
-func resynchronize_client(client_id: int):
-	# Sync player 
-	# Sync prefabs
-	PrefabController.refresh_networked_nodes.rpc_id(client_id, PrefabController.networked_nodes)
 #endregion
 
 #region Board setups
@@ -178,7 +172,6 @@ func load_board_state(state: GameSetup.BoardState, players: Dictionary):
 		board.visible = false  # Hide until fully loaded
 		screen_central.add_child(board)
 		board.name = "Board"
-		board.action_performed.connect(on_action)
 		board.create_new_grid(state.size)
 	
 	# Spawn pieces
@@ -199,21 +192,55 @@ func spawn_piece(piece_type: ePieces, coordinate: Vector2i, orientation: ChessPi
 	p.pieces.append(piece)
 	return piece
 
-func on_action(action: Board.GameAction):
-	var id = action.player
-	var p = players_by_net_id[id]
-	p.actions_remaining -= 1
+func perform_action(action: Board.GameAction) -> bool:
+	# Check if action is allowed with GameController/Player object.
+	if not GameController.is_action_legal(action):
+		return false
 	
-	# Is turn finished?
-	if p.actions_remaining <= 0:
-		var next_player = players_by_net_id[wrapi(int(id) + 1, 0, Player.players.size())]
-		next_player.actions_remaining += 1
+	var anything_performed = false
+	var current_action = action
+	while current_action != null:
+		match current_action.type:
+			Board.eActionType.Move:
+				if not board._move_to_cell(current_action.source, current_action.target):
+					break
+			Board.eActionType.Attack:
+				if not board._attack_to_cell(current_action.source, current_action.target):
+					break
+			Board.eActionType.AttackMove:
+				if not board._attack_to_cell(current_action.source, current_action.target):
+					break
+				if not board._move_to_cell(current_action.source, current_action.target):
+					break
+			Board.eActionType.Spawn:
+				pass
+			_:
+				assert(false, "Unhandled eActionType type in perform_action")
+		anything_performed = true
+		current_action = current_action.next_action
+		
+	if anything_performed:
+		on_action(action)
+		return true
+	return false
 
 func is_action_legal(action: Board.GameAction):
 	var p = players_by_game_id[action.player]
 	if p.actions_remaining > 0:
 		return true
 	return false
+#endregion
+	
+#region Events
+func on_action(action: Board.GameAction):
+	var id = action.player
+	var p = players_by_game_id[id]
+	p.actions_remaining -= 1
+	
+	# Is turn finished?
+	if p.actions_remaining <= 0:
+		var next_player = players_by_net_id[wrapi(int(id) + 1, 0, Player.players.size())]
+		next_player.actions_remaining += 1
 #endregion
 	
 #region RPCs
