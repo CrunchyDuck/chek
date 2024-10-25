@@ -5,10 +5,14 @@ extends Node2D
 @onready var sprite: Sprite2D = $Sprite2D
 
 var board: Board = null
-var cell_coordinates: Vector2i
+var _cell_coordinates: Vector2i
+var cell_coordinates: Vector2i:
+	get:
+		return _cell_coordinates
+	set(value):
+		_cell_coordinates = value
+		_update_color()
 var _occupying_piece: ChessPiece = null
-# I don't like how much is implicitly done here.
-# If this proves to cause issues, I should go through signals instead, like on_kill
 var occupying_piece: ChessPiece
 
 #region States

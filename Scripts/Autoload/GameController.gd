@@ -220,6 +220,7 @@ func player_loaded():
 	players_loaded += 1
 	if players_loaded == Player.players.size():
 		board.visible = true
+		screen_central.get_node("GameLoading").queue_free()
 
 
 @rpc("authority", "call_local", "reliable")
