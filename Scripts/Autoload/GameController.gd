@@ -193,6 +193,8 @@ func spawn_piece(piece_type: ePieces, coordinate: Vector2i, orientation: ChessPi
 	var cell = board.get_cell(coordinate)
 	cell.occupying_piece = piece
 	piece.Init(coordinate, orientation, owned_by, board)
+	board.node_pieces.add_child(piece)
+	piece.position = board.cell_to_position(coordinate)
 	var p = players_by_game_id[owned_by]
 	p.pieces.append(piece)
 	return piece

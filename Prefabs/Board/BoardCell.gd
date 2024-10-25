@@ -1,8 +1,9 @@
 class_name BoardCell
 extends Node2D
 
-# References
-@onready var sprite: Sprite2D = $Sprite2D
+var sprite: Sprite2D:
+	get:
+		return $Sprite2D
 
 var board: Board = null
 var _cell_coordinates: Vector2i

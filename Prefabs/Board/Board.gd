@@ -40,7 +40,7 @@ func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
 			board_cell.cell_coordinates = Vector2i(x, y)
 			board_cell.board = self
 			node_cells.add_child(board_cell)
-			board_cell.position = Vector2i(x, y) * cell_size
+			board_cell.position = cell_to_position(Vector2i(x, y))
 			row.append(board_cell)
 		grid.append(row)
 	return grid
@@ -68,6 +68,9 @@ func grid_to_position(x: int, y: int) -> Vector2:
 	pos.x += x * cell_size.x
 	pos.y += y * cell_size.y
 	return pos
+
+func cell_to_position(cell: Vector2i) -> Vector2:
+	return cell * cell_size
 
 func position_to_cell(pos: Vector2) -> BoardCell:
 	# Relative to our position
