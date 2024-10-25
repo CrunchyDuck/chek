@@ -1,7 +1,6 @@
 class_name Board
 extends Control
 
-var controller: GameController = null
 var grid_size: Vector2i:
 	get:
 		var y = grid.size()
@@ -16,7 +15,7 @@ var bounds: Vector2:
 var grid: Array[Array] = []  # x/y 2D array
 var board_size: Vector2:
 	get:
-		return Vector2(grid_size * cell_size) * scale
+		return Vector2(grid_size * cell_size)
 
 var _selected_cell: BoardCell = null
 var board_wrapping: bool = false
@@ -72,7 +71,8 @@ func grid_to_position(x: int, y: int) -> Vector2:
 
 func position_to_cell(pos: Vector2) -> BoardCell:
 	# Relative to our position
-	pos -= position
+	# TODO: When I implement the 3D console, this will need to be changed.
+	pos -= global_position
 	if pos.x < 0 or pos.y < 0 or pos.x > bounds.x or pos.y > bounds.x:
 		return null
 	var x = int(pos.x) / cell_size.x
@@ -124,7 +124,7 @@ func deselect_cell():
 # TODO: Move this to GameController, likely.
 func perform_action(action: Board.GameAction) -> bool:
 	# Check if action is allowed with GameController/Player object.
-	if not controller.is_action_legal(action):
+	if not GameController.is_action_legal(action):
 		return false
 	
 	var anything_performed = false

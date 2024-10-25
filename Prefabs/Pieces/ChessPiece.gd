@@ -11,7 +11,7 @@ var owned_by_player: Player:
 	get:
 		if owned_by == null or board == null:
 			return null
-		return GameController.get_player(owned_by)
+		return GameController.players_by_game_id.get(owned_by)
 		
 var in_cell: BoardCell:
 	get:
@@ -69,9 +69,9 @@ func _act_in_line(direction: Vector2i) -> Array[Board.GameAction]:
 		if target_cell == null:
 			break
 		elif _can_attack(target_cell.cell_coordinates):
-			actions.append(Board.GameAction.new(owned_by_player.id, Board.eActionType.AttackMove, coordinates, target_cell.cell_coordinates))
+			actions.append(Board.GameAction.new(owned_by, Board.eActionType.AttackMove, coordinates, target_cell.cell_coordinates))
 		elif _can_move(target_cell.cell_coordinates):
-			actions.append(Board.GameAction.new(owned_by_player.id, Board.eActionType.Move, coordinates, target_cell.cell_coordinates))
+			actions.append(Board.GameAction.new(owned_by, Board.eActionType.Move, coordinates, target_cell.cell_coordinates))
 		
 		# Will be replaced with a modifier check in the future.
 		if target_cell.occupying_piece != null:
@@ -88,9 +88,9 @@ func _act_in_line(direction: Vector2i) -> Array[Board.GameAction]:
 # A standard move or attack to a cell.
 func _act_on_cell(cell: Vector2i) -> Board.GameAction:
 	if _can_attack(cell):
-		return Board.GameAction.new(owned_by_player.id, Board.eActionType.AttackMove, coordinates, cell)
+		return Board.GameAction.new(owned_by, Board.eActionType.AttackMove, coordinates, cell)
 	elif _can_move(cell):
-		return Board.GameAction.new(owned_by_player.id, Board.eActionType.Move, coordinates, cell)
+		return Board.GameAction.new(owned_by, Board.eActionType.Move, coordinates, cell)
 	return null
 		
 enum Orientation {

@@ -161,47 +161,6 @@ func create_player(network_id: int):
 			
 	PrefabController.register_networked_node.rpc("Player", player_path)
 
-@rpc("authority", "call_local", "reliable")
-func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
-	for n in screen_central.get_children():
-		screen_central.remove_child(n)
-		n.queue_free()
-	screen_central.add_child(PrefabController.get_prefab("Menus.GameLoading").instantiate())
-
-	if multiplayer.is_server:
-		multiplayer.multiplayer_peer.refuse_new_connections = true
-		# TODO: Bot takeover on disconnect
-	game_settings = GameSetup.GameSettings.deserialize(json_game_settings)
-	var board_state = GameSetup.BoardState.deserialize(json_board_state)
-	
-	# Spawn board on all clients
-	
-	# Initialize board with size and pieces
-	load_board_state(board_state, players_by_game_id)
-	
-	# Set player states
-	players_by_game_id[0].actions_remaining = 1
-	
-	# Wait until all players are loaded.
-	player_loaded.rpc()
-	
-	pass
-	#var p1 = Player.new(Player.PlayerID.Player1, self)
-	#p1.name = "Oskar Stanislav"
-	#add_child(p1)
-	#player_slots[int(p1.id)].assigned_player = p1
-	#var p2 = AIPlayer.new(Player.PlayerID.Player2, self)
-	#p2.name = "Fyodor Danilski"
-	#add_child(p2)
-	#player_slots[int(p2.id)].assigned_player = p2
-	#
-	#self.players[Player.PlayerID.Player1] = p1
-	#self.players[Player.PlayerID.Player2] = p2
-	#var players: Array[Player] = [p1, p2]
-	#p1.actions_remaining = 1
-	#
-	#load_board_state(standard_board_setup(), players)
-
 func load_board_state(state: GameSetup.BoardState, players: Dictionary):
 	if players.size() != state.players.size():
 		print("Incorrect number of players for board state!")
@@ -217,7 +176,6 @@ func load_board_state(state: GameSetup.BoardState, players: Dictionary):
 	if board == null:
 		board = PrefabController.get_prefab("Board.Board").instantiate()
 		board.visible = false  # Hide until fully loaded
-		board.controller = self
 		screen_central.add_child(board)
 		board.name = "Board"
 		board.action_performed.connect(on_action)
@@ -262,6 +220,31 @@ func player_loaded():
 	players_loaded += 1
 	if players_loaded == Player.players.size():
 		board.visible = true
+
+
+@rpc("authority", "call_local", "reliable")
+func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
+	for n in screen_central.get_children():
+		screen_central.remove_child(n)
+		n.queue_free()
+	screen_central.add_child(PrefabController.get_prefab("Menus.GameLoading").instantiate())
+
+	if multiplayer.is_server:
+		multiplayer.multiplayer_peer.refuse_new_connections = true
+		# TODO: Bot takeover on disconnect
+	game_settings = GameSetup.GameSettings.deserialize(json_game_settings)
+	var board_state = GameSetup.BoardState.deserialize(json_board_state)
+	
+	# Spawn board on all clients
+	
+	# Initialize board with size and pieces
+	load_board_state(board_state, players_by_game_id)
+	
+	# Set player states
+	players_by_game_id[0].actions_remaining = 1
+	
+	# Wait until all players are loaded.
+	player_loaded.rpc()
 #endregion
 
 enum ePieces {
