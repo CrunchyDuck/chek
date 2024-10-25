@@ -8,17 +8,6 @@ var prefabs_filled = false
 # It has a do_synchronize function, which will package variables call and RPC
 var networked_nodes: Dictionary
 
-var prefab_sync_time = 5
-var prefab_sync_timer = 0
-
-func _process(delta: float) -> void:
-	if not multiplayer.is_server():
-		return
-	prefab_sync_time -= delta
-	if prefab_sync_time <= 0:
-		prefab_sync_time += prefab_sync_timer
-		refresh_networked_nodes.rpc(networked_nodes)
-
 func fill_prefabs():
 	var dir = DirAccess.open("res://Prefabs")
 	_parse_directory(dir, [])
@@ -56,15 +45,21 @@ func spawn_prefab(prefab_path: String, node_path: String) -> Node:
 	p.name = node_parts[-1]
 	return p
 
-# Register a node that already exists as a networked node
+@rpc("authority", "call_local", "reliable")
 func register_networked_node(prefab_path: String, node_path: String) -> void:
 	networked_nodes[node_path] = prefab_path
-
-@rpc("authority", "call_remote", "reliable")
-func spawn_networked_node(prefab_path: String, node_path: String) -> void:
-	spawn_prefab(prefab_path, node_path)
-	register_networked_node(prefab_path, node_path)
-
+	
+	# Spawn if it does not exist already
+	var p = get_node_or_null(node_path)
+	if p == null:
+		p = spawn_prefab(prefab_path, node_path)
+	
+	# Call synchronize
+	if multiplayer.is_server():
+		if p.has_method("do_synchronize"):
+			p.do_synchronize()
+	
+# Re synchronize this client with the host.
 @rpc("authority", "call_remote", "reliable")
 func refresh_networked_nodes(servers_nodes: Dictionary):
 	var old_nodes := networked_nodes.duplicate()
@@ -73,8 +68,12 @@ func refresh_networked_nodes(servers_nodes: Dictionary):
 		var prefab_path = servers_nodes[k]
 		if old_nodes.has(k):
 			old_nodes.erase(k)
-			continue
-		register_networked_node(prefab_path, k)
+		else:
+			register_networked_node(prefab_path, k)
+			
+		var obj = get_node(k)
+		if obj.has_method("request_synchronize"):
+			obj.request_synchronize.rpc_id(1, multiplayer.get_unique_id())
 	
 	# Clear up stale objects
 	for k in old_nodes.keys():

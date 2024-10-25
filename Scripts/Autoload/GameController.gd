@@ -41,6 +41,8 @@ var game_settings: GameSetup.GameSettings
 var board_state: GameSetup.BoardState
 var players_loaded: int = 0
 
+const max_players: int = 4
+
 func _ready():
 	_get_references()
 	PrefabController.register_networked_node("", get_path())
@@ -55,7 +57,7 @@ func _get_references():
 #region Server signals
 func start_lobby(_port: int) -> bool:
 	var peer = ENetMultiplayerPeer.new()
-	var err = peer.create_server(_port, 4)
+	var err = peer.create_server(_port, max_players)
 	if err:
 		return false
 	port = _port
@@ -76,14 +78,11 @@ func join_lobby(_ip: String, _port: int) -> bool:
 	multiplayer.multiplayer_peer = peer
 	return true
 
-func connected_to_server():
-	# Request synchronization data from server
-	pass
-
 func peer_connected(id: int):
 	if not multiplayer.is_server():
 		return
 	create_player(id)
+	PrefabController.refresh_networked_nodes.rpc_id(id, PrefabController.networked_nodes)
 
 func peer_disconnected(id: int):
 	get_node("/root/GameController/Player" + str(id)).queue_free()
@@ -153,16 +152,22 @@ func standard_board_setup() -> GameSetup.BoardState:
 func create_player(network_id: int):
 	var player_path = "/root/GameController/Player" + str(network_id)
 	var p = PrefabController.spawn_prefab("Player", player_path)
-	PrefabController.register_networked_node("Player", player_path)
 	p.network_id = network_id
-	players_by_net_id[network_id] = p
 	var gids = players_by_game_id
-	for i in range(4):
+	for i in range(max_players):
 		if not gids.has(i):
 			p.game_id = i
 			break
+			
+	PrefabController.register_networked_node.rpc("Player", player_path)
 
+@rpc("authority", "call_local", "reliable")
 func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
+	for n in screen_central.get_children():
+		screen_central.remove_child(n)
+		n.queue_free()
+	screen_central.add_child(PrefabController.get_prefab("Menus.GameLoading").instantiate())
+
 	if multiplayer.is_server:
 		multiplayer.multiplayer_peer.refuse_new_connections = true
 		# TODO: Bot takeover on disconnect
@@ -200,7 +205,7 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 func load_board_state(state: GameSetup.BoardState, players: Dictionary):
 	if players.size() != state.players.size():
 		print("Incorrect number of players for board state!")
-		return
+		#return
 		
 	# Update player states
 	for player_num in state.players.size():
@@ -257,9 +262,8 @@ func player_loaded():
 	players_loaded += 1
 	if players_loaded == Player.players.size():
 		board.visible = true
-		print("loaded")
 #endregion
-	
+
 enum ePieces {
 	Pawn,
 	Rook,

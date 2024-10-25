@@ -17,15 +17,8 @@ func _ready() -> void:
 func _on_start():
 	var jgs = game_settings.serialize()
 	var jbs = GameController.standard_board_setup().serialize()
-	start_game.rpc(jgs, jbs)
+	GameController.start_game.rpc(jgs, jbs)
 	
-@rpc("authority", "call_local", "reliable")
-func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
-	print("here")
-	$"..".add_child(PrefabController.get_prefab("Menus.GameLoading").instantiate())
-	queue_free()
-	GameController.start_game(json_game_settings, json_board_state)
-
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
 	

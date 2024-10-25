@@ -3,10 +3,9 @@ class_name Player
 
 static var players = {}
 
-var controller: GameController
 var board: Board:
 	get:
-		return controller.board
+		return GameController.board
 
 var player_type: Player.PlayerType = Player.PlayerType.None
 var network_id: int = -1
@@ -28,38 +27,42 @@ func _init():
 func _exit_tree() -> void:
 	players.erase(self)
 
+func serialize() -> Dictionary:
+	var d = {}
+	d["player_type"] = self.player_type
+	d["network_id"] = self.network_id
+	d["game_id"] = self.game_id
+	d["friendly"] = self.friendly
+	d["actions_remaining"] = self.actions_remaining
+	return d
+	
+func deserialize(data: Dictionary):
+	self.player_type = data["player_type"]
+	self.network_id = data["network_id"]
+	self.game_id = data["game_id"]
+	self.friendly = data["friendly"]
+	self.actions_remaining = data["actions_remaining"]
+
 func do_synchronize():
-	if not multiplayer.is_server:
+	if not multiplayer.is_server():
 		return
-	var dat = JsonClassConverter.class_to_json(PlayerData.new(player_type, network_id, game_id, friendly, actions_remaining))
-	synchronize.rpc(dat)
+	synchronize.rpc(serialize())
+	
+@rpc("any_peer", "call_local", "reliable")
+func request_synchronize(to_peer: int):
+	if not multiplayer.is_server():
+		return
+	if not to_peer in multiplayer.get_peers():
+		print("Requested synchronization to peer that didn't exist: " + str(to_peer))
+		return
+	synchronize.rpc_id(to_peer, serialize())
 
 @rpc("authority", "call_remote", "reliable")
 func synchronize(data: Dictionary):
-	var dat: Player.PlayerData = JsonClassConverter.json_to_class(Player.PlayerData, data)
-	# Unpack
-	player_type = dat.player_type
-	network_id = dat.network_id
-	game_id = dat.game_id
-	friendly = dat.friendly
-	actions_remaining = dat.actions_remaining
+	deserialize(data)
 
 enum PlayerType {
 	None,
 	Human,
 	AI,
 }
-
-class PlayerData:
-	var player_type: Player.PlayerType
-	var network_id: int
-	var game_id: int
-	var friendly: Array[int]
-	var actions_remaining: int
-	
-	func _init(player_type: int, network_id: int, game_id: int, friendly: Array[int], actions_remaining: int):
-		self.player_type = player_type
-		self.network_id = network_id
-		self.game_id = game_id
-		self.friendly = friendly
-		self.actions_remaining = actions_remaining
