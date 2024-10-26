@@ -192,7 +192,24 @@ func spawn_piece(piece_type: ePieces, coordinate: Vector2i, orientation: ChessPi
 	p.pieces.append(piece)
 	return piece
 
-func perform_action(action: Board.GameAction) -> bool:
+@rpc("any_peer", "call_local", "reliable")
+func try_perform_action(game_action_data: Dictionary) -> void:
+	if not multiplayer.is_server():
+		return
+	
+	# Is the person trying to perform the action actually the owner?
+	var player = players_by_game_id.get(game_action_data.player)
+	if not (player != null and player == players_by_net_id[multiplayer.get_remote_sender_id()]):
+		return
+	
+	# Try this action on the server
+	if perform_action(game_action_data):
+		perform_action.rpc(game_action_data)
+
+@rpc("authority", "call_remote", "reliable")
+func perform_action(game_action_data: Dictionary) -> bool:
+	print("here")
+	var action: Board.GameAction = Board.GameAction.deserialize(game_action_data)
 	# Check if action is allowed with GameController/Player object.
 	if not GameController.is_action_legal(action):
 		return false

@@ -97,7 +97,7 @@ func click_on_cell(new_cell: BoardCell):
 	if new_cell == null or new_cell.selected:
 		deselect_cell()
 	elif new_cell.contained_action != null:
-		GameController.perform_action(new_cell.contained_action)
+		GameController.try_perform_action.rpc_id(1, new_cell.contained_action.serialize())
 		deselect_cell()
 	else:
 		select_cell(new_cell)
@@ -153,7 +153,7 @@ func _position_board():
 	position = new_position
 
 class GameAction:
-	# Describes an action that has taken place on the board.
+	# Describes an action that to take place on the board.
 	var player: int
 	var type: Board.eActionType
 	var source: Vector2i
@@ -166,6 +166,31 @@ class GameAction:
 		self.source = source
 		self.target = target
 		self.next_action = next_action
+	
+	func serialize() -> Dictionary:
+		var d = {}
+		d.player = player
+		d.type = type
+		d.source = source
+		d.target = target
+		d.next_action = {}
+		if next_action != null:
+			d.next_action = next_action.serialize()
+		return d
+	
+	static func deserialize(data: Dictionary) -> GameAction:
+		var next_act = null
+		if not data.next_action.is_empty():
+			next_act = GameAction.deserialize(data.next_action)	
+			
+		var ga = GameAction.new(
+			data.player,
+			data.type,
+			data.source,
+			data.target,
+			next_act,
+		)
+		return ga
 
 enum eActionType {
 	Move,
