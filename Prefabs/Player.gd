@@ -10,7 +10,7 @@ var board: Board:
 var player_type: Player.PlayerType = Player.PlayerType.None
 var network_id: int = -1
 var game_id: int = -1
-var friendly: Array[int] = [game_id]
+var friendly: Array[int] = []
 var actions_remaining: int = 0
 var character_name: String
 

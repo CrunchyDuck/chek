@@ -77,7 +77,6 @@ class PlayerState:
 		ps.actions_remaining = json_player_state["actions_remaining"]
 		for p in json_player_state["pieces"]:
 			ps.pieces.append(PieceState.deserialize(p))
-		
 		return ps
 
 class PieceState:

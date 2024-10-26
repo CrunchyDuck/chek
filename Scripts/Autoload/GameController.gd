@@ -271,6 +271,10 @@ func player_loaded():
 
 @rpc("authority", "call_local", "reliable")
 func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
+	# make people like themselves
+	for p in Player.players:
+		p.friendly.append(p.game_id)
+		
 	for n in screen_central.get_children():
 		screen_central.remove_child(n)
 		n.queue_free()
