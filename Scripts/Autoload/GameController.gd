@@ -208,7 +208,6 @@ func try_perform_action(game_action_data: Dictionary) -> void:
 
 @rpc("authority", "call_remote", "reliable")
 func perform_action(game_action_data: Dictionary) -> bool:
-	print("here")
 	var action: Board.GameAction = Board.GameAction.deserialize(game_action_data)
 	# Check if action is allowed with GameController/Player object.
 	if not GameController.is_action_legal(action):
@@ -256,7 +255,8 @@ func on_action(action: Board.GameAction):
 	
 	# Is turn finished?
 	if p.actions_remaining <= 0:
-		var next_player = players_by_net_id[wrapi(int(id) + 1, 0, Player.players.size())]
+		print("here")
+		var next_player = players_by_game_id[wrapi(int(id) + 1, 0, Player.players.size())]
 		next_player.actions_remaining += 1
 #endregion
 	
