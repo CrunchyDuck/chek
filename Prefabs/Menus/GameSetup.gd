@@ -7,6 +7,8 @@ var settings: GameSetup.GameSettings
 var button_start: Button = $Start
 @onready
 var button_divine_wind: CheckBox = $Settings/DivineWind/CheckBox
+@onready
+var button_no_retreat: CheckBox = $Settings/NoRetreat/CheckBox
 
 func _ready() -> void:
 	button_start.pressed.connect(_on_start)
@@ -14,6 +16,7 @@ func _ready() -> void:
 		button_start.disabled = true
 	
 	button_divine_wind.pressed.connect(_on_change)
+	button_no_retreat.pressed.connect(_on_change)
 	
 	settings = gather_settings()
 
@@ -30,6 +33,7 @@ func _on_start():
 func gather_settings() -> GameSetup.GameSettings:
 	var settings = GameSetup.GameSettings.new()
 	settings.divine_wind = button_divine_wind.button_pressed
+	settings.no_retreat = button_no_retreat.button_pressed
 	return settings
 
 @rpc("any_peer", "call_local", "reliable", 0)
@@ -41,17 +45,19 @@ class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
 	
 	var divine_wind: bool = false
+	var no_retreat: bool = false
 	
 	func serialize() -> Dictionary:
 		var d = {}
 		d.board_size = board_size
 		d.divine_wind = divine_wind
+		d.no_retreat = no_retreat
 		return d
 	
 	static func deserialize(json_game_settings) -> GameSettings:
 		var gs = GameSettings.new()
 		gs.board_size = json_game_settings.board_size
-		gs.divine_wind = json_game_settings.divine_wind
+		gs.no_retreat = json_game_settings.no_retreat
 		
 		return gs
 
@@ -115,7 +121,7 @@ class PieceState:
 		
 	func serialize() -> Dictionary:
 		var d = {}
-		d.types = type
+		d.type = type
 		d.position = position
 		d.orientation = orientation
 		return d
