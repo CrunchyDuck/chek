@@ -69,11 +69,8 @@ func _act_in_line(direction: Vector2i) -> Array[Board.GameAction]:
 		# Off the board.
 		if target_cell == null:
 			break
-		elif _can_attack(target_cell.cell_coordinates):
-			actions.append(Board.GameAction.new(owned_by, Board.eActionType.AttackMove, coordinates, target_cell.cell_coordinates))
-		elif _can_move(target_cell.cell_coordinates):
-			actions.append(Board.GameAction.new(owned_by, Board.eActionType.Move, coordinates, target_cell.cell_coordinates))
-		
+		actions.append(_act_on_cell(target_cell.cell_coordinates))
+
 		# Will be replaced with a modifier check in the future.
 		if target_cell.occupying_piece != null:
 			break
@@ -88,6 +85,12 @@ func _act_in_line(direction: Vector2i) -> Array[Board.GameAction]:
 
 # A standard move or attack to a cell.
 func _act_on_cell(cell: Vector2i) -> Board.GameAction:
+	# TODO: Change piece orientation when reaching end of board
+	if board.game_settings.no_retreat:
+		var to_cell = _rotate_to_orientation(cell - coordinates)
+		if to_cell.y < 0:
+			return null
+	
 	if _can_attack(cell):
 		return Board.GameAction.new(owned_by, Board.eActionType.AttackMove, coordinates, cell)
 	elif _can_move(cell):
