@@ -1,6 +1,8 @@
 class_name GameSetup
 extends Control
 
+var settings: GameSetup.GameSettings
+
 @onready
 var button_start: Button = $Start
 @onready
@@ -11,6 +13,13 @@ func _ready() -> void:
 	if not multiplayer.is_server():
 		button_start.disabled = true
 	
+	button_divine_wind.pressed.connect(_on_change)
+	
+	settings = gather_settings()
+
+func _on_change():
+	load_settings.rpc(gather_settings().serialize())
+	
 func _on_start():
 	var settings = gather_settings()
 	
@@ -18,11 +27,15 @@ func _on_start():
 	var jbs = GameController.standard_board_setup().serialize()
 	GameController.start_game.rpc(jgs, jbs)
 	
-func gather_settings() -> GameSettings:
+func gather_settings() -> GameSetup.GameSettings:
 	var settings = GameSetup.GameSettings.new()
-	settings.divine_wind = button_divine_wind.toggle_mode
-	
+	settings.divine_wind = button_divine_wind.button_pressed
 	return settings
+
+@rpc("any_peer", "call_local", "reliable", 0)
+func load_settings(json_settings: Dictionary):
+	settings = GameSetup.GameSettings.deserialize(json_settings)
+	button_divine_wind.button_pressed = settings.divine_wind
 	
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
@@ -31,13 +44,13 @@ class GameSettings:
 	
 	func serialize() -> Dictionary:
 		var d = {}
-		d["board_size"] = board_size
+		d.board_size = board_size
 		d.divine_wind = divine_wind
 		return d
 	
 	static func deserialize(json_game_settings) -> GameSettings:
 		var gs = GameSettings.new()
-		gs.board_size = json_game_settings["board_size"]
+		gs.board_size = json_game_settings.board_size
 		gs.divine_wind = json_game_settings.divine_wind
 		
 		return gs
@@ -78,8 +91,8 @@ class PlayerState:
 		var _pieces = []
 		for p in pieces:
 			_pieces.append(p.serialize())
-		d["pieces"] = _pieces
-		d["actions_remaining"] = actions_remaining
+		d.pieces = _pieces
+		d.actions_remaining = actions_remaining
 		return d
 		
 	static func deserialize(json_player_state: Dictionary) -> PlayerState:
@@ -102,14 +115,14 @@ class PieceState:
 		
 	func serialize() -> Dictionary:
 		var d = {}
-		d["type"] = type
-		d["position"] = position
-		d["orientation"] = orientation
+		d.types = type
+		d.position = position
+		d.orientation = orientation
 		return d
 	
 	static func deserialize(json_piece_state: Dictionary) -> PieceState:
 		return PieceState.new(
-			json_piece_state["type"],
-			json_piece_state["position"],
-			json_piece_state["orientation"]
+			json_piece_state.type,
+			json_piece_state.position,
+			json_piece_state.orientation
 		)
