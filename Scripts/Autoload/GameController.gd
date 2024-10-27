@@ -226,6 +226,7 @@ func perform_action(game_action_data: Dictionary) -> bool:
 			Board.eActionType.AttackMove:
 				if not board._attack_to_cell(current_action.source, current_action.target):
 					break
+				anything_performed = true
 				if not board._move_to_cell(current_action.source, current_action.target):
 					break
 			Board.eActionType.Spawn:

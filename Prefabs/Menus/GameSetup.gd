@@ -1,23 +1,28 @@
 class_name GameSetup
 extends Control
 
-var game_settings
-
 @onready
 var button_start: Button = $Start
+@onready
+var button_divine_wind: CheckBox = $Settings/DivineWind/CheckBox
 
 func _ready() -> void:
 	button_start.pressed.connect(_on_start)
 	if not multiplayer.is_server():
 		button_start.disabled = true
 	
-	game_settings = GameSettings.new()
-	print(get_path())
-	
 func _on_start():
-	var jgs = game_settings.serialize()
+	var settings = gather_settings()
+	
+	var jgs = settings.serialize()
 	var jbs = GameController.standard_board_setup().serialize()
 	GameController.start_game.rpc(jgs, jbs)
+	
+func gather_settings() -> GameSettings:
+	var settings = GameSetup.GameSettings.new()
+	settings.divine_wind = button_divine_wind.toggle_mode
+	
+	return settings
 	
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)

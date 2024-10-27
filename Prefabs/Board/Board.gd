@@ -205,5 +205,4 @@ enum eActionType {
 	Attack,
 	AttackMove,  # Not quite, but almost shorthand for "attack this tile, then move then." Changed by some modifiers.
 	Spawn,
-	Die,
 }
