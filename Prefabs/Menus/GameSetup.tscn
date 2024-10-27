@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://vux5adtj7ccl"]
+[gd_scene load_steps=3 format=3 uid="uid://vux5adtj7ccl"]
 
 [ext_resource type="Script" path="res://Prefabs/Menus/GameSetup.gd" id="1_1hgox"]
+[ext_resource type="Script" path="res://Scripts/CustomNodes/VBoxRigid.gd" id="2_f3i21"]
 
 [node name="LobbySetup" type="Control"]
 layout_mode = 3
@@ -24,3 +25,78 @@ offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "START"
+
+[node name="Settings" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(650, 0)
+layout_mode = 1
+offset_right = 650.0
+offset_bottom = 98.0
+script = ExtResource("2_f3i21")
+fixed_height = 30.0
+
+[node name="TitleBack" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(650, 30)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="Settings/TitleBack"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_right = 247.0
+offset_bottom = 16.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "CONFIGURATION"
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="Settings/TitleBack"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = -21.5
+offset_bottom = 21.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "BACK"
+
+[node name="Padding" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(650, 30)
+layout_mode = 2
+
+[node name="DivineWind" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(650, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/DivineWind"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 102.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "DIVINE WIND"
+vertical_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="Settings/DivineWind"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)

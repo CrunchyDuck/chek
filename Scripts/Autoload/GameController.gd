@@ -92,7 +92,7 @@ func disconnected():
 	print("disconnected from server")
 #endregion
 
-#region Board setups
+#region Board configurations
 func standard_board_setup() -> GameSetup.BoardState:
 	var board = GameSetup.BoardState.new(Vector2i(8, 8))
 	var p1 = GameSetup.PlayerState.new()
@@ -255,7 +255,6 @@ func on_action(action: Board.GameAction):
 	
 	# Is turn finished?
 	if p.actions_remaining <= 0:
-		print("here")
 		var next_player = players_by_game_id[wrapi(int(id) + 1, 0, Player.players.size())]
 		next_player.actions_remaining += 1
 #endregion

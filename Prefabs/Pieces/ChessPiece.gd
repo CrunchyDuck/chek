@@ -28,6 +28,7 @@ func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_b
 	self.orientation = _orientation
 	self.owned_by = _owned_by
 	self.board = _board
+	on_killed.connect(_on_killed)
 
 # This lets us rotate vectors to be from the perspective of its team.
 # y = 1 for the top of the board (Black, in a normal game), will be y = -1 relative to their facing.
@@ -92,6 +93,9 @@ func _act_on_cell(cell: Vector2i) -> Board.GameAction:
 	elif _can_move(cell):
 		return Board.GameAction.new(owned_by, Board.eActionType.Move, coordinates, cell)
 	return null
+		
+func _on_killed(killer: ChessPiece, victim: ChessPiece):
+	queue_free()
 		
 enum Orientation {
 	# South is the start as y is down in Godot.

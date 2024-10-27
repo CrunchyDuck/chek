@@ -20,6 +20,10 @@ var board_size: Vector2:
 var _selected_cell: BoardCell = null
 var board_wrapping: bool = false
 
+var game_settings: GameSetup.GameSettings:
+	get:
+		return GameController.game_settings
+
 @onready
 var node_cells: Control = $Cells
 
@@ -130,6 +134,9 @@ func _attack_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	killer.on_kill.emit(killer, victim)
 	victim.on_killed.emit(killer, victim)
 	get_cell(destination).occupying_piece = null
+	if game_settings.divine_wind:
+		killer.on_killed.emit(killer, killer)
+		get_cell(source).occupying_piece = null
 	return true
 	
 func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
@@ -198,4 +205,5 @@ enum eActionType {
 	Attack,
 	AttackMove,  # Not quite, but almost shorthand for "attack this tile, then move then." Changed by some modifiers.
 	Spawn,
+	Die,
 }

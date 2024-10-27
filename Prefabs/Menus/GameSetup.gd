@@ -22,14 +22,19 @@ func _on_start():
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
 	
+	var divine_wind: bool = false
+	
 	func serialize() -> Dictionary:
 		var d = {}
 		d["board_size"] = board_size
+		d.divine_wind = divine_wind
 		return d
 	
 	static func deserialize(json_game_settings) -> GameSettings:
 		var gs = GameSettings.new()
 		gs.board_size = json_game_settings["board_size"]
+		gs.divine_wind = json_game_settings.divine_wind
+		
 		return gs
 
 class BoardState:
