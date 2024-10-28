@@ -74,6 +74,11 @@ func grid_to_position(x: int, y: int) -> Vector2:
 func cell_to_position(cell: Vector2i) -> Vector2:
 	return cell * cell_size
 
+func is_coordinate_in_bounds(coordinate: Vector2i) -> bool:
+	var x = coordinate.x
+	var y = coordinate.y
+	return x >= 0 and y >= 0 and x < grid_size.x and y < grid_size.y
+
 func position_to_cell(pos: Vector2) -> BoardCell:
 	# Relative to our position
 	# TODO: When I implement the 3D console, this will need to be changed.
@@ -86,16 +91,14 @@ func position_to_cell(pos: Vector2) -> BoardCell:
 	return grid[y][x]
 
 func get_cell(pos: Vector2i) -> BoardCell:
-	var x = pos.x
-	var y = pos.y
 	if board_wrapping:
-		x = wrapi(x, 0, grid_size.x - 1)
-		y = wrapi(x, 0, grid_size.y - 1)
+		pos.x = wrapi(pos.x, 0, grid_size.x - 1)
+		pos.y = wrapi(pos.y, 0, grid_size.y - 1)
 	
-	if x < 0 or y < 0 or x > (grid_size.x - 1) or y > (grid_size.y - 1):
+	if not is_coordinate_in_bounds(pos):
 		return null
 	
-	return grid[y][x]
+	return grid[pos.y][pos.x]
 
 func click_on_cell(new_cell: BoardCell):
 	if new_cell == null or new_cell.selected:
@@ -152,6 +155,11 @@ func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	destination_cell.occupying_piece = piece
 	piece.coordinates = destination_cell.cell_coordinates
 	piece.position = cell_to_position(piece.coordinates)
+	
+	# Rotate piece if at the end of the board.
+	var cell_ahead = piece.coordinates + piece._rotate_to_orientation(Vector2i(0, 1))
+	if not is_coordinate_in_bounds(cell_ahead):
+		piece.orientation = wrapi(piece.orientation + 180, 0, 360)
 	return true
 	
 func _position_board():

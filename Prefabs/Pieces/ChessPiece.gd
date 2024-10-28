@@ -1,11 +1,19 @@
 class_name ChessPiece
-extends Node2D
+extends Sprite2D
+
+var node_sprite: Sprite2D = self
 
 var board: Board
 var coordinates: Vector2i
 var move_count: int = 0
 var owned_by: int
-var orientation: ChessPiece.Orientation = Orientation.North
+var _orientation: ChessPiece.Orientation = Orientation.North
+var orientation: ChessPiece.Orientation:
+	get:
+		return _orientation
+	set(value):
+		_orientation = value
+		node_sprite.rotation_degrees = float(orientation - 180)
 
 var owned_by_player: Player:
 	get:
@@ -41,6 +49,8 @@ func _rotate_to_orientation(vec: Vector2i) -> Vector2i:
 
 func highlight_board_cells(actions: Array[Board.GameAction]):
 	for action in actions:
+		if action == null:
+			continue
 		var target_cell = board.get_cell(action.target)
 		target_cell.contained_action = action
 		
@@ -85,7 +95,6 @@ func _act_in_line(direction: Vector2i) -> Array[Board.GameAction]:
 
 # A standard move or attack to a cell.
 func _act_on_cell(cell: Vector2i) -> Board.GameAction:
-	# TODO: Change piece orientation when reaching end of board
 	if board.game_settings.no_retreat:
 		var to_cell = _rotate_to_orientation(cell - coordinates)
 		if to_cell.y < 0:
