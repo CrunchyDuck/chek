@@ -17,8 +17,6 @@ albedo_texture = SubResource("ViewportTexture_tujfv")
 
 [node name="Lobby" parent="." instance=ExtResource("1_qe0gb")]
 
-[node name="ColorPalette" parent="." instance=ExtResource("1_h37ii")]
-
 [node name="ViewportCentralScreen" type="SubViewport" parent="."]
 size = Vector2i(650, 650)
 
@@ -40,6 +38,8 @@ theme = ExtResource("4_qgfyp")
 
 [node name="Start" parent="ViewportCentralScreen/CentralScreen" instance=ExtResource("4_8ew3x")]
 layout_mode = 1
+
+[node name="ColorPalette" parent="ViewportCentralScreen" instance=ExtResource("1_h37ii")]
 
 [node name="Console" parent="." instance=ExtResource("5_5g5io")]
 
