@@ -13,19 +13,19 @@ var assigned_player: Player
 
 
 func _process(delta: float) -> void:
-	if assigned_player == null:
-		node_player_type.texture = null
-		node_name.text = ""
-		node_can_move.texture = null
-		return
-	
-	node_player_type.texture = player_sprite
-	if assigned_player is AIPlayer:
-		node_player_type.texture = ai_sprite
-		
-	node_name.text = assigned_player.name
-	
-	node_can_move.texture = sprite_negative
-	if assigned_player.can_move:
-		node_can_move.texture = sprite_positive
-	
+  if assigned_player == null:
+    node_player_type.texture = null
+    node_name.text = ""
+    node_can_move.texture = null
+    return
+  
+  node_player_type.texture = player_sprite
+  if assigned_player is AIPlayer:
+    node_player_type.texture = ai_sprite
+    
+  node_name.text = assigned_player.name
+  
+  node_can_move.texture = sprite_negative
+  if assigned_player.can_move:
+    node_can_move.texture = sprite_positive
+  

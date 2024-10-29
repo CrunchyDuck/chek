@@ -6,6 +6,7 @@
 [node name="Lobby" type="Node"]
 
 [node name="ConnectionAddress" type="HBoxContainer" parent="."]
+visible = false
 offset_right = 204.0
 offset_bottom = 74.0
 theme = ExtResource("1_hn4vo")
@@ -40,6 +41,7 @@ text = "25565"
 max_length = 18
 
 [node name="PlayerStates" type="VBoxContainer" parent="."]
+visible = false
 offset_top = 152.0
 offset_right = 341.0
 offset_bottom = 368.0
