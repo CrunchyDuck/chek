@@ -30,6 +30,11 @@ var node_cells: Control = $Cells
 @onready
 var node_pieces: Control = $Pieces
 
+func _ready():
+  # This is to make the sprites not go below 0,0 in this object
+  node_cells.position += Vector2(cell_size) / 2
+  node_pieces.position += Vector2(cell_size) / 2
+
 func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
   for n in node_cells.get_children():
     n.queue_free()
@@ -65,6 +70,7 @@ func _on_click(_event: InputEventMouseButton):
   else:
     deselect_cell()
 
+#region Cell selection
 func grid_to_position(x: int, y: int) -> Vector2:
   var pos: Vector2
   pos.x += x * cell_size.x
@@ -73,11 +79,6 @@ func grid_to_position(x: int, y: int) -> Vector2:
 
 func cell_to_position(cell: Vector2i) -> Vector2:
   return cell * cell_size
-
-func is_coordinate_in_bounds(coordinate: Vector2i) -> bool:
-  var x = coordinate.x
-  var y = coordinate.y
-  return x >= 0 and y >= 0 and x < grid_size.x and y < grid_size.y
 
 func position_to_cell(pos: Vector2) -> BoardCell:
   # Relative to our position
@@ -99,6 +100,12 @@ func get_cell(pos: Vector2i) -> BoardCell:
     return null
   
   return grid[pos.y][pos.x]
+
+func is_coordinate_in_bounds(coordinate: Vector2i) -> bool:
+  var x = coordinate.x
+  var y = coordinate.y
+  return x >= 0 and y >= 0 and x < grid_size.x and y < grid_size.y
+#endregion
 
 func click_on_cell(new_cell: BoardCell):
   if new_cell == null or new_cell.selected:
@@ -122,7 +129,7 @@ func select_cell(to_cell: BoardCell):
   
   var actions = _selected_cell.occupying_piece._get_actions()
   _selected_cell.occupying_piece.highlight_board_cells(actions)
-    
+
 func deselect_cell():
   for column in grid:
     for cell in column:
