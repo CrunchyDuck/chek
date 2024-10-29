@@ -9,5 +9,4 @@ z_as_relative = false
 texture_filter = 1
 scale = Vector2(2, 2)
 texture = ExtResource("1_iyyxb")
-centered = false
 script = ExtResource("2_75vbw")

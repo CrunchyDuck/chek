@@ -7,5 +7,4 @@
 z_index = 100
 z_as_relative = false
 texture = ExtResource("1_4g2nb")
-centered = false
 script = ExtResource("2_mlaod")

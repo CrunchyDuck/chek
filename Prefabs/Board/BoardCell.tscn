@@ -10,4 +10,3 @@ script = ExtResource("1_63bnx")
 z_index = -100
 z_as_relative = false
 texture = ExtResource("1_6ypeu")
-centered = false
