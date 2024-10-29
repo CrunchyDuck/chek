@@ -1,9 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=8 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/Menus/Start.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
+[ext_resource type="PackedScene" uid="uid://blh3h17c3q81i" path="res://Prefabs/Console.tscn" id="5_5g5io"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tujfv"]
+viewport_path = NodePath("ViewportCentralScreen")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l45kk"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_tujfv")
 
 [node name="MainScene" type="Node"]
 
@@ -11,7 +19,10 @@
 
 [node name="ColorPalette" parent="." instance=ExtResource("1_h37ii")]
 
-[node name="CentralScreen" type="Control" parent="."]
+[node name="ViewportCentralScreen" type="SubViewport" parent="."]
+size = Vector2i(650, 650)
+
+[node name="CentralScreen" type="Control" parent="ViewportCentralScreen"]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 8
@@ -27,5 +38,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_qgfyp")
 
-[node name="Start" parent="CentralScreen" instance=ExtResource("4_8ew3x")]
+[node name="Start" parent="ViewportCentralScreen/CentralScreen" instance=ExtResource("4_8ew3x")]
 layout_mode = 1
+
+[node name="Console" parent="." instance=ExtResource("5_5g5io")]
+
+[node name="screen_main" parent="Console/front_panel" index="5"]
+material_override = SubResource("StandardMaterial3D_l45kk")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.706, 1.006)
+fov = 35.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3954, 1.06347)
+light_color = Color(1, 0.780392, 0.560784, 1)
+light_energy = 0.5
+
+[editable path="Console"]
