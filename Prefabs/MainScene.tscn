@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=12 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
 [ext_resource type="PackedScene" uid="uid://blh3h17c3q81i" path="res://Prefabs/Console.tscn" id="5_5g5io"]
 [ext_resource type="Script" path="res://ClickableScreen.gd" id="6_123xs"]
+[ext_resource type="Script" path="res://PlayerIndicator.gd" id="7_q5tya"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7pocc"]
 viewport_path = NodePath("ViewportCentralScreen")
@@ -64,6 +65,14 @@ node_area = NodePath("Area3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/screen_main/Area3D"]
 shape = SubResource("BoxShape3D_tkld5")
+
+[node name="indicator1_p1" parent="Console/left_panel" index="3"]
+script = ExtResource("7_q5tya")
+
+[node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29582, 1.45399, -8.38137)
+light_color = Color(1, 0.333333, 0, 1)
+light_energy = 0.01
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.706, 1.006)
