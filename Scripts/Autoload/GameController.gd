@@ -52,7 +52,7 @@ func _ready():
   character_name = name_list.pick_random()
   
 func _get_references():
-  screen_central = $"/root/MainScene/CentralScreen"
+  screen_central = $"/root/MainScene/ViewportCentralScreen/CentralScreen"
   
 #region Server events
 func start_lobby(_port: int) -> bool:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=13 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -21,6 +21,9 @@ size = Vector2(2.325, 2.325)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tkld5"]
 size = Vector3(2.325, 0, 2.325)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wefqq"]
+shading_mode = 0
 
 [node name="MainScene" type="Node"]
 
@@ -67,12 +70,15 @@ node_area = NodePath("Area3D")
 shape = SubResource("BoxShape3D_tkld5")
 
 [node name="indicator1_p1" parent="Console/left_panel" index="3"]
+layers = 2
+material_override = SubResource("StandardMaterial3D_wefqq")
 script = ExtResource("7_q5tya")
 
 [node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p1" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29582, 1.45399, -8.38137)
 light_color = Color(1, 0.333333, 0, 1)
 light_energy = 0.01
+light_cull_mask = 4294966273
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.706, 1.006)
