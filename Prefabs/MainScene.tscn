@@ -1,17 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=11 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/Menus/Start.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
 [ext_resource type="PackedScene" uid="uid://blh3h17c3q81i" path="res://Prefabs/Console.tscn" id="5_5g5io"]
+[ext_resource type="Script" path="res://ClickableScreen.gd" id="6_123xs"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_tujfv"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_7pocc"]
 viewport_path = NodePath("ViewportCentralScreen")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l45kk"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_tujfv")
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_7pocc")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bc7ol"]
+size = Vector2(2.325, 2.325)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tkld5"]
+size = Vector3(2.325, 0, 2.325)
 
 [node name="MainScene" type="Node"]
 
@@ -43,8 +51,19 @@ layout_mode = 1
 
 [node name="Console" parent="." instance=ExtResource("5_5g5io")]
 
-[node name="screen_main" parent="Console/front_panel" index="5"]
+[node name="screen_main" parent="Console/front_panel" index="5" node_paths=PackedStringArray("node_viewport", "node_quad", "node_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1787, -7.11905)
 material_override = SubResource("StandardMaterial3D_l45kk")
+mesh = SubResource("PlaneMesh_bc7ol")
+script = ExtResource("6_123xs")
+node_viewport = NodePath("../../../ViewportCentralScreen")
+node_quad = NodePath(".")
+node_area = NodePath("Area3D")
+
+[node name="Area3D" type="Area3D" parent="Console/front_panel/screen_main" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/screen_main/Area3D"]
+shape = SubResource("BoxShape3D_tkld5")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.706, 1.006)
@@ -52,7 +71,7 @@ fov = 35.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3954, 1.06347)
-light_color = Color(1, 0.780392, 0.560784, 1)
+light_color = Color(0.890196, 0.913725, 1, 1)
 light_energy = 0.5
 
 [editable path="Console"]

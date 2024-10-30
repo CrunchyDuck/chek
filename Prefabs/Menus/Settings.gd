@@ -11,20 +11,20 @@ var button_previous: Button = $Settings1/Palette/PaletteValue/Previous
 var button_next: Button = $Settings1/Palette/PaletteValue/Next
 
 func _ready() -> void:
-	button_back.pressed.connect(_on_back)
-	
-	button_previous.pressed.connect(_on_previous_palette)
-	button_next.pressed.connect(_on_next_palette)
+  button_back.pressed.connect(_on_back)
+  
+  button_previous.pressed.connect(_on_previous_palette)
+  button_next.pressed.connect(_on_next_palette)
 
 func _process(delta: float) -> void:
-	label_palette.text = ColorControllers.current_palette_name
+  label_palette.text = ColorControllers.current_palette_name
 
 func _on_previous_palette():
-	ColorControllers.previous_palette()
-	
+  ColorControllers.previous_palette()
+  
 func _on_next_palette():
-	ColorControllers.next_palette()
+  ColorControllers.next_palette()
 
 func _on_back():
-	$"..".add_child(PrefabController.get_prefab("Menus.Start").instantiate())
-	queue_free()
+  $"..".add_child(PrefabController.get_prefab("Menus.Start").instantiate())
+  queue_free()
