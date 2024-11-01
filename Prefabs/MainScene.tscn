@@ -4,9 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/Menus/Start.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
-[ext_resource type="PackedScene" uid="uid://blh3h17c3q81i" path="res://Prefabs/Console.tscn" id="5_5g5io"]
+[ext_resource type="PackedScene" path="res://Prefabs/Console.tscn" id="5_5g5io"]
 [ext_resource type="Script" path="res://ClickableScreen.gd" id="6_123xs"]
 [ext_resource type="Script" path="res://PlayerIndicator.gd" id="7_q5tya"]
+[ext_resource type="Material" uid="uid://biy8dxo1js2hm" path="res://Shaders/IndicatorLight.tres" id="7_xbu34"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7pocc"]
 viewport_path = NodePath("ViewportCentralScreen")
@@ -21,9 +22,6 @@ size = Vector2(2.325, 2.325)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tkld5"]
 size = Vector3(2.325, 0, 2.325)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wefqq"]
-shading_mode = 0
 
 [node name="MainScene" type="Node"]
 
@@ -71,14 +69,53 @@ shape = SubResource("BoxShape3D_tkld5")
 
 [node name="indicator1_p1" parent="Console/left_panel" index="3"]
 layers = 2
-material_override = SubResource("StandardMaterial3D_wefqq")
+material_override = ExtResource("7_xbu34")
 script = ExtResource("7_q5tya")
 
 [node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p1" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29582, 1.45399, -8.38137)
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.11395, 1.65166, -8.38137)
 light_color = Color(1, 0.333333, 0, 1)
-light_energy = 0.01
-light_cull_mask = 4294966273
+light_energy = 0.1
+light_cull_mask = 4294967293
+
+[node name="indicator1_p2" parent="Console/left_panel" index="4"]
+layers = 2
+material_override = ExtResource("7_xbu34")
+script = ExtResource("7_q5tya")
+
+[node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p2" index="0"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.11395, 1.65166, -7.78902)
+light_energy = 0.1
+
+[node name="indicator1_p3" parent="Console/left_panel" index="5"]
+layers = 2
+material_override = ExtResource("7_xbu34")
+script = ExtResource("7_q5tya")
+
+[node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p3" index="0"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.11395, 1.65166, -7.26502)
+light_energy = 0.1
+
+[node name="indicator1_p4" parent="Console/left_panel" index="6"]
+layers = 2
+material_override = ExtResource("7_xbu34")
+script = ExtResource("7_q5tya")
+
+[node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p4" index="0"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.11395, 1.65166, -6.69546)
+light_energy = 0.1
+
+[node name="indicator2_p1" parent="Console/left_panel" index="7"]
+visible = false
+
+[node name="indicator2_p2" parent="Console/left_panel" index="8"]
+visible = false
+
+[node name="indicator2_p3" parent="Console/left_panel" index="9"]
+visible = false
+
+[node name="indicator2_p4" parent="Console/left_panel" index="10"]
+visible = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.706, 1.006)
