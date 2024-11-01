@@ -1,12 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=15 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/Menus/Start.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
 [ext_resource type="PackedScene" path="res://Prefabs/Console.tscn" id="5_5g5io"]
-[ext_resource type="Script" path="res://ClickableScreen.gd" id="6_123xs"]
-[ext_resource type="Script" path="res://PlayerIndicator.gd" id="7_q5tya"]
+[ext_resource type="Script" path="res://Scripts/ComputerScreen.gd" id="5_roanu"]
+[ext_resource type="Script" path="res://Scripts/ClickableScreen.gd" id="6_123xs"]
+[ext_resource type="PackedScene" uid="uid://dnympmgsheb8n" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
+[ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="7_q5tya"]
 [ext_resource type="Material" uid="uid://biy8dxo1js2hm" path="res://Shaders/IndicatorLight.tres" id="7_xbu34"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7pocc"]
@@ -51,16 +53,21 @@ layout_mode = 1
 
 [node name="ColorPalette" parent="ViewportCentralScreen" instance=ExtResource("1_h37ii")]
 
+[node name="ViewportChatScreen" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
+script = ExtResource("5_roanu")
+target_mesh = NodePath("../Console/left_panel/screen_chatbox")
+
+[node name="ChatScreen" parent="ViewportChatScreen" instance=ExtResource("6_bnu3y")]
+
+[node name="ColorPalette" parent="ViewportChatScreen" instance=ExtResource("1_h37ii")]
+
 [node name="Console" parent="." instance=ExtResource("5_5g5io")]
 
-[node name="screen_main" parent="Console/front_panel" index="5" node_paths=PackedStringArray("node_viewport", "node_quad", "node_area")]
+[node name="screen_main" parent="Console/front_panel" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1787, -7.11905)
 material_override = SubResource("StandardMaterial3D_l45kk")
 mesh = SubResource("PlaneMesh_bc7ol")
 script = ExtResource("6_123xs")
-node_viewport = NodePath("../../../ViewportCentralScreen")
-node_quad = NodePath(".")
-node_area = NodePath("Area3D")
 
 [node name="Area3D" type="Area3D" parent="Console/front_panel/screen_main" index="0"]
 

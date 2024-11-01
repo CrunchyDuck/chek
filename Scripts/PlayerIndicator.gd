@@ -14,7 +14,7 @@ static var IndicatorColor: Dictionary = {
 }
 
 func _ready():
-	set_indicator(IndicatorColor["Green"])
+	set_indicator(IndicatorColor["Off"])
 
 func set_indicator(color: Array[Color]):
 	var l = color[0]
