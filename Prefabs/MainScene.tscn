@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/Menus/Start.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
-[ext_resource type="PackedScene" path="res://Prefabs/Console.tscn" id="5_5g5io"]
+[ext_resource type="PackedScene" uid="uid://blh3h17c3q81i" path="res://Prefabs/Console_old.tscn" id="5_5g5io"]
 [ext_resource type="Script" path="res://Scripts/ComputerScreen.gd" id="5_roanu"]
 [ext_resource type="Script" path="res://Scripts/ClickableScreen.gd" id="6_123xs"]
-[ext_resource type="PackedScene" uid="uid://dnympmgsheb8n" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
+[ext_resource type="PackedScene" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
 [ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="7_q5tya"]
-[ext_resource type="Material" uid="uid://biy8dxo1js2hm" path="res://Shaders/IndicatorLight.tres" id="7_xbu34"]
+[ext_resource type="Material" path="res://Shaders/IndicatorLight.tres" id="7_xbu34"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7pocc"]
 viewport_path = NodePath("ViewportCentralScreen")
