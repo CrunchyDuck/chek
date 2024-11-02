@@ -1,29 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=9 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/Menus/Start.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
-[ext_resource type="PackedScene" uid="uid://blh3h17c3q81i" path="res://Prefabs/Console_old.tscn" id="5_5g5io"]
 [ext_resource type="Script" path="res://Scripts/ComputerScreen.gd" id="5_roanu"]
-[ext_resource type="Script" path="res://Scripts/ClickableScreen.gd" id="6_123xs"]
 [ext_resource type="PackedScene" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
 [ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="7_q5tya"]
-[ext_resource type="Material" path="res://Shaders/IndicatorLight.tres" id="7_xbu34"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_7pocc"]
-viewport_path = NodePath("ViewportCentralScreen")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l45kk"]
-resource_local_to_scene = true
-shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_7pocc")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_bc7ol"]
-size = Vector2(2.325, 2.325)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_tkld5"]
-size = Vector3(2.325, 0, 2.325)
+[ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
 
 [node name="MainScene" type="Node"]
 
@@ -54,83 +38,51 @@ layout_mode = 1
 [node name="ColorPalette" parent="ViewportCentralScreen" instance=ExtResource("1_h37ii")]
 
 [node name="ViewportChatScreen" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
+size = Vector2i(428, 191)
 script = ExtResource("5_roanu")
-target_mesh = NodePath("../Console/left_panel/screen_chatbox")
+target_mesh = NodePath("../Console2/left_panel/frame_screen_chatbox_001")
 
 [node name="ChatScreen" parent="ViewportChatScreen" instance=ExtResource("6_bnu3y")]
 
 [node name="ColorPalette" parent="ViewportChatScreen" instance=ExtResource("1_h37ii")]
 
-[node name="Console" parent="." instance=ExtResource("5_5g5io")]
-
-[node name="screen_main" parent="Console/front_panel" index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1787, -7.11905)
-material_override = SubResource("StandardMaterial3D_l45kk")
-mesh = SubResource("PlaneMesh_bc7ol")
-script = ExtResource("6_123xs")
-
-[node name="Area3D" type="Area3D" parent="Console/front_panel/screen_main" index="0"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/screen_main/Area3D"]
-shape = SubResource("BoxShape3D_tkld5")
-
-[node name="indicator1_p1" parent="Console/left_panel" index="3"]
-layers = 2
-material_override = ExtResource("7_xbu34")
-script = ExtResource("7_q5tya")
-
-[node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p1" index="0"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.11395, 1.65166, -8.38137)
-light_color = Color(1, 0.333333, 0, 1)
-light_energy = 0.1
-light_cull_mask = 4294967293
-
-[node name="indicator1_p2" parent="Console/left_panel" index="4"]
-layers = 2
-material_override = ExtResource("7_xbu34")
-script = ExtResource("7_q5tya")
-
-[node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p2" index="0"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.11395, 1.65166, -7.78902)
-light_energy = 0.1
-
-[node name="indicator1_p3" parent="Console/left_panel" index="5"]
-layers = 2
-material_override = ExtResource("7_xbu34")
-script = ExtResource("7_q5tya")
-
-[node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p3" index="0"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.11395, 1.65166, -7.26502)
-light_energy = 0.1
-
-[node name="indicator1_p4" parent="Console/left_panel" index="6"]
-layers = 2
-material_override = ExtResource("7_xbu34")
-script = ExtResource("7_q5tya")
-
-[node name="Light" type="OmniLight3D" parent="Console/left_panel/indicator1_p4" index="0"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.11395, 1.65166, -6.69546)
-light_energy = 0.1
-
-[node name="indicator2_p1" parent="Console/left_panel" index="7"]
-visible = false
-
-[node name="indicator2_p2" parent="Console/left_panel" index="8"]
-visible = false
-
-[node name="indicator2_p3" parent="Console/left_panel" index="9"]
-visible = false
-
-[node name="indicator2_p4" parent="Console/left_panel" index="10"]
-visible = false
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.706, 1.006)
-fov = 35.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.972, 3.751)
+fov = 25.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3954, 1.06347)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.765, 3.591, 2.035)
 light_color = Color(0.890196, 0.913725, 1, 1)
 light_energy = 0.5
 
-[editable path="Console"]
+[node name="Console2" parent="." instance=ExtResource("11_1otxn")]
+
+[node name="indicator1_p1" parent="Console2/left_panel" index="14"]
+layers = 2
+script = ExtResource("7_q5tya")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1" index="0"]
+light_cull_mask = 4294967293
+
+[node name="indicator1_p1_001" parent="Console2/left_panel" index="15"]
+layers = 2
+script = ExtResource("7_q5tya")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_001" index="0"]
+light_cull_mask = 4294967293
+
+[node name="indicator1_p1_002" parent="Console2/left_panel" index="16"]
+layers = 2
+script = ExtResource("7_q5tya")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_002" index="0"]
+light_cull_mask = 4294967293
+
+[node name="indicator1_p1_003" parent="Console2/left_panel" index="17"]
+layers = 2
+script = ExtResource("7_q5tya")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_003" index="0"]
+light_cull_mask = 4294967293
+
+[editable path="Console2"]
