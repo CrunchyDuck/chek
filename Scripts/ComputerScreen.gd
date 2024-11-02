@@ -7,6 +7,8 @@ extends SubViewport
 const pixels_to_meters: float = 0.001
 
 func _ready():  
+  if not target_mesh:
+    return
   var box = BoxShape3D.new()
   box.size = Vector3(self.size.x * pixels_to_meters, self.size.y * pixels_to_meters, 0)
   

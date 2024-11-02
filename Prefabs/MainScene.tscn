@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/Menus/Start.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
 [ext_resource type="Script" path="res://Scripts/ComputerScreen.gd" id="5_roanu"]
-[ext_resource type="PackedScene" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
+[ext_resource type="PackedScene" uid="uid://bblrjt1jecw2y" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
 [ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="7_q5tya"]
 [ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
 
@@ -45,6 +45,18 @@ script = ExtResource("5_roanu")
 target_mesh = NodePath("../Console2/left_panel/frame_screen_chatbox_001")
 
 [node name="ChatScreen" parent="ViewportChatScreen" instance=ExtResource("6_bnu3y")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="VBoxContainer" parent="ViewportChatScreen/ChatScreen" index="0"]
+offset_top = 0.0
+offset_right = 203.0
+offset_bottom = 46.0
 
 [node name="ColorPalette" parent="ViewportChatScreen" instance=ExtResource("1_h37ii")]
 
@@ -87,4 +99,5 @@ script = ExtResource("7_q5tya")
 [node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_003" index="0"]
 light_cull_mask = 4294967293
 
+[editable path="ViewportChatScreen/ChatScreen"]
 [editable path="Console2"]
