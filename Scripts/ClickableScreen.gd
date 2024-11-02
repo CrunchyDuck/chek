@@ -59,7 +59,7 @@ func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Ve
 
   if is_mouse_inside:
     # Convert the relative event position from 3D to 2D.
-    event_pos2D = Vector2(event_pos3D.x, event_pos3D.z)
+    event_pos2D = Vector2(event_pos3D.x, -event_pos3D.y)
 
     # Right now the event position's range is the following: (-quad_size/2) -> (quad_size/2)
     # We need to convert it into the following range: -0.5 -> 0.5
@@ -68,11 +68,11 @@ func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Ve
     # Then we need to convert it into the following range: 0 -> 1
     event_pos2D.x += 0.5
     event_pos2D.y += 0.5
+    print(event_pos2D)
 
     # Finally, we convert the position to the following range: 0 -> viewport.size
     event_pos2D.x *= node_viewport.size.x
     event_pos2D.y *= node_viewport.size.y
-    print("here")
     # We need to do these conversions so the event's position is in the viewport's coordinate system.
 
   elif last_event_pos2D != null:
