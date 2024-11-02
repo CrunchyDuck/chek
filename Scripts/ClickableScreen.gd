@@ -24,7 +24,7 @@ var node_area: Area3D:
     node_area.mouse_exited.connect(_mouse_exited_area)
     node_area.input_event.connect(_mouse_input_event)
 
-var meters_to_pixels: float = 1000
+var screen_dimensions: Vector2
 
 func _mouse_entered_area() -> void:
   is_mouse_inside = true
@@ -43,7 +43,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
   # Get mesh size to detect edges and make conversions. This code only supports PlaneMesh and QuadMesh.
-  var quad_mesh_size: Vector2 = node_quad.mesh.size
+  #var quad_mesh_size: Vector2 = node_quad.mesh.size
 
   # Event position in Area3D in world coordinate space.
   var event_pos3D := event_position
@@ -63,8 +63,8 @@ func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Ve
 
     # Right now the event position's range is the following: (-quad_size/2) -> (quad_size/2)
     # We need to convert it into the following range: -0.5 -> 0.5
-    event_pos2D.x = event_pos2D.x / quad_mesh_size.x
-    event_pos2D.y = event_pos2D.y / quad_mesh_size.y
+    event_pos2D.x = event_pos2D.x / screen_dimensions.x
+    event_pos2D.y = event_pos2D.y / screen_dimensions.y
     # Then we need to convert it into the following range: 0 -> 1
     event_pos2D.x += 0.5
     event_pos2D.y += 0.5
@@ -72,6 +72,7 @@ func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Ve
     # Finally, we convert the position to the following range: 0 -> viewport.size
     event_pos2D.x *= node_viewport.size.x
     event_pos2D.y *= node_viewport.size.y
+    print("here")
     # We need to do these conversions so the event's position is in the viewport's coordinate system.
 
   elif last_event_pos2D != null:

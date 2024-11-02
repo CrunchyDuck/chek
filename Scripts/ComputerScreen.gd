@@ -4,10 +4,11 @@
 extends SubViewport
 
 @export var target_mesh: MeshInstance3D
+const pixels_to_meters: float = 0.001
 
 func _ready():  
   var box = BoxShape3D.new()
-  box.size = Vector3(self.size.x, self.size.y, 0)
+  box.size = Vector3(self.size.x * pixels_to_meters, self.size.y * pixels_to_meters, 0)
   
   var collision_shape = CollisionShape3D.new()
   collision_shape.shape = box
@@ -18,15 +19,16 @@ func _ready():
   target_mesh.add_child(a)
   
   # Change material to unshaded & albedo to SubViewPort
-  var vp_text = ViewportTexture.new()
-  vp_text.viewport_path = get_path()
+  var vp_text = get_texture()
   
-  var mat: StandardMaterial3D = target_mesh.get_active_material(0)
+  var mat: StandardMaterial3D = target_mesh.get_active_material(0).duplicate()
   mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
   mat.albedo_texture = vp_text
+  target_mesh.set_surface_override_material(0, mat)
   
   # Apply & init ClickableScreen script
   target_mesh.set_script(load("res://Scripts/ClickableScreen.gd"))
   target_mesh.node_viewport = self
   target_mesh.node_area = a
   target_mesh.node_quad = target_mesh
+  target_mesh.screen_dimensions = Vector2(self.size.x * pixels_to_meters, self.size.y * pixels_to_meters)
