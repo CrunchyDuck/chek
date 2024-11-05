@@ -60,6 +60,12 @@ func request_synchronize(to_peer: int):
 @rpc("authority", "call_remote", "reliable")
 func synchronize(data: Dictionary):
 	deserialize(data)
+	
+# This is an insecure solution. Theoretically a malicious person could set names arbitrarily.
+# I don't think that's too scary.
+@rpc("any_peer", "call_local", "reliable")
+func set_character_name(_name: String):
+	character_name = _name
 
 enum PlayerType {
 	None,

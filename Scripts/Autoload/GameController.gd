@@ -82,6 +82,8 @@ func peer_connected(id: int):
   if not multiplayer.is_server():
     return
   create_player(id)
+  if multiplayer.get_unique_id() == id:
+    players_by_net_id[id].set_character_name(character_name)
   PrefabController.refresh_networked_nodes.rpc_id(id, PrefabController.networked_nodes)
 
 func peer_disconnected(id: int):
