@@ -64,7 +64,7 @@ func start_lobby(_port: int) -> bool:
   multiplayer.multiplayer_peer = peer
   create_player(1)  # Player for server
   
-  print("listening on port " + str(port))
+  MessageController.add_message("OPENED PORT " + str(port))
   return true
   
 func join_lobby(_ip: String, _port: int) -> bool:

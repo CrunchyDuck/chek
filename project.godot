@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 ColorControllers="*res://Scripts/Autoload/ColorController.gd"
 PrefabController="*res://Scripts/Autoload/PrefabController.gd"
 GameController="*res://Scripts/Autoload/GameController.gd"
+MessageController="*res://Scripts/Autoload/MessageController.gd"
 
 [display]
 
