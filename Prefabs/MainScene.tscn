@@ -45,12 +45,6 @@ script = ExtResource("5_roanu")
 target_mesh = NodePath("../Console2/left_panel/frame_screen_chatbox_001")
 
 [node name="ChatScreen" parent="ViewportChatScreen" instance=ExtResource("6_bnu3y")]
-offset_right = 0.0
-offset_bottom = 0.0
-
-[node name="VBoxContainer" parent="ViewportChatScreen/ChatScreen" index="0"]
-offset_right = 203.0
-offset_bottom = 46.0
 
 [node name="ColorPalette" parent="ViewportChatScreen" instance=ExtResource("1_h37ii")]
 

@@ -15,22 +15,30 @@ theme = ExtResource("1_jismk")
 
 [node name="Messages" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 12
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -1080.0
-offset_right = 1920.0
-offset_bottom = -25.0
+offset_left = 5.0
+offset_top = -21.0
+offset_right = 5.0
+offset_bottom = -21.0
+grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 3
 alignment = 2
 
 [node name="Input" type="LineEdit" parent="."]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 12
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
 offset_top = -21.0
-offset_right = 1920.0
+offset_right = 5.0
+grow_horizontal = 2
 grow_vertical = 0
 placeholder_text = "INPUT"
+max_length = 256
+caret_blink = true
