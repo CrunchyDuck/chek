@@ -45,13 +45,8 @@ script = ExtResource("5_roanu")
 target_mesh = NodePath("../Console2/left_panel/frame_screen_chatbox_001")
 
 [node name="ChatScreen" parent="ViewportChatScreen" instance=ExtResource("6_bnu3y")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="VBoxContainer" parent="ViewportChatScreen/ChatScreen" index="0"]
 offset_right = 203.0
@@ -93,7 +88,7 @@ script = ExtResource("7_q5tya")
 [node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_003" index="0"]
 light_cull_mask = 4294967293
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04842, 1.33606)
 
 [editable path="ViewportChatScreen/ChatScreen"]

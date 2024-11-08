@@ -4,8 +4,8 @@ class_name Player
 static var players = {}
 
 var board: Board:
-	get:
-		return GameController.board
+  get:
+    return GameController.board
 
 var player_type: Player.PlayerType = Player.PlayerType.None
 var network_id: int = -1
@@ -15,60 +15,60 @@ var actions_remaining: int = 0
 var character_name: String
 
 var can_move: bool:
-	get:
-		return actions_remaining > 0
+  get:
+    return actions_remaining > 0
 
 var init_state: GameSetup.PlayerState
 var pieces: Array[ChessPiece] = []
 
 func _init():
-	players[self] = true
-	
+  players[self] = true
+  
 func _exit_tree() -> void:
-	players.erase(self)
+  players.erase(self)
 
 func serialize() -> Dictionary:
-	var d = {}
-	d["player_type"] = self.player_type
-	d["network_id"] = self.network_id
-	d["game_id"] = self.game_id
-	d["friendly"] = self.friendly
-	d["actions_remaining"] = self.actions_remaining
-	return d
-	
+  var d = {}
+  d["player_type"] = self.player_type
+  d["network_id"] = self.network_id
+  d["game_id"] = self.game_id
+  d["friendly"] = self.friendly
+  d["actions_remaining"] = self.actions_remaining
+  return d
+  
 func deserialize(data: Dictionary):
-	self.player_type = data["player_type"]
-	self.network_id = data["network_id"]
-	self.game_id = data["game_id"]
-	self.friendly = data["friendly"]
-	self.actions_remaining = data["actions_remaining"]
+  self.player_type = data["player_type"]
+  self.network_id = data["network_id"]
+  self.game_id = data["game_id"]
+  self.friendly = data["friendly"]
+  self.actions_remaining = data["actions_remaining"]
 
 func do_synchronize():
-	if not multiplayer.is_server():
-		return
-	synchronize.rpc(serialize())
-	
+  if not multiplayer.is_server():
+    return
+  synchronize.rpc(serialize())
+  
 @rpc("any_peer", "call_local", "reliable")
 func request_synchronize(to_peer: int):
-	if not multiplayer.is_server():
-		return
-	if not to_peer in multiplayer.get_peers():
-		print("Requested synchronization to peer that didn't exist: " + str(to_peer))
-		return
-	synchronize.rpc_id(to_peer, serialize())
+  if not multiplayer.is_server():
+    return
+  if not to_peer in multiplayer.get_peers():
+    print("Requested synchronization to peer that didn't exist: " + str(to_peer))
+    return
+  synchronize.rpc_id(to_peer, serialize())
 
 @rpc("authority", "call_remote", "reliable")
 func synchronize(data: Dictionary):
-	deserialize(data)
-	
+  deserialize(data)
+  
 # This is an insecure solution. Theoretically a malicious person could set names arbitrarily.
 # I don't think that's too scary.
 @rpc("any_peer", "call_local", "reliable")
 func set_character_name(_name: String):
-	character_name = _name
+  character_name = _name
 
 enum PlayerType {
-	None,
-	Human,
-	AI,
+  None,
+  Human,
+  AI,
 }
