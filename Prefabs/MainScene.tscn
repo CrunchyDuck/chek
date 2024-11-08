@@ -54,7 +54,6 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="VBoxContainer" parent="ViewportChatScreen/ChatScreen" index="0"]
-offset_top = 0.0
 offset_right = 203.0
 offset_bottom = 46.0
 
@@ -63,11 +62,6 @@ offset_bottom = 46.0
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.972, 3.751)
 fov = 25.0
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.765, 3.591, 2.035)
-light_color = Color(0.890196, 0.913725, 1, 1)
-light_energy = 0.5
 
 [node name="Console2" parent="." instance=ExtResource("11_1otxn")]
 
@@ -98,6 +92,9 @@ script = ExtResource("7_q5tya")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_003" index="0"]
 light_cull_mask = 4294967293
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04842, 1.33606)
 
 [editable path="ViewportChatScreen/ChatScreen"]
 [editable path="Console2"]
