@@ -178,34 +178,42 @@ script = ExtResource("7_q5tya")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1" index="0"]
 light_color = Color(0, 0, 0, 1)
+light_energy = 0.1
 light_cull_mask = 4294967293
 
 [node name="indicator1_p1_001" parent="Console2/left_panel" index="7"]
 layers = 2
 script = ExtResource("7_q5tya")
+game_id = 1
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_001" index="0"]
 light_color = Color(0, 0, 0, 1)
+light_energy = 0.1
 light_cull_mask = 4294967293
 
 [node name="indicator1_p1_002" parent="Console2/left_panel" index="8"]
 layers = 2
 script = ExtResource("7_q5tya")
+game_id = 2
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_002" index="0"]
 light_color = Color(0, 0, 0, 1)
+light_energy = 0.1
 light_cull_mask = 4294967293
 
 [node name="indicator1_p1_003" parent="Console2/left_panel" index="9"]
 layers = 2
 script = ExtResource("7_q5tya")
+game_id = 3
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_003" index="0"]
 light_color = Color(0, 0, 0, 1)
+light_energy = 0.1
 light_cull_mask = 4294967293
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50645, 1.33606)
+light_energy = 0.3
 
 [editable path="ViewportChatScreen/ChatScreen"]
 [editable path="Console2"]

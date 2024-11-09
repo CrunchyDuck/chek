@@ -30,23 +30,23 @@ func _exit_tree() -> void:
 
 func serialize() -> Dictionary:
   var d = {}
-  d["player_type"] = self.player_type
-  d["character_name"] = self.character_name
-  d["job_name"] = self.job_name
-  d["network_id"] = self.network_id
-  d["game_id"] = self.game_id
-  d["friendly"] = self.friendly
-  d["actions_remaining"] = self.actions_remaining
+  d.player_type = self.player_type
+  d.character_name = self.character_name
+  d.job_name = self.job_name
+  d.network_id = self.network_id
+  d.game_id = self.game_id
+  d.friendly = self.friendly
+  d.actions_remaining = self.actions_remaining
   return d
   
 func deserialize(data: Dictionary):
-  self.player_type = data["player_type"]
+  self.player_type = data.player_type
   self.character_name = data.character_name
   self.job_name = data.job_name
-  self.network_id = data["network_id"]
-  self.game_id = data["game_id"]
-  self.friendly = data["friendly"]
-  self.actions_remaining = data["actions_remaining"]
+  self.network_id = data.network_id
+  self.game_id = data.game_id
+  self.friendly = data.friendly
+  self.actions_remaining = data.actions_remaining
 
 func do_synchronize():
   if not multiplayer.is_server():

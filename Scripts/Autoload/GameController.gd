@@ -45,6 +45,7 @@ var job_list = [
   "Proper Propaganda Propagator",
 ]
 
+var game_in_progress: bool = false
 var board: Board
 var players_by_net_id: Dictionary:
   get:
@@ -328,6 +329,7 @@ func player_loaded():
 
 @rpc("authority", "call_local", "reliable")
 func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
+  game_in_progress = true
   # make people like themselves
   for p in Player.players:
     p.friendly.append(p.game_id)

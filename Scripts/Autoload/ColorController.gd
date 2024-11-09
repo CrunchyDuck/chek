@@ -16,8 +16,8 @@ const colors = {
 }
 
 const player_colors = [
-  colors.primary,
   colors.secondary,
+  colors.primary,
   colors.c3,
   colors.c4,
 ]
