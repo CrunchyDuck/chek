@@ -62,6 +62,8 @@ var players_by_game_id: Dictionary:
 
 var screen_central: Control
 
+var http
+var public_ip: String
 var port: int
 var ip: String
 
@@ -93,8 +95,16 @@ func _ready():
   character_name = name_list.pick_random()
   job_name = job_list.pick_random()
   
+  http = HTTPRequest.new()
+  add_child(http)
+  http.request_completed.connect(_ip_response)
+  
 func _get_references():
   screen_central = $"/root/MainScene/ViewportCentralScreen/CentralScreen"
+  
+func _process(_delta: float) -> void:
+  if Engine.get_frames_drawn() % 600 == 0:
+    get_ip()
   
 #region Server events
 func start_lobby(_port: int) -> bool:
@@ -183,6 +193,17 @@ func standard_board_setup() -> GameSetup.BoardState:
 #endregion
 
 #region Standard functions
+func get_ip():
+  var error = http.request("https://api.ipify.org")
+  if error:
+    push_warning("Could not get IP automatically. Error: " + str(error))
+    return
+
+func _ip_response(result, response_code, headers, body):
+  if result != 0:
+    push_warning("Failed to get IP address. Code: " + str(result) + " and " + str(response_code))
+  public_ip = body.get_string_from_ascii()
+
 func create_player(network_id: int, character_name: String, job_name: String):
   if not multiplayer.is_server():
     return

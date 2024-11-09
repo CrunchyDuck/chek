@@ -1,5 +1,5 @@
 [gd_scene load_steps=2 format=3 uid="uid://bie752f60ea0j"]
 
-[ext_resource type="PackedScene" uid="uid://cmqrdm6acyi30" path="res://Models/Console.blend" id="1_oihny"]
+[ext_resource type="PackedScene" uid="uid://cmqrdm6acyi30" path="res://Models/console.blend" id="1_oihny"]
 
 [node name="Console" instance=ExtResource("1_oihny")]
