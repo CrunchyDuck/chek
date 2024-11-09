@@ -195,7 +195,7 @@ func create_player(network_id: int, character_name: String, job_name: String):
       p.game_id = i
       break
       
-  var m = MessageController.color_by_player(character_name + ", " + job_name, p.game_id)
+  var m = ColorControllers.color_by_player(character_name + ", " + job_name, p.game_id)
   m += " has connected"
   MessageController.add_message.rpc(m)
   PrefabController.register_networked_node.rpc("Player", player_path)

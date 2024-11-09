@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=11 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
 [ext_resource type="Script" path="res://Scripts/ComputerScreen.gd" id="5_roanu"]
 [ext_resource type="PackedScene" uid="uid://bblrjt1jecw2y" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
+[ext_resource type="Script" path="res://Scripts/NameScreen.gd" id="7_6p3my"]
 [ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="7_q5tya"]
 [ext_resource type="Script" path="res://Scripts/Nameplate.gd" id="8_pahoh"]
 [ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
@@ -49,6 +50,105 @@ target_mesh = NodePath("../Console2/left_panel/frame_screen_chatbox_001")
 
 [node name="ColorPalette" parent="ViewportChatScreen" instance=ExtResource("1_h37ii")]
 
+[node name="ViewportName1" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
+size = Vector2i(281, 50)
+script = ExtResource("5_roanu")
+target_mesh = NodePath("../Console2/left_panel/NameScreen1")
+
+[node name="Name" type="RichTextLabel" parent="ViewportName1"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 8.0
+offset_right = 5.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_qgfyp")
+theme_override_font_sizes/normal_font_size = 27
+bbcode_enabled = true
+text = "A. Jaynee-Shiko"
+autowrap_mode = 0
+script = ExtResource("7_6p3my")
+
+[node name="ColorPalette" parent="ViewportName1" instance=ExtResource("1_h37ii")]
+
+[node name="ViewportName2" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
+size = Vector2i(281, 50)
+script = ExtResource("5_roanu")
+target_mesh = NodePath("../Console2/left_panel/NameScreen2")
+
+[node name="ColorPalette" parent="ViewportName2" instance=ExtResource("1_h37ii")]
+
+[node name="Name2" type="RichTextLabel" parent="ViewportName2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 8.0
+offset_right = 5.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_qgfyp")
+theme_override_font_sizes/normal_font_size = 27
+bbcode_enabled = true
+text = "A. Jaynee-Shiko"
+autowrap_mode = 0
+script = ExtResource("7_6p3my")
+game_id = 1
+
+[node name="ViewportName3" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
+size = Vector2i(281, 50)
+script = ExtResource("5_roanu")
+target_mesh = NodePath("../Console2/left_panel/NameScreen3")
+
+[node name="ColorPalette" parent="ViewportName3" instance=ExtResource("1_h37ii")]
+
+[node name="Name2" type="RichTextLabel" parent="ViewportName3"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 8.0
+offset_right = 5.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_qgfyp")
+theme_override_font_sizes/normal_font_size = 27
+bbcode_enabled = true
+text = "A. Jaynee-Shiko"
+autowrap_mode = 0
+script = ExtResource("7_6p3my")
+game_id = 2
+
+[node name="ViewportName4" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
+size = Vector2i(281, 50)
+script = ExtResource("5_roanu")
+target_mesh = NodePath("../Console2/left_panel/NameScreen4")
+
+[node name="ColorPalette" parent="ViewportName4" instance=ExtResource("1_h37ii")]
+
+[node name="Name2" type="RichTextLabel" parent="ViewportName4"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 8.0
+offset_right = 5.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_qgfyp")
+theme_override_font_sizes/normal_font_size = 27
+bbcode_enabled = true
+text = "A. Jaynee-Shiko"
+autowrap_mode = 0
+script = ExtResource("7_6p3my")
+game_id = 3
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.972, 3.751)
 fov = 25.0
@@ -72,7 +172,7 @@ modulate = Color(0.0836, 0.108607, 0.22, 1)
 text = "General Specialist"
 outline_size = 0
 
-[node name="indicator1_p1" parent="Console2/left_panel" index="14"]
+[node name="indicator1_p1" parent="Console2/left_panel" index="6"]
 layers = 2
 script = ExtResource("7_q5tya")
 
@@ -80,7 +180,7 @@ script = ExtResource("7_q5tya")
 light_color = Color(0, 0, 0, 1)
 light_cull_mask = 4294967293
 
-[node name="indicator1_p1_001" parent="Console2/left_panel" index="15"]
+[node name="indicator1_p1_001" parent="Console2/left_panel" index="7"]
 layers = 2
 script = ExtResource("7_q5tya")
 
@@ -88,7 +188,7 @@ script = ExtResource("7_q5tya")
 light_color = Color(0, 0, 0, 1)
 light_cull_mask = 4294967293
 
-[node name="indicator1_p1_002" parent="Console2/left_panel" index="16"]
+[node name="indicator1_p1_002" parent="Console2/left_panel" index="8"]
 layers = 2
 script = ExtResource("7_q5tya")
 
@@ -96,7 +196,7 @@ script = ExtResource("7_q5tya")
 light_color = Color(0, 0, 0, 1)
 light_cull_mask = 4294967293
 
-[node name="indicator1_p1_003" parent="Console2/left_panel" index="17"]
+[node name="indicator1_p1_003" parent="Console2/left_panel" index="9"]
 layers = 2
 script = ExtResource("7_q5tya")
 

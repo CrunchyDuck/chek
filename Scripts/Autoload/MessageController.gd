@@ -20,17 +20,13 @@ func _on_submit(new_text: String):
   var content = node_input.text
   node_input.clear()
   
-  var name_tag = color_by_player(GameController.character_name + ": ", GameController.game_id)
+  var name_tag = ColorControllers.color_by_player(GameController.character_name + ": ", GameController.game_id)
   var message = name_tag + content
   # Is there really no way to check if you're connected to a server??
   if multiplayer.get_peers().size() != 0:
     try_add_message.rpc_id(1, message)
   else:
     add_message(message)
-  
-func color_by_player(content: String, game_id: int):
-  var my_color: String = ColorControllers.player_colors[game_id].to_html()
-  return "[color=%s]%s[/color]" % [my_color, content]
   
 @rpc("any_peer", "call_local", "reliable", 1)
 func try_add_message(message: String):

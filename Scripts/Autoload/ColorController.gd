@@ -64,3 +64,7 @@ func next_palette():
   _current_index = wrapi(_current_index, 0, palettes.size())
   palette_updated.emit()
   pass
+  
+func color_by_player(content: String, game_id: int):
+  var my_color: String = ColorControllers.player_colors[game_id].to_html()
+  return "[color=%s]%s[/color]" % [my_color, content]
