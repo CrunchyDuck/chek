@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=10 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/ComputerScreen.gd" id="5_roanu"]
 [ext_resource type="PackedScene" uid="uid://bblrjt1jecw2y" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
 [ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="7_q5tya"]
+[ext_resource type="Script" path="res://Scripts/Nameplate.gd" id="8_pahoh"]
 [ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
 
 [node name="MainScene" type="Node"]
@@ -53,6 +54,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.972, 3.751)
 fov = 25.0
 
 [node name="Console2" parent="." instance=ExtResource("11_1otxn")]
+
+[node name="name_plate" parent="Console2/desk" index="1"]
+script = ExtResource("8_pahoh")
 
 [node name="Name" type="Label3D" parent="Console2/desk/name_plate" index="0"]
 transform = Transform3D(0.999848, 0.0100104, -0.0142961, 0, 0.819152, 0.573576, 0.0174524, -0.573489, 0.819028, 0.000904679, 0.0233597, 0.0233327)

@@ -12,8 +12,37 @@ var piece_prefabs = {
 
 var name_list = [
   "N. Laska",
-  "O. Stanislav",
-  "F. Danilski",
+  "C. Bolyek",
+  "A. Jaynee-Shiko",
+  "O. Rorerez",
+  "A. Danilski",
+  "D. Eshuis",
+  "P. Achu",
+  "A. Avraam",
+  "G. Schuyler",
+]
+
+var job_list = [
+  "General Specialist",
+  "Archeological Technician",
+  "Post-Mortem Medic",
+  "Ground Pilot",
+  "DisDeReEncrypter",
+  "Pigeon Expert",
+  "Communications Jammer",
+  "Anthropromorphic Suit Constructor",
+  "Poison Tester",
+  "Un-Rescuer",
+  "Bot Botanist",
+  "Best Boy Mine Layer",
+  "Police Police",
+  "Spy",
+  "Spy Spy",
+  "Spy Spy Spy",
+  "Emergency Reserve Chef",
+  "Paranormal Normalizer",
+  "Future Historian",
+  "Proper Propaganda Propagator",
 ]
 
 var board: Board
@@ -35,7 +64,18 @@ var screen_central: Control
 var port: int
 var ip: String
 
+var player: Player:
+  get:
+    if GameController.players_by_net_id.has(multiplayer.get_unique_id()):
+      return GameController.players_by_net_id[multiplayer.get_unique_id()]
+    return null
+var game_id: int:
+  get:
+    if player != null:
+      return player.game_id
+    return 0
 var character_name: String
+var job_name: String
 
 var game_settings: GameSetup.GameSettings
 var board_state: GameSetup.BoardState
@@ -46,10 +86,11 @@ const max_players: int = 4
 func _ready():
   _get_references()
   PrefabController.register_networked_node("", get_path())
-  multiplayer.peer_connected.connect(peer_connected)
+  multiplayer.connected_to_server.connect(connected_to_server)
   multiplayer.peer_disconnected.connect(peer_disconnected)
   
   character_name = name_list.pick_random()
+  job_name = job_list.pick_random()
   
 func _get_references():
   screen_central = $"/root/MainScene/ViewportCentralScreen/CentralScreen"
@@ -62,7 +103,7 @@ func start_lobby(_port: int) -> bool:
     return false
   port = _port
   multiplayer.multiplayer_peer = peer
-  create_player(1)  # Player for server
+  create_player(1, character_name, job_name)  # Player for server
   
   MessageController.add_message("OPENED PORT " + str(port))
   return true
@@ -78,13 +119,8 @@ func join_lobby(_ip: String, _port: int) -> bool:
   multiplayer.multiplayer_peer = peer
   return true
 
-func peer_connected(id: int):
-  if not multiplayer.is_server():
-    return
-  create_player(id)
-  if multiplayer.get_unique_id() == id:
-    players_by_net_id[id].set_character_name(character_name)
-  PrefabController.refresh_networked_nodes.rpc_id(id, PrefabController.networked_nodes)
+func connected_to_server():
+  try_create_player.rpc_id(1, character_name, job_name)
 
 func peer_disconnected(id: int):
   get_node("/root/GameController/Player" + str(id)).queue_free()
@@ -145,16 +181,23 @@ func standard_board_setup() -> GameSetup.BoardState:
 #endregion
 
 #region Standard functions
-func create_player(network_id: int):
+func create_player(network_id: int, character_name: String, job_name: String):
+  if not multiplayer.is_server():
+    return
   var player_path = "/root/GameController/Player" + str(network_id)
   var p = PrefabController.spawn_prefab("Player", player_path)
   p.network_id = network_id
+  p.character_name = character_name
+  p.job_name = job_name
   var gids = players_by_game_id
   for i in range(max_players):
     if not gids.has(i):
       p.game_id = i
       break
       
+  var m = MessageController.color_by_player(character_name + ", " + job_name, p.game_id)
+  m += " has connected"
+  MessageController.add_message.rpc(m)
   PrefabController.register_networked_node.rpc("Player", player_path)
 
 func load_board_state(state: GameSetup.BoardState, players: Dictionary):
@@ -263,6 +306,17 @@ func on_action(action: Board.GameAction):
 #endregion
   
 #region RPCs
+# I don't like that this is here. I'd rather it be on the Player, or somewhere else more general.
+@rpc("any_peer", "call_local", "reliable")
+func try_create_player(character_name: String, job_name: String):
+  if not multiplayer.is_server():
+    return
+  var network_id = multiplayer.get_remote_sender_id()
+  if players_by_net_id.has(network_id):
+    print("Tried to create player that already exists.")
+  create_player(network_id, character_name, job_name)
+  
+  
 @rpc("any_peer", "call_local", "reliable")
 func player_loaded():
   players_loaded += 1

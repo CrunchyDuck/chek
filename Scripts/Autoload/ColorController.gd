@@ -5,15 +5,22 @@ const color_count = 8
 const color_spacing = 1.0 / (color_count - 1.0)
 
 const colors = {
-  primary = Color(0, 0, 0),
-  secondary = Color(1, 1, 1),
+  primary = Color(0, 0, 0), # P1
+  secondary = Color(1, 1, 1), # P2
   c1 = Color(color_spacing * 1, color_spacing * 1, color_spacing * 1),
   c2 = Color(color_spacing * 2, color_spacing * 2, color_spacing * 2), # Background color
-  c3 = Color(color_spacing * 3, color_spacing * 3, color_spacing * 3),
-  c4 = Color(color_spacing * 4, color_spacing * 4, color_spacing * 4),
+  c3 = Color(color_spacing * 3, color_spacing * 3, color_spacing * 3), # P3
+  c4 = Color(color_spacing * 4, color_spacing * 4, color_spacing * 4), # P4
   c5 = Color(color_spacing * 5, color_spacing * 5, color_spacing * 5),
-  c6 = Color(color_spacing * 6, color_spacing * 6, color_spacing * 6),
+  c6 = Color(color_spacing * 6, color_spacing * 6, color_spacing * 6), # Chat text
 }
+
+const player_colors = [
+  colors.primary,
+  colors.secondary,
+  colors.c3,
+  colors.c4,
+]
 
 var current_palette: CompressedTexture2D:
   get:
