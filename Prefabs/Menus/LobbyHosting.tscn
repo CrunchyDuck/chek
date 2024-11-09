@@ -47,6 +47,7 @@ text = "IP:"
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 0
 text = "127.0.0.1"
 editable = false
 
@@ -58,6 +59,7 @@ text = "PORT:"
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 0
 text = "25565"
 
 [node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]

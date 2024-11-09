@@ -10,6 +10,7 @@ var node_input: LineEdit:
   get: 
     return node_chat_screen.get_node("Input")
 
+# TODO: Make it so that typing anywhere but another lineedit sends the input here
 # TODO: When the player powers the PC on: add_message("SYSTEM BOOT")
 # TODO: When the player logs in: add_message("POTENTATE: {name}")
 func _ready():

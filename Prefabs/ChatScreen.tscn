@@ -39,6 +39,7 @@ offset_top = -21.0
 offset_right = 5.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_default_cursor_shape = 0
 placeholder_text = "INPUT"
 max_length = 256
 caret_blink = true
