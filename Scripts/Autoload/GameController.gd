@@ -121,6 +121,7 @@ func join_lobby(_ip: String, _port: int) -> bool:
 
 func connected_to_server():
   try_create_player.rpc_id(1, character_name, job_name)
+  PrefabController.request_refresh.rpc_id(1)
 
 func peer_disconnected(id: int):
   get_node("/root/GameController/Player" + str(id)).queue_free()

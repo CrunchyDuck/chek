@@ -19,7 +19,8 @@ func _parse_directory(dir: DirAccess, path: PackedStringArray):
     var parts = file.split(".")
     if parts[1] == "tscn":
       path.append(parts[0])
-      prefabs[".".join(path)] = load(dir.get_current_dir() + "/" + file)
+      var f = load(dir.get_current_dir() + "/" + file)
+      prefabs[".".join(path)] = f
       path.remove_at(path.size() - 1)
       
   var folders = dir.get_directories()
@@ -58,7 +59,13 @@ func register_networked_node(prefab_path: String, node_path: String) -> void:
   if multiplayer.is_server():
     if p.has_method("do_synchronize"):
       p.do_synchronize()
-  
+
+@rpc("any_peer", "call_remote", "reliable")
+func request_refresh():
+  if not multiplayer.is_server():
+    return
+  refresh_networked_nodes.rpc_id(multiplayer.get_remote_sender_id(), networked_nodes)
+
 # Re synchronize this client with the host.
 @rpc("authority", "call_remote", "reliable")
 func refresh_networked_nodes(servers_nodes: Dictionary):
@@ -73,7 +80,7 @@ func refresh_networked_nodes(servers_nodes: Dictionary):
       
     var obj = get_node(k)
     if obj.has_method("request_synchronize"):
-      obj.request_synchronize.rpc_id(1, multiplayer.get_unique_id())
+      obj.request_synchronize.rpc_id(1)
   
   # Clear up stale objects
   for k in old_nodes.keys():

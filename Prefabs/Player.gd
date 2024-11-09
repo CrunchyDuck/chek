@@ -31,6 +31,8 @@ func _exit_tree() -> void:
 func serialize() -> Dictionary:
   var d = {}
   d["player_type"] = self.player_type
+  d["character_name"] = self.character_name
+  d["job_name"] = self.job_name
   d["network_id"] = self.network_id
   d["game_id"] = self.game_id
   d["friendly"] = self.friendly
@@ -39,6 +41,8 @@ func serialize() -> Dictionary:
   
 func deserialize(data: Dictionary):
   self.player_type = data["player_type"]
+  self.character_name = data.character_name
+  self.job_name = data.job_name
   self.network_id = data["network_id"]
   self.game_id = data["game_id"]
   self.friendly = data["friendly"]
@@ -49,14 +53,11 @@ func do_synchronize():
     return
   synchronize.rpc(serialize())
   
-@rpc("any_peer", "call_local", "reliable")
-func request_synchronize(to_peer: int):
+@rpc("any_peer", "call_remote", "reliable")
+func request_synchronize():
   if not multiplayer.is_server():
     return
-  if not to_peer in multiplayer.get_peers():
-    print("Requested synchronization to peer that didn't exist: " + str(to_peer))
-    return
-  synchronize.rpc_id(to_peer, serialize())
+  synchronize.rpc_id(multiplayer.get_remote_sender_id(), serialize())
 
 @rpc("authority", "call_remote", "reliable")
 func synchronize(data: Dictionary):
