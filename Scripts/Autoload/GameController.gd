@@ -105,7 +105,7 @@ func _get_references():
 func _process(_delta: float) -> void:
   if Engine.get_frames_drawn() % 600 == 0:
     get_ip()
-  
+    
 #region Server events
 func start_lobby(_port: int) -> bool:
   var peer = ENetMultiplayerPeer.new()

@@ -4,9 +4,9 @@ extends MeshInstance3D
 @onready var light: OmniLight3D = $OmniLight3D
 @onready var mesh_instance: MeshInstance3D = self
 
-static var indicator_green: Array[Color] = [Color.hex(0x22ff00ff), Color.hex(0x22ff00ff)]
-static var indicator_red: Array[Color] = [Color.hex(0xff5500ff), Color.hex(0xff5500ff)]
-static var indicator_off: Array[Color] = [Color(), Color.hex(0x595959ff)]
+static var indicator_green: Array[Color] = [Color.hex(0x22ff00ff), Color.hex(0x22aa22ff)]
+static var indicator_red: Array[Color] = [Color.hex(0xff5500ff), Color.hex(0xaa2222ff)]
+static var indicator_off: Array[Color] = [Color(), Color.hex(0x333333ff)]
 
 static var IndicatorColor: Dictionary = {
   "Green": indicator_green,
@@ -15,15 +15,13 @@ static var IndicatorColor: Dictionary = {
 }
 
 func _ready():
-  set_indicator(IndicatorColor["Off"])
+  set_indicator(IndicatorColor["Green"])
   
 func _process(_delta):
-  if not GameController.players_by_game_id.has(game_id):
-    return
-  var p = GameController.players_by_game_id[game_id]
+  var p = GameController.players_by_game_id.get(game_id)
   
   # TODO: Set off when dead.
-  if not GameController.game_in_progress:
+  if not GameController.game_in_progress or p == null:
     set_indicator(IndicatorColor["Off"])
   elif p.can_move:
     set_indicator(IndicatorColor["Green"])
@@ -34,6 +32,7 @@ func set_indicator(color: Array[Color]):
   var l = color[0]
   var m = color[1]
   light.light_color = l
-  var material = mesh_instance.get_active_material(0).duplicate()
+  var material: Material = mesh_instance.get_active_material(0).duplicate()
   material.albedo_color = m
+  material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
   mesh_instance.set_surface_override_material(0, material)
