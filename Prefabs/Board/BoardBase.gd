@@ -17,7 +17,7 @@ var board_size: Vector2:
 	get:
 		return Vector2(grid_size * cell_size)
 
-var game_settings: GameSetupRules.GameSettings:
+var game_settings: GameController.GameSettings:
 	get:
 		return GameController.game_settings
 

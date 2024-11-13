@@ -19,7 +19,7 @@ var can_move: bool:
 	get:
 		return actions_remaining > 0
 
-var init_state: GameSetupRules.PlayerState
+var init_state: GameController.PlayerState
 var pieces: Array[ChessPiece] = []
 
 func _init():
