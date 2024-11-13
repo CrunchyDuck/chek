@@ -30,12 +30,12 @@ text = "START"
 custom_minimum_size = Vector2(650, 0)
 layout_mode = 1
 offset_right = 650.0
-offset_bottom = 132.0
+offset_bottom = 112.0
 script = ExtResource("2_f3i21")
-fixed_height = 30.0
+fixed_height = 25.0
 
 [node name="TitleBack" type="Control" parent="Settings"]
-custom_minimum_size = Vector2(650, 30)
+custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -68,11 +68,11 @@ theme_override_font_sizes/font_size = 25
 text = "BACK"
 
 [node name="Padding" type="Control" parent="Settings"]
-custom_minimum_size = Vector2(650, 30)
+custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
 
 [node name="DivineWind" type="Control" parent="Settings"]
-custom_minimum_size = Vector2(650, 30)
+custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Settings/DivineWind"]
@@ -101,7 +101,7 @@ grow_horizontal = 0
 grow_vertical = 2
 
 [node name="NoRetreat" type="Control" parent="Settings"]
-custom_minimum_size = Vector2(650, 30)
+custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Settings/NoRetreat"]

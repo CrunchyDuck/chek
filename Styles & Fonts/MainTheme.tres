@@ -16,3 +16,7 @@ LineEdit/styles/focus = ExtResource("2_wmmwh")
 LineEdit/styles/normal = ExtResource("2_wmmwh")
 LineEdit/styles/read_only = ExtResource("2_wmmwh")
 RichTextLabel/colors/default_color = Color(0.857, 0.857, 0.857, 1)
+TabContainer/constants/side_margin = 0
+TabContainer/styles/tab_hovered = ExtResource("1_cqbnr")
+TabContainer/styles/tab_selected = ExtResource("1_cqbnr")
+TabContainer/styles/tab_unselected = ExtResource("2_wmmwh")

@@ -1,7 +1,8 @@
-class_name GameSetup
+class_name GameSetupRules
 extends Control
+# TODO: Figure out how to switch between preset/rules/board screens
 
-var settings: GameSetup.GameSettings:
+var settings: GameSetupRules.GameSettings:
 	get:
 		return GameController.game_settings
 	set(value):
@@ -41,15 +42,15 @@ func _on_start():
 	var jbs = GameController.standard_board_setup().serialize()
 	GameController.start_game.rpc(jgs, jbs)
 	
-func gather_settings() -> GameSetup.GameSettings:
-	var settings = GameSetup.GameSettings.new()
+func gather_settings() -> GameSetupRules.GameSettings:
+	var settings = GameSetupRules.GameSettings.new()
 	settings.divine_wind = button_divine_wind.button_pressed
 	settings.no_retreat = button_no_retreat.button_pressed
 	return settings
 
 @rpc("any_peer", "call_local", "reliable", 0)
 func load_settings(json_settings: Dictionary):
-	settings = GameSetup.GameSettings.deserialize(json_settings)
+	settings = GameSetupRules.GameSettings.deserialize(json_settings)
 	button_divine_wind.button_pressed = settings.divine_wind
 	button_no_retreat.button_pressed = settings.no_retreat
 	
@@ -77,7 +78,7 @@ class GameSettings:
 class BoardState:
 	# Describes the state of the board
 	var size: Vector2i
-	var players: Array[GameSetup.PlayerState] = []
+	var players: Array[GameSetupRules.PlayerState] = []
 	
 	func _init(size: Vector2i):
 		self.size = size

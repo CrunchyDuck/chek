@@ -9,11 +9,13 @@ var _height: float:
 			return fixed_height
 		if fixed_elements > 0:
 			return self.custom_minimum_size.y / float(fixed_elements)
-		return size.y
+		return 0
 @export var fixed_height: float = 0
 @export var fixed_elements: int = 0
 
 func _process(delta: float):
+	if _height == 0:
+		return
 	self.size = custom_minimum_size
 	var children := get_children()
 	for child in children:

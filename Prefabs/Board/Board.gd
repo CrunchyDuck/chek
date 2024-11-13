@@ -20,7 +20,7 @@ var board_size: Vector2:
 var _selected_cell: BoardCell = null
 var board_wrapping: bool = false
 
-var game_settings: GameSetup.GameSettings:
+var game_settings: GameSetupRules.GameSettings:
 	get:
 		return GameController.game_settings
 

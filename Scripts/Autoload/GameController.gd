@@ -80,8 +80,8 @@ var game_id: int:
 var character_name: String
 var job_name: String
 
-var game_settings: GameSetup.GameSettings
-var board_state: GameSetup.BoardState
+var game_settings: GameSetupRules.GameSettings
+var board_state: GameSetupRules.BoardState
 var players_loaded: int = 0
 
 const max_players: int = 4
@@ -143,10 +143,10 @@ func disconnected():
 #endregion
 
 #region Board configurations
-func standard_board_setup() -> GameSetup.BoardState:
-	var board = GameSetup.BoardState.new(Vector2i(8, 8))
-	var p1 = GameSetup.PlayerState.new()
-	var p2 = GameSetup.PlayerState.new()
+func standard_board_setup() -> GameSetupRules.BoardState:
+	var board = GameSetupRules.BoardState.new(Vector2i(8, 8))
+	var p1 = GameSetupRules.PlayerState.new()
+	var p2 = GameSetupRules.PlayerState.new()
 	
 	p1.add_piece(ePieces.Pawn, Vector2i(0, 1), ChessPiece.Orientation.South)
 	p1.add_piece(ePieces.Pawn, Vector2i(1, 1), ChessPiece.Orientation.South)
@@ -223,7 +223,7 @@ func create_player(network_id: int, character_name: String, job_name: String):
 	MessageController.add_message.rpc(m)
 	PrefabController.register_networked_node.rpc("Player", player_path)
 
-func load_board_state(state: GameSetup.BoardState, players: Dictionary):
+func load_board_state(state: GameSetupRules.BoardState, players: Dictionary):
 	if players.size() != state.players.size():
 		print("Incorrect number of players for board state!")
 		#return
@@ -245,7 +245,7 @@ func load_board_state(state: GameSetup.BoardState, players: Dictionary):
 	# Spawn pieces
 	board.clear_pieces()
 	for player_num in state.players.size():
-		var player_state: GameSetup.PlayerState = state.players[player_num]
+		var player_state: GameSetupRules.PlayerState = state.players[player_num]
 		for piece in player_state.pieces:
 			spawn_piece(piece.type, piece.position, piece.orientation, player_num)
 
@@ -363,8 +363,8 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	if multiplayer.is_server:
 		multiplayer.multiplayer_peer.refuse_new_connections = true
 		# TODO: Bot takeover on disconnect
-	game_settings = GameSetup.GameSettings.deserialize(json_game_settings)
-	var board_state = GameSetup.BoardState.deserialize(json_board_state)
+	game_settings = GameSetupRules.GameSettings.deserialize(json_game_settings)
+	var board_state = GameSetupRules.BoardState.deserialize(json_board_state)
 	
 	# Spawn board on all clients
 	
