@@ -172,6 +172,11 @@ modulate = Color(0.0836, 0.108607, 0.22, 1)
 text = "General Specialist"
 outline_size = 0
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_left" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
+light_color = Color(0.560955, 0.560955, 0.560955, 1)
+omni_range = 0.066
+
 [node name="indicator1_p1" parent="Console2/left_panel" index="6"]
 layers = 2
 script = ExtResource("7_q5tya")
