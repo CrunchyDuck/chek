@@ -236,9 +236,8 @@ func load_board_state(state: GameController.BoardState, players: Dictionary):
 	
 	# Initialize board, if necessary
 	if board == null:
-		var b = PrefabController.get_prefab("Board.Board").instantiate()
+		var b = PrefabController.get_prefab("Board.BoardPlayable").instantiate()
 		screen_central.add_child(b)
-		b.set_script(BoardPlayable)
 		board = b
 		board.visible = false  # Hide until fully loaded
 		board.name = "Board"

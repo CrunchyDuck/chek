@@ -21,21 +21,19 @@ var game_settings: GameController.GameSettings:
 	get:
 		return GameController.game_settings
 
-@onready
-var node_cells: Control = $Cells
-
-@onready
-var node_pieces: Control = $Pieces
-
-func _ready():
-	# This is to make the sprites not go below 0,0 in this object
-	node_cells.position += Vector2(cell_size) / 2
-	node_pieces.position += Vector2(cell_size) / 2
+var node_cells: Control:
+	get:
+		return $Cells
+var node_pieces: Control:
+	get:
+		return $Pieces
 
 func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
 	for n in node_cells.get_children():
 		n.queue_free()
 
+	node_cells.position = Vector2(cell_size) / 2
+	node_pieces.position = Vector2(cell_size) / 2
 	grid = []
 	for y in _grid_size.y:
 		var row = []
@@ -89,6 +87,8 @@ func is_coordinate_in_bounds(coordinate: Vector2i) -> bool:
 	var y = coordinate.y
 	return x >= 0 and y >= 0 and x < grid_size.x and y < grid_size.y
 #endregion
+
+# TODO: (de)Serialize board
 	
 
 func _position_board():
