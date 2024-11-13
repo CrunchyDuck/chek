@@ -5,7 +5,7 @@ var sprite: Sprite2D:
 	get:
 		return $Sprite2D
 
-var board: Board = null
+var board: BoardBase = null
 var _cell_coordinates: Vector2i
 var cell_coordinates: Vector2i:
 	get:
@@ -32,7 +32,7 @@ var blocked: bool:
 	set(value):
 		_blocked = value
 		_update_color()
-var contained_action: Board.GameAction:
+var contained_action: BoardPlayable.GameAction:
 	get:
 		return _contained_action
 	set(value):
@@ -41,7 +41,7 @@ var contained_action: Board.GameAction:
 
 var _selected = false
 var _blocked: bool = false
-var _contained_action: Board.GameAction = null
+var _contained_action: BoardPlayable.GameAction = null
 #endregion
 
 #region Colours
@@ -67,9 +67,9 @@ func _update_color():
 		color = color_blocked	
 	elif contained_action != null:
 		match contained_action.type:
-			Board.eActionType.Move:
+			BoardPlayable.eActionType.Move:
 				color = color_move
-			Board.eActionType.Attack, Board.eActionType.AttackMove:
+			BoardPlayable.eActionType.Attack, BoardPlayable.eActionType.AttackMove:
 				color = color_attack
 			_:
 				assert(false, "Unhandled eActionType in BoardCell " + str(cell_coordinates))

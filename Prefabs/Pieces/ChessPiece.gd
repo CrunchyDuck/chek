@@ -3,7 +3,7 @@ extends Sprite2D
 
 var node_sprite: Sprite2D = self
 
-var board: Board
+var board: BoardBase
 var coordinates: Vector2i
 var move_count: int = 0
 var owned_by: int
@@ -31,7 +31,7 @@ signal on_kill(killer, victim)
 signal on_killed(killer, victim)
 
 # TODO: Make pieces use different spite based on owner
-func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: int, _board: Board) -> void:
+func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: int, _board: BoardBase) -> void:
 	self.coordinates = _coordinates
 	self.orientation = _orientation
 	self.owned_by = _owned_by
@@ -47,7 +47,7 @@ func _rotate_to_orientation(vec: Vector2i) -> Vector2i:
 	# Thus, this case loses no information.
 	return Vector2i(v)
 
-func highlight_board_cells(actions: Array[Board.GameAction]):
+func highlight_board_cells(actions: Array[BoardPlayable.GameAction]):
 	for action in actions:
 		if action == null:
 			continue
@@ -55,7 +55,7 @@ func highlight_board_cells(actions: Array[Board.GameAction]):
 		target_cell.contained_action = action
 		
 # Gets a nicely serializable description of possible moves/attacks a piece can do
-func _get_actions() -> Array[Board.GameAction]:
+func _get_actions() -> Array[BoardPlayable.GameAction]:
 	assert(false, "_get_actions not overridden in " + get_class())
 	return []
 	
@@ -71,8 +71,8 @@ func _can_attack(target_position: Vector2i) -> bool:
 			not owned_by_player.friendly.has(target_cell.occupying_piece.owned_by)
 
 # Try to move in a line, or attack what blocks that line.
-func _act_in_line(direction: Vector2i) -> Array[Board.GameAction]:
-	var actions: Array[Board.GameAction] = []
+func _act_in_line(direction: Vector2i) -> Array[BoardPlayable.GameAction]:
+	var actions: Array[BoardPlayable.GameAction] = []
 	var dist: int = 1
 	while dist < 50:  # Arbitrary cap to prevent infinite loop
 		var target_cell = board.get_cell(coordinates + _rotate_to_orientation(direction * dist))
@@ -94,16 +94,16 @@ func _act_in_line(direction: Vector2i) -> Array[Board.GameAction]:
 	return actions
 
 # A standard move or attack to a cell.
-func _act_on_cell(cell: Vector2i) -> Board.GameAction:
+func _act_on_cell(cell: Vector2i) -> BoardPlayable.GameAction:
 	if board.game_settings.no_retreat:
 		var to_cell = _rotate_to_orientation(cell - coordinates)
 		if to_cell.y < 0:
 			return null
 	
 	if _can_attack(cell):
-		return Board.GameAction.new(owned_by, Board.eActionType.AttackMove, coordinates, cell)
+		return BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.AttackMove, coordinates, cell)
 	elif _can_move(cell):
-		return Board.GameAction.new(owned_by, Board.eActionType.Move, coordinates, cell)
+		return BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.Move, coordinates, cell)
 	return null
 		
 func _on_killed(killer: ChessPiece, victim: ChessPiece):

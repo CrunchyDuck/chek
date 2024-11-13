@@ -46,7 +46,7 @@ var job_list = [
 ]
 
 var game_in_progress: bool = false
-var board: Board
+var board: BoardPlayable
 var players_by_net_id: Dictionary:
 	get:
 		var d = {}
@@ -236,9 +236,11 @@ func load_board_state(state: GameSetupRules.BoardState, players: Dictionary):
 	
 	# Initialize board, if necessary
 	if board == null:
-		board = PrefabController.get_prefab("Board.Board").instantiate()
+		var b = PrefabController.get_prefab("Board.Board").instantiate()
+		screen_central.add_child(b)
+		b.set_script(BoardPlayable)
+		board = b
 		board.visible = false  # Hide until fully loaded
-		screen_central.add_child(board)
 		board.name = "Board"
 		board.create_new_grid(state.size)
 	
@@ -276,7 +278,7 @@ func try_perform_action(game_action_data: Dictionary) -> void:
 
 @rpc("authority", "call_remote", "reliable")
 func perform_action(game_action_data: Dictionary) -> bool:
-	var action: Board.GameAction = Board.GameAction.deserialize(game_action_data)
+	var action: BoardPlayable.GameAction = BoardPlayable.GameAction.deserialize(game_action_data)
 	# Check if action is allowed with GameController/Player object.
 	if not GameController.is_action_legal(action):
 		return false
@@ -285,19 +287,19 @@ func perform_action(game_action_data: Dictionary) -> bool:
 	var current_action = action
 	while current_action != null:
 		match current_action.type:
-			Board.eActionType.Move:
+			BoardPlayable.eActionType.Move:
 				if not board._move_to_cell(current_action.source, current_action.target):
 					break
-			Board.eActionType.Attack:
+			BoardPlayable.eActionType.Attack:
 				if not board._attack_to_cell(current_action.source, current_action.target):
 					break
-			Board.eActionType.AttackMove:
+			BoardPlayable.eActionType.AttackMove:
 				if not board._attack_to_cell(current_action.source, current_action.target):
 					break
 				anything_performed = true
 				if not board._move_to_cell(current_action.source, current_action.target):
 					break
-			Board.eActionType.Spawn:
+			BoardPlayable.eActionType.Spawn:
 				pass
 			_:
 				assert(false, "Unhandled eActionType type in perform_action")
@@ -309,7 +311,7 @@ func perform_action(game_action_data: Dictionary) -> bool:
 		return true
 	return false
 
-func is_action_legal(action: Board.GameAction):
+func is_action_legal(action: BoardPlayable.GameAction):
 	var p = players_by_game_id[action.player]
 	if p.actions_remaining > 0:
 		return true
@@ -317,7 +319,7 @@ func is_action_legal(action: Board.GameAction):
 #endregion
 	
 #region Events
-func on_action(action: Board.GameAction):
+func on_action(action: BoardPlayable.GameAction):
 	var id = action.player
 	var p = players_by_game_id[id]
 	p.actions_remaining -= 1

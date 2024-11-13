@@ -3,7 +3,7 @@ class_name Player
 
 static var players = {}
 
-var board: Board:
+var board: BoardPlayable:
 	get:
 		return GameController.board
 
