@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=13 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -9,7 +9,11 @@
 [ext_resource type="Script" path="res://Scripts/NameScreen.gd" id="7_6p3my"]
 [ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="7_q5tya"]
 [ext_resource type="Script" path="res://Scripts/Nameplate.gd" id="8_pahoh"]
+[ext_resource type="Script" path="res://Scripts/ScreenButton.gd" id="10_wlxyg"]
 [ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i2q1t"]
+size = Vector3(0.09, 0.09, 0.09)
 
 [node name="MainScene" type="Node"]
 
@@ -172,10 +176,69 @@ modulate = Color(0.0836, 0.108607, 0.22, 1)
 text = "General Specialist"
 outline_size = 0
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_left" index="0"]
+[node name="arrow_down" parent="Console2/front_panel" index="0" node_paths=PackedStringArray("animator")]
+script = ExtResource("10_wlxyg")
+direction = "Down"
+animator = NodePath("../../AnimationPlayer")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_down" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
+visible = false
 light_color = Color(0.560955, 0.560955, 0.560955, 1)
 omni_range = 0.066
+
+[node name="Area3D" type="Area3D" parent="Console2/front_panel/arrow_down" index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console2/front_panel/arrow_down/Area3D"]
+shape = SubResource("BoxShape3D_i2q1t")
+
+[node name="arrow_left" parent="Console2/front_panel" index="1" node_paths=PackedStringArray("animator")]
+script = ExtResource("10_wlxyg")
+direction = "Left"
+animator = NodePath("../../AnimationPlayer")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_left" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
+visible = false
+light_color = Color(0.560955, 0.560955, 0.560955, 1)
+omni_range = 0.066
+
+[node name="Area3D" type="Area3D" parent="Console2/front_panel/arrow_left" index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console2/front_panel/arrow_left/Area3D"]
+shape = SubResource("BoxShape3D_i2q1t")
+
+[node name="arrow_right" parent="Console2/front_panel" index="2" node_paths=PackedStringArray("animator")]
+script = ExtResource("10_wlxyg")
+direction = "Right"
+animator = NodePath("../../AnimationPlayer")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_right" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
+visible = false
+light_color = Color(0.560955, 0.560955, 0.560955, 1)
+omni_range = 0.066
+
+[node name="Area3D" type="Area3D" parent="Console2/front_panel/arrow_right" index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console2/front_panel/arrow_right/Area3D"]
+shape = SubResource("BoxShape3D_i2q1t")
+
+[node name="arrow_up" parent="Console2/front_panel" index="3" node_paths=PackedStringArray("animator")]
+script = ExtResource("10_wlxyg")
+direction = "Up"
+animator = NodePath("../../AnimationPlayer")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_up" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
+visible = false
+light_color = Color(0.560955, 0.560955, 0.560955, 1)
+omni_range = 0.066
+
+[node name="Area3D" type="Area3D" parent="Console2/front_panel/arrow_up" index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console2/front_panel/arrow_up/Area3D"]
+shape = SubResource("BoxShape3D_i2q1t")
 
 [node name="indicator1_p1" parent="Console2/left_panel" index="6"]
 layers = 2
