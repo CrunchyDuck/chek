@@ -22,7 +22,7 @@ size = Vector3(0.09, 0.09, 0.09)
 [node name="ViewportCentralScreen" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
 size = Vector2i(650, 650)
 script = ExtResource("5_roanu")
-target_mesh = NodePath("../Console2/front_panel/screen_main")
+target_mesh = NodePath("../Console/front_panel/screen_main")
 
 [node name="CentralScreen" type="Control" parent="ViewportCentralScreen"]
 texture_filter = 1
@@ -48,7 +48,7 @@ layout_mode = 1
 [node name="ViewportChatScreen" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
 size = Vector2i(428, 191)
 script = ExtResource("5_roanu")
-target_mesh = NodePath("../Console2/left_panel/frame_screen_chatbox_001")
+target_mesh = NodePath("../Console/left_panel/frame_screen_chatbox_001")
 
 [node name="ChatScreen" parent="ViewportChatScreen" instance=ExtResource("6_bnu3y")]
 
@@ -57,7 +57,7 @@ target_mesh = NodePath("../Console2/left_panel/frame_screen_chatbox_001")
 [node name="ViewportName1" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
 size = Vector2i(281, 50)
 script = ExtResource("5_roanu")
-target_mesh = NodePath("../Console2/left_panel/NameScreen1")
+target_mesh = NodePath("../Console/left_panel/NameScreen1")
 
 [node name="Name" type="RichTextLabel" parent="ViewportName1"]
 anchors_preset = 15
@@ -81,7 +81,7 @@ script = ExtResource("7_6p3my")
 [node name="ViewportName2" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
 size = Vector2i(281, 50)
 script = ExtResource("5_roanu")
-target_mesh = NodePath("../Console2/left_panel/NameScreen2")
+target_mesh = NodePath("../Console/left_panel/NameScreen2")
 
 [node name="ColorPalette" parent="ViewportName2" instance=ExtResource("1_h37ii")]
 
@@ -106,7 +106,7 @@ game_id = 1
 [node name="ViewportName3" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
 size = Vector2i(281, 50)
 script = ExtResource("5_roanu")
-target_mesh = NodePath("../Console2/left_panel/NameScreen3")
+target_mesh = NodePath("../Console/left_panel/NameScreen3")
 
 [node name="ColorPalette" parent="ViewportName3" instance=ExtResource("1_h37ii")]
 
@@ -131,7 +131,7 @@ game_id = 2
 [node name="ViewportName4" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
 size = Vector2i(281, 50)
 script = ExtResource("5_roanu")
-target_mesh = NodePath("../Console2/left_panel/NameScreen4")
+target_mesh = NodePath("../Console/left_panel/NameScreen4")
 
 [node name="ColorPalette" parent="ViewportName4" instance=ExtResource("1_h37ii")]
 
@@ -157,127 +157,127 @@ game_id = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.972, 3.751)
 fov = 25.0
 
-[node name="Console2" parent="." instance=ExtResource("11_1otxn")]
+[node name="Console" parent="." instance=ExtResource("11_1otxn")]
 
-[node name="name_plate" parent="Console2/desk" index="1"]
+[node name="name_plate" parent="Console/desk" index="1"]
 script = ExtResource("8_pahoh")
 
-[node name="Name" type="Label3D" parent="Console2/desk/name_plate" index="0"]
+[node name="Name" type="Label3D" parent="Console/desk/name_plate" index="0"]
 transform = Transform3D(0.999848, 0.0100104, -0.0142961, 0, 0.819152, 0.573576, 0.0174524, -0.573489, 0.819028, 0.000904679, 0.0233597, 0.0233327)
 pixel_size = 0.0013
 modulate = Color(0.0836, 0.108607, 0.22, 1)
 text = "N. Stanislav"
 outline_size = 0
 
-[node name="Job" type="Label3D" parent="Console2/desk/name_plate" index="1"]
+[node name="Job" type="Label3D" parent="Console/desk/name_plate" index="1"]
 transform = Transform3D(0.999848, 0.0100104, -0.0142961, 0, 0.819152, 0.573576, 0.0174524, -0.573489, 0.819028, 0.0038712, -0.00728023, 0.0432819)
 pixel_size = 0.0006
 modulate = Color(0.0836, 0.108607, 0.22, 1)
 text = "General Specialist"
 outline_size = 0
 
-[node name="arrow_down" parent="Console2/front_panel" index="0" node_paths=PackedStringArray("animator")]
+[node name="arrow_down" parent="Console/front_panel" index="0" node_paths=PackedStringArray("animator")]
 script = ExtResource("10_wlxyg")
 direction = "Down"
 animator = NodePath("../../AnimationPlayer")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_down" index="0"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Console/front_panel/arrow_down" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
-visible = false
 light_color = Color(0.560955, 0.560955, 0.560955, 1)
+light_energy = 0.0
 omni_range = 0.066
 
-[node name="Area3D" type="Area3D" parent="Console2/front_panel/arrow_down" index="1"]
+[node name="Area3D" type="Area3D" parent="Console/front_panel/arrow_down" index="1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Console2/front_panel/arrow_down/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_down/Area3D"]
 shape = SubResource("BoxShape3D_i2q1t")
 
-[node name="arrow_left" parent="Console2/front_panel" index="1" node_paths=PackedStringArray("animator")]
+[node name="arrow_left" parent="Console/front_panel" index="1" node_paths=PackedStringArray("animator")]
 script = ExtResource("10_wlxyg")
 direction = "Left"
 animator = NodePath("../../AnimationPlayer")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_left" index="0"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Console/front_panel/arrow_left" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
-visible = false
 light_color = Color(0.560955, 0.560955, 0.560955, 1)
+light_energy = 0.0
 omni_range = 0.066
 
-[node name="Area3D" type="Area3D" parent="Console2/front_panel/arrow_left" index="1"]
+[node name="Area3D" type="Area3D" parent="Console/front_panel/arrow_left" index="1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Console2/front_panel/arrow_left/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_left/Area3D"]
 shape = SubResource("BoxShape3D_i2q1t")
 
-[node name="arrow_right" parent="Console2/front_panel" index="2" node_paths=PackedStringArray("animator")]
+[node name="arrow_right" parent="Console/front_panel" index="2" node_paths=PackedStringArray("animator")]
 script = ExtResource("10_wlxyg")
 direction = "Right"
 animator = NodePath("../../AnimationPlayer")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_right" index="0"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Console/front_panel/arrow_right" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
-visible = false
 light_color = Color(0.560955, 0.560955, 0.560955, 1)
+light_energy = 0.0
 omni_range = 0.066
 
-[node name="Area3D" type="Area3D" parent="Console2/front_panel/arrow_right" index="1"]
+[node name="Area3D" type="Area3D" parent="Console/front_panel/arrow_right" index="1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Console2/front_panel/arrow_right/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_right/Area3D"]
 shape = SubResource("BoxShape3D_i2q1t")
 
-[node name="arrow_up" parent="Console2/front_panel" index="3" node_paths=PackedStringArray("animator")]
+[node name="arrow_up" parent="Console/front_panel" index="3" node_paths=PackedStringArray("animator")]
 script = ExtResource("10_wlxyg")
 direction = "Up"
 animator = NodePath("../../AnimationPlayer")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console2/front_panel/arrow_up" index="0"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Console/front_panel/arrow_up" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
-visible = false
 light_color = Color(0.560955, 0.560955, 0.560955, 1)
+light_energy = 0.0
 omni_range = 0.066
 
-[node name="Area3D" type="Area3D" parent="Console2/front_panel/arrow_up" index="1"]
+[node name="Area3D" type="Area3D" parent="Console/front_panel/arrow_up" index="1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Console2/front_panel/arrow_up/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_up/Area3D"]
 shape = SubResource("BoxShape3D_i2q1t")
 
-[node name="indicator1_p1" parent="Console2/left_panel" index="6"]
+[node name="indicator1_p1" parent="Console/left_panel" index="6"]
 layers = 2
 script = ExtResource("7_q5tya")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1" index="0"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Console/left_panel/indicator1_p1" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00418818, 0, 0.0481336)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.06
 light_cull_mask = 4294967293
 
-[node name="indicator1_p1_001" parent="Console2/left_panel" index="7"]
+[node name="indicator1_p1_001" parent="Console/left_panel" index="7"]
 layers = 2
 script = ExtResource("7_q5tya")
 game_id = 1
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_001" index="0"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Console/left_panel/indicator1_p1_001" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00418818, 0, 0.0481336)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.06
 light_cull_mask = 4294967293
 
-[node name="indicator1_p1_002" parent="Console2/left_panel" index="8"]
+[node name="indicator1_p1_002" parent="Console/left_panel" index="8"]
 layers = 2
 script = ExtResource("7_q5tya")
 game_id = 2
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_002" index="0"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Console/left_panel/indicator1_p1_002" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00418818, 0, 0.0481336)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.06
 light_cull_mask = 4294967293
 
-[node name="indicator1_p1_003" parent="Console2/left_panel" index="9"]
+[node name="indicator1_p1_003" parent="Console/left_panel" index="9"]
 layers = 2
 script = ExtResource("7_q5tya")
 game_id = 3
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console2/left_panel/indicator1_p1_003" index="0"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Console/left_panel/indicator1_p1_003" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00418818, 0, 0.0481336)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.06
@@ -288,4 +288,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50645, 1.33606)
 light_energy = 0.2
 
 [editable path="ViewportChatScreen/ChatScreen"]
-[editable path="Console2"]
+[editable path="Console"]

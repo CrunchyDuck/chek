@@ -1,7 +1,11 @@
 class_name GameSetup
 extends Control
 
-var settings: GameSetup.GameSettings
+var settings: GameSetup.GameSettings:
+	get:
+		return GameController.game_settings
+	set(value):
+		GameController.game_settings = value
 
 @onready
 var button_start: Button = $Start
@@ -10,6 +14,9 @@ var button_divine_wind: CheckBox = $Settings/DivineWind/CheckBox
 @onready
 var button_no_retreat: CheckBox = $Settings/NoRetreat/CheckBox
 
+@onready
+var button_next_screen: ScreenButton = $/root/MainScene/Console/front_panel/arrow_right
+
 func _ready() -> void:
 	button_start.pressed.connect(_on_start)
 	if not multiplayer.is_server():
@@ -17,17 +24,18 @@ func _ready() -> void:
 	
 	button_divine_wind.pressed.connect(_on_change)
 	button_no_retreat.pressed.connect(_on_change)
-	
 	settings = gather_settings()
+	button_next_screen.on_pressed.connect(_next_screen)
 
-func _next_screen() -> void:
+func _next_screen(button) -> void:
+	print("here")
 	# Move to board setup
 
 func _on_change():
 	load_settings.rpc(gather_settings().serialize())
 	
 func _on_start():
-	var settings = gather_settings()
+	settings = gather_settings()
 	
 	var jgs = settings.serialize()
 	var jbs = GameController.standard_board_setup().serialize()
