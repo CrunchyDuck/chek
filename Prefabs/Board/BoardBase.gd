@@ -89,6 +89,7 @@ func is_coordinate_in_bounds(coordinate: Vector2i) -> bool:
 	var y = coordinate.y
 	return x >= 0 and y >= 0 and x < grid_size.x and y < grid_size.y
 #endregion
+	
 
 func _position_board():
 	var new_position = get_viewport_rect().size / 2

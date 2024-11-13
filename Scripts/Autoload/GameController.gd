@@ -145,8 +145,8 @@ func disconnected():
 #region Board configurations
 func standard_board_setup() -> GameController.BoardState:
 	var board = GameController.BoardState.new(Vector2i(8, 8))
-	var p1 = GameController.PlayerState.new()
-	var p2 = GameController.PlayerState.new()
+	var p1 = GameController.PlayerState.new(0)
+	var p2 = GameController.PlayerState.new(1)
 	
 	p1.add_piece(ePieces.Pawn, Vector2i(0, 1), ChessPiece.Orientation.South)
 	p1.add_piece(ePieces.Pawn, Vector2i(1, 1), ChessPiece.Orientation.South)
@@ -429,9 +429,13 @@ class BoardState:
 class PlayerState:
 	var pieces: Array = []
 	var actions_remaining: int = 0
+	var id: int
+	
+	func _init(id: int):
+		self.id = id
 	
 	func add_piece(piece: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
-		pieces.append(PieceState.new(piece, position, orientation))
+		pieces.append(PieceState.new(piece, position, orientation, id))
 		
 	func serialize() -> Dictionary:
 		var d = {}
@@ -440,10 +444,11 @@ class PlayerState:
 			_pieces.append(p.serialize())
 		d.pieces = _pieces
 		d.actions_remaining = actions_remaining
+		d.id = id
 		return d
 		
 	static func deserialize(json_player_state: Dictionary) -> PlayerState:
-		var ps = PlayerState.new()
+		var ps = PlayerState.new(json_player_state.id)
 		ps.actions_remaining = json_player_state["actions_remaining"]
 		for p in json_player_state["pieces"]:
 			ps.pieces.append(PieceState.deserialize(p))
@@ -453,25 +458,29 @@ class PieceState:
 	var type: GameController.ePieces
 	var position: Vector2i
 	var orientation: ChessPiece.Orientation
+	var player: int
 	# TODO: PieceID to make it easier to reference over network?
 	
-	func _init(type: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
+	func _init(type: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation, player: int):
 		self.type = type
 		self.position = position
 		self.orientation = orientation
+		self.player = player
 		
 	func serialize() -> Dictionary:
 		var d = {}
 		d.type = type
 		d.position = position
 		d.orientation = orientation
+		d.player = player
 		return d
 	
 	static func deserialize(json_piece_state: Dictionary) -> PieceState:
 		return PieceState.new(
 			json_piece_state.type,
 			json_piece_state.position,
-			json_piece_state.orientation
+			json_piece_state.orientation,
+			json_piece_state.player,
 		)
 
 
