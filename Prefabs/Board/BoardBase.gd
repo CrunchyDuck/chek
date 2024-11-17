@@ -118,7 +118,7 @@ func cell_to_position(cell: Vector2i) -> Vector2:
 func position_to_cell(pos: Vector2) -> BoardCell:
   # Relative to our position
   pos -= global_position
-  if pos.x < 0 or pos.y < 0 or pos.x > bounds.x or pos.y > bounds.x:
+  if pos.x < 0 or pos.y < 0 or pos.x > bounds.x or pos.y > bounds.y:
     return null
   var x = int(pos.x) / cell_size.x
   var y = int(pos.y) / cell_size.y
@@ -127,8 +127,8 @@ func position_to_cell(pos: Vector2) -> BoardCell:
 
 func get_cell(pos: Vector2i) -> BoardCell:
   #if game_settings.wrapx:
-  pos.x = wrapi(pos.x, 0, grid_size.x - 1)
-  pos.y = wrapi(pos.y, 0, grid_size.y - 1)
+  pos.x = wrapi(pos.x, 0, grid_size.x)
+  pos.y = wrapi(pos.y, 0, grid_size.y)
   
   if not is_coordinate_in_bounds(pos):
     return null
