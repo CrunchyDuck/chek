@@ -77,6 +77,9 @@ func clear_pieces():
 func spawn_piece(piece_type: BoardBase.ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int) -> ChessPiece:
   var piece: ChessPiece = PrefabController.get_prefab(piece_prefabs[piece_type]).instantiate()
   var cell = get_cell(coordinate)
+  var _op = cell.occupying_piece
+  if _op:
+    _op.queue_free()
   cell.occupying_piece = piece
   piece.Init(coordinate, orientation, owned_by, self, piece_type)
   node_pieces.add_child(piece)
@@ -114,7 +117,6 @@ func cell_to_position(cell: Vector2i) -> Vector2:
 
 func position_to_cell(pos: Vector2) -> BoardCell:
   # Relative to our position
-  # TODO: When I implement the 3D console, this will need to be changed.
   pos -= global_position
   if pos.x < 0 or pos.y < 0 or pos.x > bounds.x or pos.y > bounds.x:
     return null

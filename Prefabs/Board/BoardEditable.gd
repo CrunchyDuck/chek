@@ -3,11 +3,28 @@ extends BoardBase
 
 var paint_piece: BoardBase.PieceState
 
+func _ready():
+  paint_piece = BoardBase.PieceState.new(
+    BoardBase.ePieces.Pawn,
+    Vector2i(0, 0),
+    ChessPiece.Orientation.South,
+    0
+  )
+
 func _input(event: InputEvent):
-  if event.is_action_pressed("LMB"):
-    print("LMB down")
-  elif event.is_action_pressed("RMB"):
+  if Input.is_action_pressed("LMB"):
+    var _cell = position_to_cell(get_global_mouse_position())
+    if _cell:
+      spawn_piece(paint_piece.type, _cell.cell_coordinates, paint_piece.orientation, paint_piece.player)
+  elif Input.is_action_pressed("RMB"):
     print("RMB down")
+    
+func _paint_on_cell(_cell: BoardCell, _piece: BoardBase.PieceState) -> void:
+  var _op = _cell.occupying_piece
+  if _op:
+    _op.queue_free()
+  spawn_piece(_piece.type, _cell.cell_coordinates, _piece.orientation, _piece.player)
+  
 
 #func _input(event: InputEvent) -> void:
   #if event is InputEventMouseButton and event.is_pressed():
