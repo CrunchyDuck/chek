@@ -1,45 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://vux5adtj7ccl"]
+[gd_scene load_steps=2 format=3 uid="uid://c30ekpy0p3p1y"]
 
-[ext_resource type="Script" path="res://Prefabs/Menus/GameSetup.gd" id="1_1hgox"]
-[ext_resource type="Script" path="res://Scripts/CustomNodes/VBoxRigid.gd" id="2_f3i21"]
+[ext_resource type="Script" path="res://Scripts/CustomNodes/VBoxRigid.gd" id="1_eelgp"]
 
-[node name="LobbySetup" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_1hgox")
-
-[node name="Start" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -8.0
-offset_right = 4.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "START"
-
-[node name="Settings" type="VBoxContainer" parent="."]
+[node name="Settings" type="VBoxContainer"]
 custom_minimum_size = Vector2(650, 0)
-layout_mode = 1
 offset_right = 650.0
-offset_bottom = 112.0
-script = ExtResource("2_f3i21")
+offset_bottom = 83.0
+script = ExtResource("1_eelgp")
 fixed_height = 25.0
 
-[node name="TitleBack" type="Control" parent="Settings"]
+[node name="TitleBack" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Title" type="Label" parent="Settings/TitleBack"]
+[node name="Title" type="Label" parent="TitleBack"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -52,7 +28,7 @@ theme_override_font_sizes/font_size = 25
 text = "CONFIGURATION"
 vertical_alignment = 1
 
-[node name="Back" type="Button" parent="Settings/TitleBack"]
+[node name="Back" type="Button" parent="TitleBack"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -67,15 +43,15 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 25
 text = "BACK"
 
-[node name="Padding" type="Control" parent="Settings"]
+[node name="Padding" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
 
-[node name="DivineWind" type="Control" parent="Settings"]
+[node name="DivineWind" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Settings/DivineWind"]
+[node name="Label" type="Label" parent="DivineWind"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -87,7 +63,7 @@ grow_vertical = 2
 text = "DIVINE WIND"
 vertical_alignment = 1
 
-[node name="CheckBox" type="CheckBox" parent="Settings/DivineWind"]
+[node name="CheckBox" type="CheckBox" parent="DivineWind"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -100,11 +76,11 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="NoRetreat" type="Control" parent="Settings"]
+[node name="NoRetreat" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Settings/NoRetreat"]
+[node name="Label" type="Label" parent="NoRetreat"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -116,7 +92,7 @@ grow_vertical = 2
 text = "NO RETREAT"
 vertical_alignment = 1
 
-[node name="CheckBox" type="CheckBox" parent="Settings/NoRetreat"]
+[node name="CheckBox" type="CheckBox" parent="NoRetreat"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0

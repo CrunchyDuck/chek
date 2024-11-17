@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://vux5adtj7ccl"]
+
+[ext_resource type="Script" path="res://Scripts/Menus/Setup/SetupMenu.gd" id="1_xfw7x"]
+
+[node name="LobbySetup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xfw7x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+
+[node name="SetupNavigation" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(650, 40)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Preset" type="Button" parent="VBoxContainer/SetupNavigation"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PRESET"
+
+[node name="Rule" type="Button" parent="VBoxContainer/SetupNavigation"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RULE"
+
+[node name="Board" type="Button" parent="VBoxContainer/SetupNavigation"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BOARD"
+
+[node name="Content" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 588)
+layout_mode = 2
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "START"

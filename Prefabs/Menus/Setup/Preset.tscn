@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cmaw5fkyktdqh"]
+[gd_scene format=3 uid="uid://42l06pv7l3mk"]
 
-[node name="BoardEditor" type="Control"]
+[node name="Preset" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

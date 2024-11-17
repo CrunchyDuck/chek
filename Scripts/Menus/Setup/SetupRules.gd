@@ -1,6 +1,5 @@
-class_name GameSetupRules
+class_name SetupMenu
 extends Control
-# TODO: Figure out how to switch between preset/rules/board screens
 
 var settings: BoardBase.GameSettings:
   get:
