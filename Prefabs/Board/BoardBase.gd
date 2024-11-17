@@ -84,7 +84,8 @@ func spawn_piece(piece_type: BoardBase.ePieces, coordinate: Vector2i, orientatio
   return piece
   
 func serialize() -> BoardBase.BoardState:
-  var bs = BoardBase.BoardState.new(board_size)
+  var bs = BoardBase.BoardState.new()
+  bs.size = Vector2i(8, 8)
   var players = []
   for piece in node_pieces.get_children():
     var p = piece.serialize()
@@ -167,11 +168,8 @@ class GameSettings:
 
 class BoardState:
   # Describes the state of the board
-  var size: Vector2i
+  var size: Vector2i = Vector2i(8, 8)
   var players: Array[BoardBase.PlayerState] = []
-  
-  func _init(size: Vector2i):
-    self.size = size
   
   func serialize() -> Dictionary:
     var d = {}
@@ -183,8 +181,9 @@ class BoardState:
     return d
     
   static func deserialize(json_board_state: Dictionary) -> BoardState:
-    var bs = BoardState.new(json_board_state["size"])
-    for p in json_board_state["players"]:
+    var bs = BoardState.new()
+    bs.size = json_board_state.size
+    for p in json_board_state.players:
       bs.players.append(PlayerState.deserialize(p))
     
     return bs

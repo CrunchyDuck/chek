@@ -74,8 +74,8 @@ var game_id: int:
 var character_name: String
 var job_name: String
 
-var game_settings: BoardBase.GameSettings
-var board_state: BoardBase.BoardState
+var game_settings: BoardBase.GameSettings = BoardBase.GameSettings.new()
+var board_state: BoardBase.BoardState = BoardBase.BoardState.new()
 var players_loaded: int = 0
 
 const max_players: int = 4
@@ -138,7 +138,8 @@ func disconnected():
 
 #region Board configurations
 func standard_board_setup() -> BoardBase.BoardState:
-  var board = BoardBase.BoardState.new(Vector2i(8, 8))
+  var board = BoardBase.BoardState.new()
+  board.size = Vector2i(8, 8)
   var p1 = BoardBase.PlayerState.new(0)
   var p2 = BoardBase.PlayerState.new(1)
   
