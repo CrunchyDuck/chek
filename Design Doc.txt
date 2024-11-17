@@ -65,13 +65,31 @@ BRAVE AND STUPID - If there is are pieces that can attack, one of them must atta
 DENIABLE OPS - Pieces are invisible on dark tiles.
 ALLIED ASSAULT - Players on the same team can control the each others units
 
-Piece that explodes when captured, killing all surrounding units.
-Piece with a terrifying presence - Enemies cannot move into squares surrounding it
-Piece that moves/captures like king, but can also teleport to any empty space
-Piece capable of moving other pieces
-Traitor piece - capturing this piece turns the capturer to the other team
-Checker's piece
+Pawn - Fearless front line. Nothing to lose. Only moves forward. Attacks diagonal. Promotion at end of board.
+King - Ineffective figurehead. Move and take any direction.
+Queen - Spirit of Motherland. Move and take any direction, any distance.
+Bishop - Divine salesman. Move and take diagonals.
+Castle - Self destructive vendetta. Move and take cardinals.
+Horse - Unconventional. Unexpected. Move and attack 2.236 squares away. Leap over heads.
+Bomber - Loyal. Psychologically degraded. Move and attack any direction. Explodes when attacking or attacked. Attack from safe distance.
+Beast - ??? Move and attack cardinals up to 2. Paralyse adjacent units.
+Hologram - Cutting edge illusion. Cannot attack. Move any direction. Swap places with friendly pieces
+Shifter - Untrustworthy. Liability. Alternate between cardinal and diagonal movement.
+Checker - Acrobatic foreigner. Move forward diagonals. Leap over and destroy those in the way. Promotion at end of board.
+Weaponized youth - Innocence, weaponized. Attacking this piece turns the attacker to the piece's team. Move and attack diagonals.
 
 Hoard - one side has a bunch of pawns
 War fatigue - Players do not spawn with pawns.
 Trench warfare - 2x15 board size, 2 players
+Cheker - Checkers, with wrapping edges
+Holy war - Only holograms and bishops.
+
+Desk fan
+Desk plant
+Framed photo
+Church model
+Miniature console
+Coffee
+Lamp
+Game dev gun
+Deer head

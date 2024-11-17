@@ -1,5 +1,7 @@
 extends Node
 # TODO: Maintain BoardState and PieceState throughout the game.
+# TODO: Handle player unable to move.
+# TODO: Can only highlight your own pieces to see their moves.
 
 var piece_prefabs = {
   ePieces.Pawn: "Pieces.Pawn",
@@ -195,6 +197,8 @@ func standard_board_setup() -> GameController.BoardState:
 
 #region Standard functions
 func get_ip():
+  if fetching_ip:
+    return
   var error = http.request("https://api.ipify.org")
   if error:
     push_warning("Could not get IP automatically. Error: " + str(error))
