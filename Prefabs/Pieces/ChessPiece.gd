@@ -3,7 +3,7 @@ extends Sprite2D
 
 var node_sprite: Sprite2D = self
 
-var piece_type: GameController.ePieces
+var piece_type: BoardBase.ePieces
 var board: BoardBase
 var coordinates: Vector2i
 var move_count: int = 0
@@ -32,7 +32,7 @@ signal on_kill(killer, victim)
 signal on_killed(killer, victim)
 
 # TODO: Make pieces use different spite based on owner
-func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: int, _board: BoardBase, _piece_type: GameController.ePieces) -> void:
+func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: int, _board: BoardBase, _piece_type: BoardBase.ePieces) -> void:
   self.coordinates = _coordinates
   self.orientation = _orientation
   self.owned_by = _owned_by
@@ -111,8 +111,8 @@ func _act_on_cell(cell: Vector2i) -> BoardPlayable.GameAction:
 func _on_killed(killer: ChessPiece, victim: ChessPiece):
   queue_free()
   
-func serialize() -> GameController.PieceState:
-  var ps = GameController.Piecestate.new(
+func serialize() -> BoardBase.PieceState:
+  var ps = BoardBase.PieceState.new(
     piece_type,
     coordinates,
     orientation,

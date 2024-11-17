@@ -3,15 +3,6 @@ extends Node
 # TODO: Handle player unable to move.
 # TODO: Can only highlight your own pieces to see their moves.
 
-var piece_prefabs = {
-  ePieces.Pawn: "Pieces.Pawn",
-  ePieces.Queen: "Pieces.Queen",
-  ePieces.King: "Pieces.King",
-  ePieces.Rook: "Pieces.Rook",
-  ePieces.Knight: "Pieces.Knight",
-  ePieces.Bishop: "Pieces.Bishop",
-}
-
 var name_list = [
   "N. Laska",
   "C. Bolyek",
@@ -83,8 +74,8 @@ var game_id: int:
 var character_name: String
 var job_name: String
 
-var game_settings: GameController.GameSettings
-var board_state: GameController.BoardState
+var game_settings: BoardBase.GameSettings
+var board_state: BoardBase.BoardState
 var players_loaded: int = 0
 
 const max_players: int = 4
@@ -146,48 +137,48 @@ func disconnected():
 #endregion
 
 #region Board configurations
-func standard_board_setup() -> GameController.BoardState:
-  var board = GameController.BoardState.new(Vector2i(8, 8))
-  var p1 = GameController.PlayerState.new(0)
-  var p2 = GameController.PlayerState.new(1)
+func standard_board_setup() -> BoardBase.BoardState:
+  var board = BoardBase.BoardState.new(Vector2i(8, 8))
+  var p1 = BoardBase.PlayerState.new(0)
+  var p2 = BoardBase.PlayerState.new(1)
   
-  p1.add_piece(ePieces.Pawn, Vector2i(0, 1), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Pawn, Vector2i(1, 1), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Pawn, Vector2i(2, 1), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Pawn, Vector2i(3, 1), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Pawn, Vector2i(4, 1), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Pawn, Vector2i(5, 1), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Pawn, Vector2i(6, 1), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Pawn, Vector2i(7, 1), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Pawn, Vector2i(0, 1), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Pawn, Vector2i(1, 1), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Pawn, Vector2i(2, 1), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Pawn, Vector2i(3, 1), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Pawn, Vector2i(4, 1), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Pawn, Vector2i(5, 1), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Pawn, Vector2i(6, 1), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Pawn, Vector2i(7, 1), ChessPiece.Orientation.South)
   
-  p1.add_piece(ePieces.Queen, Vector2i(3, 0), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.King, Vector2i(4, 0), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Queen, Vector2i(3, 0), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.King, Vector2i(4, 0), ChessPiece.Orientation.South)
   
-  p1.add_piece(ePieces.Rook, Vector2i(0, 0), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Rook, Vector2i(7, 0), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Knight, Vector2i(1, 0), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Knight, Vector2i(6, 0), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Bishop, Vector2i(2, 0), ChessPiece.Orientation.South)
-  p1.add_piece(ePieces.Bishop, Vector2i(5, 0), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Rook, Vector2i(0, 0), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Rook, Vector2i(7, 0), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Knight, Vector2i(1, 0), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Knight, Vector2i(6, 0), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Bishop, Vector2i(2, 0), ChessPiece.Orientation.South)
+  p1.add_piece(BoardBase.ePieces.Bishop, Vector2i(5, 0), ChessPiece.Orientation.South)
   
-  p2.add_piece(ePieces.Pawn, Vector2i(0, 6), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Pawn, Vector2i(1, 6), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Pawn, Vector2i(2, 6), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Pawn, Vector2i(3, 6), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Pawn, Vector2i(4, 6), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Pawn, Vector2i(5, 6), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Pawn, Vector2i(6, 6), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Pawn, Vector2i(7, 6), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Pawn, Vector2i(0, 6), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Pawn, Vector2i(1, 6), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Pawn, Vector2i(2, 6), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Pawn, Vector2i(3, 6), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Pawn, Vector2i(4, 6), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Pawn, Vector2i(5, 6), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Pawn, Vector2i(6, 6), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Pawn, Vector2i(7, 6), ChessPiece.Orientation.North)
   
-  p2.add_piece(ePieces.Queen, Vector2i(3, 7), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.King, Vector2i(4, 7), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Queen, Vector2i(3, 7), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.King, Vector2i(4, 7), ChessPiece.Orientation.North)
   
-  p2.add_piece(ePieces.Rook, Vector2i(0, 7), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Rook, Vector2i(7, 7), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Knight, Vector2i(1, 7), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Knight, Vector2i(6, 7), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Bishop, Vector2i(2, 7), ChessPiece.Orientation.North)
-  p2.add_piece(ePieces.Bishop, Vector2i(5, 7), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Rook, Vector2i(0, 7), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Rook, Vector2i(7, 7), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Knight, Vector2i(1, 7), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Knight, Vector2i(6, 7), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Bishop, Vector2i(2, 7), ChessPiece.Orientation.North)
+  p2.add_piece(BoardBase.ePieces.Bishop, Vector2i(5, 7), ChessPiece.Orientation.North)
   
   board.players.append(p2)
   board.players.append(p1)
@@ -230,7 +221,7 @@ func create_player(network_id: int, character_name: String, job_name: String):
   MessageController.add_message.rpc(m)
   PrefabController.register_networked_node.rpc("Player", player_path)
 
-func load_board_state(state: GameController.BoardState, players: Dictionary):
+func load_board_state(state: BoardBase.BoardState, players: Dictionary):
   if players.size() != state.players.size():
     print("Incorrect number of players for board state!")
     #return
@@ -252,12 +243,12 @@ func load_board_state(state: GameController.BoardState, players: Dictionary):
   # Spawn pieces
   board.clear_pieces()
   for player_num in state.players.size():
-    var player_state: GameController.PlayerState = state.players[player_num]
+    var player_state: BoardBase.PlayerState = state.players[player_num]
     for piece in player_state.pieces:
       spawn_piece(piece.type, piece.position, piece.orientation, player_num)
 
-func spawn_piece(piece_type: ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int) -> ChessPiece:
-  var piece: ChessPiece = PrefabController.get_prefab(piece_prefabs[piece_type]).instantiate()
+func spawn_piece(piece_type: BoardBase.ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int) -> ChessPiece:
+  var piece: ChessPiece = PrefabController.get_prefab(BoardBase.piece_prefabs[piece_type]).instantiate()
   var cell = board.get_cell(coordinate)
   cell.occupying_piece = piece
   piece.Init(coordinate, orientation, owned_by, board, piece_type)
@@ -368,8 +359,8 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
   if multiplayer.is_server:
     multiplayer.multiplayer_peer.refuse_new_connections = true
     # TODO: Bot takeover on disconnect
-  game_settings = GameController.GameSettings.deserialize(json_game_settings)
-  var board_state = GameController.BoardState.deserialize(json_board_state)
+  game_settings = BoardBase.GameSettings.deserialize(json_game_settings)
+  var board_state = BoardBase.BoardState.deserialize(json_board_state)
   
   # Spawn board on all clients
   
@@ -382,116 +373,3 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
   # Wait until all players are loaded.
   player_loaded.rpc()
 #endregion
-
-
-class GameSettings:
-  var board_size: Vector2i = Vector2i(8, 8)
-  
-  var divine_wind: bool = false
-  var no_retreat: bool = false
-  
-  func serialize() -> Dictionary:
-    var d = {}
-    d.board_size = board_size
-    d.divine_wind = divine_wind
-    d.no_retreat = no_retreat
-    return d
-  
-  static func deserialize(json_game_settings) -> GameSettings:
-    var gs = GameSettings.new()
-    gs.board_size = json_game_settings.board_size
-    gs.divine_wind = json_game_settings.divine_wind
-    gs.no_retreat = json_game_settings.no_retreat
-    
-    return gs
-
-class BoardState:
-  # Describes the state of the board
-  var size: Vector2i
-  var players: Array[GameController.PlayerState] = []
-  
-  func _init(size: Vector2i):
-    self.size = size
-  
-  func serialize() -> Dictionary:
-    var d = {}
-    d["size"] = size
-    var _players = []
-    for p in players:
-      _players.append(p.serialize())
-    d["players"] = _players
-    return d
-    
-  static func deserialize(json_board_state: Dictionary) -> BoardState:
-    var bs = BoardState.new(json_board_state["size"])
-    for p in json_board_state["players"]:
-      bs.players.append(PlayerState.deserialize(p))
-    
-    return bs
-  
-class PlayerState:
-  var pieces: Array = []
-  var actions_remaining: int = 0
-  var id: int
-  
-  func _init(id: int):
-    self.id = id
-  
-  func add_piece(piece: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
-    pieces.append(PieceState.new(piece, position, orientation, id))
-    
-  func serialize() -> Dictionary:
-    var d = {}
-    var _pieces = []
-    for p in pieces:
-      _pieces.append(p.serialize())
-    d.pieces = _pieces
-    d.actions_remaining = actions_remaining
-    d.id = id
-    return d
-    
-  static func deserialize(json_player_state: Dictionary) -> PlayerState:
-    var ps = PlayerState.new(json_player_state.id)
-    ps.actions_remaining = json_player_state["actions_remaining"]
-    for p in json_player_state["pieces"]:
-      ps.pieces.append(PieceState.deserialize(p))
-    return ps
-
-class PieceState:
-  var type: GameController.ePieces
-  var position: Vector2i
-  var orientation: ChessPiece.Orientation
-  var player: int
-  # TODO: PieceID to make it easier to reference over network?
-  
-  func _init(type: GameController.ePieces, position: Vector2i, orientation: ChessPiece.Orientation, player: int):
-    self.type = type
-    self.position = position
-    self.orientation = orientation
-    self.player = player
-    
-  func serialize() -> Dictionary:
-    var d = {}
-    d.type = type
-    d.position = position
-    d.orientation = orientation
-    d.player = player
-    return d
-  
-  static func deserialize(json_piece_state: Dictionary) -> PieceState:
-    return PieceState.new(
-      json_piece_state.type,
-      json_piece_state.position,
-      json_piece_state.orientation,
-      json_piece_state.player,
-    )
-
-
-enum ePieces {
-  Pawn,
-  Rook,
-  Knight,
-  Bishop,
-  King,
-  Queen,
-}

@@ -1,24 +1,13 @@
 class_name BoardEditable
 extends BoardBase
 
-var paint_piece: GameController.PieceState
+var paint_piece: BoardBase.PieceState
 
 func _input(event: InputEvent):
   if event.is_action_pressed("LMB"):
     print("LMB down")
   elif event.is_action_pressed("RMB"):
     print("RMB down")
-
-func spawn_piece(piece_type: GameController.ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int, _piece_type: GameController.ePieces) -> ChessPiece:
-  var piece: ChessPiece = PrefabController.get_prefab(GameController.piece_prefabs[piece_type]).instantiate()
-  var cell = get_cell(coordinate)
-  cell.occupying_piece = piece
-  piece.Init(coordinate, orientation, owned_by, self, _piece_type)
-  node_pieces.add_child(piece)
-  piece.position = cell_to_position(coordinate)
-  #var p = players_by_game_id[owned_by]
-  #p.pieces.append(piece)
-  return piece
 
 #func _input(event: InputEvent) -> void:
   #if event is InputEventMouseButton and event.is_pressed():

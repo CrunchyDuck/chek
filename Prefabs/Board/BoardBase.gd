@@ -1,6 +1,16 @@
 class_name BoardBase
 extends Control
 
+#region Variables
+static var piece_prefabs = {
+  ePieces.Pawn: "Pieces.Pawn",
+  ePieces.Queen: "Pieces.Queen",
+  ePieces.King: "Pieces.King",
+  ePieces.Rook: "Pieces.Rook",
+  ePieces.Knight: "Pieces.Knight",
+  ePieces.Bishop: "Pieces.Bishop",
+}
+
 var grid_size: Vector2i:
   get:
     var y = grid.size()
@@ -17,7 +27,7 @@ var board_size: Vector2:
   get:
     return Vector2(grid_size * cell_size)
 
-var game_settings: GameController.GameSettings:
+var game_settings: BoardBase.GameSettings:
   get:
     return GameController.game_settings
 
@@ -38,7 +48,9 @@ var pieces_by_game_id: Dictionary:
         _players[_id] = []
       _players[_pid].append(_p)
     return _players
+#endregion
 
+#region Board editing functions
 func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
   for n in node_cells.get_children():
     n.queue_free()
@@ -61,6 +73,33 @@ func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
 func clear_pieces():
   for n in node_pieces.get_children():
     n.queue_free()
+
+func spawn_piece(piece_type: BoardBase.ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int) -> ChessPiece:
+  var piece: ChessPiece = PrefabController.get_prefab(piece_prefabs[piece_type]).instantiate()
+  var cell = get_cell(coordinate)
+  cell.occupying_piece = piece
+  piece.Init(coordinate, orientation, owned_by, self, piece_type)
+  node_pieces.add_child(piece)
+  piece.position = cell_to_position(coordinate)
+  return piece
+  
+func serialize() -> BoardBase.BoardState:
+  var bs = BoardBase.BoardState.new(board_size)
+  var players = []
+  for piece in node_pieces.get_children():
+    var p = piece.serialize()
+    # Create players up to the ID needed.
+    for id in range(players.size(), p.player + 1):
+      players.append(BoardBase.PlayerState.new(id))
+    players[p.player].pieces.append(p)
+  
+  bs.players = players
+  return bs
+
+func load_state(state: BoardBase.BoardState):
+  clear_pieces()
+  create_new_grid(state.size)
+#endregion
 
 #region Cell selection
 func grid_to_position(x: int, y: int) -> Vector2:
@@ -99,25 +138,121 @@ func is_coordinate_in_bounds(coordinate: Vector2i) -> bool:
   return x >= 0 and y >= 0 and x < grid_size.x and y < grid_size.y
 #endregion
 
-# TODO: (de)Serialize board
-func serialize() -> GameController.BoardState:
-  var bs = GameController.BoardState.new(board_size)
-  var players = []
-  for piece in node_pieces.get_children():
-    var p = piece.serialize()
-    # Create players up to the ID needed.
-    for id in range(players.size(), p.player + 1):
-      players.append(GameController.PlayerState.new(id))
-    players[p.player].pieces.append(p)
-  
-  bs.players = players
-  return bs
-
-func load_state(state: GameController.BoardState):
-  clear_pieces()
-  create_new_grid(state.size)
-
 func _position_board():
   var new_position = get_viewport_rect().size / 2
   new_position -= board_size / 2
   position = new_position
+
+#region Classes
+class GameSettings:
+  var board_size: Vector2i = Vector2i(8, 8)
+  
+  var divine_wind: bool = false
+  var no_retreat: bool = false
+  
+  func serialize() -> Dictionary:
+    var d = {}
+    d.board_size = board_size
+    d.divine_wind = divine_wind
+    d.no_retreat = no_retreat
+    return d
+  
+  static func deserialize(json_game_settings) -> GameSettings:
+    var gs = GameSettings.new()
+    gs.board_size = json_game_settings.board_size
+    gs.divine_wind = json_game_settings.divine_wind
+    gs.no_retreat = json_game_settings.no_retreat
+    
+    return gs
+
+class BoardState:
+  # Describes the state of the board
+  var size: Vector2i
+  var players: Array[BoardBase.PlayerState] = []
+  
+  func _init(size: Vector2i):
+    self.size = size
+  
+  func serialize() -> Dictionary:
+    var d = {}
+    d["size"] = size
+    var _players = []
+    for p in players:
+      _players.append(p.serialize())
+    d["players"] = _players
+    return d
+    
+  static func deserialize(json_board_state: Dictionary) -> BoardState:
+    var bs = BoardState.new(json_board_state["size"])
+    for p in json_board_state["players"]:
+      bs.players.append(PlayerState.deserialize(p))
+    
+    return bs
+  
+class PlayerState:
+  var pieces: Array = []
+  var actions_remaining: int = 0
+  var id: int
+  
+  func _init(id: int):
+    self.id = id
+  
+  func add_piece(piece: BoardBase.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
+    pieces.append(PieceState.new(piece, position, orientation, id))
+    
+  func serialize() -> Dictionary:
+    var d = {}
+    var _pieces = []
+    for p in pieces:
+      _pieces.append(p.serialize())
+    d.pieces = _pieces
+    d.actions_remaining = actions_remaining
+    d.id = id
+    return d
+    
+  static func deserialize(json_player_state: Dictionary) -> PlayerState:
+    var ps = PlayerState.new(json_player_state.id)
+    ps.actions_remaining = json_player_state["actions_remaining"]
+    for p in json_player_state["pieces"]:
+      ps.pieces.append(PieceState.deserialize(p))
+    return ps
+
+class PieceState:
+  var type: BoardBase.ePieces
+  var position: Vector2i
+  var orientation: ChessPiece.Orientation
+  var player: int
+  # TODO: PieceID to make it easier to reference over network?
+  
+  func _init(type: BoardBase.ePieces, position: Vector2i, orientation: ChessPiece.Orientation, player: int):
+    self.type = type
+    self.position = position
+    self.orientation = orientation
+    self.player = player
+    
+  func serialize() -> Dictionary:
+    var d = {}
+    d.type = type
+    d.position = position
+    d.orientation = orientation
+    d.player = player
+    return d
+  
+  static func deserialize(json_piece_state: Dictionary) -> PieceState:
+    return PieceState.new(
+      json_piece_state.type,
+      json_piece_state.position,
+      json_piece_state.orientation,
+      json_piece_state.player,
+    )
+
+
+enum ePieces {
+  Pawn,
+  Rook,
+  Knight,
+  Bishop,
+  King,
+  Queen,
+}
+#endregion

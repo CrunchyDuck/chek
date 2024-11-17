@@ -19,7 +19,7 @@ var can_move: bool:
   get:
     return actions_remaining > 0
 
-var init_state: GameController.PlayerState
+var init_state: BoardBase.PlayerState
 var pieces: Array[ChessPiece]:
   get:
     if not board or not board.pieces_by_game_id.has(game_id):
