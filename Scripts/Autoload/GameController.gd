@@ -238,7 +238,6 @@ func load_board_state(state: GameController.BoardState, players: Dictionary):
   # Update player states
   for player_num in state.players.size():
     var p = players[player_num]
-    p.pieces.clear()
     p.actions_remaining = state.players[player_num].actions_remaining
   
   # Initialize board, if necessary
@@ -261,11 +260,9 @@ func spawn_piece(piece_type: ePieces, coordinate: Vector2i, orientation: ChessPi
   var piece: ChessPiece = PrefabController.get_prefab(piece_prefabs[piece_type]).instantiate()
   var cell = board.get_cell(coordinate)
   cell.occupying_piece = piece
-  piece.Init(coordinate, orientation, owned_by, board)
+  piece.Init(coordinate, orientation, owned_by, board, piece_type)
   board.node_pieces.add_child(piece)
   piece.position = board.cell_to_position(coordinate)
-  var p = players_by_game_id[owned_by]
-  p.pieces.append(piece)
   return piece
 
 @rpc("any_peer", "call_local", "reliable")

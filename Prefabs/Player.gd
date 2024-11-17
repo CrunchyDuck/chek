@@ -20,7 +20,11 @@ var can_move: bool:
     return actions_remaining > 0
 
 var init_state: GameController.PlayerState
-var pieces: Array[ChessPiece] = []
+var pieces: Array[ChessPiece]:
+  get:
+    if not board or not board.pieces_by_game_id.has(game_id):
+      return []
+    return board.pieces_by_game_id[game_id]
 
 func _init():
   players[self] = true

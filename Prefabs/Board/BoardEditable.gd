@@ -9,11 +9,11 @@ func _input(event: InputEvent):
   elif event.is_action_pressed("RMB"):
     print("RMB down")
 
-func spawn_piece(piece_type: GameController.ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int) -> ChessPiece:
+func spawn_piece(piece_type: GameController.ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int, _piece_type: GameController.ePieces) -> ChessPiece:
   var piece: ChessPiece = PrefabController.get_prefab(GameController.piece_prefabs[piece_type]).instantiate()
   var cell = get_cell(coordinate)
   cell.occupying_piece = piece
-  piece.Init(coordinate, orientation, owned_by, self)
+  piece.Init(coordinate, orientation, owned_by, self, _piece_type)
   node_pieces.add_child(piece)
   piece.position = cell_to_position(coordinate)
   #var p = players_by_game_id[owned_by]

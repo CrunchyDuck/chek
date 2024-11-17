@@ -14,7 +14,7 @@ func _ready() -> void:
   # TODO: For some reason the back button doesn't work here.
   button_back.pressed.connect(_on_back)
   button_done.pressed.connect(_on_done)
-  input_ip.editable = false  # TODO: Fetch IP from internet.
+  input_ip.editable = false
   if not GameController.public_ip.is_empty():
     input_ip.text = GameController.public_ip
 
