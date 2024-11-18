@@ -74,6 +74,9 @@ func clear_pieces():
 	for n in node_pieces.get_children():
 		n.queue_free()
 
+func spawn_piece_state(piece_state: BoardBase.PieceState) -> ChessPiece:
+	return spawn_piece(piece_state.type, piece_state.position, piece_state.orientation, piece_state.player)
+
 func spawn_piece(piece_type: BoardBase.ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int) -> ChessPiece:
 	var piece: ChessPiece = PrefabController.get_prefab(piece_prefabs[piece_type]).instantiate()
 	var cell = get_cell(coordinate)
