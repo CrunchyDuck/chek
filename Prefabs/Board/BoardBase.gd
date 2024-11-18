@@ -106,6 +106,9 @@ func serialize() -> BoardBase.BoardState:
 func load_state(state: BoardBase.BoardState):
 	clear_pieces()
 	create_new_grid(state.size)
+	for player in state.players:
+		for piece in player.pieces:
+			spawn_piece_state(piece)
 #endregion
 
 #region Cell selection
