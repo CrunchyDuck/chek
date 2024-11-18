@@ -10,6 +10,7 @@ func _ready():
     ChessPiece.Orientation.South,
     0
   )
+  load_state(GameController.board_state)
 
 func _input(event: InputEvent):
   var _cell = position_to_cell(get_global_mouse_position())
@@ -20,6 +21,7 @@ func _input(event: InputEvent):
     if _cell.occupying_piece:
       _cell.occupying_piece.queue_free()
       _cell.occupying_piece = null
+  GameController.board_state = serialize()
     
 #func _input(event: InputEvent) -> void:
   #if event is InputEventMouseButton and event.is_pressed():
