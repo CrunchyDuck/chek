@@ -10,7 +10,6 @@ func _ready():
     ChessPiece.Orientation.South,
     0
   )
-  load_state(GameController.board_state)
 
 func _input(event: InputEvent):
   var _cell = position_to_cell(get_global_mouse_position())
