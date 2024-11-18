@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dy1wcjjpbpb7d"]
 
-[ext_resource type="Script" path="res://Prefabs/Board/BoardEditable.gd" id="1_uv7sy"]
+[ext_resource type="Script" path="res://Scripts/Menus/Setup/BoardEditable.gd" id="1_uv7sy"]
 
 [node name="Board" type="Control"]
 layout_mode = 3
