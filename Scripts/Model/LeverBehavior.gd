@@ -33,6 +33,7 @@ var lever_max_speed: float = lever_normal_speed
 var on_time: float = 0
 var delay_room_light: float = 2
 var delay_screens: float = 1
+var tripping_time = 0.3
 
 @onready var sound_switch: FmodEventEmitter3D = $FlipSound
 var sound_light_on
@@ -50,6 +51,8 @@ func turn_on():
   lever_max_speed = lever_trip_speed
   sound_switch.play()
   switched_on.emit()
+  await get_tree().create_timer(tripping_time).timeout
+  tripping = false
   
 func turn_off():
   on = false
@@ -58,6 +61,8 @@ func turn_off():
   lever_max_speed = lever_trip_speed
   sound_switch.play()
   switched_off.emit()
+  await get_tree().create_timer(tripping_time).timeout
+  tripping = false
 
 func _process(delta: float) -> void:
   if not Input.is_action_pressed("LMB"):
@@ -96,5 +101,5 @@ func _input(event):
     lever_rotation_target += event.relative.y * mouse_movement_to_rotation
 
 func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
-  if not tripping and Input.is_action_pressed("LMB"):
+  if Input.is_action_just_pressed("LMB"):
     being_held = true
