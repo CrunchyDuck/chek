@@ -93,3 +93,7 @@ Coffee
 Lamp
 Game dev gun
 Deer head
+
+tile blockers
++ shaped board
+L shaped board
