@@ -12,6 +12,10 @@ var node_click_area: Area3D = $ClickArea
 
 @onready
 var node_on_off_light: OmniLight3D
+@onready
+var node_console: Node3D = $".."
+@onready
+var console_fan: FanBehavior = node_console.get_child("Fan")
 
 
 # Grabbing and pulling lever

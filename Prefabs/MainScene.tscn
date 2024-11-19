@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=17 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -9,9 +9,13 @@
 [ext_resource type="Script" path="res://Scripts/NameScreen.gd" id="7_6p3my"]
 [ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="7_q5tya"]
 [ext_resource type="Script" path="res://Scripts/Nameplate.gd" id="8_pahoh"]
+[ext_resource type="Script" path="res://Scripts/Model/FanBehavior.gd" id="9_lk3u4"]
 [ext_resource type="Script" path="res://Scripts/ScreenButton.gd" id="10_wlxyg"]
 [ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
 [ext_resource type="Script" path="res://Scripts/Model/LeverBehavior.gd" id="12_intc8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yg8yl"]
+size = Vector3(0.325, 1, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i2q1t"]
 size = Vector3(0.09, 0.09, 0.09)
@@ -171,6 +175,25 @@ fov = 25.0
 [node name="FmodListener3D" type="FmodListener3D" parent="Camera3D"]
 
 [node name="Console" parent="." instance=ExtResource("11_1otxn")]
+
+[node name="Fan" parent="Console" index="0"]
+script = ExtResource("9_lk3u4")
+
+[node name="OffArea" type="Area3D" parent="Console/Fan" index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/Fan/OffArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22, 0, -0.25)
+shape = SubResource("BoxShape3D_yg8yl")
+
+[node name="OnArea" type="Area3D" parent="Console/Fan" index="4"]
+transform = Transform3D(1, 0, 0, 2.98023e-08, 1, 1.77636e-15, 0, -3.55271e-15, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/Fan/OnArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22, 0, 0.25)
+shape = SubResource("BoxShape3D_yg8yl")
+
+[node name="Sound" type="FmodEventEmitter3D" parent="Console/Fan" index="5"]
+event_guid = "{00000035-0035-0000-0000-000028080080}"
 
 [node name="name_plate" parent="Console/desk" index="1"]
 script = ExtResource("8_pahoh")
