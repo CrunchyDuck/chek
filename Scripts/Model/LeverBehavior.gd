@@ -21,11 +21,11 @@ var being_held: bool = false
 var lever_rotation_target: float = 0
 var lever_rotation: float = 0
 var lever_actual: float = 0  # Where it is after being clamped
-var lever_catch: float = 45
-var lever_trip: float = 90
+var lever_trip: float = 50
+var mouse_movement_to_rotation = 0.2
 
-var lever_normal_speed: float = 200
-var lever_trip_speed: float = 900
+var lever_normal_speed: float = 100
+var lever_trip_speed: float = 1200
 var lever_max_speed: float = lever_normal_speed
 
 var delay_room_light: float = 2
@@ -71,16 +71,20 @@ func _process(delta: float) -> void:
   lever_actual = lever_rotation
   if not tripping:
     if not on:
-      lever_actual = min(lever_rotation, lever_catch)
+      var t = lever_rotation / lever_trip
+      t = pow(t, 0.5)
+      lever_actual = lerpf(0, lever_trip, t)
     else:
-      lever_actual = max(lever_rotation, 180 - lever_catch)
+      var t = lever_rotation / (180 - lever_trip)
+      t = pow(t, 0.5)
+      lever_actual = lerpf(0, lever_trip, t) + 180
   node_arms.rotation_degrees.x = -lever_actual
   node_pivot.rotation_degrees.x = -lever_actual
   node_handle.rotation_degrees.x = -lever_actual
 
 func _input(event):
   if being_held and event is InputEventMouseMotion:
-    lever_rotation_target += event.relative.y
+    lever_rotation_target += event.relative.y * mouse_movement_to_rotation
 
 func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
   if not tripping and Input.is_action_pressed("LMB"):
