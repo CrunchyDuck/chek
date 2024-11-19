@@ -14,13 +14,16 @@ var on: bool:
     return self_on and console_on
 var self_on: bool = true
 var console_on: bool = false
+var fan_running: bool = false
 
 @onready
 var fan_sound: FmodEventEmitter3D = $Sound
 var last_on: float = 0
-var settle_volume: float = 0.2
-var settle_time: float = 10
+var sound_target: float = 0
+var settle_volume: float = 0.1
+var settle_time: float = 20
 var fade_speed = 0.2
+var on_delay = 1
 
 func _ready() -> void:
   node_off_area.input_event.connect(_off)
@@ -30,22 +33,32 @@ func _ready() -> void:
   fan_sound.volume = 0
   
 func _process(delta: float) -> void:
-  var sound_target = 1 if on else 0
+  if fan_running:
+    var time_on = (Time.get_ticks_msec() / 1000.0) - last_on
+    var t = clamp(time_on / settle_time, 0, 1)
+    sound_target = lerpf(settle_volume, 1, 1 - t)
+  else:
+    sound_target = 0
   fan_sound.volume = move_toward(fan_sound.volume, sound_target, fade_speed * delta)
   if fan_sound.volume == 0:
+    fan_running = false
     fan_sound.stop()
     
 func console_switch(state):
   console_on = state
+  if on:
+    await get_tree().create_timer(on_delay).timeout
   update_sound()
   
 func update_sound():
   if on:
     last_on = Time.get_ticks_msec() / 1000
     if fan_sound.volume == 0:
+      fan_running = true
       fan_sound.volume = 1
       fan_sound.play()
-      print("here")
+  else:
+    fan_running = false
 
 func _off():
   self_on = false
