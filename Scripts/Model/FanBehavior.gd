@@ -22,8 +22,21 @@ var settle_volume: float = 0.2
 var settle_time: float = 10
 var fade_speed = 0.2
 
+func _ready() -> void:
+  node_off_area.input_event.connect(_off)
+  node_on_area.input_event.connect(_on)
+  $"../Lever".switched_on.connect(func (): console_switch(true))
+  $"../Lever".switched_off.connect(func (): console_switch(false))
+  fan_sound.volume = 0
+  
+func _process(delta: float) -> void:
+  var sound_target = 1 if on else 0
+  fan_sound.volume = move_toward(fan_sound.volume, sound_target, fade_speed * delta)
+  if fan_sound.volume == 0:
+    fan_sound.stop()
+    
 func console_switch(state):
-  console_on = true
+  console_on = state
   update_sound()
   
 func update_sound():
@@ -32,11 +45,7 @@ func update_sound():
     if fan_sound.volume == 0:
       fan_sound.volume = 1
       fan_sound.play()
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-  node_off_area.input_event.connect(_off)
-  node_on_area.input_event.connect(_on)
+      print("here")
 
 func _off():
   self_on = false
@@ -45,9 +54,3 @@ func _off():
 func _on():
   self_on = true
   update_sound()
-
-func _process(delta: float) -> void:
-  var sound_target = 1 if on else 0
-  fan_sound.volume = move_toward(fan_sound.volume, sound_target, fade_speed * delta)
-  if fan_sound.volume == 0:
-    fan_sound.stop()

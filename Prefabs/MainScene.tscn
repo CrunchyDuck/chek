@@ -193,7 +193,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22, 0, 0.25)
 shape = SubResource("BoxShape3D_yg8yl")
 
 [node name="Sound" type="FmodEventEmitter3D" parent="Console/Fan" index="5"]
-event_guid = "{00000035-0035-0000-0000-000028080080}"
+event_name = "event:/Fan"
+event_guid = "{ccbe9aa4-4f29-4005-9bef-9dfbbf9c6d17}"
 
 [node name="name_plate" parent="Console/desk" index="1"]
 script = ExtResource("8_pahoh")

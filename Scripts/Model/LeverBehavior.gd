@@ -14,8 +14,6 @@ var node_click_area: Area3D = $ClickArea
 var node_on_off_light: OmniLight3D
 @onready
 var node_console: Node3D = $".."
-@onready
-var console_fan: FanBehavior = node_console.get_child("Fan")
 
 
 # Grabbing and pulling lever
@@ -38,7 +36,9 @@ var delay_screens: float = 1
 
 @onready var sound_switch: FmodEventEmitter3D = $FlipSound
 var sound_light_on
-var sound_fan
+
+signal switched_on
+signal switched_off
 
 func _ready():
   node_click_area.input_event.connect(_mouse_input_event)
@@ -49,6 +49,7 @@ func turn_on():
   tripping = true
   lever_max_speed = lever_trip_speed
   sound_switch.play()
+  switched_on.emit()
   
 func turn_off():
   on = false
@@ -56,6 +57,7 @@ func turn_off():
   tripping = true
   lever_max_speed = lever_trip_speed
   sound_switch.play()
+  switched_off.emit()
 
 func _process(delta: float) -> void:
   if not Input.is_action_pressed("LMB"):

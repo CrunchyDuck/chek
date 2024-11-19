@@ -56,7 +56,14 @@
 			<destination>{a4500983-5d9f-44a6-9577-48336a1d85dd}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{b6d3e3d4-01ca-4ba4-af82-f46159bc786a}" />
+	<object class="EventAutomatableProperties" id="{b6d3e3d4-01ca-4ba4-af82-f46159bc786a}">
+		<property name="minimumDistance">
+			<value>9.60000038</value>
+		</property>
+		<property name="maximumDistance">
+			<value>80</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{12398409-3ac8-4935-a1ca-4fc9ff1ee56f}" />
 	<object class="GroupTrack" id="{595e9516-da01-4a49-9871-03c4cd2a5fd0}">
 		<relationship name="modules">
@@ -95,7 +102,10 @@
 	<object class="MixerBusPanner" id="{935a07a3-4a05-4626-a9d7-47a2b44d837a}" />
 	<object class="SingleSound" id="{2ea0fabc-3604-49e4-b0cc-8331482cda1a}">
 		<property name="length">
-			<value>14</value>
+			<value>13.700000000000001</value>
+		</property>
+		<property name="timelockedOffset">
+			<value>0.30000000000000004</value>
 		</property>
 		<relationship name="fadeOutCurve">
 			<destination>{0dcfbaff-a0d1-45ef-a826-307bcd40f3eb}</destination>
@@ -106,7 +116,7 @@
 	</object>
 	<object class="SingleSound" id="{cb862caa-8a08-403d-939a-1750f95f9582}">
 		<property name="start">
-			<value>13</value>
+			<value>12.699999999999999</value>
 		</property>
 		<property name="length">
 			<value>12</value>
@@ -137,7 +147,7 @@
 	</object>
 	<object class="LoopRegion" id="{6fdf5bef-6e6c-4476-a0bc-ebecf7571085}">
 		<property name="position">
-			<value>3</value>
+			<value>2.7000000000000002</value>
 		</property>
 		<property name="length">
 			<value>11</value>
@@ -189,7 +199,7 @@
 	<object class="SpatialiserEffect" id="{62eca940-0a66-4ffb-ba9d-2f0f7bb2c6f6}" />
 	<object class="AutomationPoint" id="{90e13324-392a-4e9b-8d4f-ff7d3bc18150}">
 		<property name="position">
-			<value>13</value>
+			<value>12.699999999999999</value>
 		</property>
 		<property name="value">
 			<value>1</value>
@@ -200,7 +210,7 @@
 	</object>
 	<object class="AutomationPoint" id="{975e7884-38db-4318-8752-07f4fbfc4b78}">
 		<property name="position">
-			<value>14</value>
+			<value>13.700000000000001</value>
 		</property>
 		<property name="value">
 			<value>0</value>
@@ -208,7 +218,7 @@
 	</object>
 	<object class="AutomationPoint" id="{5ec6e45f-8b6e-41d2-918e-f57740679dbf}">
 		<property name="position">
-			<value>13</value>
+			<value>12.699999999999999</value>
 		</property>
 		<property name="value">
 			<value>0</value>
@@ -219,7 +229,7 @@
 	</object>
 	<object class="AutomationPoint" id="{969cbd98-a1cb-4f08-a010-d5934e9419a9}">
 		<property name="position">
-			<value>14</value>
+			<value>13.700000000000001</value>
 		</property>
 		<property name="value">
 			<value>1</value>
