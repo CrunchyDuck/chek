@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{7bf91a12-948b-4304-8178-de1a7b5e1e09}">
+		<property name="assetPath">
+			<value>household_bathroom_extractor_fan_on_operate_off.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>18.815999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{921543de-22ef-4f91-9e9e-5eea8d2354c5}</destination>
+		</relationship>
+	</object>
+</objects>

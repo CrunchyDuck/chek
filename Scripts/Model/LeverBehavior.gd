@@ -28,6 +28,7 @@ var lever_normal_speed: float = 100
 var lever_trip_speed: float = 1200
 var lever_max_speed: float = lever_normal_speed
 
+var on_time: float = 0
 var delay_room_light: float = 2
 var delay_screens: float = 1
 

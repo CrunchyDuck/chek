@@ -296,7 +296,7 @@ light_color = Color(0, 0, 0, 1)
 light_energy = 0.06
 light_cull_mask = 4294967293
 
-[node name="Lever" parent="Console" index="5"]
+[node name="Lever" parent="Console" index="6"]
 script = ExtResource("12_intc8")
 
 [node name="ClickArea" type="Area3D" parent="Console/Lever" index="4"]
