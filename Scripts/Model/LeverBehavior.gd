@@ -31,7 +31,7 @@ var lever_max_speed: float = lever_normal_speed
 var delay_room_light: float = 2
 var delay_screens: float = 1
 
-var sound_switch
+@onready var sound_switch: FmodEventEmitter3D = $FlipSound
 var sound_light_on
 var sound_fan
 
@@ -43,12 +43,14 @@ func turn_on():
   being_held = false
   tripping = true
   lever_max_speed = lever_trip_speed
+  sound_switch.play()
   
 func turn_off():
   on = false
   being_held = false
   tripping = true
   lever_max_speed = lever_trip_speed
+  sound_switch.play()
 
 func _process(delta: float) -> void:
   if not Input.is_action_pressed("LMB"):
