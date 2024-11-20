@@ -1,11 +1,17 @@
 extends Node3D
 
 @onready
-var area_pressed: Area3D = $Area3D
-@onready
 var node_shaft: MeshInstance3D = $Shaft
 @onready
 var node_tip: MeshInstance3D = $Tip
+
+@onready
+var area_pressed: Area3D = $Area3D
+@onready
+var sound_button_down: FmodEventEmitter3D = $SoundButtonDown
+@onready
+var sound_button_up: FmodEventEmitter3D = $SoundButtonUp
+var _pressed = false
 
 @onready
 var light: OmniLight3D = $"../../RoomLight"
@@ -30,7 +36,8 @@ var blink_max: int = 7
 
 func _ready():
   toggle_glowing(false)
-  area_pressed.input_event.connect(_toggled)
+  area_pressed.input_event.connect(_input_event)
+  area_pressed.mouse_exited.connect(depress)
   $"../Lever".switched_on.connect(func (): console_switch(true))
   $"../Lever".switched_off.connect(func (): console_switch(false))
 
@@ -39,12 +46,14 @@ func _process(delta: float) -> void:
   if not on:
     light.light_energy = 0
 
-func _toggled(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int):
-  if not event.is_action_pressed("LMB"):
+func _input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int):
+  if not event.is_action("LMB"):
     return
-  self_on = not self_on
-  try_turn_on()
-
+  if event.is_pressed():
+    press()
+  else:
+    depress()
+  
 func console_switch(state):
   console_on = state
   toggle_glowing(state)
@@ -77,3 +86,16 @@ func try_turn_on():
     sound_blink_big.play()
     light.light_energy = light_brightness
   
+func press():
+  if _pressed:
+    return
+  self_on = not self_on
+  try_turn_on()
+  _pressed = true
+  sound_button_down.play()
+
+func depress():
+  if not _pressed:
+    return
+  _pressed = false
+  sound_button_down.play()

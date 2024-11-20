@@ -371,6 +371,14 @@ surface_material_override/0 = ExtResource("14_tq8wm")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/MainLightButton/Area3D"]
 shape = SubResource("CylinderShape3D_q7xga")
 
+[node name="SoundButtonDown" type="FmodEventEmitter3D" parent="Console/MainLightButton" index="4"]
+event_name = "event:/BigButtonDown"
+event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
+
+[node name="SoundButtonUp" type="FmodEventEmitter3D" parent="Console/MainLightButton" index="5"]
+event_name = "event:/BigButtonUp"
+event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
+
 [node name="RoomLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50645, 1.33606)
 light_energy = 0.2
