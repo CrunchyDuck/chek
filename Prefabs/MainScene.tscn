@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=21 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/Model/LeverBehavior.gd" id="12_intc8"]
 [ext_resource type="Material" uid="uid://bfrpwkl73dukb" path="res://Shaders/GlowInTheDarkArrow.tres" id="14_3svlv"]
 [ext_resource type="Material" uid="uid://dng6su7affghb" path="res://Shaders/GlowInTheDark.tres" id="14_tq8wm"]
+[ext_resource type="Script" path="res://Scripts/Model/MainLightButton.gd" id="16_wy0aq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yg8yl"]
 size = Vector3(0.325, 1, 0.5)
@@ -24,6 +25,10 @@ size = Vector3(0.09, 0.09, 0.09)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i8s85"]
 size = Vector3(0.605, 2.1026, 3.97217)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_q7xga"]
+height = 2.40171
+radius = 1.0
 
 [node name="MainScene" type="Node"]
 
@@ -352,16 +357,31 @@ event_name = "event:/LargeSwitch"
 event_guid = "{613698f4-efcd-4274-9309-c97bbb704e8c}"
 preload_event = false
 
-[node name="Shaft" parent="Console/BigSphereButton" index="1"]
+[node name="MainLightButton" parent="Console" index="7"]
+script = ExtResource("16_wy0aq")
+
+[node name="Shaft" parent="Console/MainLightButton" index="1"]
 surface_material_override/0 = ExtResource("14_tq8wm")
 
-[node name="Tip" parent="Console/BigSphereButton" index="2"]
+[node name="Tip" parent="Console/MainLightButton" index="2"]
 surface_material_override/0 = ExtResource("14_tq8wm")
+
+[node name="Area3D" type="Area3D" parent="Console/MainLightButton" index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/MainLightButton/Area3D"]
+shape = SubResource("CylinderShape3D_q7xga")
 
 [node name="RoomLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50645, 1.33606)
-visible = false
 light_energy = 0.2
+
+[node name="SoundSmallBlink" type="FmodEventEmitter3D" parent="RoomLight"]
+event_name = "event:/LightBlinkSmall"
+event_guid = "{c26df6c2-73cf-4e87-9edf-51b3680eaf76}"
+
+[node name="SoundBigBlink" type="FmodEventEmitter3D" parent="RoomLight"]
+event_name = "event:/LightBlinkBig"
+event_guid = "{1132a6b8-b4c7-467b-915d-eb83558d0e72}"
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
 bank_paths = ["res://FMODProject/Build//Master.bank"]

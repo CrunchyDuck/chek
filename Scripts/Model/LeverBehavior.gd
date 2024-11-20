@@ -51,7 +51,7 @@ signal switched_off
 func _ready():
   node_click_area.input_event.connect(_mouse_input_event)
 
-func turn_on():
+func try_turn_on():
   on = true
   switched_on.emit()
   await get_tree().create_timer(tripping_time).timeout
@@ -98,7 +98,7 @@ func try_trip():
   if on:
     turn_off()
   else:
-    turn_on()
+    try_turn_on()
 
 func _input(event):
   if not Input.is_action_pressed("LMB"):
