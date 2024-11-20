@@ -1,5 +1,9 @@
 extends ChessPiece
 
+var piece_description = ColorControllers.color_text("Unconventional. Unexpected.\n", ColorControllers.description_color)\
++ "Move and attack 2.236 squares away.
+Leap over heads."
+
 func _get_actions() -> Array[BoardPlayable.GameAction]:
 	var target_positions = [
 		coordinates + Vector2i(1, 2),

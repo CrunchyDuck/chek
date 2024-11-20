@@ -11,7 +11,8 @@ static var piece_prefabs = {
 }
 
 var node_sprite: Sprite2D = self
-var piece_description = ""  # Filled in subclasses.
+# Defined in children. Abstracts don't work well in godot.
+# var piece_description = ""
 
 var piece_type: ChessPiece.ePieces
 var board: BoardBase

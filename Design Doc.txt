@@ -65,12 +65,12 @@ BRAVE AND STUPID - If there is are pieces that can attack, one of them must atta
 DENIABLE OPS - Pieces are invisible on dark tiles.
 ALLIED ASSAULT - Players on the same team can control the each others units
 
-Pawn - Fearless front line. Nothing to lose. Only moves forward. Attacks diagonal. Promotion at end of board.
-King - Ineffective figurehead. Move and take any direction.
-Queen - Spirit of Motherland. Move and take any direction, any distance.
-Bishop - Divine salesman. Move and take diagonals.
-Castle - Self destructive vendetta. Move and take cardinals.
-Horse - Unconventional. Unexpected. Move and attack 2.236 squares away. Leap over heads.
+Pawn - 
+King - 
+Queen - 
+Bishop - 
+Castle - 
+Horse - 
 Bomber - Loyal. Psychologically degraded. Move and attack any direction. Explodes when attacking or attacked. Attack from safe distance.
 Beast - ??? Move and attack cardinals up to 2. Paralyse adjacent units.
 Hologram - Cutting edge illusion. Cannot attack. Move any direction. Swap places with friendly pieces

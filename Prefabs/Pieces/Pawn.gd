@@ -1,5 +1,11 @@
 extends ChessPiece
 
+var piece_description =\
+ColorControllers.color_text("Fearless front line. Nothing to lose.\n", ColorControllers.description_color)\
++ "Only moves forward.
+Attacks diagonal.
+Promotion at end of board."
+
 func _get_actions() -> Array[BoardPlayable.GameAction]:
 	var actions: Array[BoardPlayable.GameAction] = []
 	var target_position: Vector2i

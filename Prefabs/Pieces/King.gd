@@ -1,5 +1,9 @@
 extends ChessPiece
 
+var piece_description =\
+ColorControllers.color_text("Ineffective figurehead.\n", ColorControllers.description_color)\
++ "Move and take any direction."
+
 func _get_actions() -> Array[BoardPlayable.GameAction]:
 	var actions: Array[BoardPlayable.GameAction] = []
 	for x in range(-1, 2):
