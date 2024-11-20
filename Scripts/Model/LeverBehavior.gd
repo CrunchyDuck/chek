@@ -29,7 +29,7 @@ var lever_distance: float:
   get:
     return abs(lever_rest_position - lever_rotation)
 var trip_distance: float = 50
-var mouse_movement_to_rotation = 0.2
+var mouse_movement_to_rotation = 0.3
 
 var lever_normal_speed: float = 100
 var lever_trip_speed: float = 1200
@@ -108,6 +108,6 @@ func _input(event):
     mouse_pull += event.relative.y * mouse_movement_to_rotation
 
 func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
-  if Input.is_action_just_pressed("LMB"):
+  if not tripping and Input.is_action_just_pressed("LMB"):
     mouse_pull = 0
     being_held = true
