@@ -66,5 +66,8 @@ func next_palette():
   pass
   
 func color_by_player(content: String, game_id: int):
-  var my_color: String = ColorControllers.player_colors[game_id].to_html()
+  return color_text(content, ColorControllers.player_colors[game_id])
+
+func color_text(content: String, color: Color):
+  var my_color: String = color.to_html()
   return "[color=%s]%s[/color]" % [my_color, content]
