@@ -352,7 +352,13 @@ event_name = "event:/LargeSwitch"
 event_guid = "{613698f4-efcd-4274-9309-c97bbb704e8c}"
 preload_event = false
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="Shaft" parent="Console/BigSphereButton" index="1"]
+surface_material_override/0 = ExtResource("14_tq8wm")
+
+[node name="Tip" parent="Console/BigSphereButton" index="2"]
+surface_material_override/0 = ExtResource("14_tq8wm")
+
+[node name="RoomLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50645, 1.33606)
 visible = false
 light_energy = 0.2
