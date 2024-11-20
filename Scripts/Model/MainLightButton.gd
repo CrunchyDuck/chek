@@ -3,9 +3,9 @@ extends Node3D
 @onready
 var area_pressed: Area3D = $Area3D
 @onready
-var node_shaft: Node3D = $Shaft
+var node_shaft: MeshInstance3D = $Shaft
 @onready
-var node_tip: Node3D = $Tip
+var node_tip: MeshInstance3D = $Tip
 
 @onready
 var light: OmniLight3D = $"../../RoomLight"
@@ -17,7 +17,7 @@ var sound_blink_big: FmodEventEmitter3D = light.get_node("SoundBigBlink")
 var on: bool:
   get:
     return self_on and console_on
-var self_on = true
+var self_on = false
 var console_on = false
 
 var light_brightness: float = 0.2
@@ -29,6 +29,7 @@ var blink_min: int = 3
 var blink_max: int = 7
 
 func _ready():
+  toggle_glowing(false)
   area_pressed.input_event.connect(_toggled)
   $"../Lever".switched_on.connect(func (): console_switch(true))
   $"../Lever".switched_off.connect(func (): console_switch(false))
@@ -46,7 +47,12 @@ func _toggled(camera: Node, event: InputEvent, event_position: Vector3, normal: 
 
 func console_switch(state):
   console_on = state
+  toggle_glowing(state)
   try_turn_on()
+
+func toggle_glowing(state):
+  node_shaft.get_active_material(0).emission_enabled = state
+  node_tip.get_active_material(0).emission_enabled = state
   
 func try_turn_on():
   if not on:
