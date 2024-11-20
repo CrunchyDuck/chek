@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{d32dde34-f310-4e55-903b-57b9f56f97a5}">
+	<object class="AudioFile" id="{264a11c3-7bf6-4e1c-a40b-c0f96d883eef}">
 		<property name="assetPath">
-			<value>Switches/BigSwitch.mp3</value>
+			<value>Switches/SmallSwitch1.mp3</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>3.8399999999999999</value>
+			<value>0.14399999999999999</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{921543de-22ef-4f91-9e9e-5eea8d2354c5}</destination>
