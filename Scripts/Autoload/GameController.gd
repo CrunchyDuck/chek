@@ -54,6 +54,9 @@ var players_by_game_id: Dictionary:
 		return d
 
 var screen_central: Control
+var screen_secondary: Control:
+	get:
+		return $"/root/MainScene/ViewportRightScreen/RightScreen"
 
 var http: HTTPRequest
 var fetching_ip: bool = false
