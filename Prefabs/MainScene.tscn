@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=18 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/ScreenButton.gd" id="10_wlxyg"]
 [ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
 [ext_resource type="Script" path="res://Scripts/Model/LeverBehavior.gd" id="12_intc8"]
+[ext_resource type="Material" uid="uid://dng6su7affghb" path="res://Shaders/GlowInTheDark.tres" id="14_tq8wm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yg8yl"]
 size = Vector3(0.325, 1, 0.5)
@@ -331,6 +332,9 @@ light_cull_mask = 4294967293
 
 [node name="Lever" parent="Console" index="6"]
 script = ExtResource("12_intc8")
+
+[node name="Handle" parent="Console/Lever" index="2"]
+surface_material_override/0 = ExtResource("14_tq8wm")
 
 [node name="ClickArea" type="Area3D" parent="Console/Lever" index="4"]
 transform = Transform3D(-1.19209e-07, 1, 1.42109e-14, -1, -1.19209e-07, -1.69407e-21, -1.69407e-21, -2.84217e-14, 1, 0, -0.365178, 3.8147e-06)
