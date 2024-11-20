@@ -24,8 +24,11 @@ var mouse_pull: float = 0  # Where the mouse is trying to pull the lever
 var lever_rest_position: float:
   get:
     return 180 if on else 0
-var lever_rotation: float = 0  # The lever's progress, being being slowed.
-var lever_trip: float = 50
+var lever_rotation: float = 0  # The lever's progress, before being slowed.
+var lever_distance: float:
+  get:
+    return abs(lever_rest_position - lever_rotation)
+var trip_distance: float = 50
 var mouse_movement_to_rotation = 0.2
 
 var lever_normal_speed: float = 100
@@ -37,7 +40,7 @@ var lever_speed: float:
 var on_time: float = 0
 var delay_room_light: float = 2
 var delay_screens: float = 1
-var tripping_time = 0.3
+var tripping_time = 1
 
 @onready var sound_switch: FmodEventEmitter3D = $FlipSound
 var sound_light_on
@@ -50,18 +53,12 @@ func _ready():
 
 func turn_on():
   on = true
-  being_held = false
-  tripping = true  # A period of fast movement and immunity.
-  sound_switch.play()
   switched_on.emit()
   await get_tree().create_timer(tripping_time).timeout
   tripping = false
   
 func turn_off():
   on = false
-  being_held = false
-  tripping = true
-  sound_switch.play()
   switched_off.emit()
   await get_tree().create_timer(tripping_time).timeout
   tripping = false
@@ -70,29 +67,39 @@ func _process(delta: float) -> void:
   var lever_rotation_target = lever_rest_position + mouse_pull
   lever_rotation = move_toward(lever_rotation, lever_rotation_target, lever_speed * delta)
   lever_rotation = clampf(lever_rotation, 0, 180)
+  print(lever_rotation_target)
   
-  # Trip thresholds
-  if not tripping:
-    if not on and lever_rotation >= lever_trip:
-      turn_on()
-    elif on and lever_rotation <= 180 - lever_trip:
-      turn_off()
-      
   # Dampening
-  var lever_dampened = lever_rotation
-  if not tripping:
+  var lever_final: float
+  if tripping:
+    lever_final = lever_rotation
+  else:
+    var t = lever_distance / trip_distance
+    t = pow(t, 0.5)
+    # Pull upwards
     if not on:
-      var t = lever_rotation / lever_trip
-      t = pow(t, 0.5)
-      lever_dampened = lerpf(0, lever_trip, t)
+      lever_final = lerpf(0, trip_distance, t)
+    # Pull downwards
     else:
-      var t = 1 - (lever_rotation / lever_trip)
-      t = pow(t, 0.5)
-      lever_dampened = lerpf(0, lever_trip, t)
-      
-  node_arms.rotation_degrees.x = -lever_dampened
-  node_pivot.rotation_degrees.x = -lever_dampened
-  node_handle.rotation_degrees.x = -lever_dampened
+      lever_final = lerpf(180, 180 - trip_distance, t)
+  
+  try_trip()
+  node_arms.rotation_degrees.x = -lever_final
+  node_pivot.rotation_degrees.x = -lever_final
+  node_handle.rotation_degrees.x = -lever_final
+
+func try_trip():
+  if tripping or lever_distance < trip_distance:
+    return
+    
+  being_held = false
+  mouse_pull = 0
+  tripping = true
+  sound_switch.play()
+  if on:
+    turn_off()
+  else:
+    turn_on()
 
 func _input(event):
   if not Input.is_action_pressed("LMB"):
