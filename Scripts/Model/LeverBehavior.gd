@@ -67,7 +67,6 @@ func _process(delta: float) -> void:
   var lever_rotation_target = lever_rest_position + mouse_pull
   lever_rotation = move_toward(lever_rotation, lever_rotation_target, lever_speed * delta)
   lever_rotation = clampf(lever_rotation, 0, 180)
-  print(lever_rotation_target)
   
   # Dampening
   var lever_final: float
