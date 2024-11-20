@@ -2,15 +2,6 @@ class_name BoardBase
 extends Control
 
 #region Variables
-static var piece_prefabs = {
-	ePieces.Pawn: "Pieces.Pawn",
-	ePieces.Queen: "Pieces.Queen",
-	ePieces.King: "Pieces.King",
-	ePieces.Rook: "Pieces.Rook",
-	ePieces.Knight: "Pieces.Knight",
-	ePieces.Bishop: "Pieces.Bishop",
-}
-
 var grid_size: Vector2i:
 	get:
 		var y = grid.size()
@@ -77,8 +68,8 @@ func clear_pieces():
 func spawn_piece_state(piece_state: BoardBase.PieceState) -> ChessPiece:
 	return spawn_piece(piece_state.type, piece_state.position, piece_state.orientation, piece_state.player)
 
-func spawn_piece(piece_type: BoardBase.ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int) -> ChessPiece:
-	var piece: ChessPiece = PrefabController.get_prefab(piece_prefabs[piece_type]).instantiate()
+func spawn_piece(piece_type: ChessPiece.ePieces, coordinate: Vector2i, orientation: ChessPiece.Orientation, owned_by: int) -> ChessPiece:
+	var piece: ChessPiece = PrefabController.get_prefab(ChessPiece.piece_prefabs[piece_type]).instantiate()
 	var cell = get_cell(coordinate)
 	var _op = cell.occupying_piece
 	if _op:
@@ -204,7 +195,7 @@ class PlayerState:
 	func _init(id: int):
 		self.id = id
 	
-	func add_piece(piece: BoardBase.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
+	func add_piece(piece: ChessPiece.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
 		pieces.append(PieceState.new(piece, position, orientation, id))
 		
 	func serialize() -> Dictionary:
@@ -225,13 +216,13 @@ class PlayerState:
 		return ps
 
 class PieceState:
-	var type: BoardBase.ePieces
+	var type: ChessPiece.ePieces
 	var position: Vector2i
 	var orientation: ChessPiece.Orientation
 	var player: int
 	# TODO: PieceID to make it easier to reference over network?
 	
-	func _init(type: BoardBase.ePieces, position: Vector2i, orientation: ChessPiece.Orientation, player: int):
+	func _init(type: ChessPiece.ePieces, position: Vector2i, orientation: ChessPiece.Orientation, player: int):
 		self.type = type
 		self.position = position
 		self.orientation = orientation
@@ -252,14 +243,4 @@ class PieceState:
 			json_piece_state.orientation,
 			json_piece_state.player,
 		)
-
-
-enum ePieces {
-	Pawn,
-	Rook,
-	Knight,
-	Bishop,
-	King,
-	Queen,
-}
 #endregion

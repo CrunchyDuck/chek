@@ -1,9 +1,19 @@
 class_name ChessPiece
 extends Sprite2D
 
-var node_sprite: Sprite2D = self
+static var piece_prefabs = {
+	ePieces.Pawn: "Pieces.Pawn",
+	ePieces.Queen: "Pieces.Queen",
+	ePieces.King: "Pieces.King",
+	ePieces.Rook: "Pieces.Rook",
+	ePieces.Knight: "Pieces.Knight",
+	ePieces.Bishop: "Pieces.Bishop",
+}
 
-var piece_type: BoardBase.ePieces
+var node_sprite: Sprite2D = self
+var piece_description = ""  # Filled in subclasses.
+
+var piece_type: ChessPiece.ePieces
 var board: BoardBase
 var coordinates: Vector2i
 var move_count: int = 0
@@ -32,7 +42,7 @@ signal on_kill(killer, victim)
 signal on_killed(killer, victim)
 
 # TODO: Make pieces use different spite based on owner
-func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: int, _board: BoardBase, _piece_type: BoardBase.ePieces) -> void:
+func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: int, _board: BoardBase, _piece_type: ChessPiece.ePieces) -> void:
 	self.coordinates = _coordinates
 	self.orientation = _orientation
 	self.owned_by = _owned_by
@@ -126,4 +136,13 @@ enum Orientation {
 	West = 90,
 	North = 180,
 	East = 270,
+}
+
+enum ePieces {
+	Pawn,
+	Rook,
+	Knight,
+	Bishop,
+	King,
+	Queen,
 }
