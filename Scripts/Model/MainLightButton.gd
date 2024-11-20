@@ -35,7 +35,11 @@ var blink_min: int = 3
 var blink_max: int = 7
 
 func _ready():
+  var mat = node_shaft.get_active_material(0).duplicate()
+  node_shaft.set_surface_override_material(0, mat)
+  node_tip.set_surface_override_material(0, mat)
   toggle_glowing(false)
+  
   area_pressed.input_event.connect(_input_event)
   area_pressed.mouse_exited.connect(depress)
   $"../Lever".switched_on.connect(func (): console_switch(true))
