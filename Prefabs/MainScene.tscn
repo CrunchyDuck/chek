@@ -168,6 +168,11 @@ target_mesh = NodePath("../Console/right_panel/RightScreen")
 
 [node name="ColorPalette" parent="ViewportRightScreen" instance=ExtResource("1_h37ii")]
 
+[node name="RightScreen" type="Control" parent="ViewportRightScreen"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 3
+anchors_preset = 0
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.972, 3.751)
 fov = 25.0
