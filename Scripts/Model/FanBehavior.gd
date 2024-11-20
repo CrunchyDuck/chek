@@ -23,7 +23,9 @@ var last_on: float = 0
 var sound_target: float = 0
 var settle_volume: float = 0.1
 var settle_time: float = 20
-var fade_speed = 0.2
+var fade_speed: float:
+	get:
+		return 0.2 if on else 0.5
 var on_delay = 1
 
 func _ready() -> void:
@@ -40,6 +42,7 @@ func _process(delta: float) -> void:
 		sound_target = lerpf(settle_volume, 1, 1 - t)
 	else:
 		sound_target = 0
+		
 	fan_sound.volume = move_toward(fan_sound.volume, sound_target, fade_speed * delta)
 	if fan_sound.volume == 0:
 		fan_running = false
@@ -61,6 +64,7 @@ func update_sound():
 	else:
 		fan_running = false
 
+# TODO: Fan switch sounds
 func _off(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int):
 	if not event.is_action_pressed("LMB"):
 		return
