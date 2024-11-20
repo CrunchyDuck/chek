@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{d29b7427-c825-467e-bce2-073f682d0593}">
+		<property name="assetPath">
+			<value>LightBlinks/SmallBlink1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.80083900226757365</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{921543de-22ef-4f91-9e9e-5eea8d2354c5}</destination>
+		</relationship>
+	</object>
+</objects>

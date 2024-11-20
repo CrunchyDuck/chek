@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{11f254d8-c7a3-4154-bd24-0af5b347700e}">
+		<property name="assetPath">
+			<value>LightBlinks/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{921543de-22ef-4f91-9e9e-5eea8d2354c5}</destination>
+		</relationship>
+	</object>
+</objects>
