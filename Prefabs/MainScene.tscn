@@ -395,8 +395,9 @@ event_name = "event:/LargeSwitch"
 event_guid = "{613698f4-efcd-4274-9309-c97bbb704e8c}"
 preload_event = false
 
-[node name="MainLightButton" parent="Console" index="7"]
+[node name="MainLightButton" parent="Console" index="7" node_paths=PackedStringArray("power_coordinator")]
 script = ExtResource("16_wy0aq")
+power_coordinator = NodePath("PowerCoordinator")
 
 [node name="Shaft" parent="Console/MainLightButton" index="1"]
 surface_material_override/0 = ExtResource("14_tq8wm")
@@ -416,6 +417,20 @@ event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
 [node name="SoundButtonUp" type="FmodEventEmitter3D" parent="Console/MainLightButton" index="5"]
 event_name = "event:/BigButtonUp"
 event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
+
+[node name="PowerCoordinator" type="Node" parent="Console/MainLightButton" index="6" node_paths=PackedStringArray("power_to", "power_switch")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("..")
+power_switch = NodePath("../PressButton")
+delay = 0.5
+
+[node name="PressButton" type="Node" parent="Console/MainLightButton" index="7" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("../Shaft"), NodePath("../Tip")]
+move_distance = Vector3(0, -0.4, 0)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundButtonDown")
+sound_up = NodePath("../SoundButtonUp")
 
 [node name="RoomLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50645, 1.33606)

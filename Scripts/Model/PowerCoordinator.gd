@@ -1,3 +1,4 @@
+class_name PowerCoordinator
 extends Node
 
 @export

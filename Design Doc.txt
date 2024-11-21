@@ -99,3 +99,4 @@ tile blockers
 L shaped board
 
 The power lever is radioactive, which is why it glows in the dark.
+Splash screen logo
