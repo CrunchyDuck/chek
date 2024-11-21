@@ -1,3 +1,4 @@
+class_name LeverBehavior
 extends Node3D
 
 @onready

@@ -37,7 +37,7 @@ func prepare_materials():
   viewport_material.albedo_color = Color(1, 1, 1, 1)
   viewport_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
   viewport_material.albedo_texture = vp_texture
-  toggle_screen(false)
+  toggle_power(false)
 
 func _mouse_entered_area() -> void:
   is_mouse_inside = true
@@ -116,7 +116,7 @@ func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Ve
   # Finally, send the processed input event to the viewport.
   node_viewport.push_input(event)
 
-func toggle_screen(state: bool):
+func toggle_power(state: bool):
   if state:
     set_surface_override_material(0, viewport_material)
   else:
