@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=22 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/Model/FanBehavior.gd" id="9_lk3u4"]
 [ext_resource type="Script" path="res://Scripts/ScreenButton.gd" id="10_wlxyg"]
 [ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
+[ext_resource type="Material" uid="uid://d3wodpqknlqpy" path="res://Shaders/ScreenMaterial.tres" id="12_elhe4"]
 [ext_resource type="Script" path="res://Scripts/Model/LeverBehavior.gd" id="12_intc8"]
 [ext_resource type="Material" uid="uid://bfrpwkl73dukb" path="res://Shaders/GlowInTheDarkArrow.tres" id="14_3svlv"]
 [ext_resource type="Material" uid="uid://dng6su7affghb" path="res://Shaders/GlowInTheDark.tres" id="14_tq8wm"]
@@ -292,6 +293,9 @@ omni_range = 0.066
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_up/Area3D"]
 shape = SubResource("BoxShape3D_i2q1t")
+
+[node name="screen_main" parent="Console/front_panel" index="5"]
+surface_material_override/0 = ExtResource("12_elhe4")
 
 [node name="indicator1_p1" parent="Console/left_panel" index="6"]
 layers = 2
