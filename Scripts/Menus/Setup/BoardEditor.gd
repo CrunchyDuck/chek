@@ -1,3 +1,4 @@
+class_name BoardEditor
 extends Control
 
 var board: BoardEditable
@@ -15,4 +16,8 @@ func _ready() -> void:
 	
 	editor_screen = PrefabController.get_prefab("SecondaryScreen.BoardEditor").instantiate()
 	GameController.screen_secondary.add_child(editor_screen)
-	editor_screen.change_piece(ChessPiece.piece_prefabs[ChessPiece.ePieces.Pawn])
+	editor_screen.editor = board
+	editor_screen.set_piece(ChessPiece.piece_prefabs[ChessPiece.ePieces.Pawn])
+	editor_screen.set_orientation(ChessPiece.Orientation.South)
+	editor_screen.set_player(1)
+	

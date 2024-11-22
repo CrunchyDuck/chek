@@ -3,14 +3,6 @@ extends BoardBase
 
 var paint_piece: BoardBase.PieceState
 
-func _ready():
-	paint_piece = BoardBase.PieceState.new(
-		ChessPiece.ePieces.Pawn,
-		Vector2i(0, 0),
-		ChessPiece.Orientation.South,
-		0
-	)
-
 func _input(event: InputEvent):
 	super(event)
 	var _cell = position_to_cell(get_global_mouse_position())
