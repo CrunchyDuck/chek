@@ -30,13 +30,13 @@ size = Vector3(0.09, 0.09, 0.09)
 height = 1.15
 radius = 0.84
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_wpgdr"]
-height = 1.145
-radius = 0.73
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_saesu"]
 height = 1.09
 radius = 1.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wpgdr"]
+height = 1.145
+radius = 0.73
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i8s85"]
 size = Vector3(0.605, 2.1026, 3.97217)
@@ -338,6 +338,34 @@ event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 
 [node name="screen_main" parent="Console/front_panel" index="5"]
 surface_material_override/0 = ExtResource("12_elhe4")
+
+[node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/ScreenRightPower" index="2"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/ScreenRightPower" index="3"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/ScreenRightPower" index="4" node_paths=PackedStringArray("power_to", "power_switch")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("../../../RightScreen")
+power_switch = NodePath("../PressButton")
+delay = 1.3
+self_on = true
+
+[node name="PressButton" type="Node" parent="Console/right_panel/RightScreenFrame/ScreenRightPower" index="5" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("../../../../left_panel/NameFrame1/ScreenChatPower_004/Button_007")]
+move_distance = Vector3(0, -0.2, 0)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundDown")
+sound_up = NodePath("../SoundUp")
+
+[node name="Area3D" type="Area3D" parent="Console/right_panel/RightScreenFrame/ScreenRightPower" index="6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/ScreenRightPower/Area3D"]
+shape = SubResource("CylinderShape3D_saesu")
 
 [node name="Area3D" type="Area3D" parent="Console/left_panel/frame_screen_chatbox/ScreenChatPower/Button_002" index="0"]
 
