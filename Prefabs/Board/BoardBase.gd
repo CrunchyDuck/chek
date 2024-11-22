@@ -105,7 +105,6 @@ func save_state_to_file(file_path: String):
 	var b = serialize()
 	var save_file = FileAccess.open("user://BoardState.bbb", FileAccess.WRITE)
 	save_file.store_line(JSON.stringify(b))
-	pass
 #endregion
 
 #region Cell selection
@@ -177,17 +176,19 @@ class BoardState:
 	var players: Array[BoardBase.PlayerState] = []
 	
 	func serialize() -> Dictionary:
-		var d = {}
-		d["size"] = size
 		var _players = []
 		for p in players:
 			_players.append(p.serialize())
-		d["players"] = _players
+		
+		var d = {}
+		d.size_x = size.x
+		d.size_y = size.y
+		d.players = _players
 		return d
 		
 	static func deserialize(json_board_state: Dictionary) -> BoardState:
 		var bs = BoardState.new()
-		bs.size = json_board_state.size
+		bs.size = Vector2i(json_board_state.size_x, json_board_state.size_y)
 		for p in json_board_state.players:
 			bs.players.append(PlayerState.deserialize(p))
 		
@@ -237,7 +238,8 @@ class PieceState:
 	func serialize() -> Dictionary:
 		var d = {}
 		d.type = type
-		d.position = position
+		d.position_x = position.x
+		d.position_y = position.y
 		d.orientation = orientation
 		d.player = player
 		return d
@@ -245,7 +247,7 @@ class PieceState:
 	static func deserialize(json_piece_state: Dictionary) -> PieceState:
 		return PieceState.new(
 			json_piece_state.type,
-			json_piece_state.position,
+			Vector2i(json_piece_state.position_x, json_piece_state.position_y),
 			json_piece_state.orientation,
 			json_piece_state.player,
 		)
