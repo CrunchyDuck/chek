@@ -1,6 +1,10 @@
 class_name BoardBase
 extends Control
 
+func _input(event):
+	if event.is_action_pressed("SaveBoard"):
+		save_state_to_file()
+
 #region Variables
 var grid_size: Vector2i:
 	get:
@@ -94,6 +98,9 @@ func serialize() -> BoardBase.BoardState:
 	bs.players = players
 	return bs
 
+func serialize_dict() -> Dictionary:
+	return serialize().serialize()
+
 func load_state(state: BoardBase.BoardState):
 	clear_pieces()
 	create_new_grid(state.size)
@@ -101,8 +108,8 @@ func load_state(state: BoardBase.BoardState):
 		for piece in player.pieces:
 			spawn_piece_state(piece)
 		
-func save_state_to_file(file_path: String):
-	var b = serialize()
+func save_state_to_file():
+	var b = serialize_dict()
 	var save_file = FileAccess.open("user://BoardState.bbb", FileAccess.WRITE)
 	save_file.store_line(JSON.stringify(b))
 #endregion
