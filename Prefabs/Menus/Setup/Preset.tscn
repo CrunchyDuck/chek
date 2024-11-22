@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://42l06pv7l3mk"]
+[gd_scene load_steps=2 format=3 uid="uid://42l06pv7l3mk"]
+
+[ext_resource type="Script" path="res://Scripts/Menus/Setup/SetupPreset.gd" id="1_jthpd"]
 
 [node name="Preset" type="Control"]
 layout_mode = 3
@@ -7,3 +9,57 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jthpd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1280.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "SIMPLE - 1v1"
+
+[node name="Button4" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "SIMPLE - 1v1v1"
+
+[node name="Button5" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "FOUR CORNERS"
+
+[node name="Button6" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "CARDINALS"
+
+[node name="Button7" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "HOARD"
+
+[node name="Button8" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "WAR FATIGUE"
+
+[node name="Button9" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "CHEKR"
+
+[node name="Button10" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "HOLY WAR"
+
+[node name="Button11" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "TRENCH WARFARE"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "SIMPLE - 1v2"
+
+[node name="Button3" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "SIMPLE - 2v2"
