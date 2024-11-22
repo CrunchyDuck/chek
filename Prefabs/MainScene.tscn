@@ -317,7 +317,7 @@ shape = SubResource("CylinderShape3D_sbfih")
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../../../screen_main")
 power_switch = NodePath("../PressButton")
-delay = 1.0
+delay = 1.5
 self_on = true
 
 [node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPower" index="3" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
@@ -351,7 +351,7 @@ event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../../../RightScreen")
 power_switch = NodePath("../PressButton")
-delay = 1.3
+delay = 2.0
 self_on = true
 
 [node name="PressButton" type="Node" parent="Console/right_panel/RightScreenFrame/ScreenRightPower" index="5" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
@@ -376,7 +376,7 @@ shape = SubResource("CylinderShape3D_wpgdr")
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../../../frame_screen_chatbox_001")
 power_switch = NodePath("../PressButton")
-delay = 0.5
+delay = 0.9
 self_on = true
 
 [node name="PressButton" type="Node" parent="Console/left_panel/frame_screen_chatbox/ScreenChatPower" index="3" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
@@ -450,7 +450,7 @@ event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../../../NameScreen1")
 power_switch = NodePath("../PressButton")
-delay = 0.7
+delay = 0.3
 self_on = true
 
 [node name="PressButton" type="Node" parent="Console/left_panel/NameFrame1/ScreenChatPower_004" index="5" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
@@ -478,7 +478,7 @@ event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../../../NameScreen2")
 power_switch = NodePath("../PressButton")
-delay = 0.8
+delay = 0.4
 self_on = true
 
 [node name="PressButton" type="Node" parent="Console/left_panel/NameFrame2/ScreenChatPower_003" index="5" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
@@ -506,7 +506,7 @@ event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../../../NameScreen3")
 power_switch = NodePath("../PressButton")
-delay = 0.9
+delay = 0.5
 self_on = true
 
 [node name="PressButton" type="Node" parent="Console/left_panel/NameFrame3/ScreenChatPower_002" index="5" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
@@ -534,7 +534,7 @@ event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../../../NameScreen4")
 power_switch = NodePath("../PressButton")
-delay = 0.9
+delay = 0.6
 self_on = true
 
 [node name="PressButton" type="Node" parent="Console/left_panel/NameFrame4/ScreenChatPower_001" index="5" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
