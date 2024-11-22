@@ -37,7 +37,7 @@ func prepare_materials():
 	viewport_material.albedo_color = Color(1, 1, 1, 1)
 	viewport_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	viewport_material.albedo_texture = vp_texture
-	toggle_power(true)
+	toggle_power(false)
 
 func _mouse_entered_area() -> void:
 	is_mouse_inside = true
