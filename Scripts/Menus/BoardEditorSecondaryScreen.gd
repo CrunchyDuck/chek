@@ -9,7 +9,7 @@ var node_description: RichTextLabel = $Description
 @onready
 var node_team: Label = $VBoxContainer/Team
 @onready
-var node_orientation: Label = $VBoxContainer/Team
+var node_orientation: Label = $VBoxContainer/Orientation
 
 var editor: BoardEditable
 var orientation: ChessPiece.Orientation = ChessPiece.Orientation.North
