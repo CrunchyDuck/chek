@@ -43,6 +43,12 @@ func _ready():
   node_description.bbcode_enabled = true
   screen_controller.left_button[0].on_pressed.connect(prev_piece)
   screen_controller.right_button[0].on_pressed.connect(next_piece)
+  
+  screen_controller.left_button[1].on_pressed.connect(prev_player)
+  screen_controller.right_button[1].on_pressed.connect(next_player)
+  
+  screen_controller.left_button[2].on_pressed.connect(prev_piece)
+  screen_controller.right_button[2].on_pressed.connect(next_piece)
 
 #region Button events
 func prev_piece():
@@ -58,6 +64,18 @@ func next_piece():
     i = 0
   var new_piece = ChessPiece.piece_prefabs[i as ChessPiece.ePieces]
   set_piece(new_piece)
+  
+func prev_player():
+  var i = player - 1
+  if i < 0:
+    i = 3
+  set_player(i)
+  
+func next_player():
+  var i = player + 1
+  if i >= 4:
+    i = 0
+  set_player(i)
 #endregion
 
 func set_piece(_piece_prefab: String):
