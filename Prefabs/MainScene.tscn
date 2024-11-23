@@ -12,12 +12,12 @@
 [ext_resource type="Script" path="res://Scripts/Model/FanBehavior.gd" id="9_lk3u4"]
 [ext_resource type="Script" path="res://Scripts/ScreenButton.gd" id="10_wlxyg"]
 [ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
-[ext_resource type="Material" path="res://Shaders/ScreenMaterial.tres" id="12_elhe4"]
+[ext_resource type="Material" uid="uid://d3wodpqknlqpy" path="res://Shaders/ScreenMaterial.tres" id="12_elhe4"]
 [ext_resource type="Script" path="res://Scripts/Model/LeverBehavior.gd" id="12_intc8"]
 [ext_resource type="Script" path="res://Scripts/Model/PowerCoordinator.gd" id="12_xq1ts"]
 [ext_resource type="Script" path="res://Scripts/Model/PressButton.gd" id="13_b4upv"]
-[ext_resource type="Material" path="res://Shaders/GlowInTheDarkArrow.tres" id="14_3svlv"]
-[ext_resource type="Material" path="res://Shaders/GlowInTheDark.tres" id="14_tq8wm"]
+[ext_resource type="Material" uid="uid://bfrpwkl73dukb" path="res://Shaders/GlowInTheDarkArrow.tres" id="14_3svlv"]
+[ext_resource type="Material" uid="uid://dng6su7affghb" path="res://Shaders/GlowInTheDark.tres" id="14_tq8wm"]
 [ext_resource type="Script" path="res://Scripts/Model/MainLightButton.gd" id="16_wy0aq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yg8yl"]
@@ -311,6 +311,9 @@ omni_range = 0.066
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_up/Area3D"]
 shape = SubResource("BoxShape3D_i2q1t")
 
+[node name="ScreenMainPower" parent="Console/front_panel/frame_screen_main" index="0"]
+transform = Transform3D(0.0140006, 0, 0, 0, -6.11985e-10, -0.0140006, 0, 0.0140006, -6.11985e-10, -0.00123322, -0.352617, 0.0275505)
+
 [node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/ScreenMainPower/Button_001" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/frame_screen_main/ScreenMainPower/Button_001/Area3D"]
@@ -326,7 +329,7 @@ self_on = true
 [node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPower" index="3" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
 script = ExtResource("13_b4upv")
 to_move = [NodePath("../Button_001")]
-move_distance = Vector3(0, -0.2, 0)
+move_distance = Vector3(0, -0.5, 0)
 area_press = NodePath("../Button_001/Area3D")
 sound_down = NodePath("../SoundDown")
 sound_up = NodePath("../SoundUp")
@@ -359,7 +362,7 @@ self_on = true
 
 [node name="PressButton" type="Node" parent="Console/right_panel/RightScreenFrame/ScreenRightPower" index="5" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
 script = ExtResource("13_b4upv")
-to_move = [NodePath("../../../../left_panel/NameFrame1/ScreenChatPower_004/Button_007")]
+to_move = [NodePath("../Button_003")]
 move_distance = Vector3(0, -0.2, 0)
 area_press = NodePath("../Area3D")
 sound_down = NodePath("../SoundDown")
