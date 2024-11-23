@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=28 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -44,6 +44,9 @@ size = Vector3(0.605, 2.1026, 3.97217)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_q7xga"]
 height = 2.40171
 radius = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f4pis"]
+size = Vector3(0.02, 0.05, 0.06)
 
 [node name="MainScene" type="Node"]
 
@@ -603,6 +606,132 @@ delay = 0.5
 [node name="PressButton" type="Node" parent="Console/MainLightButton" index="7" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
 script = ExtResource("13_b4upv")
 to_move = [NodePath("../Shaft"), NodePath("../Tip")]
+move_distance = Vector3(0, -0.4, 0)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundButtonDown")
+sound_up = NodePath("../SoundButtonUp")
+
+[node name="Area3D" type="Area3D" parent="Console/SecondaryLeftButton1" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/SecondaryLeftButton1/Area3D"]
+shape = SubResource("BoxShape3D_f4pis")
+
+[node name="SoundButtonDown" type="FmodEventEmitter3D" parent="Console/SecondaryLeftButton1" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundButtonUp" type="FmodEventEmitter3D" parent="Console/SecondaryLeftButton1" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PressButton" type="Node" parent="Console/SecondaryLeftButton1" index="3" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, -0.4, 0)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundButtonDown")
+sound_up = NodePath("../SoundButtonUp")
+
+[node name="Area3D" type="Area3D" parent="Console/SecondaryLeftButton2" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/SecondaryLeftButton2/Area3D"]
+shape = SubResource("BoxShape3D_f4pis")
+
+[node name="SoundButtonDown" type="FmodEventEmitter3D" parent="Console/SecondaryLeftButton2" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundButtonUp" type="FmodEventEmitter3D" parent="Console/SecondaryLeftButton2" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PressButton" type="Node" parent="Console/SecondaryLeftButton2" index="3" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, -0.4, 0)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundButtonDown")
+sound_up = NodePath("../SoundButtonUp")
+
+[node name="Area3D" type="Area3D" parent="Console/SecondaryLeftButton3" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/SecondaryLeftButton3/Area3D"]
+shape = SubResource("BoxShape3D_f4pis")
+
+[node name="SoundButtonDown" type="FmodEventEmitter3D" parent="Console/SecondaryLeftButton3" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundButtonUp" type="FmodEventEmitter3D" parent="Console/SecondaryLeftButton3" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PressButton" type="Node" parent="Console/SecondaryLeftButton3" index="3" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, -0.4, 0)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundButtonDown")
+sound_up = NodePath("../SoundButtonUp")
+
+[node name="Area3D" type="Area3D" parent="Console/SecondaryRightButton1" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/SecondaryRightButton1/Area3D"]
+shape = SubResource("BoxShape3D_f4pis")
+
+[node name="SoundButtonDown" type="FmodEventEmitter3D" parent="Console/SecondaryRightButton1" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundButtonUp" type="FmodEventEmitter3D" parent="Console/SecondaryRightButton1" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PressButton" type="Node" parent="Console/SecondaryRightButton1" index="3" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, -0.4, 0)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundButtonDown")
+sound_up = NodePath("../SoundButtonUp")
+
+[node name="Area3D" type="Area3D" parent="Console/SecondaryRightButton2" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/SecondaryRightButton2/Area3D"]
+shape = SubResource("BoxShape3D_f4pis")
+
+[node name="SoundButtonDown" type="FmodEventEmitter3D" parent="Console/SecondaryRightButton2" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundButtonUp" type="FmodEventEmitter3D" parent="Console/SecondaryRightButton2" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PressButton" type="Node" parent="Console/SecondaryRightButton2" index="3" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, -0.4, 0)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundButtonDown")
+sound_up = NodePath("../SoundButtonUp")
+
+[node name="Area3D" type="Area3D" parent="Console/SecondaryRightButton3" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/SecondaryRightButton3/Area3D"]
+shape = SubResource("BoxShape3D_f4pis")
+
+[node name="SoundButtonDown" type="FmodEventEmitter3D" parent="Console/SecondaryRightButton3" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundButtonUp" type="FmodEventEmitter3D" parent="Console/SecondaryRightButton3" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PressButton" type="Node" parent="Console/SecondaryRightButton3" index="3" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
 move_distance = Vector3(0, -0.4, 0)
 area_press = NodePath("../Area3D")
 sound_down = NodePath("../SoundButtonDown")
