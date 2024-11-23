@@ -47,8 +47,8 @@ func _ready():
   screen_controller.left_button[1].on_pressed.connect(prev_player)
   screen_controller.right_button[1].on_pressed.connect(next_player)
   
-  screen_controller.left_button[2].on_pressed.connect(prev_piece)
-  screen_controller.right_button[2].on_pressed.connect(next_piece)
+  screen_controller.left_button[2].on_pressed.connect(prev_orientation)
+  screen_controller.right_button[2].on_pressed.connect(next_orientation)
 
 #region Button events
 func prev_piece():
@@ -76,6 +76,18 @@ func next_player():
   if i >= 4:
     i = 0
   set_player(i)
+  
+func prev_orientation():
+  var i = int(orientation) - 90
+  if i < 0:
+    i = 270
+  set_orientation(i as ChessPiece.Orientation)
+  
+func next_orientation():
+  var i = int(orientation) + 90
+  if i >= 360:
+    i = 0
+  set_orientation(i as ChessPiece.Orientation)
 #endregion
 
 func set_piece(_piece_prefab: String):
