@@ -13,10 +13,21 @@ var node_description: RichTextLabel = $Description
 var node_commander: Label = $VBoxContainer/Commander/Value
 @onready
 var node_orientation: Label = $VBoxContainer/Orientation/Value
+@onready
+var node_x: Label = $BoardSize/X/Value
+@onready
+var node_y: Label = $BoardSize/Y/Value
 
 var editor: BoardEditable
 var orientation: ChessPiece.Orientation = ChessPiece.Orientation.North
 var player: int = 0
+
+var x: int:
+	get:
+		return GameController.board_state.size.x
+var y: int:
+	get:
+		return GameController.board_state.size.y
 
 const orientation_string = {
 	ChessPiece.Orientation.North: "UP",
@@ -34,6 +45,12 @@ const player_orientation_default = {
 
 func _ready():
 	node_description.bbcode_enabled = true
+	screen_controller.left_button[0].on_pressed.connect(prev_x)
+	screen_controller.right_button[0].on_pressed.connect(next_x)
+	
+	screen_controller.left_button[1].on_pressed.connect(prev_y)
+	screen_controller.right_button[1].on_pressed.connect(next_y)
+	
 	screen_controller.left_button[2].on_pressed.connect(prev_piece)
 	screen_controller.right_button[2].on_pressed.connect(next_piece)
 	
@@ -44,6 +61,30 @@ func _ready():
 	screen_controller.right_button[4].on_pressed.connect(next_orientation)
 
 #region Button events
+func prev_x():
+	var _x = x - 1
+	if _x < 1:
+		return
+	editor.set_board_size(Vector2i(_x, y))
+	node_x.text = str(x)
+	
+func next_x():
+	var _x = x + 1
+	editor.set_board_size(Vector2i(_x, y))
+	node_x.text = str(x)
+	
+func prev_y():
+	var _y = y - 1
+	if _y < 1:
+		return
+	editor.set_board_size(Vector2i(x, _y))
+	node_y.text = str(y)
+	
+func next_y():
+	var _y = y + 1
+	editor.set_board_size(Vector2i(x, _y))
+	node_y.text = str(y)
+	
 func prev_piece():
 	var i = int(piece.piece_type) - 1
 	if i < 0:

@@ -38,3 +38,6 @@ func _input(event: InputEvent):
 		#deselect_cell()
 	#else:
 		#select_cell(new_cell)
+
+func set_board_size(new_size: Vector2i):
+	pass
