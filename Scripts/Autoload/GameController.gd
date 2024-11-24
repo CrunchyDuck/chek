@@ -266,10 +266,6 @@ func create_player(network_id: int, character_name: String, job_name: String):
 	PrefabController.register_networked_node.rpc("Player", player_path)
 
 func load_board_state(state: BoardBase.BoardState, players: Dictionary):
-	if players.size() != state.players.size():
-		print("Incorrect number of players for board state!")
-		#return
-		
 	# Update player states
 	for player_num in state.players.size():
 		var p = players[player_num]
