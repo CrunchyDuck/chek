@@ -34,14 +34,14 @@ const player_orientation_default = {
 
 func _ready():
 	node_description.bbcode_enabled = true
-	screen_controller.left_button[0].on_pressed.connect(prev_piece)
-	screen_controller.right_button[0].on_pressed.connect(next_piece)
+	screen_controller.left_button[2].on_pressed.connect(prev_piece)
+	screen_controller.right_button[2].on_pressed.connect(next_piece)
 	
-	screen_controller.left_button[1].on_pressed.connect(prev_player)
-	screen_controller.right_button[1].on_pressed.connect(next_player)
+	screen_controller.left_button[3].on_pressed.connect(prev_player)
+	screen_controller.right_button[3].on_pressed.connect(next_player)
 	
-	screen_controller.left_button[2].on_pressed.connect(prev_orientation)
-	screen_controller.right_button[2].on_pressed.connect(next_orientation)
+	screen_controller.left_button[4].on_pressed.connect(prev_orientation)
+	screen_controller.right_button[4].on_pressed.connect(next_orientation)
 
 #region Button events
 func prev_piece():

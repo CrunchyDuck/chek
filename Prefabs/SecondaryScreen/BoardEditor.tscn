@@ -8,6 +8,8 @@
 custom_minimum_size = Vector2(385, 390)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 385.0
+offset_bottom = 390.0
 theme = ExtResource("1_caav7")
 script = ExtResource("1_x3b61")
 
@@ -15,7 +17,10 @@ script = ExtResource("1_x3b61")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_top = 5.0
+offset_bottom = 67.0
 grow_horizontal = 2
+theme_override_constants/separation = 12
 
 [node name="X" type="Control" parent="BoardSize"]
 custom_minimum_size = Vector2(0, 25)
