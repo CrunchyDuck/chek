@@ -76,9 +76,24 @@ var game_id: int:
 var character_name: String
 var job_name: String
 
-var game_settings: BoardBase.GameSettings = BoardBase.GameSettings.new()
-var board_state: BoardBase.BoardState = BoardBase.BoardState.new()
+var _game_settings: BoardBase.GameSettings = BoardBase.GameSettings.new()
+var game_settings: BoardBase.GameSettings:
+  get:
+    return _game_settings
+  set(value):
+    _game_settings = value
+    confirm_start_with_extra_players = false
+var _board_state: BoardBase.BoardState = BoardBase.BoardState.new()
+var board_state: BoardBase.BoardState:
+  get:
+    return _board_state
+  set(value):
+    _board_state = value
+    confirm_start_with_extra_players = false
+
 var players_loaded: int = 0
+
+var confirm_start_with_extra_players: bool = false
 
 const max_players: int = 4
 
@@ -190,6 +205,31 @@ func standard_board_setup() -> BoardBase.BoardState:
 #endregion
 
 #region Standard functions
+func can_start_game() -> bool:
+  var p_min = board_state.players.size()
+  var p_count = Player.players.size()
+  if p_count == p_min:
+    return true
+    
+  elif p_count > p_min:
+    if confirm_start_with_extra_players:
+      return true
+    var t = ColorController.color_text("SYSTEM: ", ColorController.system_message_color)
+    var content = "Too many commanders. Press START again to confirm.\nRequired: {req}\nPresent: {have}"\
+      .format({"req": str(p_min), "have": str(p_count)})
+    t += ColorController.color_text(content, ColorController.system_message_body_color)
+    MessageController.add_message(t)
+    confirm_start_with_extra_players = true
+    return false
+  
+  var t = ColorController.color_text("SYSTEM: ", ColorController.system_message_color)
+  var content = "Not enough players commanders. Find more, or use state-of-art AI.\nRequired: {req}\nPresent: {have}"\
+    .format({"req": str(p_min), "have": str(p_count)})
+  t += ColorController.color_text(content, ColorController.system_message_body_color)
+  MessageController.add_message(t)
+  return false
+  
+  
 func get_ip():
   if fetching_ip:
     return

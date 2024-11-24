@@ -24,6 +24,9 @@ const player_colors = [
 
 const description_color = colors.c4
 
+const system_message_color = colors.primary
+const system_message_body_color = colors.secondary
+
 var current_palette: CompressedTexture2D:
   get:
     return palettes[current_palette_name]
@@ -70,6 +73,6 @@ func next_palette():
 func color_by_player(content: String, game_id: int):
   return color_text(content, ColorControllers.player_colors[game_id])
 
-func color_text(content: String, color: Color):
+static func color_text(content: String, color: Color):
   var my_color: String = color.to_html()
   return "[color=%s]%s[/color]" % [my_color, content]
