@@ -87,5 +87,5 @@ func _update_color():
 
 func _hide_if_blocked():
 	sprite.visible = true
-	if occupying_piece.piece_type == ChessPiece.ePieces.Blocker:
+	if occupying_piece != null and occupying_piece.piece_type == ChessPiece.ePieces.Blocker:
 		sprite.visible = false
