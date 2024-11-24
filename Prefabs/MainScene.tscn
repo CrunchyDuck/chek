@@ -348,7 +348,7 @@ event_name = "event:/BigButtonUp"
 event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
 
 [node name="ScreenMainPower" parent="Console/front_panel/frame_screen_main" index="4"]
-transform = Transform3D(0.0140006, 0, 0, 0, -6.11985e-10, -0.0140006, 0, 0.0140006, -6.11985e-10, -0.00123322, -0.352617, 0.0275505)
+transform = Transform3D(0.0140006, 0, 0, 0, -6.11985e-10, -0.0140006, 0, 0.0140006, -6.11985e-10, 0.308025, -0.356165, 0.0275505)
 
 [node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/ScreenMainPower/Button_001" index="0"]
 
