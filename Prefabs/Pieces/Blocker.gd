@@ -6,7 +6,7 @@ ColorControllers.color_text("Decimated land.\n", ColorControllers.description_co
 + "Cell cannot be moved into."
 
 func _ready():
-  piece_type = ePieces.Blocker
+	piece_type = ePieces.Blocker
 
 func _get_actions() -> Array[BoardPlayable.GameAction]:
-  return []
+	return []
