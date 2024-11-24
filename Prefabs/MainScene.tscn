@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=31 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
@@ -19,6 +19,8 @@
 [ext_resource type="Script" path="res://Scripts/Model/PressButton.gd" id="13_b4upv"]
 [ext_resource type="Material" uid="uid://bfrpwkl73dukb" path="res://Shaders/GlowInTheDarkArrow.tres" id="14_3svlv"]
 [ext_resource type="Material" uid="uid://dng6su7affghb" path="res://Shaders/GlowInTheDark.tres" id="14_tq8wm"]
+[ext_resource type="Script" path="res://Scripts/Model/ButtonLight.gd" id="15_o2dwh"]
+[ext_resource type="Material" uid="uid://dfbjfsu5p0c6d" path="res://Shaders/LitPlastic.tres" id="16_ey2rd"]
 [ext_resource type="Script" path="res://Scripts/Model/MainLightButton.gd" id="16_wy0aq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yg8yl"]
@@ -275,6 +277,17 @@ event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
 event_name = "event:/BigButtonUp"
 event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
 
+[node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenDown" index="4" node_paths=PackedStringArray("power_to")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("../ButtonLight")
+
+[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenDown" index="5" node_paths=PackedStringArray("target")]
+script = ExtResource("15_o2dwh")
+target = NodePath("..")
+unlit_texture = ExtResource("12_05bwk")
+lit_texture = ExtResource("16_ey2rd")
+material_index = 1
+
 [node name="MainScreenLeft" parent="Console/front_panel/frame_screen_main" index="1"]
 surface_material_override/1 = ExtResource("12_05bwk")
 
@@ -298,6 +311,17 @@ event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
 [node name="SoundUp" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenLeft" index="3"]
 event_name = "event:/BigButtonUp"
 event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
+
+[node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenLeft" index="4" node_paths=PackedStringArray("power_to")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("../ButtonLight")
+
+[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenLeft" index="5" node_paths=PackedStringArray("target")]
+script = ExtResource("15_o2dwh")
+target = NodePath("..")
+unlit_texture = ExtResource("12_05bwk")
+lit_texture = ExtResource("16_ey2rd")
+material_index = 1
 
 [node name="MainScreenRight" parent="Console/front_panel/frame_screen_main" index="2"]
 surface_material_override/1 = ExtResource("12_05bwk")
@@ -323,6 +347,17 @@ event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
 event_name = "event:/BigButtonUp"
 event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
 
+[node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenRight" index="4" node_paths=PackedStringArray("power_to")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("../ButtonLight")
+
+[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenRight" index="5" node_paths=PackedStringArray("target")]
+script = ExtResource("15_o2dwh")
+target = NodePath("..")
+unlit_texture = ExtResource("12_05bwk")
+lit_texture = ExtResource("16_ey2rd")
+material_index = 1
+
 [node name="MainScreenUp" parent="Console/front_panel/frame_screen_main" index="3"]
 surface_material_override/1 = ExtResource("12_05bwk")
 
@@ -346,6 +381,17 @@ event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
 [node name="SoundUp" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenUp" index="3"]
 event_name = "event:/BigButtonUp"
 event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
+
+[node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenUp" index="4" node_paths=PackedStringArray("power_to")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("../ButtonLight")
+
+[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenUp" index="5" node_paths=PackedStringArray("target")]
+script = ExtResource("15_o2dwh")
+target = NodePath("..")
+unlit_texture = ExtResource("12_05bwk")
+lit_texture = ExtResource("16_ey2rd")
+material_index = 1
 
 [node name="ScreenMainPower" parent="Console/front_panel/frame_screen_main" index="4"]
 transform = Transform3D(0.0140006, 0, 0, 0, -6.11985e-10, -0.0140006, 0, 0.0140006, -6.11985e-10, 0.308025, -0.356165, 0.0275505)
