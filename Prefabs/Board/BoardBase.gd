@@ -159,6 +159,33 @@ func _position_board():
 class GameSettings:
   var board_size: Vector2i = Vector2i(8, 8)
   
+  #region Victory conditions
+  # Total number of pieces remaining
+  var victory_total_limit: bool = false
+  var victory_total_count: int = 0
+  
+  # Specific piece remaining
+  var victory_specific_limit: bool = false
+  var victory_specific_type: ChessPiece.ePieces = 0
+  var victory_lose_any: bool = false
+  var victory_lose_all: bool = false
+  #endregion
+  
+  #region Turn rules
+  var turn_sequential: bool = true
+  var turns_concurrent: bool = false  # Turns are all taken at the same time
+  var turns_at_a_time: int = 1
+  
+  var turn_bullet_chess: bool = false # Players have a time limit. They lose if it reaches 0.
+  var turn_bullet_limit: float = 0
+  
+  var turn_queue: bool = false  # Players all queue up their moves, and all moves happen at once.
+  var turn_queue_time: float = 0
+  
+  var turn_timed: bool = false  # Players take their turns after their cooldown runs out.
+  var turn_cooldown: float = 0
+  #endregion
+  
   var divine_wind: bool = false
   var no_retreat: bool = false
   
@@ -167,6 +194,27 @@ class GameSettings:
     d.board_size = board_size
     d.divine_wind = divine_wind
     d.no_retreat = no_retreat
+    
+    d.victory_total_limit = victory_total_limit
+    d.victory_total_count = victory_total_count
+    
+    d.victory_specific_limit = victory_specific_limit
+    d.victory_specific_type = victory_specific_type
+    d.victory_lose_any = victory_lose_any
+    d.victory_lose_all = victory_lose_all
+
+    d.turn_sequential = turn_sequential
+    d.turns_concurrent = turns_concurrent
+    d.turns_at_a_time = turns_at_a_time
+    
+    d.turn_bullet_chess = turn_bullet_chess
+    d.turn_bullet_limit = turn_bullet_limit
+    
+    d.turn_queue = turn_queue
+    d.turn_queue_time = turn_queue_time
+    
+    d.turn_timed = turn_timed
+    d.turn_cooldown = turn_cooldown
     return d
   
   static func deserialize(json_game_settings) -> GameSettings:
@@ -174,6 +222,27 @@ class GameSettings:
     gs.board_size = json_game_settings.board_size
     gs.divine_wind = json_game_settings.divine_wind
     gs.no_retreat = json_game_settings.no_retreat
+    
+    gs.victory_total_limit = json_game_settings.victory_total_limit
+    gs.victory_total_count = json_game_settings.victory_total_count
+    
+    gs.victory_specific_limit = json_game_settings.victory_specific_limit
+    gs.victory_specific_type = json_game_settings.victory_specific_type
+    gs.victory_lose_any = json_game_settings.victory_lose_any
+    gs.victory_lose_all = json_game_settings.victory_lose_all
+
+    gs.turn_sequential = json_game_settings.turn_sequential
+    gs.turns_concurrent = json_game_settings.turns_concurrent
+    gs.turns_at_a_time = json_game_settings.turns_at_a_time
+    
+    gs.turn_bullet_chess = json_game_settings.turn_bullet_chess
+    gs.turn_bullet_limit = json_game_settings.turn_bullet_limit
+    
+    gs.turn_queue = json_game_settings.turn_queue
+    gs.turn_queue_time = json_game_settings.turn_queue_time
+    
+    gs.turn_timed = json_game_settings.turn_timed
+    gs.turn_cooldown = json_game_settings.turn_cooldown
     
     return gs
 
