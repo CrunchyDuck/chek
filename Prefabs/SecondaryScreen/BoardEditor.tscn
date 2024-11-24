@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://crldm7geiqbhd"]
+[gd_scene load_steps=4 format=3 uid="uid://crldm7geiqbhd"]
 
+[ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="1_caav7"]
 [ext_resource type="Script" path="res://Scripts/Menus/BoardEditorSecondaryScreen.gd" id="1_x3b61"]
 [ext_resource type="PackedScene" uid="uid://bu11rx8t1sqop" path="res://Prefabs/Pieces/Pawn.tscn" id="2_cnfel"]
 
@@ -7,6 +8,7 @@
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 3
 anchors_preset = 0
+theme = ExtResource("1_caav7")
 script = ExtResource("1_x3b61")
 
 [node name="Piece" type="Control" parent="."]
