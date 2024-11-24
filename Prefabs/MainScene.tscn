@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=32 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="PackedScene" uid="uid://jak4nhe12qk3" path="res://Prefabs/Lobby.tscn" id="1_qe0gb"]
 [ext_resource type="PackedScene" uid="uid://ckseim57h2pve" path="res://Prefabs/Menus/Start.tscn" id="4_8ew3x"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
 [ext_resource type="Script" path="res://Scripts/ComputerScreen.gd" id="5_roanu"]
+[ext_resource type="Script" path="res://Scripts/Model/MainScreenController.gd" id="6_auddw"]
 [ext_resource type="PackedScene" uid="uid://bblrjt1jecw2y" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
 [ext_resource type="Script" path="res://Scripts/NameScreen.gd" id="7_6p3my"]
 [ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="7_q5tya"]
@@ -55,10 +56,9 @@ radius = 1.0
 
 [node name="Lobby" parent="." instance=ExtResource("1_qe0gb")]
 
-[node name="ViewportCentralScreen" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
+[node name="ViewportCentralScreen" type="SubViewport" parent="."]
 size = Vector2i(650, 650)
 script = ExtResource("5_roanu")
-target_mesh = NodePath("../Console/front_panel/screen_main")
 
 [node name="CentralScreen" type="Control" parent="ViewportCentralScreen"]
 texture_filter = 1
@@ -80,6 +80,9 @@ theme = ExtResource("4_qgfyp")
 layout_mode = 1
 
 [node name="ColorPalette" parent="ViewportCentralScreen" instance=ExtResource("1_h37ii")]
+
+[node name="MainScreenController" type="Node" parent="ViewportCentralScreen"]
+script = ExtResource("6_auddw")
 
 [node name="ViewportChatScreen" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
 size = Vector2i(428, 191)
