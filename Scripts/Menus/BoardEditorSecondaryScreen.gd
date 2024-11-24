@@ -10,9 +10,9 @@ var piece: ChessPiece
 @onready
 var node_description: RichTextLabel = $Description
 @onready
-var node_team: Label = $VBoxContainer/Team
+var node_commander: Label = $VBoxContainer/Commander/Value
 @onready
-var node_orientation: Label = $VBoxContainer/Orientation
+var node_orientation: Label = $VBoxContainer/Orientation/Value
 
 var editor: BoardEditable
 var orientation: ChessPiece.Orientation = ChessPiece.Orientation.North
@@ -23,13 +23,6 @@ const orientation_string = {
 	ChessPiece.Orientation.East: "RIGHT",
 	ChessPiece.Orientation.South: "DOWN",
 	ChessPiece.Orientation.West: "LEFT",
-}
-
-const player_string = {
-	0: "COMMANDER 0",
-	1: "COMMANDER 1",
-	2: "COMMANDER 2",
-	3: "COMMANDER 3",
 }
 
 const player_orientation_default = {
@@ -110,6 +103,6 @@ func set_orientation(_orientation: ChessPiece.Orientation):
 func set_player(_player: int):
 	player = _player
 	piece.owned_by = player
-	node_team.text = player_string[player]
+	node_commander.text = str(player)
 	editor.paint_piece = piece.serialize()
 	set_orientation(player_orientation_default[_player])
