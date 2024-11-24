@@ -8,6 +8,7 @@ static var piece_prefabs = {
   ePieces.Rook: "Pieces.Rook",
   ePieces.Knight: "Pieces.Knight",
   ePieces.Bishop: "Pieces.Bishop",
+  ePieces.Blocker: "Pieces.Blocker",
 }
 
 var node_sprite: Sprite2D = self
@@ -79,8 +80,10 @@ func _can_move(target_position: Vector2i) -> bool:
 # Whether a cell passes the basic requirements for attacking.
 func _can_attack(target_position: Vector2i) -> bool:
   var target_cell: BoardCell = board.get_cell(target_position)
-  return target_cell != null and target_cell.occupying_piece != null and\
-    not owned_by_player.friendly.has(target_cell.occupying_piece.owned_by)
+  return target_cell != null\
+    and target_cell.occupying_piece != null\
+    and target_cell.occupying_piece.piece_type != ChessPiece.ePieces.Blocker\
+    and not owned_by_player.friendly.has(target_cell.occupying_piece.owned_by)
 
 # Try to move in a line, or attack what blocks that line.
 func _act_in_line(direction: Vector2i) -> Array[BoardPlayable.GameAction]:
@@ -143,6 +146,7 @@ enum ePieces {
   Rook,
   Knight,
   Bishop,
-  King,
   Queen,
+  King,
+  Blocker,
 }

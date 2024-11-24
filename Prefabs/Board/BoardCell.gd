@@ -13,7 +13,13 @@ var cell_coordinates: Vector2i:
   set(value):
     _cell_coordinates = value
     _update_color()
-var occupying_piece: ChessPiece
+var _occupying_piece: ChessPiece
+var occupying_piece: ChessPiece:
+  get:
+    return _occupying_piece
+  set(value):
+    _occupying_piece = value
+    _hide_if_blocked()
 
 #region States
 var unobstructed: bool:
@@ -78,3 +84,8 @@ func _update_color():
       color = color_white
 
   sprite.self_modulate = color
+
+func _hide_if_blocked():
+  sprite.visible = true
+  if occupying_piece.piece_type == ChessPiece.ePieces.Blocker:
+    sprite.visible = false
