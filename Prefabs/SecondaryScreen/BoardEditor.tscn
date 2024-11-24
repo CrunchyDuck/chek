@@ -5,19 +5,72 @@
 [ext_resource type="PackedScene" uid="uid://bu11rx8t1sqop" path="res://Prefabs/Pieces/Pawn.tscn" id="2_cnfel"]
 
 [node name="BoardEditor" type="Control"]
-custom_minimum_size = Vector2(400, 400)
+custom_minimum_size = Vector2(385, 390)
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("1_caav7")
 script = ExtResource("1_x3b61")
+
+[node name="BoardSize" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="X" type="Control" parent="BoardSize"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BoardSize/X"]
+layout_mode = 2
+offset_right = 183.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 20
+text = "SIZE X:"
+
+[node name="Value" type="Label" parent="BoardSize/X"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -183.0
+offset_bottom = 32.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "8
+"
+horizontal_alignment = 2
+
+[node name="Y" type="Control" parent="BoardSize"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BoardSize/Y"]
+layout_mode = 2
+offset_right = 183.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 20
+text = "SIZE Y:"
+
+[node name="Value" type="Label" parent="BoardSize/Y"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -183.0
+offset_bottom = 32.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "8"
+horizontal_alignment = 2
 
 [node name="Piece" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_top = 64.0
-offset_bottom = 64.0
+offset_top = 130.0
+offset_bottom = 130.0
 grow_horizontal = 2
 scale = Vector2(2, 2)
 
@@ -25,12 +78,11 @@ scale = Vector2(2, 2)
 
 [node name="Description" type="RichTextLabel" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 128.0
-offset_right = -70.0
-offset_bottom = 128.0
+offset_top = 187.0
+offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 20
@@ -45,17 +97,18 @@ anchor_bottom = 1.0
 offset_top = -50.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 12
 alignment = 2
 
 [node name="Commander" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/Commander"]
 layout_mode = 2
 offset_right = 183.0
 offset_bottom = 32.0
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 20
 text = "COMMANDER:"
 
 [node name="Value" type="Label" parent="VBoxContainer/Commander"]
@@ -66,19 +119,19 @@ anchor_right = 1.0
 offset_left = -183.0
 offset_bottom = 32.0
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 20
 text = "cmd"
 horizontal_alignment = 2
 
 [node name="Orientation" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/Orientation"]
 layout_mode = 2
 offset_right = 183.0
 offset_bottom = 32.0
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 20
 text = "FACING:"
 
 [node name="Value" type="Label" parent="VBoxContainer/Orientation"]
@@ -89,6 +142,6 @@ anchor_right = 1.0
 offset_left = -183.0
 offset_bottom = 32.0
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 20
 text = "dir"
 horizontal_alignment = 2
