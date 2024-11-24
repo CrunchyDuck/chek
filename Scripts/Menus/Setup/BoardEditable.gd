@@ -9,12 +9,12 @@ func _input(event: InputEvent):
 	if Input.is_action_pressed("LMB"):
 		if _cell:
 			spawn_piece(paint_piece.type, _cell.cell_coordinates, paint_piece.orientation, paint_piece.player)
-		GameController.board_state = serialize()
+			GameController.board_state = serialize()
 	if Input.is_action_pressed("RMB"):
 		if _cell.occupying_piece:
 			_cell.occupying_piece.queue_free()
 			_cell.occupying_piece = null
-		GameController.board_state = serialize()
+			GameController.board_state = serialize()
 		
 #func _input(event: InputEvent) -> void:
 	#if event is InputEventMouseButton and event.is_pressed():
