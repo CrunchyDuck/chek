@@ -11,21 +11,21 @@
 [ext_resource type="Script" path="res://Scripts/Model/SecondaryScreenController.gd" id="8_2w0tt"]
 [ext_resource type="Script" path="res://Scripts/Nameplate.gd" id="8_pahoh"]
 [ext_resource type="Script" path="res://Scripts/Model/FanBehavior.gd" id="9_lk3u4"]
-[ext_resource type="Script" path="res://Scripts/ScreenButton.gd" id="10_wlxyg"]
 [ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
-[ext_resource type="Material" path="res://Shaders/ScreenMaterial.tres" id="12_elhe4"]
+[ext_resource type="Material" uid="uid://cf4ds4wf6klxv" path="res://Shaders/UnlitPlastic.tres" id="12_05bwk"]
+[ext_resource type="Material" uid="uid://d3wodpqknlqpy" path="res://Shaders/ScreenMaterial.tres" id="12_elhe4"]
 [ext_resource type="Script" path="res://Scripts/Model/LeverBehavior.gd" id="12_intc8"]
 [ext_resource type="Script" path="res://Scripts/Model/PowerCoordinator.gd" id="12_xq1ts"]
 [ext_resource type="Script" path="res://Scripts/Model/PressButton.gd" id="13_b4upv"]
-[ext_resource type="Material" path="res://Shaders/GlowInTheDarkArrow.tres" id="14_3svlv"]
-[ext_resource type="Material" path="res://Shaders/GlowInTheDark.tres" id="14_tq8wm"]
+[ext_resource type="Material" uid="uid://bfrpwkl73dukb" path="res://Shaders/GlowInTheDarkArrow.tres" id="14_3svlv"]
+[ext_resource type="Material" uid="uid://dng6su7affghb" path="res://Shaders/GlowInTheDark.tres" id="14_tq8wm"]
 [ext_resource type="Script" path="res://Scripts/Model/MainLightButton.gd" id="16_wy0aq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yg8yl"]
 size = Vector3(0.325, 1, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_i2q1t"]
-size = Vector3(0.09, 0.09, 0.09)
+[sub_resource type="BoxShape3D" id="BoxShape3D_qol8l"]
+size = Vector3(0.2, 0.05, 0.06)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_sbfih"]
 height = 1.15
@@ -251,71 +251,103 @@ modulate = Color(0.0836, 0.108607, 0.22, 1)
 text = "General Specialist"
 outline_size = 0
 
-[node name="arrow_down" parent="Console/front_panel" index="0" node_paths=PackedStringArray("animator")]
-script = ExtResource("10_wlxyg")
-direction = "Down"
-animator = NodePath("../../AnimationPlayer")
+[node name="MainScreenDown" parent="Console/front_panel/frame_screen_main" index="0"]
+surface_material_override/1 = ExtResource("12_05bwk")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console/front_panel/arrow_down" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
-light_color = Color(0.560955, 0.560955, 0.560955, 1)
-light_energy = 0.0
-omni_range = 0.066
+[node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenDown" index="0" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, 0, -0.008)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundDown")
+sound_up = NodePath("../SoundUp")
 
-[node name="Area3D" type="Area3D" parent="Console/front_panel/arrow_down" index="1"]
+[node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/MainScreenDown" index="1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_down/Area3D"]
-shape = SubResource("BoxShape3D_i2q1t")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/frame_screen_main/MainScreenDown/Area3D"]
+shape = SubResource("BoxShape3D_qol8l")
 
-[node name="arrow_left" parent="Console/front_panel" index="1" node_paths=PackedStringArray("animator")]
-script = ExtResource("10_wlxyg")
-direction = "Left"
-animator = NodePath("../../AnimationPlayer")
+[node name="SoundDown" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenDown" index="2"]
+event_name = "event:/BigButtonDown"
+event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console/front_panel/arrow_left" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
-light_color = Color(0.560955, 0.560955, 0.560955, 1)
-light_energy = 0.0
-omni_range = 0.066
+[node name="SoundUp" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenDown" index="3"]
+event_name = "event:/BigButtonUp"
+event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
 
-[node name="Area3D" type="Area3D" parent="Console/front_panel/arrow_left" index="1"]
+[node name="MainScreenLeft" parent="Console/front_panel/frame_screen_main" index="1"]
+surface_material_override/1 = ExtResource("12_05bwk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_left/Area3D"]
-shape = SubResource("BoxShape3D_i2q1t")
+[node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenLeft" index="0" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, 0, -0.008)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundDown")
+sound_up = NodePath("../SoundUp")
 
-[node name="arrow_right" parent="Console/front_panel" index="2" node_paths=PackedStringArray("animator")]
-script = ExtResource("10_wlxyg")
-direction = "Right"
-animator = NodePath("../../AnimationPlayer")
+[node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/MainScreenLeft" index="1"]
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console/front_panel/arrow_right" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
-light_color = Color(0.560955, 0.560955, 0.560955, 1)
-light_energy = 0.0
-omni_range = 0.066
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/frame_screen_main/MainScreenLeft/Area3D"]
+shape = SubResource("BoxShape3D_qol8l")
 
-[node name="Area3D" type="Area3D" parent="Console/front_panel/arrow_right" index="1"]
+[node name="SoundDown" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenLeft" index="2"]
+event_name = "event:/BigButtonDown"
+event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_right/Area3D"]
-shape = SubResource("BoxShape3D_i2q1t")
+[node name="SoundUp" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenLeft" index="3"]
+event_name = "event:/BigButtonUp"
+event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
 
-[node name="arrow_up" parent="Console/front_panel" index="3" node_paths=PackedStringArray("animator")]
-script = ExtResource("10_wlxyg")
-direction = "Up"
-animator = NodePath("../../AnimationPlayer")
+[node name="MainScreenRight" parent="Console/front_panel/frame_screen_main" index="2"]
+surface_material_override/1 = ExtResource("12_05bwk")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Console/front_panel/arrow_up" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.076655)
-light_color = Color(0.560955, 0.560955, 0.560955, 1)
-light_energy = 0.0
-omni_range = 0.066
+[node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenRight" index="0" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, 0, -0.008)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundDown")
+sound_up = NodePath("../SoundUp")
 
-[node name="Area3D" type="Area3D" parent="Console/front_panel/arrow_up" index="1"]
+[node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/MainScreenRight" index="1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/arrow_up/Area3D"]
-shape = SubResource("BoxShape3D_i2q1t")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/frame_screen_main/MainScreenRight/Area3D"]
+shape = SubResource("BoxShape3D_qol8l")
 
-[node name="ScreenMainPower" parent="Console/front_panel/frame_screen_main" index="0"]
+[node name="SoundDown" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenRight" index="2"]
+event_name = "event:/BigButtonDown"
+event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
+
+[node name="SoundUp" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenRight" index="3"]
+event_name = "event:/BigButtonUp"
+event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
+
+[node name="MainScreenUp" parent="Console/front_panel/frame_screen_main" index="3"]
+surface_material_override/1 = ExtResource("12_05bwk")
+
+[node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/MainScreenUp" index="0" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, 0, -0.008)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundDown")
+sound_up = NodePath("../SoundUp")
+
+[node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/MainScreenUp" index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/frame_screen_main/MainScreenUp/Area3D"]
+shape = SubResource("BoxShape3D_qol8l")
+
+[node name="SoundDown" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenUp" index="2"]
+event_name = "event:/BigButtonDown"
+event_guid = "{d9cd3b51-f03a-4823-aa1f-f67e525cf4fe}"
+
+[node name="SoundUp" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/MainScreenUp" index="3"]
+event_name = "event:/BigButtonUp"
+event_guid = "{6cde8391-5525-4191-a322-a550ce546671}"
+
+[node name="ScreenMainPower" parent="Console/front_panel/frame_screen_main" index="4"]
 transform = Transform3D(0.0140006, 0, 0, 0, -6.11985e-10, -0.0140006, 0, 0.0140006, -6.11985e-10, -0.00123322, -0.352617, 0.0275505)
 
 [node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/ScreenMainPower/Button_001" index="0"]
@@ -346,7 +378,7 @@ event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
 event_name = "event:/SmallButtonUp"
 event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 
-[node name="screen_main" parent="Console/front_panel" index="5"]
+[node name="screen_main" parent="Console/front_panel" index="1"]
 surface_material_override/0 = ExtResource("12_elhe4")
 
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/ScreenRightPower" index="2"]
