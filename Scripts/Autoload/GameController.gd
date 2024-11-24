@@ -89,7 +89,6 @@ var board_state: BoardBase.BoardState:
 		return _board_state
 	set(value):
 		_board_state = value
-		print("here")
 		confirm_start_with_extra_players = false
 
 var players_loaded: int = 0

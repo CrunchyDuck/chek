@@ -71,7 +71,7 @@ Queen -
 Bishop - 
 Castle - 
 Horse - 
-Bomber - Loyal. Psychologically degraded. Move and attack any direction. Explodes when attacking or attacked. Attack from safe distance.
+Bomber - Loyal. Psychologically degraded. Move and attack any direction. Explodes when attacking or attacked, decimating the tile it is on. Attack from safe distance.
 Beast - ??? Move and attack cardinals up to 2. Paralyse adjacent units.
 Hologram - Cutting edge illusion. Cannot attack. Move any direction. Swap places with friendly pieces
 Shifter - Untrustworthy. Liability. Alternate between cardinal and diagonal movement.

@@ -67,6 +67,7 @@ func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
 
 func clear_pieces():
 	for n in node_pieces.get_children():
+		node_pieces.remove_child(n)
 		n.queue_free()
 
 func spawn_piece_state(piece_state: BoardBase.PieceState) -> ChessPiece:
