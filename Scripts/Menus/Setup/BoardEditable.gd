@@ -27,3 +27,4 @@ func set_board_size(new_size: Vector2i):
 			if pos.x < grid_size.x and pos.y < grid_size.y:
 				spawn_piece(piece.type, piece.position, piece.orientation, piece.player)
 	GameController.board_state = serialize()
+	_position_board()

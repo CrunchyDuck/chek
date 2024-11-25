@@ -21,6 +21,9 @@ var grid: Array[Array] = []  # x/y 2D array
 var board_size: Vector2:
 	get:
 		return Vector2(grid_size * cell_size)
+var parent_size: Vector2:
+	get:
+		return $"..".size
 
 var game_settings: BoardBase.GameSettings:
 	get:
@@ -44,6 +47,9 @@ var pieces_by_game_id: Dictionary:
 			_players[_pid].append(_p)
 		return _players
 #endregion
+
+func _ready():
+	clip_contents = true
 
 #region Board editing functions
 func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
@@ -152,13 +158,19 @@ func is_coordinate_in_bounds(coordinate: Vector2i) -> bool:
 #endregion
 
 func _position_board():
-	var new_position = get_viewport_rect().size / 2
-	new_position -= board_size / 2
+	_update_clipping_mask()
+	var new_position = parent_size / 2
+	new_position.x -= size.x / 2
+	new_position.y -= size.y / 2
 	position = new_position
 
 func _update_clipping_mask():
-		var div = Vector2i(get_viewport_rect().size) / cell_size
-		var max_board_size = min(div.x, div.y)
+		var div = Vector2i(parent_size) / cell_size
+		var max_possible_size = div * cell_size
+		# If board is smaller than the maximum size, shrink to fit the board.
+		max_possible_size.x = min(max_possible_size.x, board_size.x)
+		max_possible_size.y = min(max_possible_size.y, board_size.y)
+		size = max_possible_size
 		
 #region Classes
 class GameSettings:
