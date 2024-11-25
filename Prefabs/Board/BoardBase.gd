@@ -156,6 +156,10 @@ func _position_board():
 	new_position -= board_size / 2
 	position = new_position
 
+func _update_clipping_mask():
+		var div = Vector2i(get_viewport_rect().size) / cell_size
+		var max_board_size = min(div.x, div.y)
+		
 #region Classes
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
