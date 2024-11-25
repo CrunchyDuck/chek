@@ -9,8 +9,6 @@ script = ExtResource("1_uv7sy")
 
 [node name="Board" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="Cells" type="Control" parent="Board"]
 anchors_preset = 0

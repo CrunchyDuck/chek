@@ -277,13 +277,6 @@ func load_board_state(state: BoardBase.BoardState, players: Dictionary):
 	board.visible = false  # Hide until fully loaded
 	board.load_state(state)
 	
-	# Spawn pieces
-	#board.clear_pieces()
-	#for player_num in state.players.size():
-		#var player_state: BoardBase.PlayerState = state.players[player_num]
-		#for piece in player_state.pieces:
-			#board.spawn_piece(piece.type, piece.position, piece.orientation, player_num)
-
 @rpc("any_peer", "call_local", "reliable")
 func try_perform_action(game_action_data: Dictionary) -> void:
 	if not multiplayer.is_server():

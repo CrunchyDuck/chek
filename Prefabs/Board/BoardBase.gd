@@ -18,17 +18,22 @@ var bounds: Vector2:
 	get:
 		return grid_size * cell_size
 var grid: Array[Array] = []  # x/y 2D array
-var board_size: Vector2:
-	get:
-		return Vector2(grid_size * cell_size)
 var parent_size: Vector2:
 	get:
 		return $"..".size
+		
+var clipping_grid_size: Vector2i:
+	get:
+		return Vector2i(size) / cell_size
+var clipping_position: Vector2i
 
 var game_settings: BoardBase.GameSettings:
 	get:
 		return GameController.game_settings
 
+var node_board: Control:
+	get:
+		return $Board
 var node_cells: Control:
 	get:
 		return $Board/Cells
@@ -169,9 +174,11 @@ func _update_clipping_mask():
 		var div = Vector2i(parent_size) / cell_size
 		var max_possible_size = div * cell_size
 		# If board is smaller than the maximum size, shrink to fit the board.
-		max_possible_size.x = min(max_possible_size.x, board_size.x)
-		max_possible_size.y = min(max_possible_size.y, board_size.y)
+		max_possible_size.x = min(max_possible_size.x, bounds.x)
+		max_possible_size.y = min(max_possible_size.y, bounds.y)
 		size = max_possible_size
+		node_board.position = Vector2()
+		clipping_position = Vector2i()		
 		
 #region Classes
 class GameSettings:
