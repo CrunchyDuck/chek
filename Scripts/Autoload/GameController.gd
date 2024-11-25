@@ -229,7 +229,6 @@ func can_start_game() -> bool:
 	MessageController.add_message(t)
 	return false
 	
-	
 func get_ip():
 	if fetching_ip:
 		return
@@ -272,19 +271,18 @@ func load_board_state(state: BoardBase.BoardState, players: Dictionary):
 	
 	# Initialize board, if necessary
 	if board == null:
-		var b = PrefabController.get_prefab("Board.BoardPlayable").instantiate()
-		screen_central.add_child(b)
-		board = b
-		board.visible = false  # Hide until fully loaded
+		board = PrefabController.get_prefab("Board.BoardPlayable").instantiate()
+		screen_central.add_child(board)
 		board.name = "Board"
-		board.create_new_grid(state.size)
+	board.visible = false  # Hide until fully loaded
+	board.load_state(state)
 	
 	# Spawn pieces
-	board.clear_pieces()
-	for player_num in state.players.size():
-		var player_state: BoardBase.PlayerState = state.players[player_num]
-		for piece in player_state.pieces:
-			board.spawn_piece(piece.type, piece.position, piece.orientation, player_num)
+	#board.clear_pieces()
+	#for player_num in state.players.size():
+		#var player_state: BoardBase.PlayerState = state.players[player_num]
+		#for piece in player_state.pieces:
+			#board.spawn_piece(piece.type, piece.position, piece.orientation, player_num)
 
 @rpc("any_peer", "call_local", "reliable")
 func try_perform_action(game_action_data: Dictionary) -> void:
