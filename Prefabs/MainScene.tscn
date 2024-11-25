@@ -56,9 +56,10 @@ radius = 1.0
 
 [node name="Lobby" parent="." instance=ExtResource("1_qe0gb")]
 
-[node name="ViewportCentralScreen" type="SubViewport" parent="."]
+[node name="ViewportCentralScreen" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
 size = Vector2i(650, 650)
 script = ExtResource("5_roanu")
+target_mesh = NodePath("../Console/front_panel/screen_main")
 
 [node name="CentralScreen" type="Control" parent="ViewportCentralScreen"]
 texture_filter = 1
