@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Prefabs/Board/BoardPlayable.gd" id="1_0g7i5"]
 
-[node name="Board" type="Control"]
+[node name="BoardViewport" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,12 +11,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0g7i5")
 
-[node name="Cells" type="Control" parent="."]
+[node name="Board" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Pieces" type="Control" parent="."]
+[node name="Cells" type="Control" parent="Board"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Pieces" type="Control" parent="Board"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

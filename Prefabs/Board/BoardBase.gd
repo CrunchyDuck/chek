@@ -31,10 +31,10 @@ var game_settings: BoardBase.GameSettings:
 
 var node_cells: Control:
 	get:
-		return $Cells
+		return $Board/Cells
 var node_pieces: Control:
 	get:
-		return $Pieces
+		return $Board/Pieces
 		
 var pieces_by_game_id: Dictionary:
 	get:
@@ -114,6 +114,7 @@ func load_state(state: BoardBase.BoardState):
 	for player in state.players:
 		for piece in player.pieces:
 			spawn_piece_state(piece)
+	_position_board()
 		
 func save_state_to_file():
 	var b = serialize_dict()
