@@ -139,22 +139,17 @@ func save_state_to_file():
 #endregion
 
 #region Cell selection
-func grid_to_position(x: int, y: int) -> Vector2:
-	var pos: Vector2
-	pos.x += x * cell_size.x
-	pos.y += y * cell_size.y
-	return pos
-
+# Get a cell's position within the Board object.
 func cell_to_position(cell: Vector2i) -> Vector2:
 	return cell * cell_size
 
-func position_to_cell(pos: Vector2) -> BoardCell:
-	# Relative to our position
-	pos -= global_position
-	if pos.x < 0 or pos.y < 0 or pos.x > bounds.x or pos.y > bounds.y:
+func position_to_cell(_global_pos: Vector2) -> BoardCell:
+	var _relative_pos = _global_pos - global_position
+	if _relative_pos.x < 0 or _relative_pos.y < 0 or _relative_pos.x > size.x or _relative_pos.y > size.y:
 		return null
-	var x = int(pos.x) / cell_size.x
-	var y = int(pos.y) / cell_size.y
+
+	var x = (int(_relative_pos.x) / cell_size.x) + clipping_position_min.x
+	var y = (int(_relative_pos.y) / cell_size.y) + clipping_position_min.y
 	
 	return grid[y][x]
 
@@ -172,6 +167,7 @@ func is_coordinate_in_bounds(coordinate: Vector2i) -> bool:
 	var x = coordinate.x
 	var y = coordinate.y
 	return x >= 0 and y >= 0 and x < grid_size.x and y < grid_size.y
+	
 #endregion
 
 #region Positioning and clipping
