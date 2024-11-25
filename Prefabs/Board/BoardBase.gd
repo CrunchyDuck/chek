@@ -224,18 +224,30 @@ func _depower_buttons():
 func _move_clipping_up():
 	if clipping_position_min.y <= 0:
 		return
+	var new_pos = clipping_position_min
+	new_pos.y -= 1
+	_move_clipping_position_min(new_pos)
 	
 func _move_clipping_right():
 	if clipping_position_max.x >= grid_size.x:
 		return
+	var new_pos = clipping_position_min
+	new_pos.x += 1
+	_move_clipping_position_min(new_pos)
 	
 func _move_clipping_down():
 	if clipping_position_max.y >= grid_size.y:
 		return
+	var new_pos = clipping_position_min
+	new_pos.y += 1
+	_move_clipping_position_min(new_pos)
 	
 func _move_clipping_left():
 	if clipping_position_min.x <= 0:
 		return
+	var new_pos = clipping_position_min
+	new_pos.x -= 1
+	_move_clipping_position_min(new_pos)
 #endregion
 
 #region Classes
