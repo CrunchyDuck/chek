@@ -1,10 +1,6 @@
 class_name BoardBase
 extends Control
 
-func _input(event):
-	if event.is_action_pressed("SaveBoard"):
-		save_state_to_file()
-
 #region Variables
 var grid_size: Vector2i:
 	get:
@@ -25,12 +21,17 @@ var parent_size: Vector2:
 var clipping_grid_size: Vector2i:
 	get:
 		return Vector2i(size) / cell_size
-var clipping_position: Vector2i
+var clipping_position_min: Vector2i
+var clipping_position_max: Vector2i:
+	get:
+		return clipping_position_min + clipping_grid_size
 
 var game_settings: BoardBase.GameSettings:
 	get:
 		return GameController.game_settings
 
+@onready
+var screen_controller: MainScreenController = $"/root/MainScene/ViewportCentralScreen/MainScreenController"
 var node_board: Control:
 	get:
 		return $Board
@@ -53,8 +54,18 @@ var pieces_by_game_id: Dictionary:
 		return _players
 #endregion
 
+#region Built-in events
 func _ready():
 	clip_contents = true
+	screen_controller.up_button.on_pressed.connect(_move_clipping_up)
+	screen_controller.right_button.on_pressed.connect(_move_clipping_right)
+	screen_controller.down_button.on_pressed.connect(_move_clipping_down)
+	screen_controller.left_button.on_pressed.connect(_move_clipping_left)
+
+func _input(event):
+	if event.is_action_pressed("SaveBoard"):
+		save_state_to_file()
+#endregion
 
 #region Board editing functions
 func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
@@ -163,6 +174,7 @@ func is_coordinate_in_bounds(coordinate: Vector2i) -> bool:
 	return x >= 0 and y >= 0 and x < grid_size.x and y < grid_size.y
 #endregion
 
+#region Positioning and clipping
 func _position_board():
 	_update_clipping_mask()
 	var new_position = parent_size / 2
@@ -177,9 +189,55 @@ func _update_clipping_mask():
 		max_possible_size.x = min(max_possible_size.x, bounds.x)
 		max_possible_size.y = min(max_possible_size.y, bounds.y)
 		size = max_possible_size
-		node_board.position = Vector2()
-		clipping_position = Vector2i()		
+		_move_clipping_position_min(Vector2i())
+
+func _move_clipping_position_min(_new_position: Vector2i):
+	clipping_position_min = _new_position
+	node_board.position = -clipping_position_min * cell_size
+	_set_button_activity()
+
+func _set_button_activity():
+	_depower_buttons()
+	
+	if clipping_position_min.y > 0:
+		screen_controller.up_power.set_self(true)
+	if clipping_position_min.x > 0:
+		screen_controller.left_power.set_self(true)
+	if clipping_position_max.x < grid_size.x:
+		screen_controller.right_power.set_self(true)
+	if clipping_position_max.y < grid_size.y:
+		screen_controller.down_power.set_self(true)
+	
+func _depower_buttons():
+	var p = screen_controller.up_power
+	p.set_self(false)
 		
+	p = screen_controller.right_power
+	p.set_self(false)
+		
+	p = screen_controller.down_power
+	p.set_self(false)
+		
+	p = screen_controller.left_power
+	p.set_self(false)
+
+func _move_clipping_up():
+	if clipping_position_min.y <= 0:
+		return
+	
+func _move_clipping_right():
+	if clipping_position_max.x >= grid_size.x:
+		return
+	
+func _move_clipping_down():
+	if clipping_position_max.y >= grid_size.y:
+		return
+	
+func _move_clipping_left():
+	if clipping_position_min.x <= 0:
+		return
+#endregion
+
 #region Classes
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
