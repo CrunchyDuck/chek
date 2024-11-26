@@ -7,20 +7,15 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_uv7sy")
 
-[node name="BoardViewport" type="Control" parent="."]
+[node name="PlayField" type="Control" parent="."]
 anchors_preset = 0
 
-[node name="BoardPositioning" type="Control" parent="BoardViewport"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Cells" type="Control" parent="BoardViewport/BoardPositioning"]
+[node name="Cells" type="Control" parent="PlayField"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Pieces" type="Control" parent="BoardViewport/BoardPositioning"]
+[node name="Pieces" type="Control" parent="PlayField"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

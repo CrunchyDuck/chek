@@ -2,7 +2,9 @@ class_name BoardBase
 extends Control
 
 #region Variables
-const coordinates_size: Vector2 = Vector2(64, 64)
+const cell_size : Vector2i = Vector2i(64, 64)
+const coordinates_size: Vector2 = cell_size
+const cells_offset: Vector2 = cell_size / 2  # This allows their centered sprites to be positioned properly.
 
 var grid_size: Vector2i:
 	get:
@@ -11,7 +13,6 @@ var grid_size: Vector2i:
 			return Vector2i(0, 0)
 		var x = grid[0].size()
 		return Vector2i(x, y)
-const cell_size : Vector2i = Vector2i(64, 64)
 var bounds: Vector2:
 	get:
 		return grid_size * cell_size
@@ -34,21 +35,21 @@ var game_settings: BoardBase.GameSettings:
 
 @onready
 var screen_controller: MainScreenController = $"/root/MainScene/ViewportCentralScreen/MainScreenController"
-var node_board: Control:
+var node_play_field: Control:
 	get:
-		return $BoardViewport
+		return $PlayField
 var node_cells: Control:
 	get:
-		return $BoardViewport/BoardPositioning/Cells
+		return $PlayField/Cells
 var node_pieces: Control:
 	get:
-		return $BoardViewport/BoardPositioning
+		return $PlayField/Pieces
 		
 var pieces_by_game_id: Dictionary:
 	get:
 		var _players = {}
 		for _p in node_pieces.get_children():
-			var _pid = _p.player
+			var _pid = _p.owned_by
 			# Create players up to the ID needed.
 			for _id in range(_players.size(), _pid + 1):
 				_players[_id] = []
@@ -58,7 +59,7 @@ var pieces_by_game_id: Dictionary:
 
 #region Built-in events
 func _ready():
-	clip_contents = true
+	node_play_field.clip_contents = true
 	screen_controller.up_button.on_pressed.connect(_move_clipping_up)
 	screen_controller.right_button.on_pressed.connect(_move_clipping_right)
 	screen_controller.down_button.on_pressed.connect(_move_clipping_down)
@@ -74,8 +75,8 @@ func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
 	for n in node_cells.get_children():
 		n.queue_free()
 
-	node_cells.position = Vector2(cell_size) / 2
-	node_pieces.position = Vector2(cell_size) / 2
+	node_cells.position = cells_offset
+	node_pieces.position = cells_offset
 	grid = []
 	for y in _grid_size.y:
 		var row = []
@@ -147,7 +148,7 @@ func cell_to_position(cell: Vector2i) -> Vector2:
 
 func position_to_cell(_global_pos: Vector2) -> BoardCell:
 	var _relative_pos = _global_pos - global_position
-	if _relative_pos.x < 0 or _relative_pos.y < 0 or _relative_pos.x > node_board.size.x or _relative_pos.y > node_board.size.y:
+	if _relative_pos.x < 0 or _relative_pos.y < 0 or _relative_pos.x > node_play_field.size.x or _relative_pos.y > node_play_field.size.y:
 		return null
 
 	var x = (int(_relative_pos.x) / cell_size.x) + clipping_position_min.x
@@ -179,19 +180,23 @@ func _position_board():
 	new_position.x -= size.x / 2
 	new_position.y -= size.y / 2
 	position = new_position
+	node_play_field.position = coordinates_size
 
 func _update_clipping_mask():
 		var div = Vector2i(parent_size) / cell_size
 		var max_possible_size = div * cell_size
 		# If board is smaller than the maximum size, shrink to fit the board.
-		max_possible_size.x = min(max_possible_size.x, bounds.x + 64)
-		max_possible_size.y = min(max_possible_size.y, bounds.y + 64)
+		max_possible_size.x = min(max_possible_size.x, bounds.x + coordinates_size.x)
+		max_possible_size.y = min(max_possible_size.y, bounds.y + coordinates_size.y)
 		size = max_possible_size
+		node_play_field.size = size - coordinates_size
 		_move_clipping_position_min(Vector2i())
 
 func _move_clipping_position_min(_new_position: Vector2i):
 	clipping_position_min = _new_position
-	node_board.position = -clipping_position_min * cell_size + coordinates_size
+	var new_position = Vector2(-clipping_position_min * cell_size) + cells_offset
+	node_cells.position = new_position
+	node_pieces.position = new_position
 	_set_button_activity()
 
 func _set_button_activity():
