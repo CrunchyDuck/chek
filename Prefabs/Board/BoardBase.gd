@@ -144,7 +144,7 @@ func cell_to_position(cell: Vector2i) -> Vector2:
 	return cell * cell_size
 
 func position_to_cell(_global_pos: Vector2) -> BoardCell:
-	var _relative_pos = _global_pos - global_position
+	var _relative_pos = _global_pos - node_play_field.global_position
 	if _relative_pos.x < 0 or _relative_pos.y < 0 or _relative_pos.x > node_play_field.size.x or _relative_pos.y > node_play_field.size.y:
 		return null
 
