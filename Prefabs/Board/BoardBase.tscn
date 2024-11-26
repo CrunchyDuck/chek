@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0qeghx1gc7n1"]
+
+[ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="1_1m8fh"]
+[ext_resource type="Script" path="res://Prefabs/Board/BoardCoordinates.gd" id="3_t8fcm"]
+
+[node name="Board" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_1m8fh")
+
+[node name="PlayField" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="Cells" type="Control" parent="PlayField"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Pieces" type="Control" parent="PlayField"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="XCoordinatesViewport" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_t8fcm")
+
+[node name="Coordinates" type="Control" parent="XCoordinatesViewport"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="YCoordinatesViewport" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_t8fcm")
+
+[node name="Coordinates" type="Control" parent="YCoordinatesViewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

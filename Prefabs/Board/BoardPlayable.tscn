@@ -1,30 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwb8r55swf37x"]
+[gd_scene load_steps=3 format=3 uid="uid://b5euy5tvjbiff"]
 
-[ext_resource type="Script" path="res://Prefabs/Board/BoardPlayable.gd" id="1_0g7i5"]
+[ext_resource type="PackedScene" uid="uid://b0qeghx1gc7n1" path="res://Prefabs/Board/BoardBase.tscn" id="1_e84jj"]
+[ext_resource type="Script" path="res://Prefabs/Board/BoardPlayable.gd" id="2_7kbvm"]
 
-[node name="BoardViewport" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_0g7i5")
-
-[node name="Board" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Cells" type="Control" parent="Board"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Pieces" type="Control" parent="Board"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="BoardPlayable" instance=ExtResource("1_e84jj")]
+script = ExtResource("2_7kbvm")
