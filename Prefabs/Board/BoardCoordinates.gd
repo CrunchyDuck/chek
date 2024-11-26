@@ -9,6 +9,9 @@ var coordinates_size: Vector2:
 
 var direction: Vector2
 
+func _ready():
+	clip_contents = true
+
 func create_coordinates(_count: int):
 	for _n in numbers_container.get_children():
 		numbers_container.remove_child(_n)
@@ -20,6 +23,7 @@ func create_coordinates(_count: int):
 func _spawn_number(_number: int):
 	var _l = Label.new()
 	numbers_container.add_child(_l)
+	_l.text = str(_number)
 	_l.size = coordinates_size	
 	_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER

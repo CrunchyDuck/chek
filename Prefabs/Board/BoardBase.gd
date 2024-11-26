@@ -41,6 +41,10 @@ var node_play_field: Control = $PlayField
 var node_cells: Control = $PlayField/Cells
 @onready
 var node_pieces: Control = $PlayField/Pieces
+@onready
+var node_x_coordinates: BoardCoordinates = $XCoordinatesViewport
+@onready
+var node_y_coordinates: BoardCoordinates = $YCoordinatesViewport
 		
 var pieces_by_game_id: Dictionary:
 	get:
@@ -61,6 +65,8 @@ func _ready():
 	screen_controller.right_button.on_pressed.connect(_move_clipping_right)
 	screen_controller.down_button.on_pressed.connect(_move_clipping_down)
 	screen_controller.left_button.on_pressed.connect(_move_clipping_left)
+	node_x_coordinates.direction = Vector2(1, 0)
+	node_y_coordinates.direction = Vector2(0, 1)
 
 func _input(event):
 	if event.is_action_pressed("SaveBoard"):
@@ -68,7 +74,7 @@ func _input(event):
 #endregion
 
 #region Board editing functions
-func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
+func create_new_grid(_grid_size: Vector2i):
 	for n in node_cells.get_children():
 		n.queue_free()
 
@@ -85,7 +91,9 @@ func create_new_grid(_grid_size: Vector2i) -> Array[Array]:
 			board_cell.position = cell_to_position(Vector2i(x, y))
 			row.append(board_cell)
 		grid.append(row)
-	return grid
+		
+	node_x_coordinates.create_coordinates(grid_size.x)
+	node_y_coordinates.create_coordinates(grid_size.y)
 
 func clear_pieces():
 	for n in node_pieces.get_children():
@@ -180,7 +188,8 @@ func _position_board():
 	
 	node_play_field.position = coordinates_size
 	
-	
+	node_x_coordinates.position = Vector2(coordinates_size.x, 0)
+	node_y_coordinates.position = Vector2(0, coordinates_size.y)
 
 func _update_clipping_mask():
 		var div = Vector2i(parent_size) / cell_size
@@ -189,7 +198,11 @@ func _update_clipping_mask():
 		max_possible_size.x = min(max_possible_size.x, bounds.x + coordinates_size.x)
 		max_possible_size.y = min(max_possible_size.y, bounds.y + coordinates_size.y)
 		size = max_possible_size
+		
+		var _play_field_size = size - coordinates_size
 		node_play_field.size = size - coordinates_size
+		node_x_coordinates.size = Vector2(_play_field_size.x, coordinates_size.y)
+		node_y_coordinates.size = Vector2(coordinates_size.x, _play_field_size.y)
 		_move_clipping_position_min(Vector2i())
 
 func _move_clipping_position_min(_new_position: Vector2i):
@@ -197,6 +210,9 @@ func _move_clipping_position_min(_new_position: Vector2i):
 	var new_position = Vector2(-clipping_position_min * cell_size) + cells_offset
 	node_cells.position = new_position
 	node_pieces.position = new_position
+	
+	node_x_coordinates.scroll_to(clipping_position_min.x)
+	node_y_coordinates.scroll_to(clipping_position_min.y)
 	_set_button_activity()
 
 func _set_button_activity():
