@@ -1,10 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dy1wcjjpbpb7d"]
+[gd_scene load_steps=4 format=3 uid="uid://dy1wcjjpbpb7d"]
 
 [ext_resource type="Script" path="res://Scripts/Menus/Setup/BoardEditable.gd" id="1_uv7sy"]
+[ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="1_y3c16"]
+[ext_resource type="Script" path="res://Prefabs/Board/BoardCoordinates.gd" id="3_410bi"]
 
 [node name="Board" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+theme = ExtResource("1_y3c16")
 script = ExtResource("1_uv7sy")
 
 [node name="PlayField" type="Control" parent="."]
@@ -23,7 +26,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="XCoordinates" type="Control" parent="."]
+[node name="XCoordinatesViewport" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_410bi")
+
+[node name="Coordinates" type="Control" parent="XCoordinatesViewport"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="YCoordinatesViewport" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_410bi")
+
+[node name="Coordinates" type="Control" parent="YCoordinatesViewport"]
+layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
