@@ -35,15 +35,12 @@ var game_settings: BoardBase.GameSettings:
 
 @onready
 var screen_controller: MainScreenController = $"/root/MainScene/ViewportCentralScreen/MainScreenController"
-var node_play_field: Control:
-	get:
-		return $PlayField
-var node_cells: Control:
-	get:
-		return $PlayField/Cells
-var node_pieces: Control:
-	get:
-		return $PlayField/Pieces
+@onready
+var node_play_field: Control = $PlayField
+@onready
+var node_cells: Control = $PlayField/Cells
+@onready
+var node_pieces: Control = $PlayField/Pieces
 		
 var pieces_by_game_id: Dictionary:
 	get:
@@ -180,7 +177,10 @@ func _position_board():
 	new_position.x -= size.x / 2
 	new_position.y -= size.y / 2
 	position = new_position
+	
 	node_play_field.position = coordinates_size
+	
+	
 
 func _update_clipping_mask():
 		var div = Vector2i(parent_size) / cell_size
