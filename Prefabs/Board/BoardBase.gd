@@ -2,6 +2,8 @@ class_name BoardBase
 extends Control
 
 #region Variables
+const coordinates_size: Vector2 = Vector2(64, 64)
+
 var grid_size: Vector2i:
 	get:
 		var y = grid.size()
@@ -20,7 +22,7 @@ var parent_size: Vector2:
 		
 var clipping_grid_size: Vector2i:
 	get:
-		return Vector2i(size) / cell_size
+		return Vector2i(size - coordinates_size) / cell_size
 var clipping_position_min: Vector2i
 var clipping_position_max: Vector2i:
 	get:
@@ -34,13 +36,13 @@ var game_settings: BoardBase.GameSettings:
 var screen_controller: MainScreenController = $"/root/MainScene/ViewportCentralScreen/MainScreenController"
 var node_board: Control:
 	get:
-		return $Board
+		return $BoardViewport
 var node_cells: Control:
 	get:
-		return $Board/Cells
+		return $BoardViewport/BoardPositioning/Cells
 var node_pieces: Control:
 	get:
-		return $Board/Pieces
+		return $BoardViewport/BoardPositioning
 		
 var pieces_by_game_id: Dictionary:
 	get:
@@ -145,7 +147,7 @@ func cell_to_position(cell: Vector2i) -> Vector2:
 
 func position_to_cell(_global_pos: Vector2) -> BoardCell:
 	var _relative_pos = _global_pos - global_position
-	if _relative_pos.x < 0 or _relative_pos.y < 0 or _relative_pos.x > size.x or _relative_pos.y > size.y:
+	if _relative_pos.x < 0 or _relative_pos.y < 0 or _relative_pos.x > node_board.size.x or _relative_pos.y > node_board.size.y:
 		return null
 
 	var x = (int(_relative_pos.x) / cell_size.x) + clipping_position_min.x
@@ -182,14 +184,14 @@ func _update_clipping_mask():
 		var div = Vector2i(parent_size) / cell_size
 		var max_possible_size = div * cell_size
 		# If board is smaller than the maximum size, shrink to fit the board.
-		max_possible_size.x = min(max_possible_size.x, bounds.x)
-		max_possible_size.y = min(max_possible_size.y, bounds.y)
+		max_possible_size.x = min(max_possible_size.x, bounds.x + 64)
+		max_possible_size.y = min(max_possible_size.y, bounds.y + 64)
 		size = max_possible_size
 		_move_clipping_position_min(Vector2i())
 
 func _move_clipping_position_min(_new_position: Vector2i):
 	clipping_position_min = _new_position
-	node_board.position = -clipping_position_min * cell_size
+	node_board.position = -clipping_position_min * cell_size + coordinates_size
 	_set_button_activity()
 
 func _set_button_activity():

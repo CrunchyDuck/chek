@@ -2,23 +2,33 @@
 
 [ext_resource type="Script" path="res://Scripts/Menus/Setup/BoardEditable.gd" id="1_uv7sy"]
 
-[node name="BoardViewport" type="Control"]
+[node name="Board" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_uv7sy")
 
-[node name="Board" type="Control" parent="."]
+[node name="BoardViewport" type="Control" parent="."]
 anchors_preset = 0
 
-[node name="Cells" type="Control" parent="Board"]
+[node name="BoardPositioning" type="Control" parent="BoardViewport"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Pieces" type="Control" parent="Board"]
+[node name="Cells" type="Control" parent="BoardViewport/BoardPositioning"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Pieces" type="Control" parent="BoardViewport/BoardPositioning"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BoardCoordinates" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
