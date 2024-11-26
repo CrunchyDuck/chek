@@ -10,8 +10,8 @@ var coordinates_size: Vector2:
 var direction: Vector2
 
 func create_coordinates(_count: int):
-	for _n in get_children():
-		remove_child(_n)
+	for _n in numbers_container.get_children():
+		numbers_container.remove_child(_n)
 		_n.queue_free()
 		
 	for i in range(_count):
