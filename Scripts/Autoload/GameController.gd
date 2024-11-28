@@ -333,16 +333,38 @@ func is_action_legal(action: BoardPlayable.GameAction):
 	return false
 #endregion
 	
-#region Events
-func on_action(action: BoardPlayable.GameAction):
+#region Turn order
+func turn_order_sequential(action: BoardPlayable.GameAction):
 	var id = action.player
 	var p = players_by_game_id[id]
 	p.actions_remaining -= 1
 	
 	# Is turn finished?
-	if p.actions_remaining <= 0:
-		var next_player = players_by_game_id[wrapi(int(id) + 1, 0, Player.players.size())]
-		next_player.actions_remaining += 1
+	if p.actions_remaining > 0:
+		return
+		
+	# Find next valid player
+	for i in range(Player.players.size()):
+		var pid = wrapi(int(id) + i + 1, 0, Player.players.size())
+		var next_player = players_by_game_id[pid]
+		if next_player.dead:
+			continue
+		if not next_player.can_act():
+			var m = ColorController.color_text(next_player.character_name, next_player.color)
+			m += " cannot act. Skipping turn."
+			MessageController.add_message(m)
+			continue
+			
+		next_player.actions_remaining += game_settings.turns_at_a_time
+		return
+	# TODO: Handle no player being able to act
+#endregion
+	
+#region Events
+func on_action(action: BoardPlayable.GameAction):
+	# Progress turn order
+	if game_settings.turn_sequential:
+		turn_order_sequential(action)
 #endregion
 	
 #region RPCs

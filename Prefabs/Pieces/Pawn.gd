@@ -17,7 +17,7 @@ func _get_actions() -> Array[BoardPlayable.GameAction]:
 	if _can_move(target_position):
 		actions.append(BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.Move, coordinates, target_position))
 	
-	# TODO: Stop this from jumping pieces.
+	# In normal chess, I don't think pawns can jump pieces with their 2 move. But I think it's cool, so I'm leaving it.
 	if move_count == 0:
 		target_position = coordinates + _rotate_to_orientation(Vector2i(0, 2))
 		if _can_move(target_position):

@@ -86,10 +86,10 @@ func _can_attack(target_position: Vector2i) -> bool:
 		and not owned_by_player.friendly.has(target_cell.occupying_piece.owned_by)
 
 # Try to move in a line, or attack what blocks that line.
-func _act_in_line(direction: Vector2i) -> Array[BoardPlayable.GameAction]:
+func _act_in_line(direction: Vector2i, max_distance: int = 50) -> Array[BoardPlayable.GameAction]:
 	var actions: Array[BoardPlayable.GameAction] = []
 	var dist: int = 1
-	while dist < 50:  # Arbitrary cap to prevent infinite loop
+	while dist < max_distance:  # Arbitrary cap to prevent infinite loop
 		var target_cell = board.get_cell(coordinates + _rotate_to_orientation(direction * dist))
 		# Off the board.
 		if target_cell == null:
@@ -105,8 +105,6 @@ func _act_in_line(direction: Vector2i) -> Array[BoardPlayable.GameAction]:
 		actions.append(_act_on_cell(target_cell.cell_coordinates))
 		
 		dist += 1
-		if dist == 50:
-			print("Reached iteration cap for piece highlighting")
 	return actions
 
 # A standard move or attack to a cell.
