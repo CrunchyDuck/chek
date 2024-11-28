@@ -5,7 +5,7 @@ var piece_description =\
 ColorControllers.color_text("Decimated land.\n", ColorControllers.description_color)\
 + "Cell cannot be moved into."
 
-func _ready():
+func _init():
 	piece_type = ePieces.Blocker
 
 func _get_actions() -> Array[BoardPlayable.GameAction]:
