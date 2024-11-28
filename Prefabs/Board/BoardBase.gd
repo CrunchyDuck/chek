@@ -141,9 +141,11 @@ func load_state(state: BoardBase.BoardState):
 	_position_board()
 		
 func save_state_to_file():
-	var b = serialize_dict()
+	var dat = {}
+	dat.board = serialize_dict()
+	dat.game_state = game_settings.serialize()
 	var save_file = FileAccess.open("user://BoardState.bbb", FileAccess.WRITE)
-	save_file.store_line(JSON.stringify(b))
+	save_file.store_line(JSON.stringify(dat))
 #endregion
 
 #region Cell selection
