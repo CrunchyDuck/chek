@@ -6,7 +6,7 @@ ColorControllers.color_text("Fearless front line. Nothing to lose.\n", ColorCont
 Attacks diagonal.
 Promotion at end of board."
 
-func _ready():
+func _init():
 	piece_type = ePieces.Pawn
 	
 func _get_actions() -> Array[BoardPlayable.GameAction]:

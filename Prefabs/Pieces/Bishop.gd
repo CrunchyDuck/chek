@@ -4,7 +4,7 @@ var piece_description =\
 ColorControllers.color_text("Divine salesman.\n", ColorControllers.description_color)\
 + "Move and take diagonals."
 
-func _ready():
+func _init():
 	piece_type = ePieces.Bishop
 	
 func _get_actions() -> Array[BoardPlayable.GameAction]:
