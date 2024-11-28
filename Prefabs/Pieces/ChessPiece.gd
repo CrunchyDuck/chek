@@ -94,7 +94,6 @@ func _act_in_line(direction: Vector2i) -> Array[BoardPlayable.GameAction]:
 		# Off the board.
 		if target_cell == null:
 			break
-		actions.append(_act_on_cell(target_cell.cell_coordinates))
 
 		# Will be replaced with a modifier check in the future.
 		if target_cell.occupying_piece != null:
@@ -102,6 +101,8 @@ func _act_in_line(direction: Vector2i) -> Array[BoardPlayable.GameAction]:
 		# Can happen if we loop around.
 		if target_cell.occupying_piece == self:
 			break
+			
+		actions.append(_act_on_cell(target_cell.cell_coordinates))
 		
 		dist += 1
 		if dist == 50:

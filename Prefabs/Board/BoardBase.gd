@@ -162,8 +162,8 @@ func position_to_cell(_global_pos: Vector2) -> BoardCell:
 	return grid[y][x]
 
 func get_cell(pos: Vector2i) -> BoardCell:
-	#if game_settings.wrapx:
-	pos.x = wrapi(pos.x, 0, grid_size.x)
+	if game_settings.wrap_x:
+		pos.x = wrapi(pos.x, 0, grid_size.x)
 	pos.y = wrapi(pos.y, 0, grid_size.y)
 	
 	if not is_coordinate_in_bounds(pos):
@@ -302,6 +302,7 @@ class GameSettings:
 	
 	var divine_wind: bool = false
 	var no_retreat: bool = false
+	var wrap_x: bool = false
 	
 	func serialize() -> Dictionary:
 		var d = {}
