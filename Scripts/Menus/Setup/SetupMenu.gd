@@ -14,6 +14,9 @@ var node_content: Node = $VBoxContainer/Content
 @onready
 var button_start: Button = $VBoxContainer/Start
 
+var scene_preset: Node
+var scene_rules: Node
+var scene_board: Node
 
 var settings: BoardBase.GameSettings:
 	get:
@@ -23,18 +26,22 @@ var settings: BoardBase.GameSettings:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	button_preset.pressed.connect(func(): _load_scene("Menus.Setup.Preset"))
-	button_rule.pressed.connect(func(): _load_scene("Menus.Setup.Rule"))
-	button_board.pressed.connect(func(): _load_scene("Menus.Setup.Board"))
+	scene_preset = PrefabController.get_prefab("Menus.Setup.Preset").instantiate()
+	scene_rules = PrefabController.get_prefab("Menus.Setup.Rule").instantiate()
+	scene_board = PrefabController.get_prefab("Menus.Setup.Board").instantiate()
+	
+	button_preset.pressed.connect(func(): _load_scene(scene_preset))
+	button_rule.pressed.connect(func(): _load_scene(scene_rules))
+	button_board.pressed.connect(func(): _load_scene(scene_board))
 	if multiplayer.is_server():
 		button_start.pressed.connect(_on_start)
 	else:
 		button_start.disabled = true
 
-func _load_scene(scene_name: String):
+func _load_scene(scene_name: Node):
 		for c in node_content.get_children():
-			c.queue_free()
-		node_content.add_child(PrefabController.get_prefab(scene_name).instantiate())
+			node_content.remove_child(c)
+		node_content.add_child(scene_name)
 
 func _on_start():
 	if not GameController.can_start_game():

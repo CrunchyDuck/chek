@@ -84,7 +84,6 @@ var game_settings: BoardBase.GameSettings:
 		if value == null:
 			value = BoardBase.GameSettings.new()
 		_game_settings = value
-		on_game_settings_changed.emit(value)
 		confirm_start_with_extra_players = false
 
 # Used in setup
@@ -101,8 +100,6 @@ var players_loaded: int = 0
 var confirm_start_with_extra_players: bool = false
 
 const max_players: int = 4
-
-signal on_game_settings_changed(game_settings: BoardBase.GameSettings)
 
 func _ready():
 	_get_references()

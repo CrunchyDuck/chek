@@ -4,7 +4,7 @@ extends Node
 const presets_path: String = "res://BoardPresets"
 var presets: Array[BoardBase.GamePreset] = []
 
-var buttons: Array[Button] = []
+var buttons: Dictionary = {}
 
 @onready
 var node_preset_list: VBoxContainer = $PresetsViewport/PresetList
@@ -18,7 +18,6 @@ func _ready():
 	stylebox_selected.bg_color = ColorController.preset_button_selected_color
 	read_presets()
 	create_entries()
-	select_button(buttons[0])
 
 func read_presets():
 	presets = []
@@ -34,7 +33,7 @@ func read_presets():
 func create_entries():
 	for n in node_preset_list.get_children():
 		node_preset_list.remove_child(n)
-	buttons = []
+	buttons = {}
 		
 	for p in presets:
 		create_entry(p)
@@ -46,12 +45,14 @@ func create_entry(preset: BoardBase.GamePreset):
 	p.get_node("Fields/Complexity").text = str(preset.complexity)
 	p.get_node("Button").pressed.connect(func (): set_preset(preset))
 	node_preset_list.add_child(p)
-	buttons.append(p.get_node("Button"))
+	buttons[preset] = p.get_node("Button")
 
 func set_preset(preset: BoardBase.GamePreset):
-	# TODO: Highlight currently selected prefab.
+	select_button(buttons[preset])
+	GameController.board_state = preset.board_state
+	GameController.game_settings = preset.game_settings
+	
 	# TODO: Remove prefab highlight when any change happens
-	print("here")
 	pass
 
 func select_button(button: Button):
