@@ -20,3 +20,4 @@ func _ready() -> void:
 	editor_screen.set_piece(ChessPiece.piece_prefabs[ChessPiece.ePieces.Pawn])
 	editor_screen.set_player(0)
 	
+	GameController.on_board_state_changed.connect(board.load_state)

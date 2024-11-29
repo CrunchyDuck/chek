@@ -85,6 +85,7 @@ var game_settings: BoardBase.GameSettings:
 			value = BoardBase.GameSettings.new()
 		_game_settings = value
 		confirm_start_with_extra_players = false
+		on_game_settings_changed.emit(value)
 
 # Used in setup
 var _board_state: BoardBase.BoardState = BoardBase.BoardState.new()
@@ -94,10 +95,14 @@ var board_state: BoardBase.BoardState:
 	set(value):
 		_board_state = value
 		confirm_start_with_extra_players = false
+		on_board_state_changed.emit(value)
 
 var players_loaded: int = 0
 
 var confirm_start_with_extra_players: bool = false
+
+signal on_board_state_changed(new_state)
+signal on_game_settings_changed(new_state)
 
 const max_players: int = 4
 

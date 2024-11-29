@@ -18,6 +18,8 @@ func _ready():
 	stylebox_selected.bg_color = ColorController.preset_button_selected_color
 	read_presets()
 	create_entries()
+	GameController.on_board_state_changed.connect(func (s): select_button(null))
+	GameController.on_game_settings_changed.connect(func (s): select_button(null))
 
 func read_presets():
 	presets = []
@@ -48,9 +50,9 @@ func create_entry(preset: BoardBase.GamePreset):
 	buttons[preset] = p.get_node("Button")
 
 func set_preset(preset: BoardBase.GamePreset):
-	select_button(buttons[preset])
 	GameController.board_state = preset.board_state
 	GameController.game_settings = preset.game_settings
+	select_button(buttons[preset])
 	
 	# TODO: Remove prefab highlight when any change happens
 	pass
