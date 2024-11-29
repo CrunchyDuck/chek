@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bewe13solruqg"]
+
+[node name="Preset" type="MarginContainer"]
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+
+[node name="Fields" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Name" type="Label" parent="Fields"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "NAME"
+
+[node name="Player" type="Label" parent="Fields"]
+custom_minimum_size = Vector2(67, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "PLAYERS"
+
+[node name="Complexity" type="Label" parent="Fields"]
+custom_minimum_size = Vector2(99, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "COMPLEXITY"
