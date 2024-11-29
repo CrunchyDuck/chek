@@ -20,6 +20,7 @@ func _ready():
 	create_entries()
 	GameController.on_board_state_changed.connect(func (s): select_button(null))
 	GameController.on_game_settings_changed.connect(func (s): select_button(null))
+	set_preset(presets[0])
 
 func read_presets():
 	presets = []
