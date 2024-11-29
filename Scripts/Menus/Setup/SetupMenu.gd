@@ -37,6 +37,8 @@ func _ready() -> void:
 		button_start.pressed.connect(_on_start)
 	else:
 		button_start.disabled = true
+	
+	_load_scene(scene_preset)
 
 func _load_scene(scene_name: Node):
 		for c in node_content.get_children():
