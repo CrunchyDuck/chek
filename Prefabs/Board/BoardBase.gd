@@ -142,16 +142,16 @@ func load_state(state: BoardBase.BoardState):
 		
 # TODO: Let players also save states to files.
 func save_state_to_file():
-	var gp = GamePrefab.new(
+	var gp = GamePreset.new(
 		game_settings,
 		serialize(),
 		0,
 		"NAME"
 	)
-	var save_file = FileAccess.open("res://BoardStates/" + "NAME" + ".txt", FileAccess.WRITE)
+	var save_file = FileAccess.open(SetupPreset.presets_path + "/NAME" + ".txt", FileAccess.WRITE)
 	save_file.store_line(JSON.stringify(gp.serialize()))
 	
-func load_state_from_file(prefab: GamePrefab):
+func load_state_from_file(prefab: GamePreset):
 	load_state(prefab.board_state)
 	GameController.game_settings = prefab.game_settings
 #endregion
@@ -315,7 +315,8 @@ class GameSettings:
 	
 	func serialize() -> Dictionary:
 		var d = {}
-		d.board_size = board_size
+		d.board_size_x = board_size.x
+		d.board_size_y = board_size.y
 		d.divine_wind = divine_wind
 		d.no_retreat = no_retreat
 		
@@ -343,7 +344,7 @@ class GameSettings:
 	
 	static func deserialize(json_game_settings) -> GameSettings:
 		var gs = GameSettings.new()
-		gs.board_size = json_game_settings.board_size
+		gs.board_size = Vector2i(json_game_settings.board_size_x, json_game_settings.board_size_y)
 		gs.divine_wind = json_game_settings.divine_wind
 		gs.no_retreat = json_game_settings.no_retreat
 		
@@ -452,7 +453,7 @@ class PieceState:
 			json_piece_state.player,
 		)
 
-class GamePrefab:
+class GamePreset:
 	var game_settings: BoardBase.GameSettings
 	var board_state: BoardBase.BoardState
 	var complexity: int
@@ -475,8 +476,8 @@ class GamePrefab:
 		d.players = players
 		return d
 	
-	static func deserialize(_game_prefab: Dictionary) -> GamePrefab:
-		return GamePrefab.new(
+	static func deserialize(_game_prefab: Dictionary) -> GamePreset:
+		return GamePreset.new(
 			BoardBase.GameSettings.deserialize(_game_prefab.game_settings),
 			BoardBase.BoardState.deserialize(_game_prefab.board_state),
 			_game_prefab.complexity,

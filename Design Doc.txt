@@ -65,12 +65,6 @@ BRAVE AND STUPID - If there is are pieces that can attack, one of them must atta
 DENIABLE OPS - Pieces are invisible on dark tiles.
 ALLIED ASSAULT - Players on the same team can control the each others units
 
-Pawn - 
-King - 
-Queen - 
-Bishop - 
-Castle - 
-Horse - 
 Bomber - Loyal. Psychologically degraded. Move and attack any direction. Explodes when attacking or attacked, decimating the tile it is on. Attack from safe distance.
 Beast - ??? Move and attack cardinals up to 2. Paralyse adjacent units.
 Hologram - Cutting edge illusion. Cannot attack. Move any direction. Swap places with friendly pieces
@@ -83,6 +77,7 @@ War fatigue - Players do not spawn with pawns.
 Trench warfare - 2x15 board size, 2 players
 Cheker - Checkers, with wrapping edges
 Holy war - Only holograms and bishops.
+RUSH - Players take turns at the same time. They have "hoard" pieces, maybe pawns. All about speed.
 
 Desk fan
 Desk plant
