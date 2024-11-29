@@ -149,7 +149,7 @@ func save_state_to_file():
 		"NAME"
 	)
 	var save_file = FileAccess.open(SetupPreset.presets_path + "/NAME" + ".txt", FileAccess.WRITE)
-	save_file.store_line(JSON.stringify(gp.serialize()))
+	save_file.store_string(JSON.stringify(gp.serialize(), " "))
 	
 func load_state_from_file(prefab: GamePreset):
 	load_state(prefab.board_state)
