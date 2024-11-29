@@ -7,10 +7,10 @@ const color_spacing = 1.0 / (color_count - 1.0)
 const colors = {
 	primary = Color(0, 0, 0),  # Black squares
 	c1 = Color(color_spacing * 1, color_spacing * 1, color_spacing * 1), # Background color
-	c2 = Color(color_spacing * 2, color_spacing * 2, color_spacing * 2), # P1
-	c3 = Color(color_spacing * 3, color_spacing * 3, color_spacing * 3), # P2
-	c4 = Color(color_spacing * 4, color_spacing * 4, color_spacing * 4), # P3
-	c5 = Color(color_spacing * 5, color_spacing * 5, color_spacing * 5), # P4
+	c2 = Color(color_spacing * 2, color_spacing * 2, color_spacing * 2),
+	c3 = Color(color_spacing * 3, color_spacing * 3, color_spacing * 3),
+	c4 = Color(color_spacing * 4, color_spacing * 4, color_spacing * 4),
+	c5 = Color(color_spacing * 5, color_spacing * 5, color_spacing * 5),
 	c6 = Color(color_spacing * 6, color_spacing * 6, color_spacing * 6), # Chat text
 	secondary = Color(1, 1, 1),  # White squares
 }
@@ -26,6 +26,8 @@ const description_color = colors.c4
 
 const system_message_color = colors.primary
 const system_message_body_color = colors.secondary
+
+const preset_button_selected_color = colors.c3
 
 var current_palette: CompressedTexture2D:
 	get:

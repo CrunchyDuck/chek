@@ -1,0 +1,22 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://crccx70jqahkc"]
+
+[ext_resource type="StyleBox" uid="uid://c4vsgyyiveoas" path="res://Styles & Fonts/StyleboxSelected.tres" id="1_41all"]
+[ext_resource type="StyleBox" uid="uid://dbiemgh8uhi0v" path="res://Styles & Fonts/StyleboxPlain.tres" id="2_b3ieh"]
+[ext_resource type="StyleBox" uid="uid://dbl801ngp40qh" path="res://Styles & Fonts/StyleboxPressed.tres" id="3_jf48r"]
+[ext_resource type="FontFile" uid="uid://bpylilti85meq" path="res://Styles & Fonts/Retro Gaming.ttf" id="4_ujql7"]
+
+[resource]
+default_font = ExtResource("4_ujql7")
+Button/styles/focus = ExtResource("1_41all")
+Button/styles/hover = ExtResource("2_b3ieh")
+Button/styles/normal = ExtResource("2_b3ieh")
+Button/styles/pressed = ExtResource("3_jf48r")
+LineEdit/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+LineEdit/styles/focus = ExtResource("2_b3ieh")
+LineEdit/styles/normal = ExtResource("2_b3ieh")
+LineEdit/styles/read_only = ExtResource("2_b3ieh")
+RichTextLabel/colors/default_color = Color(0.857, 0.857, 0.857, 1)
+TabContainer/constants/side_margin = 0
+TabContainer/styles/tab_hovered = ExtResource("1_41all")
+TabContainer/styles/tab_selected = ExtResource("1_41all")
+TabContainer/styles/tab_unselected = ExtResource("2_b3ieh")
