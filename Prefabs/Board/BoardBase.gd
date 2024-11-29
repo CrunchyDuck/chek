@@ -140,12 +140,20 @@ func load_state(state: BoardBase.BoardState):
 			spawn_piece_state(piece)
 	_position_board()
 		
+# TODO: Let players also save states to files.
 func save_state_to_file():
-	var dat = {}
-	dat.board = serialize_dict()
-	dat.game_state = game_settings.serialize()
-	var save_file = FileAccess.open("user://BoardState.bbb", FileAccess.WRITE)
-	save_file.store_line(JSON.stringify(dat))
+	var gp = GamePrefab.new(
+		game_settings,
+		serialize(),
+		0,
+		"NAME"
+	)
+	var save_file = FileAccess.open("res://BoardStates/" + "NAME" + ".txt", FileAccess.WRITE)
+	save_file.store_line(JSON.stringify(gp.serialize()))
+	
+func load_state_from_file(prefab: GamePrefab):
+	load_state(prefab.board_state)
+	GameController.game_settings = prefab.game_settings
 #endregion
 
 #region Cell selection
@@ -442,5 +450,36 @@ class PieceState:
 			Vector2i(json_piece_state.position_x, json_piece_state.position_y),
 			json_piece_state.orientation,
 			json_piece_state.player,
+		)
+
+class GamePrefab:
+	var game_settings: BoardBase.GameSettings
+	var board_state: BoardBase.BoardState
+	var complexity: int
+	var name: String
+	var players: int
+	
+	func _init(_game_settings: BoardBase.GameSettings, _board_state: BoardBase.BoardState, _complexity: int, _name: String):
+		game_settings = _game_settings
+		board_state = _board_state
+		complexity = _complexity
+		name = _name
+		players = _board_state.players.size()
+	
+	func serialize() -> Dictionary:
+		var d = {}
+		d.game_settings = game_settings.serialize()
+		d.board_state = board_state.serialize()
+		d.complexity = complexity
+		d.name = name
+		d.players = players
+		return d
+	
+	static func deserialize(_game_prefab: Dictionary) -> GamePrefab:
+		return GamePrefab.new(
+			BoardBase.GameSettings.deserialize(_game_prefab.game_settings),
+			BoardBase.BoardState.deserialize(_game_prefab.board_state),
+			_game_prefab.complexity,
+			_game_prefab.name
 		)
 #endregion

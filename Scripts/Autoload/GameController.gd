@@ -81,8 +81,13 @@ var game_settings: BoardBase.GameSettings:
 	get:
 		return _game_settings
 	set(value):
+		if value == null:
+			value = BoardBase.GameSettings.new()
 		_game_settings = value
+		on_game_settings_changed.emit(value)
 		confirm_start_with_extra_players = false
+
+# Used in setup
 var _board_state: BoardBase.BoardState = BoardBase.BoardState.new()
 var board_state: BoardBase.BoardState:
 	get:
@@ -96,6 +101,8 @@ var players_loaded: int = 0
 var confirm_start_with_extra_players: bool = false
 
 const max_players: int = 4
+
+signal on_game_settings_changed(game_settings: BoardBase.GameSettings)
 
 func _ready():
 	_get_references()
@@ -130,6 +137,7 @@ func start_lobby(_port: int) -> bool:
 	MessageController.add_message("OPENED PORT " + str(port))
 	return true
 	
+# TODO: On join, synchronize game_state and board_state
 func join_lobby(_ip: String, _port: int) -> bool:
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_client(_ip, _port)
