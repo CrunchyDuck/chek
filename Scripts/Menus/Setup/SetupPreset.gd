@@ -40,4 +40,5 @@ func create_entry(preset: BoardBase.GamePreset):
 func set_preset(preset: BoardBase.GamePreset):
 	# TODO: Highlight currently selected prefab.
 	# TODO: Remove prefab highlight when any change happens
+	print("here")
 	pass
