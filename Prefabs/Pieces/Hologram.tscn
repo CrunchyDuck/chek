@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://fix4464l77fh"]
+
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_5owjk"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_2wv0h"]
+[ext_resource type="Texture2D" uid="uid://b1125ill2hecr" path="res://Sprites/Pieces/new/hologram.png" id="3_y7ith"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f4jov"]
+resource_local_to_scene = true
+shader = ExtResource("2_2wv0h")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="Hologram" instance=ExtResource("1_5owjk")]
+material = SubResource("ShaderMaterial_f4jov")
+texture = ExtResource("3_y7ith")

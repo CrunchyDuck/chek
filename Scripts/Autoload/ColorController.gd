@@ -15,11 +15,18 @@ const colors = {
 	secondary = Color(1, 1, 1),  # White squares
 }
 
-const player_colors = [
+const player_primary_colors = [
 	colors.c2,
 	colors.c3,
 	colors.c4,
 	colors.c5,
+]
+
+const player_secondary_colors = [
+	colors.c4,
+	colors.c5,
+	colors.c2,
+	colors.c3,
 ]
 
 const description_color = colors.c4
@@ -73,7 +80,7 @@ func next_palette():
 	pass
 	
 func color_by_player(content: String, game_id: int):
-	return color_text(content, ColorControllers.player_colors[game_id])
+	return color_text(content, ColorControllers.player_primary_colors[game_id])
 
 static func color_text(content: String, color: Color):
 	var my_color: String = color.to_html()

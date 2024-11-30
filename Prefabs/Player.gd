@@ -11,7 +11,7 @@ var color: Color:
 		var id = game_id
 		if id == -1:
 			id = 0
-		return ColorController.player_colors[id]
+		return ColorController.player_primary_colors[id]
 
 var player_type: Player.PlayerType = Player.PlayerType.None
 var network_id: int = -1

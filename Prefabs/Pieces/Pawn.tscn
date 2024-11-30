@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu11rx8t1sqop"]
+[gd_scene load_steps=6 format=3 uid="uid://bxcrv58vtsm0g"]
 
-[ext_resource type="Texture2D" uid="uid://bicudamfmcpco" path="res://Sprites/Pieces/PawnTeam1.png" id="1_ah8l2"]
-[ext_resource type="Script" path="res://Scripts/Pieces/Pawn.gd" id="2_ya6os"]
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_5w1g3"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_5xex3"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Pawn.gd" id="2_ft1nd"]
+[ext_resource type="Texture2D" uid="uid://bbqu4jje3beex" path="res://Sprites/Pieces/new/pawn.png" id="3_ga305"]
 
-[node name="Pawn" type="Sprite2D"]
-z_index = 100
-z_as_relative = false
-texture = ExtResource("1_ah8l2")
-script = ExtResource("2_ya6os")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aywro"]
+resource_local_to_scene = true
+shader = ExtResource("2_5xex3")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="Pawn" instance=ExtResource("1_5w1g3")]
+material = SubResource("ShaderMaterial_aywro")
+texture = ExtResource("3_ga305")
+script = ExtResource("2_ft1nd")

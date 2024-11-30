@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb10ji0hrt2rp"]
+
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="1_04f57"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5df7a"]
+resource_local_to_scene = true
+shader = ExtResource("1_04f57")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = Color(1, 1, 1, 1)
+
+[node name="Piece" type="Sprite2D"]
+z_index = 100
+z_as_relative = false
+material = SubResource("ShaderMaterial_5df7a")

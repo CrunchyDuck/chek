@@ -20,7 +20,14 @@ var piece_type: ChessPiece.ePieces
 var board: BoardBase
 var coordinates: Vector2i
 var move_count: int = 0
-var owned_by: int
+var _owned_by: int
+var owned_by: int:
+	get:
+		return _owned_by
+	set(value):
+		_owned_by = value
+		update_color()
+		
 var _orientation: ChessPiece.Orientation = Orientation.North
 var orientation: ChessPiece.Orientation:
 	get:
@@ -67,6 +74,10 @@ func highlight_board_cells(actions: Array[BoardPlayable.GameAction]):
 			continue
 		var target_cell = board.get_cell(action.target)
 		target_cell.contained_action = action
+
+func update_color():
+	node_sprite.material.set_shader_parameter("shade1", ColorControllers.player_primary_colors[owned_by])
+	node_sprite.material.set_shader_parameter("shade2", ColorControllers.player_secondary_colors[owned_by])
 
 func is_paralyzed() -> bool:
 	if in_cell == null:
@@ -180,6 +191,6 @@ enum ePieces {
 	Bomber,
 	Hologram,
 	Shifter,
-	Checker,
+	Czeker,
 	Youth,
 }

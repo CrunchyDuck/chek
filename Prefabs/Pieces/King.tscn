@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bndgwxaxrsqnl"]
+[gd_scene load_steps=6 format=3 uid="uid://cw3nryghbxork"]
 
-[ext_resource type="Texture2D" uid="uid://bcwgh6tuij3fa" path="res://Sprites/Pieces/King.png" id="1_iyyxb"]
-[ext_resource type="Script" path="res://Scripts/Pieces/King.gd" id="2_75vbw"]
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_vq5hr"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_25dli"]
+[ext_resource type="Texture2D" uid="uid://bdikv3i8ljoa4" path="res://Sprites/Pieces/new/king.png" id="3_l7opd"]
+[ext_resource type="Script" path="res://Scripts/Pieces/King.gd" id="4_xn3r3"]
 
-[node name="King" type="Sprite2D"]
-z_index = 100
-z_as_relative = false
-texture_filter = 1
-scale = Vector2(2, 2)
-texture = ExtResource("1_iyyxb")
-script = ExtResource("2_75vbw")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0txdi"]
+resource_local_to_scene = true
+shader = ExtResource("2_25dli")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="King" instance=ExtResource("1_vq5hr")]
+material = SubResource("ShaderMaterial_0txdi")
+texture = ExtResource("3_l7opd")
+script = ExtResource("4_xn3r3")

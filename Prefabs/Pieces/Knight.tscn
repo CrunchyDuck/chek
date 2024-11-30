@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://xxlvrbnr6ero"]
+[gd_scene load_steps=6 format=3 uid="uid://b6isvhi40qb75"]
 
-[ext_resource type="Texture2D" uid="uid://c112jjqkmf5p0" path="res://Sprites/Pieces/Knight.png" id="1_4g2nb"]
-[ext_resource type="Script" path="res://Scripts/Pieces/Knight.gd" id="2_mlaod"]
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_glrg1"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_p4k56"]
+[ext_resource type="Texture2D" uid="uid://dbbqcqo1cykax" path="res://Sprites/Pieces/new/knight.png" id="3_3dypq"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Knight.gd" id="4_s81wu"]
 
-[node name="Knight" type="Sprite2D"]
-z_index = 100
-z_as_relative = false
-texture = ExtResource("1_4g2nb")
-script = ExtResource("2_mlaod")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s8irl"]
+resource_local_to_scene = true
+shader = ExtResource("2_p4k56")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="Knight" instance=ExtResource("1_glrg1")]
+material = SubResource("ShaderMaterial_s8irl")
+texture = ExtResource("3_3dypq")
+script = ExtResource("4_s81wu")

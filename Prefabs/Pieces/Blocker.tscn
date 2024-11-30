@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbhxs8j3nog5j"]
+[gd_scene load_steps=5 format=3 uid="uid://bwlc254pcl6dh"]
 
-[ext_resource type="Script" path="res://Scripts/Pieces/Blocker.gd" id="1_fvyov"]
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_2mixl"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_i1my1"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Blocker.gd" id="3_hk53v"]
 
-[node name="Blocker" type="Sprite2D"]
-z_index = 100
-z_as_relative = false
-script = ExtResource("1_fvyov")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtxcj"]
+resource_local_to_scene = true
+shader = ExtResource("2_i1my1")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="Blocker" instance=ExtResource("1_2mixl")]
+material = SubResource("ShaderMaterial_vtxcj")
+script = ExtResource("3_hk53v")

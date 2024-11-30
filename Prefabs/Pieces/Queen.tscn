@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2d8e88c2xm5n"]
+[gd_scene load_steps=6 format=3 uid="uid://6k3axfghiwmm"]
 
-[ext_resource type="Texture2D" uid="uid://v3pro00bo2cp" path="res://Sprites/Pieces/Queen.png" id="1_lsu5j"]
-[ext_resource type="Script" path="res://Scripts/Pieces/Queen.gd" id="2_qfn6p"]
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_8pc0s"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_681lj"]
+[ext_resource type="Texture2D" uid="uid://ilcycjmebqw4" path="res://Sprites/Pieces/new/queen.png" id="3_q3msd"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Queen.gd" id="4_86j6v"]
 
-[node name="Queen" type="Sprite2D"]
-z_index = 100
-z_as_relative = false
-texture = ExtResource("1_lsu5j")
-script = ExtResource("2_qfn6p")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g4gaj"]
+resource_local_to_scene = true
+shader = ExtResource("2_681lj")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="Queen" instance=ExtResource("1_8pc0s")]
+material = SubResource("ShaderMaterial_g4gaj")
+texture = ExtResource("3_q3msd")
+script = ExtResource("4_86j6v")

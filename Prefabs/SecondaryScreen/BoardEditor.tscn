@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="1_caav7"]
 [ext_resource type="Script" path="res://Scripts/Menus/BoardEditorSecondaryScreen.gd" id="1_x3b61"]
-[ext_resource type="PackedScene" uid="uid://bu11rx8t1sqop" path="res://Prefabs/Pieces/Pawn.tscn" id="2_cnfel"]
+[ext_resource type="PackedScene" uid="uid://bu11rx8t1sqop" path="res://Prefabs/Pieces/old/Pawn.tscn" id="2_cnfel"]
 
 [node name="BoardEditor" type="Control"]
 custom_minimum_size = Vector2(385, 390)

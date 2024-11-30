@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfg6mv5607ue"]
+
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_ghdsg"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_xmw0c"]
+[ext_resource type="Texture2D" uid="uid://wayx443dekqk" path="res://Sprites/Pieces/new/Youth.png" id="3_3o1hg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wgw3"]
+resource_local_to_scene = true
+shader = ExtResource("2_xmw0c")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="Youth" instance=ExtResource("1_ghdsg")]
+material = SubResource("ShaderMaterial_1wgw3")
+texture = ExtResource("3_3o1hg")

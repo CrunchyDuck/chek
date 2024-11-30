@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccg5d0p0kiw2k"
-path="res://.godot/imported/czecher.png-19e5105c51471215a787467595688fad.ctex"
+path="res://.godot/imported/Czeker.png-b37541bfe270bc9e66f0b08f24734ec8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pieces/new/czecher.png"
-dest_files=["res://.godot/imported/czecher.png-19e5105c51471215a787467595688fad.ctex"]
+source_file="res://Sprites/Pieces/new/Czeker.png"
+dest_files=["res://.godot/imported/Czeker.png-b37541bfe270bc9e66f0b08f24734ec8.ctex"]
 
 [params]
 

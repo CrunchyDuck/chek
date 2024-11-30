@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://qrc8pnx82n3t"]
+[gd_scene load_steps=6 format=3 uid="uid://duqbktp7q6xcb"]
 
-[ext_resource type="Texture2D" uid="uid://cemxhksq3gtpd" path="res://Sprites/Pieces/Bishop.png" id="1_mk80f"]
-[ext_resource type="Script" path="res://Scripts/Pieces/Beast.gd" id="2_qjlxb"]
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_qy33v"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_fu6yh"]
+[ext_resource type="Texture2D" uid="uid://daqbd8jyxh8d6" path="res://Sprites/Pieces/new/bomber.png" id="3_77q86"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Bomber.gd" id="4_r3i80"]
 
-[node name="Beast" type="Sprite2D"]
-z_index = 100
-z_as_relative = false
-texture = ExtResource("1_mk80f")
-script = ExtResource("2_qjlxb")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bibm7"]
+resource_local_to_scene = true
+shader = ExtResource("2_fu6yh")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="Bomber" instance=ExtResource("1_qy33v")]
+material = SubResource("ShaderMaterial_bibm7")
+texture = ExtResource("3_77q86")
+script = ExtResource("4_r3i80")

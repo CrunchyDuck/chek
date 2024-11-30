@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://ox03mfbmu52h"]
+
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_44t48"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_8tgrh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1en8g"]
+resource_local_to_scene = true
+shader = ExtResource("2_8tgrh")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="Shifter" instance=ExtResource("1_44t48")]
+material = SubResource("ShaderMaterial_1en8g")

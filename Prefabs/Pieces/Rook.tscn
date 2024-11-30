@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://ce5tevyxfk5qy"]
+[gd_scene load_steps=6 format=3 uid="uid://ooy1xrgp4hwt"]
 
-[ext_resource type="Texture2D" uid="uid://bqkhlp4qe66h3" path="res://Sprites/Pieces/Rook.png" id="1_4v8s6"]
-[ext_resource type="Script" path="res://Scripts/Pieces/Rook.gd" id="2_qub4d"]
+[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_obgsa"]
+[ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_excf4"]
+[ext_resource type="Texture2D" uid="uid://dgwrmr3j7aqpb" path="res://Sprites/Pieces/new/rook.png" id="3_hiwqx"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Rook.gd" id="4_d6kb1"]
 
-[node name="Rook" type="Sprite2D"]
-z_index = 100
-z_as_relative = false
-texture = ExtResource("1_4v8s6")
-script = ExtResource("2_qub4d")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4baj5"]
+resource_local_to_scene = true
+shader = ExtResource("2_excf4")
+shader_parameter/shade1 = null
+shader_parameter/shade2 = null
+
+[node name="Rook" instance=ExtResource("1_obgsa")]
+material = SubResource("ShaderMaterial_4baj5")
+texture = ExtResource("3_hiwqx")
+script = ExtResource("4_d6kb1")
