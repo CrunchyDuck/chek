@@ -86,4 +86,4 @@ func refresh_networked_nodes(servers_nodes: Dictionary):
 	for k in old_nodes.keys():
 		var old_node = get_node(k)
 		if old_node:
-			old_node.queue_free()
+			Helpers.destroy_node(old_node)

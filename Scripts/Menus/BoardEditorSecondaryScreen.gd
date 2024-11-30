@@ -126,7 +126,7 @@ func next_orientation():
 
 func set_piece(_piece_prefab: String):
 	for n in node_piece_position.get_children():
-		n.queue_free()
+		Helpers.destroy_node(n)
 	
 	piece = PrefabController.get_prefab(_piece_prefab).instantiate()
 	node_piece_position.add_child(piece)

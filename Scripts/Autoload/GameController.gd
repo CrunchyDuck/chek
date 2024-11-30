@@ -156,7 +156,7 @@ func connected_to_server():
 	PrefabController.request_refresh.rpc_id(1)
 
 func peer_disconnected(id: int):
-	get_node("/root/GameController/Player" + str(id)).queue_free()
+	Helpers.destroy_node(get_node("/root/GameController/Player" + str(id)))
 	
 func disconnected():
 	# TODO: Player cleanup
@@ -394,7 +394,7 @@ func player_loaded():
 	players_loaded += 1
 	if players_loaded == Player.players.size():
 		board.visible = true
-		screen_central.get_node("GameLoading").queue_free()
+		Helpers.destroy_node(screen_central.get_node("GameLoading"))
 
 
 @rpc("authority", "call_local", "reliable")

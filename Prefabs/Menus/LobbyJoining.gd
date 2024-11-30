@@ -25,7 +25,7 @@ func _ready() -> void:
 func _on_back():
 	if info_page.visible:
 		$"..".add_child(PrefabController.get_prefab("Menus.Start").instantiate())
-		queue_free()
+		Helpers.destroy_node(self)
 		return
 	info_page.visible = true
 	connecting_page.visible = false
@@ -41,7 +41,7 @@ func _on_done():
 	
 func _on_success():
 	$"..".add_child(PrefabController.get_prefab("Menus.Setup.Main").instantiate())
-	queue_free()
+	Helpers.destroy_node(self)
 	print("connected")
 	
 func _on_fail():

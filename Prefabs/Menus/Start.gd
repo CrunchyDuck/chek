@@ -14,12 +14,12 @@ func _ready() -> void:
 
 func _on_start():
 	$"..".add_child(PrefabController.get_prefab("Menus.LobbyHosting").instantiate())
-	queue_free()
+	Helpers.destroy_node(self)
 	
 func _on_join():
 	$"..".add_child(PrefabController.get_prefab("Menus.LobbyJoining").instantiate())
-	queue_free()
+	Helpers.destroy_node(self)
 	
 func _on_settings():
 	$"..".add_child(PrefabController.get_prefab("Menus.Settings").instantiate())
-	queue_free()
+	Helpers.destroy_node(self)

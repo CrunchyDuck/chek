@@ -12,7 +12,7 @@ func _ready() -> void:
 	
 	# Set side screen to have information panel
 	for n in GameController.screen_secondary.get_children():
-		n.queue_free()
+		Helpers.destroy_node(n)
 	
 	editor_screen = PrefabController.get_prefab("SecondaryScreen.BoardEditor").instantiate()
 	GameController.screen_secondary.add_child(editor_screen)

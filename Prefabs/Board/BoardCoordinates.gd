@@ -14,8 +14,7 @@ func _ready():
 
 func create_coordinates(_count: int):
 	for _n in numbers_container.get_children():
-		numbers_container.remove_child(_n)
-		_n.queue_free()
+		Helpers.destroy_node(_n)
 		
 	for i in range(_count):
 		_spawn_number(i)

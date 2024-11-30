@@ -121,7 +121,7 @@ func _act_on_cell(cell: Vector2i) -> BoardPlayable.GameAction:
 	return null
 		
 func _on_killed(killer: ChessPiece, victim: ChessPiece):
-	queue_free()
+	Helpers.destroy_node(self)
 	
 func serialize() -> BoardBase.PieceState:
 	var ps = BoardBase.PieceState.new(

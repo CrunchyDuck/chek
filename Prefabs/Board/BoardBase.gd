@@ -76,7 +76,7 @@ func _input(event):
 #region Board editing functions
 func create_new_grid(_grid_size: Vector2i):
 	for n in node_cells.get_children():
-		n.queue_free()
+		Helpers.destroy_node(n)
 
 	node_cells.position = cells_offset
 	node_pieces.position = cells_offset
@@ -97,8 +97,7 @@ func create_new_grid(_grid_size: Vector2i):
 
 func clear_pieces():
 	for n in node_pieces.get_children():
-		node_pieces.remove_child(n)
-		n.queue_free()
+		Helpers.destroy_node(n)
 
 func spawn_piece_state(piece_state: BoardBase.PieceState) -> ChessPiece:
 	return spawn_piece(piece_state.type, piece_state.position, piece_state.orientation, piece_state.player)
@@ -108,7 +107,7 @@ func spawn_piece(piece_type: ChessPiece.ePieces, coordinate: Vector2i, orientati
 	var cell = get_cell(coordinate)
 	var _op = cell.occupying_piece
 	if _op:
-		_op.queue_free()
+		Helpers.destroy_node(_op)
 	cell.occupying_piece = piece
 	piece.Init(coordinate, orientation, owned_by, self)
 	node_pieces.add_child(piece)
