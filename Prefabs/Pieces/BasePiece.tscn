@@ -11,5 +11,6 @@ shader_parameter/shade2 = Color(1, 1, 1, 1)
 [node name="Piece" type="Sprite2D"]
 z_index = 100
 z_as_relative = false
+texture_filter = 1
 material = SubResource("ShaderMaterial_5df7a")
 scale = Vector2(2, 2)
