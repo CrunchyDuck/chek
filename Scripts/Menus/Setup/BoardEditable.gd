@@ -11,10 +11,7 @@ func _input(event: InputEvent):
 			spawn_piece(paint_piece.type, _cell.cell_coordinates, paint_piece.orientation, paint_piece.player)
 			GameController.board_state = serialize()
 	if Input.is_action_pressed("RMB"):
-		if _cell.occupying_piece:
-			_cell.occupying_piece.queue_free()
-			_cell.occupying_piece = null
-			GameController.board_state = serialize()
+		clear_cell(_cell)
 
 func set_board_size(new_size: Vector2i):
 	var _old_state = GameController.board_state
@@ -28,3 +25,12 @@ func set_board_size(new_size: Vector2i):
 				spawn_piece(piece.type, piece.position, piece.orientation, piece.player)
 	GameController.board_state = serialize()
 	_position_board()
+
+func clear_cell(_cell: BoardCell):
+	if _cell == null:
+		return
+	if _cell.occupying_piece == null:
+		return
+	_cell.occupying_piece.queue_free()
+	_cell.occupying_piece = null
+	GameController.board_state = serialize()
