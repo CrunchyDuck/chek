@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://uet35oqj4dob"]
 
 [ext_resource type="Texture2D" uid="uid://cemxhksq3gtpd" path="res://Sprites/Pieces/Bishop.png" id="1_0v6eh"]
-[ext_resource type="Script" path="res://Prefabs/Pieces/Bishop.gd" id="2_76dta"]
+[ext_resource type="Script" path="res://Prefabs/Pieces/Beast.gd" id="2_w2sjn"]
 
 [node name="Beast" type="Sprite2D"]
 z_index = 100
 z_as_relative = false
 texture = ExtResource("1_0v6eh")
-script = ExtResource("2_76dta")
+script = ExtResource("2_w2sjn")
