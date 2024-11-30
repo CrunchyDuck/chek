@@ -200,20 +200,28 @@ func _position_board():
 	node_y_coordinates.position = Vector2(0, coordinates_size.y)
 
 func _update_clipping_mask():
-		var div = Vector2i(parent_size) / cell_size
-		var max_possible_size = div * cell_size
-		# If board is smaller than the maximum size, shrink to fit the board.
-		max_possible_size.x = min(max_possible_size.x, bounds.x + coordinates_size.x)
-		max_possible_size.y = min(max_possible_size.y, bounds.y + coordinates_size.y)
-		size = max_possible_size
-		
-		var _play_field_size = size - coordinates_size
-		node_play_field.size = size - coordinates_size
-		node_x_coordinates.size = Vector2(_play_field_size.x, coordinates_size.y)
-		node_y_coordinates.size = Vector2(coordinates_size.x, _play_field_size.y)
-		_move_clipping_position_min(Vector2i())
+	var previous_clipping_min = clipping_position_min
+
+	var div = Vector2i(parent_size) / cell_size
+	var max_possible_size = div * cell_size
+	# If board is smaller than the maximum size, shrink to fit the board.
+	max_possible_size.x = min(max_possible_size.x, bounds.x + coordinates_size.x)
+	max_possible_size.y = min(max_possible_size.y, bounds.y + coordinates_size.y)
+	size = max_possible_size
+	
+	var _play_field_size = size - coordinates_size
+	node_play_field.size = size - coordinates_size
+	node_x_coordinates.size = Vector2(_play_field_size.x, coordinates_size.y)
+	node_y_coordinates.size = Vector2(coordinates_size.x, _play_field_size.y)
+	_move_clipping_position_min(previous_clipping_min)
+	_set_button_activity()
 
 func _move_clipping_position_min(_new_position: Vector2i):
+	# If this position is out of bounds, lower it.
+	var new_max = _new_position + clipping_grid_size
+	_new_position.x -= max(new_max.x - grid_size.x, 0)
+	_new_position.y -= max(new_max.y - grid_size.y, 0)
+	
 	clipping_position_min = _new_position
 	var new_position = Vector2(-clipping_position_min * cell_size) + cells_offset
 	node_cells.position = new_position
