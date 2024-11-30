@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbqu4jje3beex"
-path="res://.godot/imported/pawn.png-1af80338e86c2e4e7e2f5c26a1f8bb5c.ctex"
+uid="uid://daqbd8jyxh8d6"
+path="res://.godot/imported/Bomber.png-49d375a48b0090196b407d9583746cef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pieces/new/pawn.png"
-dest_files=["res://.godot/imported/pawn.png-1af80338e86c2e4e7e2f5c26a1f8bb5c.ctex"]
+source_file="res://Sprites/Pieces/Bomber.png"
+dest_files=["res://.godot/imported/Bomber.png-49d375a48b0090196b407d9583746cef.ctex"]
 
 [params]
 

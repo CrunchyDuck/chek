@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bicudamfmcpco"
-path="res://.godot/imported/PawnTeam1.png-88b4130ab5a4ef69e58dc9522379debc.ctex"
+uid="uid://ccg5d0p0kiw2k"
+path="res://.godot/imported/Czeker.png-1e2bc3f83d8f3b177f53156521295f9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pieces/PawnTeam1.png"
-dest_files=["res://.godot/imported/PawnTeam1.png-88b4130ab5a4ef69e58dc9522379debc.ctex"]
+source_file="res://Sprites/Pieces/Czeker.png"
+dest_files=["res://.godot/imported/Czeker.png-1e2bc3f83d8f3b177f53156521295f9e.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_mt4kw"]
 [ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_md8wr"]
-[ext_resource type="Texture2D" uid="uid://ccg5d0p0kiw2k" path="res://Sprites/Pieces/new/Czeker.png" id="3_w2s2r"]
+[ext_resource type="Texture2D" uid="uid://ccg5d0p0kiw2k" path="res://Sprites/Pieces/Czeker.png" id="3_w2s2r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_38xot"]
 resource_local_to_scene = true

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_n8p4d"]
 [ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_axmdm"]
-[ext_resource type="Texture2D" uid="uid://s0s4r63bywxp" path="res://Sprites/Pieces/new/bishop.png" id="3_6nug6"]
+[ext_resource type="Texture2D" uid="uid://s0s4r63bywxp" path="res://Sprites/Pieces/Bishop.png" id="3_6nug6"]
 [ext_resource type="Script" path="res://Scripts/Pieces/Bishop.gd" id="4_rkyxa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gdnxv"]

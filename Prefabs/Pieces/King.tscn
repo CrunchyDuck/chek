@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_vq5hr"]
 [ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_25dli"]
-[ext_resource type="Texture2D" uid="uid://bdikv3i8ljoa4" path="res://Sprites/Pieces/new/king.png" id="3_l7opd"]
+[ext_resource type="Texture2D" uid="uid://bdikv3i8ljoa4" path="res://Sprites/Pieces/King.png" id="3_l7opd"]
 [ext_resource type="Script" path="res://Scripts/Pieces/King.gd" id="4_xn3r3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0txdi"]

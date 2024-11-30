@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdikv3i8ljoa4"
-path="res://.godot/imported/king.png-7385e679337bbb77ed03cb394ff17338.ctex"
+uid="uid://b1125ill2hecr"
+path="res://.godot/imported/Hologram.png-c3f626b51c517aeedf1334a20327fa9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pieces/new/king.png"
-dest_files=["res://.godot/imported/king.png-7385e679337bbb77ed03cb394ff17338.ctex"]
+source_file="res://Sprites/Pieces/Hologram.png"
+dest_files=["res://.godot/imported/Hologram.png-c3f626b51c517aeedf1334a20327fa9e.ctex"]
 
 [params]
 

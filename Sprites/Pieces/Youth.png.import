@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1125ill2hecr"
-path="res://.godot/imported/hologram.png-e18cf52a023dda28216d48bc09b3e107.ctex"
+uid="uid://wayx443dekqk"
+path="res://.godot/imported/Youth.png-cb148179bc1c0a03001af127ea88d43f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pieces/new/hologram.png"
-dest_files=["res://.godot/imported/hologram.png-e18cf52a023dda28216d48bc09b3e107.ctex"]
+source_file="res://Sprites/Pieces/Youth.png"
+dest_files=["res://.godot/imported/Youth.png-cb148179bc1c0a03001af127ea88d43f.ctex"]
 
 [params]
 

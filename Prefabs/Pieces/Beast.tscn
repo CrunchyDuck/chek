@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="1_0k1li"]
 [ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_d55ni"]
-[ext_resource type="Texture2D" uid="uid://cm0t8qo5i06g1" path="res://Sprites/Pieces/new/beast.png" id="2_t2xbu"]
+[ext_resource type="Texture2D" uid="uid://cm0t8qo5i06g1" path="res://Sprites/Pieces/Beast.png" id="2_t2xbu"]
 [ext_resource type="Script" path="res://Scripts/Pieces/Beast.gd" id="2_w2sjn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nfomu"]

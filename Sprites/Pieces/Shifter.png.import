@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccg5d0p0kiw2k"
-path="res://.godot/imported/Czeker.png-b37541bfe270bc9e66f0b08f24734ec8.ctex"
+uid="uid://cxy8adeo835gy"
+path="res://.godot/imported/Shifter.png-563547d841bc64b151db3d3ee40aec00.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pieces/new/Czeker.png"
-dest_files=["res://.godot/imported/Czeker.png-b37541bfe270bc9e66f0b08f24734ec8.ctex"]
+source_file="res://Sprites/Pieces/Shifter.png"
+dest_files=["res://.godot/imported/Shifter.png-563547d841bc64b151db3d3ee40aec00.ctex"]
 
 [params]
 
