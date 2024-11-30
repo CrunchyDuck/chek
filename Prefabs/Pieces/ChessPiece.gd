@@ -67,7 +67,30 @@ func highlight_board_cells(actions: Array[BoardPlayable.GameAction]):
 			continue
 		var target_cell = board.get_cell(action.target)
 		target_cell.contained_action = action
-		
+
+func is_paralyzed() -> bool:
+	if in_cell == null:
+		return false
+	# Yes, it's bad form to hardcode a behaviour for a piece in here.
+	# But I'm well past my deadline!
+	for x in range(-1, 2):
+		for y in range(-1, 2):
+			if x == 0 and y == 0:
+				continue
+			var c = board.get_cell(coordinates + Vector2i(x, y))
+			if c == null or c.occupying_piece == null:
+				continue
+			if c.occupying_piece.piece_type != ChessPiece.ePieces.Beast:
+				print(c.occupying_piece.piece_type)
+				continue
+			if friendly_to(c.occupying_piece):
+				continue
+			return true
+	return false
+	
+func friendly_to(piece: ChessPiece) -> bool:
+	return owned_by_player.friendly.has(piece.owned_by)
+
 # Gets a nicely serializable description of possible moves/attacks a piece can do
 func _get_actions() -> Array[BoardPlayable.GameAction]:
 	assert(false, "_get_actions not overridden in " + get_class())
@@ -75,22 +98,26 @@ func _get_actions() -> Array[BoardPlayable.GameAction]:
 	
 # Whether a cell passes the basic requirements for movement.
 func _can_move(target_position: Vector2i) -> bool:
+	if is_paralyzed():
+		return false
 	var target_cell: BoardCell = board.get_cell(target_position)
 	return target_cell != null and target_cell.unobstructed
 	
 # Whether a cell passes the basic requirements for attacking.
 func _can_attack(target_position: Vector2i) -> bool:
+	if is_paralyzed():
+		return false
 	var target_cell: BoardCell = board.get_cell(target_position)
 	return target_cell != null\
 		and target_cell.occupying_piece != null\
 		and target_cell.occupying_piece.piece_type != ChessPiece.ePieces.Blocker\
-		and not owned_by_player.friendly.has(target_cell.occupying_piece.owned_by)
+		and not friendly_to(target_cell.occupying_piece)
 
 # Try to move in a line, or attack what blocks that line.
 func _act_in_line(direction: Vector2i, max_distance: int = 50) -> Array[BoardPlayable.GameAction]:
 	var actions: Array[BoardPlayable.GameAction] = []
 	var dist: int = 1
-	while dist < max_distance:  # Arbitrary cap to prevent infinite loop
+	while dist <= max_distance:  # Arbitrary cap to prevent infinite loop
 		var target_cell = board.get_cell(coordinates + _rotate_to_orientation(direction * dist))
 		# Off the board.
 		if target_cell == null:
@@ -98,6 +125,7 @@ func _act_in_line(direction: Vector2i, max_distance: int = 50) -> Array[BoardPla
 
 		# Will be replaced with a modifier check in the future.
 		if target_cell.occupying_piece != null:
+			actions.append(_act_on_cell(target_cell.cell_coordinates))
 			break
 		# Can happen if we loop around.
 		if target_cell.occupying_piece == self:
