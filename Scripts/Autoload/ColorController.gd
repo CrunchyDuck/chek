@@ -23,10 +23,10 @@ const player_primary_colors = [
 ]
 
 const player_secondary_colors = [
-	colors.c4,
-	colors.c5,
-	colors.c2,
 	colors.c3,
+	colors.c2,
+	colors.c5,
+	colors.c4,
 ]
 
 const description_color = colors.c4
