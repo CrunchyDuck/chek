@@ -31,6 +31,5 @@ func clear_cell(_cell: BoardCell):
 		return
 	if _cell.occupying_piece == null:
 		return
-	_cell.occupying_piece.queue_free()
-	_cell.occupying_piece = null
+	Helpers.destroy_node(_cell.occupying_piece)
 	GameController.board_state = serialize()
