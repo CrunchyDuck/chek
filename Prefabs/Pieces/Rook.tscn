@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ce5tevyxfk5qy"]
 
 [ext_resource type="Texture2D" uid="uid://bqkhlp4qe66h3" path="res://Sprites/Pieces/Rook.png" id="1_4v8s6"]
-[ext_resource type="Script" path="res://Prefabs/Pieces/Rook.gd" id="2_qub4d"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Rook.gd" id="2_qub4d"]
 
 [node name="Rook" type="Sprite2D"]
 z_index = 100

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bu11rx8t1sqop"]
 
 [ext_resource type="Texture2D" uid="uid://bicudamfmcpco" path="res://Sprites/Pieces/PawnTeam1.png" id="1_ah8l2"]
-[ext_resource type="Script" path="res://Prefabs/Pieces/Pawn.gd" id="2_ya6os"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Pawn.gd" id="2_ya6os"]
 
 [node name="Pawn" type="Sprite2D"]
 z_index = 100

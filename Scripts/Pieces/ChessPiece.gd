@@ -81,7 +81,6 @@ func is_paralyzed() -> bool:
 			if c == null or c.occupying_piece == null:
 				continue
 			if c.occupying_piece.piece_type != ChessPiece.ePieces.Beast:
-				print(c.occupying_piece.piece_type)
 				continue
 			if friendly_to(c.occupying_piece):
 				continue
@@ -178,4 +177,9 @@ enum ePieces {
 	Queen,
 	King,
 	Beast,
+	Bomber,
+	Hologram,
+	Shifter,
+	Checker,
+	Youth,
 }

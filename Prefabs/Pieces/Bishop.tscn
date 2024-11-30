@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bskbjo0lrk6lx"]
 
 [ext_resource type="Texture2D" uid="uid://cemxhksq3gtpd" path="res://Sprites/Pieces/Bishop.png" id="1_0h2sj"]
-[ext_resource type="Script" path="res://Prefabs/Pieces/Bishop.gd" id="2_61cxn"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Bishop.gd" id="2_61cxn"]
 
 [node name="Bishop" type="Sprite2D"]
 z_index = 100

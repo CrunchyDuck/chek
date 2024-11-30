@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cbhxs8j3nog5j"]
 
-[ext_resource type="Script" path="res://Prefabs/Pieces/Blocker.gd" id="1_fvyov"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Blocker.gd" id="1_fvyov"]
 
 [node name="Blocker" type="Sprite2D"]
 z_index = 100

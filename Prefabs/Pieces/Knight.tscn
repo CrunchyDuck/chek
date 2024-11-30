@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://xxlvrbnr6ero"]
 
 [ext_resource type="Texture2D" uid="uid://c112jjqkmf5p0" path="res://Sprites/Pieces/Knight.png" id="1_4g2nb"]
-[ext_resource type="Script" path="res://Prefabs/Pieces/Knight.gd" id="2_mlaod"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Knight.gd" id="2_mlaod"]
 
 [node name="Knight" type="Sprite2D"]
 z_index = 100

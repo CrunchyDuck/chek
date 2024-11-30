@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2d8e88c2xm5n"]
 
 [ext_resource type="Texture2D" uid="uid://v3pro00bo2cp" path="res://Sprites/Pieces/Queen.png" id="1_lsu5j"]
-[ext_resource type="Script" path="res://Prefabs/Pieces/Queen.gd" id="2_qfn6p"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Queen.gd" id="2_qfn6p"]
 
 [node name="Queen" type="Sprite2D"]
 z_index = 100

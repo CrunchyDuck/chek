@@ -66,7 +66,6 @@ DENIABLE OPS - Pieces are invisible on dark tiles.
 ALLIED ASSAULT - Players on the same team can control the each others units
 
 Bomber - Loyal. Psychologically degraded. Move and attack any direction. Explodes when attacking or attacked, decimating the tile it is on. Attack from safe distance.
-Beast - ??? Move and attack cardinals up to 2. Paralyse adjacent units.
 Hologram - Cutting edge illusion. Cannot attack. Move any direction. Swap places with friendly pieces
 Shifter - Untrustworthy. Liability. Alternate between cardinal and diagonal movement.
 Checker - Acrobatic foreigner. Move forward diagonals. Leap over and destroy those in the way. Promotion at end of board.
@@ -78,7 +77,7 @@ Trench warfare - 2x15 board size, 2 players
 Cheker - Checkers, with wrapping edges
 Holy war - Only holograms and bishops.
 RUSH - Players take turns at the same time. They have "hoard" pieces, maybe pawns. All about speed.
-
+Trenches - Various tiles in the board are blocked, preventing direct passage.
 
 
 Desk fan
