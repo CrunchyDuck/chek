@@ -11,12 +11,9 @@ vec4 round_to_shade(vec4 color) {
 	if (color.r == 0.0) {
 		return shade1;
 	}
-	else {
-		return shade2;
-	}
+	return shade2;
 }
 
 void fragment() {
-	vec4 color = texture(screen_texture, SCREEN_UV);	
-	COLOR = round_to_shade(color);
+	COLOR = round_to_shade(COLOR);
 }

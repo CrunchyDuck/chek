@@ -12,3 +12,4 @@ shader_parameter/shade2 = Color(1, 1, 1, 1)
 z_index = 100
 z_as_relative = false
 material = SubResource("ShaderMaterial_5df7a")
+scale = Vector2(2, 2)

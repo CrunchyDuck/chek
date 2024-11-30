@@ -9,7 +9,7 @@
 resource_local_to_scene = true
 shader = ExtResource("1_0k1li")
 shader_parameter/shade1 = null
-shader_parameter/shade2 = Color(0, 0, 0, 1)
+shader_parameter/shade2 = Color(1, 1, 1, 1)
 
 [node name="Beast" instance=ExtResource("1_d55ni")]
 material = SubResource("ShaderMaterial_nfomu")
