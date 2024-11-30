@@ -79,6 +79,8 @@ Cheker - Checkers, with wrapping edges
 Holy war - Only holograms and bishops.
 RUSH - Players take turns at the same time. They have "hoard" pieces, maybe pawns. All about speed.
 
+
+
 Desk fan
 Desk plant
 Framed photo
@@ -88,10 +90,6 @@ Coffee
 Lamp
 Game dev gun
 Deer head
-
-tile blockers
-+ shaped board
-L shaped board
 
 The power lever is radioactive, which is why it glows in the dark.
 Splash screen logo

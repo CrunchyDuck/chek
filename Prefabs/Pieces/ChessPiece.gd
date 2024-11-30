@@ -2,13 +2,14 @@ class_name ChessPiece
 extends Sprite2D
 
 static var piece_prefabs = {
+	ePieces.Blocker: "Pieces.Blocker",
 	ePieces.Pawn: "Pieces.Pawn",
 	ePieces.Queen: "Pieces.Queen",
 	ePieces.King: "Pieces.King",
 	ePieces.Rook: "Pieces.Rook",
 	ePieces.Knight: "Pieces.Knight",
 	ePieces.Bishop: "Pieces.Bishop",
-	ePieces.Blocker: "Pieces.Blocker",
+	ePieces.Beast: "Pieces.Beast",
 }
 
 var node_sprite: Sprite2D = self
@@ -141,11 +142,12 @@ enum Orientation {
 }
 
 enum ePieces {
+	Blocker,
 	Pawn,
 	Rook,
 	Knight,
 	Bishop,
 	Queen,
 	King,
-	Blocker,
+	Beast,
 }
