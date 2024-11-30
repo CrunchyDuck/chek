@@ -59,6 +59,10 @@ func _ready():
 	
 	screen_controller.left_button[4].on_pressed.connect(prev_orientation)
 	screen_controller.right_button[4].on_pressed.connect(next_orientation)
+	
+func _process(delta: float) -> void:
+	node_x.text = str(x)
+	node_y.text = str(y)
 
 #region Button events
 func prev_x():
