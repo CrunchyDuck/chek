@@ -77,6 +77,36 @@ func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 		piece.orientation = wrapi(piece.orientation + 180, 0, 360)
 	return true
 	
+func _swap_cells(source: Vector2i, destination: Vector2i) -> bool:
+	var c1 = get_cell(source)
+	var c2 = get_cell(destination)
+	if c1 == null or c2 == null:
+		return false
+	
+	var p1 = c1.occupying_piece
+	var p2 = c2.occupying_piece
+	if p1 == null or p2 == null:
+		return false
+	
+	c1.occupying_piece = null
+	c1.occupying_piece = p2
+	p2.coordinates = c1.cell_coordinates
+	p2.position = cell_to_position(p2.coordinates)
+	
+	c2.occupying_piece = null
+	c2.occupying_piece = p1
+	p1.coordinates = c2.cell_coordinates
+	p1.position = cell_to_position(p1.coordinates)
+	p1.move_count += 1
+	
+	var cell_ahead = p1.coordinates + p1._rotate_to_orientation(Vector2i(0, 1))
+	if not is_coordinate_in_bounds(cell_ahead):
+		p1.orientation = wrapi(p1.orientation + 180, 0, 360)
+		
+	cell_ahead = p2.coordinates + p2._rotate_to_orientation(Vector2i(0, 1))
+	if not is_coordinate_in_bounds(cell_ahead):
+		p2.orientation = wrapi(p2.orientation + 180, 0, 360)
+	return true
 
 class GameAction:
 	# Describes an action that to take place on the board.
@@ -124,4 +154,5 @@ enum eActionType {
 	Attack,
 	AttackMove,  # Not quite, but almost shorthand for "attack this tile, then move then." Changed by some modifiers.
 	Spawn,
+	SwapPosition,
 }

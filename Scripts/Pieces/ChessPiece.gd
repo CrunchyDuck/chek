@@ -1,6 +1,30 @@
 class_name ChessPiece
 extends Sprite2D
 
+enum Orientation {
+	# South is the start as y is down in Godot.
+	South = 0,
+	West = 90,
+	North = 180,
+	East = 270,
+}
+
+enum ePieces {
+	Blocker,
+	Pawn,
+	Rook,
+	Knight,
+	Bishop,
+	Queen,
+	King,
+	Beast,
+	Bomber,
+	Hologram,
+	Shifter,
+	Czeker,
+	Youth,
+}
+
 static var piece_prefabs = {
 	ePieces.Blocker: "Pieces.Blocker",
 	ePieces.Pawn: "Pieces.Pawn",
@@ -181,27 +205,3 @@ func serialize() -> BoardBase.PieceState:
 		owned_by,
 	)
 	return ps
-		
-enum Orientation {
-	# South is the start as y is down in Godot.
-	South = 0,
-	West = 90,
-	North = 180,
-	East = 270,
-}
-
-enum ePieces {
-	Blocker,
-	Pawn,
-	Rook,
-	Knight,
-	Bishop,
-	Queen,
-	King,
-	Beast,
-	Bomber,
-	Hologram,
-	Shifter,
-	Czeker,
-	Youth,
-}

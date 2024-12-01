@@ -72,7 +72,7 @@ func _update_color():
 		color = color_blocked	
 	elif contained_action != null:
 		match contained_action.type:
-			BoardPlayable.eActionType.Move:
+			BoardPlayable.eActionType.Move, BoardPlayable.eActionType.SwapPosition:
 				color = color_move
 			BoardPlayable.eActionType.Attack, BoardPlayable.eActionType.AttackMove:
 				color = color_attack

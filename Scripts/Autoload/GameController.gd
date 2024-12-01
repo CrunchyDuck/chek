@@ -277,6 +277,9 @@ func perform_action(game_action_data: Dictionary) -> bool:
 					break
 			BoardPlayable.eActionType.Spawn:
 				pass
+			BoardPlayable.eActionType.SwapPosition:
+				if not board._swap_cells(current_action.source, current_action.target):
+					break
 			_:
 				assert(false, "Unhandled eActionType type in perform_action")
 		anything_performed = true

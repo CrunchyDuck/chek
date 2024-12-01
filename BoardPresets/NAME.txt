@@ -116,6 +116,13 @@
       "position_x": 4,
       "position_y": 7,
       "type": 6
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 4,
+      "type": 9
      }
     ]
    },
@@ -245,6 +252,7 @@
  "game_settings": {
   "board_size_x": 8,
   "board_size_y": 8,
+  "can_players_edit": false,
   "divine_wind": false,
   "no_retreat": false,
   "turn_bullet_chess": false,
