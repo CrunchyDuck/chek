@@ -10,6 +10,11 @@ static var piece_prefabs = {
 	ePieces.Knight: "Pieces.Knight",
 	ePieces.Bishop: "Pieces.Bishop",
 	ePieces.Beast: "Pieces.Beast",
+	ePieces.Bomber: "Pieces.Bomber",
+	ePieces.Hologram: "Pieces.Hologram",
+	ePieces.Shifter: "Pieces.Shifter",
+	ePieces.Czeker: "Pieces.Czeker",
+	ePieces.Youth: "Pieces.Youth",
 }
 
 var node_sprite: Sprite2D = self
@@ -58,6 +63,7 @@ func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_b
 	self.owned_by = _owned_by
 	self.board = _board
 	on_killed.connect(_on_killed)
+	on_kill.connect(_on_kill)
 
 # This lets us rotate vectors to be from the perspective of its team.
 # y = 1 for the top of the board (Black, in a normal game), will be y = -1 relative to their facing.
@@ -161,6 +167,9 @@ func _act_on_cell(cell: Vector2i) -> BoardPlayable.GameAction:
 		
 func _on_killed(killer: ChessPiece, victim: ChessPiece):
 	Helpers.destroy_node(self)
+
+func _on_kill(killer: ChessPiece, victim: ChessPiece):
+	pass
 	
 func serialize() -> BoardBase.PieceState:
 	var ps = BoardBase.PieceState.new(
