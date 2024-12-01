@@ -29,6 +29,9 @@ func _ready() -> void:
 	scene_preset = PrefabController.get_prefab("Menus.Setup.Preset").instantiate()
 	scene_rules = PrefabController.get_prefab("Menus.Setup.Rule").instantiate()
 	scene_board = PrefabController.get_prefab("Menus.Setup.Board").instantiate()
+	node_content.add_child(scene_preset)
+	node_content.add_child(scene_rules)
+	node_content.add_child(scene_board)
 	
 	button_preset.pressed.connect(func(): _load_scene(scene_preset))
 	button_rule.pressed.connect(func(): _load_scene(scene_rules))
@@ -40,10 +43,10 @@ func _ready() -> void:
 	
 	_load_scene(scene_preset)
 
-func _load_scene(scene_name: Node):
-		for c in node_content.get_children():
-			node_content.remove_child(c)
-		node_content.add_child(scene_name)
+func _load_scene(scene: Node):
+	for c in node_content.get_children():
+		Helpers.disable_node(c)
+	Helpers.enable_node(scene)
 
 func _on_start():
 	if not GameController.can_start_game():
