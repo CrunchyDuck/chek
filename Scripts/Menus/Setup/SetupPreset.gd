@@ -55,9 +55,7 @@ func set_preset(preset: BoardBase.GamePreset):
 	GameController.board_state = preset.board_state
 	GameController.game_settings = preset.game_settings
 	select_button(buttons[preset])
-	
-	# TODO: Remove prefab highlight when any change happens
-	pass
+	# TODO: Synchronize which prefab is selected across users.
 
 func select_button(button: Button):
 	if _selected_button:

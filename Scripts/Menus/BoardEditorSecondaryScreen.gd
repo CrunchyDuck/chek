@@ -64,8 +64,11 @@ func _process(delta: float) -> void:
 	node_x.text = str(x)
 	node_y.text = str(y)
 
+# TODO: Light up buttons when available
 #region Button events
 func prev_x():
+	if not multiplayer.is_server() and not GameController.game_settings.can_players_edit:
+		return
 	var _x = x - 1
 	if _x < 1:
 		return
@@ -73,11 +76,15 @@ func prev_x():
 	node_x.text = str(x)
 	
 func next_x():
+	if not multiplayer.is_server() and not GameController.game_settings.can_players_edit:
+		return
 	var _x = x + 1
 	editor.set_board_size(Vector2i(_x, y))
 	node_x.text = str(x)
 	
 func prev_y():
+	if not multiplayer.is_server() and not GameController.game_settings.can_players_edit:
+		return
 	var _y = y - 1
 	if _y < 1:
 		return
@@ -85,6 +92,8 @@ func prev_y():
 	node_y.text = str(y)
 	
 func next_y():
+	if not multiplayer.is_server() and not GameController.game_settings.can_players_edit:
+		return
 	var _y = y + 1
 	editor.set_board_size(Vector2i(x, _y))
 	node_y.text = str(y)

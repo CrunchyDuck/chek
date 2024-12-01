@@ -47,6 +47,18 @@ func gather_settings() -> BoardBase.GameSettings:
 	settings.no_retreat = button_no_retreat.button_pressed
 	return settings
 
+# TODO: Stop peers clicking buttons unless allowed
+func update_buttons_clickable():
+	pass
+	#var state = false
+	#if multiplayer.is_server():
+		#state = true
+	#else:
+		#state = GameController.game_settings.can_players_edit
+		#
+	#for button in buttons.values():
+		#button.disabled = !state
+
 @rpc("any_peer", "call_local", "reliable", 0)
 func load_settings(json_settings: Dictionary):
 	settings = BoardBase.GameSettings.deserialize(json_settings)

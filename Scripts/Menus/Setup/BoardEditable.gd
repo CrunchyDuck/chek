@@ -5,6 +5,8 @@ var paint_piece: BoardBase.PieceState
 
 func _input(event: InputEvent):
 	super(event)
+	if not multiplayer.is_server() and not GameController.game_settings.can_players_edit:
+		return
 	var _cell = position_to_cell(get_global_mouse_position())
 	if Input.is_action_pressed("LMB"):
 		if _cell:
