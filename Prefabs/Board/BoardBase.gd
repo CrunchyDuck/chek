@@ -344,6 +344,7 @@ class GameSettings:
 	var divine_wind: bool = false
 	var no_retreat: bool = false
 	var wrap_x: bool = false
+	var can_players_edit: bool = false
 	
 	func serialize() -> Dictionary:
 		var d = {}
@@ -351,6 +352,7 @@ class GameSettings:
 		d.board_size_y = board_size.y
 		d.divine_wind = divine_wind
 		d.no_retreat = no_retreat
+		d.can_players_edit = can_players_edit
 		
 		d.victory_total_limit = victory_total_limit
 		d.victory_total_count = victory_total_count
@@ -379,6 +381,7 @@ class GameSettings:
 		gs.board_size = Vector2i(json_game_settings.board_size_x, json_game_settings.board_size_y)
 		gs.divine_wind = json_game_settings.divine_wind
 		gs.no_retreat = json_game_settings.no_retreat
+		gs.can_players_edit = json_game_settings.can_players_edit
 		
 		gs.victory_total_limit = json_game_settings.victory_total_limit
 		gs.victory_total_count = json_game_settings.victory_total_count
