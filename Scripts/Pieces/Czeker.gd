@@ -1,12 +1,14 @@
 extends ChessPiece
 
-var piece_description = ColorControllers.color_text("Self destructive vendetta.\n", ColorControllers.description_color)\
-+ "Move and take cardinals."
+var piece_description = ColorControllers.color_text("Acrobatic foreigner.\n", ColorControllers.description_color)\
++ "Move forward diagonals.\n"\
++ "Leap over and kill those in the way.\n"\
++ "Promotion at end of board."
 
 func _init():
 	piece_type = ePieces.Rook
 
-# TODO: Kinging?
+# TODO: Kinging
 func _get_actions() -> Array[BoardPlayable.GameAction]:
 	var actions: Array[BoardPlayable.GameAction] = []
 	
