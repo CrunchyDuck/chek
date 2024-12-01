@@ -19,7 +19,7 @@ func _get_actions() -> Array[BoardPlayable.GameAction]:
 		var leap_position = target_position + _rotate_to_orientation(Vector2i(1, 1))
 		if _can_attack(target_position) and _can_move(leap_position):
 			var mov = BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.Move, coordinates, leap_position)
-			var att = BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.Attack, coordinates, target_position)
+			var att = BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.Attack, leap_position, target_position)
 			mov.next_action = att
 			actions.append(mov)
 			
@@ -31,7 +31,7 @@ func _get_actions() -> Array[BoardPlayable.GameAction]:
 		var leap_position = target_position + _rotate_to_orientation(Vector2i(-1, 1))
 		if _can_attack(target_position) and _can_move(leap_position):
 			var mov = BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.Move, coordinates, leap_position)
-			var att = BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.Attack, coordinates, target_position)
+			var att = BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.Attack, leap_position, target_position)
 			mov.next_action = att
 			actions.append(mov)
 	
