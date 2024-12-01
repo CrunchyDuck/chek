@@ -71,6 +71,13 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("SaveBoard"):
 		save_state_to_file()
+		
+func _process(delta):
+	# Bad form to update this every time rather than just on change,
+	# But I was having issues with the size of control objects changing when their rendering is disabled.
+	# And I'm past my deadline. :)
+	_position_board()
+	pass
 #endregion
 
 #region Board editing functions
@@ -137,7 +144,6 @@ func load_state(state: BoardBase.BoardState):
 	for player in state.players:
 		for piece in player.pieces:
 			spawn_piece_state(piece)
-	_position_board()
 		
 # TODO: Let players also save states to files.
 func save_state_to_file():
