@@ -136,6 +136,7 @@ func start_lobby(_port: int) -> bool:
 	multiplayer.multiplayer_peer = peer
 	create_player(1, character_name, job_name)  # Player for server
 	
+	GameController.screen_central.add_child(PrefabController.get_prefab("Menus.Setup.Main").instantiate())
 	MessageController.add_message("OPENED PORT " + str(port))
 	return true
 	
@@ -154,6 +155,7 @@ func join_lobby(_ip: String, _port: int) -> bool:
 func connected_to_server():
 	try_create_player.rpc_id(1, character_name, job_name)
 	PrefabController.request_refresh.rpc_id(1)
+	screen_central.add_child(PrefabController.get_prefab("Menus.Setup.Main").instantiate())
 
 func peer_disconnected(id: int):
 	Helpers.destroy_node(get_node("/root/GameController/Player" + str(id)))

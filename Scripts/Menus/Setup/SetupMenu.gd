@@ -34,9 +34,11 @@ func _ready() -> void:
 	node_content.add_child(scene_rules)
 	node_content.add_child(scene_board)
 	
-	PrefabController.register_networked_node.rpc("Menus.Setup.Prefab", scene_preset.get_path())
-	PrefabController.register_networked_node.rpc("Menus.Setup.Rule", scene_rules.get_path())
-	PrefabController.register_networked_node.rpc("Menus.Setup.Board", scene_board.get_path())
+	# I don't register these, so that it doesn't force them to spawn before they're ready.
+	#if multiplayer.is_server():
+		#PrefabController.register_networked_node.rpc("Menus.Setup.Prefab", scene_preset.get_path())
+		#PrefabController.register_networked_node.rpc("Menus.Setup.Rule", scene_rules.get_path())
+		#PrefabController.register_networked_node.rpc("Menus.Setup.Board", scene_board.get_path())
 	
 	button_preset.pressed.connect(func(): _load_scene(scene_preset))
 	button_rule.pressed.connect(func(): _load_scene(scene_rules))

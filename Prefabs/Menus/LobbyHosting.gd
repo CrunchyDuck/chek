@@ -26,5 +26,4 @@ func _on_done():
 	if not GameController.start_lobby(int(input_port.text)):
 		# TODO: Print error in chat
 		return
-	$"..".add_child(PrefabController.get_prefab("Menus.Setup.Main").instantiate())
 	Helpers.destroy_node(self)

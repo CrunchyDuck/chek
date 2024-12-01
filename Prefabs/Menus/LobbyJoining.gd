@@ -40,7 +40,6 @@ func _on_done():
 	print("connecting")
 	
 func _on_success():
-	$"..".add_child(PrefabController.get_prefab("Menus.Setup.Main").instantiate())
 	Helpers.destroy_node(self)
 	print("connected")
 	

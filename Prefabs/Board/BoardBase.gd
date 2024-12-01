@@ -303,7 +303,7 @@ func synchronize(json_board_state: Dictionary):
 	load_state(bs)
 	GameController.board_state = bs
 
-@rpc("any_peer", "call_remote", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func request_synchronize():
 	if not multiplayer.is_server():
 		return

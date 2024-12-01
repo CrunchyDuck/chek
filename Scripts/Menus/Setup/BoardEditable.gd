@@ -2,6 +2,19 @@ class_name BoardEditable
 extends BoardBase
 
 var paint_piece: BoardBase.PieceState
+var first_cycle: bool = true
+
+
+func _process(delta):
+	# I had so much fucking trouble gettin this to work.
+	# The issue lies in RPCs relying on the node path to run.
+	# So, if the node hasn't fully entered the node tree, it will error.
+	# Moreover, _ready and _enter_tree happen BEFORE it's fully in the tree!!
+	# This took me over an hour to solve, and I'm pretty damn annoyed.
+	super(delta)
+	if not multiplayer.is_server() and first_cycle:
+		first_cycle = false
+		request_synchronize.rpc()
 
 func _input(event: InputEvent):
 	super(event)
@@ -37,3 +50,7 @@ func clear_cell(_cell: BoardCell):
 		return
 	Helpers.destroy_node(_cell.occupying_piece)
 	GameController.board_state = serialize()
+
+@rpc("any_peer", "reliable")
+func test():
+	print("here")
