@@ -71,7 +71,6 @@ Shifter - Untrustworthy. Liability. Alternate between cardinal and diagonal move
 Checker - Acrobatic foreigner. Move forward diagonals. Leap over and destroy those in the way. Promotion at end of board.
 Weaponized youth - Innocence, weaponized. Attacking this piece turns the attacker to the piece's team. Move and attack diagonals.
 
-Hoard - one side has a bunch of pawns
 War fatigue - Players do not spawn with pawns.
 Trench warfare - 2x15 board size, 2 players
 Cheker - Checkers, with wrapping edges
