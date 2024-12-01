@@ -29,9 +29,14 @@ func _ready() -> void:
 	scene_preset = PrefabController.get_prefab("Menus.Setup.Preset").instantiate()
 	scene_rules = PrefabController.get_prefab("Menus.Setup.Rule").instantiate()
 	scene_board = PrefabController.get_prefab("Menus.Setup.Board").instantiate()
+	
 	node_content.add_child(scene_preset)
 	node_content.add_child(scene_rules)
 	node_content.add_child(scene_board)
+	
+	PrefabController.register_networked_node.rpc("Menus.Setup.Prefab", scene_preset.get_path())
+	PrefabController.register_networked_node.rpc("Menus.Setup.Rule", scene_rules.get_path())
+	PrefabController.register_networked_node.rpc("Menus.Setup.Board", scene_board.get_path())
 	
 	button_preset.pressed.connect(func(): _load_scene(scene_preset))
 	button_rule.pressed.connect(func(): _load_scene(scene_rules))
@@ -51,4 +56,7 @@ func _load_scene(scene: Node):
 func _on_start():
 	if not GameController.can_start_game():
 		return
+	PrefabController.remove_networked_node.rpc(scene_preset.get_path())
+	PrefabController.remove_networked_node.rpc(scene_rules.get_path())
+	PrefabController.remove_networked_node.rpc(scene_board.get_path())
 	GameController.start_game.rpc(GameController.game_settings.serialize(), GameController.board_state.serialize())

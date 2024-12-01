@@ -5,7 +5,7 @@ var prefabs_filled = false
 
 # A node that is networked must fulfil the following criteria:
 # Its path in the node tree does not change
-# It has a do_synchronize function, which will package variables call and RPC
+# It optionally has a do_synchronize function, which will package variables and call an RPC
 var networked_nodes: Dictionary
 
 func fill_prefabs():
@@ -59,6 +59,12 @@ func register_networked_node(prefab_path: String, node_path: String) -> void:
 	if multiplayer.is_server():
 		if p.has_method("do_synchronize"):
 			p.do_synchronize()
+
+@rpc("authority", "call_local", "reliable")
+func remove_networked_node(node_path: String) -> void:
+	var node = networked_nodes[node_path]
+	networked_nodes.erase(node_path)
+	Helpers.destroy_node(node)
 
 @rpc("any_peer", "call_remote", "reliable")
 func request_refresh():
