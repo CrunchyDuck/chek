@@ -291,6 +291,25 @@ func _move_clipping_left():
 	_move_clipping_position_min(new_pos)
 #endregion
 
+#region Networking functions
+func do_synchronize():
+	if not multiplayer.is_server():
+		return
+	synchronize.rpc(serialize_dict())
+	
+@rpc("authority", "call_local", "reliable")
+func synchronize(json_board_state: Dictionary):
+	var bs = BoardBase.BoardState.deserialize(json_board_state)
+	load_state(bs)
+	GameController.board_state = bs
+
+@rpc("any_peer", "call_remote", "reliable")
+func request_synchronize():
+	if not multiplayer.is_server():
+		return
+	synchronize.rpc_id(multiplayer.get_remote_sender_id(), serialize_dict())
+#endregion
+
 #region Classes
 class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
