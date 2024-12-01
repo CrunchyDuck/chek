@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxqwi0dhb8jcs"]
+[gd_scene load_steps=6 format=3 uid="uid://cbp0pw80p7vcg"]
 
-[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_mt4kw"]
+[ext_resource type="PackedScene" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_mt4kw"]
 [ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_md8wr"]
 [ext_resource type="Texture2D" uid="uid://ccg5d0p0kiw2k" path="res://Sprites/Pieces/Czeker.png" id="3_w2s2r"]
+[ext_resource type="Script" path="res://Scripts/Pieces/Czeker.gd" id="4_nk0tu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_38xot"]
 resource_local_to_scene = true
@@ -13,3 +14,4 @@ shader_parameter/shade2 = null
 [node name="Czeker" instance=ExtResource("1_mt4kw")]
 material = SubResource("ShaderMaterial_38xot")
 texture = ExtResource("3_w2s2r")
+script = ExtResource("4_nk0tu")
