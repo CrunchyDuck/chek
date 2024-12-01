@@ -6,7 +6,7 @@ var piece_description = ColorControllers.color_text("Acrobatic foreigner.\n", Co
 + "Promotion at end of board."
 
 func _init():
-	piece_type = ePieces.Rook
+	piece_type = ePieces.Czeker
 
 # TODO: Kinging
 func _get_actions() -> Array[BoardPlayable.GameAction]:

@@ -5,7 +5,7 @@ ColorControllers.color_text("Untrustworthy. Liability.\n", ColorControllers.desc
 + "Alternate between diagonal and cardinal movement"
 
 func _init():
-	piece_type = ePieces.Bishop
+	piece_type = ePieces.Shifter
 	
 func _get_actions() -> Array[BoardPlayable.GameAction]:
 	var actions: Array[BoardPlayable.GameAction] = []
