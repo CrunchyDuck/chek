@@ -73,6 +73,7 @@ func prev_x():
 	if _x < 1:
 		return
 	editor.set_board_size(Vector2i(_x, y))
+	editor.do_synchronize()
 	node_x.text = str(x)
 	
 func next_x():
@@ -80,6 +81,7 @@ func next_x():
 		return
 	var _x = x + 1
 	editor.set_board_size(Vector2i(_x, y))
+	editor.do_synchronize()
 	node_x.text = str(x)
 	
 func prev_y():
@@ -89,6 +91,7 @@ func prev_y():
 	if _y < 1:
 		return
 	editor.set_board_size(Vector2i(x, _y))
+	editor.do_synchronize()
 	node_y.text = str(y)
 	
 func next_y():
@@ -96,6 +99,7 @@ func next_y():
 		return
 	var _y = y + 1
 	editor.set_board_size(Vector2i(x, _y))
+	editor.do_synchronize()
 	node_y.text = str(y)
 	
 func prev_piece():
