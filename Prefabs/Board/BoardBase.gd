@@ -378,31 +378,34 @@ class GameSettings:
 	
 	static func deserialize(json_game_settings) -> GameSettings:
 		var gs = GameSettings.new()
-		gs.board_size = Vector2i(json_game_settings.board_size_x, json_game_settings.board_size_y)
-		gs.divine_wind = json_game_settings.divine_wind
-		gs.no_retreat = json_game_settings.no_retreat
-		gs.can_players_edit = json_game_settings.can_players_edit
+		# Getting default values here ensures presets made without this rules will still run.
+		var x = json_game_settings.get("board_size_x", 8)
+		var y = json_game_settings.get("board_size_y", 8)
+		gs.board_size = Vector2i(x, y)
+		gs.divine_wind = json_game_settings.get("divine_wind", false)
+		gs.no_retreat = json_game_settings.get("no_retreat", false)
+		gs.can_players_edit = json_game_settings.get("can_players_edit", false)
 		
-		gs.victory_total_limit = json_game_settings.victory_total_limit
-		gs.victory_total_count = json_game_settings.victory_total_count
+		gs.victory_total_limit = json_game_settings.get("victory_total_limit", false)
+		gs.victory_total_count = json_game_settings.get("victory_total_count", 0)
 		
-		gs.victory_specific_limit = json_game_settings.victory_specific_limit
-		gs.victory_specific_type = json_game_settings.victory_specific_type
-		gs.victory_lose_any = json_game_settings.victory_lose_any
-		gs.victory_lose_all = json_game_settings.victory_lose_all
+		gs.victory_specific_limit = json_game_settings.get("victory_specific_limit", false)
+		gs.victory_specific_type = json_game_settings.get("victory_specific_type", 0)
+		gs.victory_lose_any = json_game_settings.get("victory_lose_any", false)
+		gs.victory_lose_all = json_game_settings.get("victory_lose_all", false)
 
-		gs.turn_sequential = json_game_settings.turn_sequential
-		gs.turns_concurrent = json_game_settings.turns_concurrent
-		gs.turns_at_a_time = json_game_settings.turns_at_a_time
+		gs.turn_sequential = json_game_settings.get("turn_sequential", true)
+		gs.turns_concurrent = json_game_settings.get("turns_concurrent", false)
+		gs.turns_at_a_time = json_game_settings.get("turns_at_a_time", 0)
 		
-		gs.turn_bullet_chess = json_game_settings.turn_bullet_chess
-		gs.turn_bullet_limit = json_game_settings.turn_bullet_limit
+		gs.turn_bullet_chess = json_game_settings.get("turn_bullet_chess", false)
+		gs.turn_bullet_limit = json_game_settings.get("turn_bullet_limit", 0)
 		
-		gs.turn_queue = json_game_settings.turn_queue
-		gs.turn_queue_time = json_game_settings.turn_queue_time
+		gs.turn_queue = json_game_settings.get("turn_queue", false)
+		gs.turn_queue_time = json_game_settings.get("turn_queue_time", 0)
 		
-		gs.turn_timed = json_game_settings.turn_timed
-		gs.turn_cooldown = json_game_settings.turn_cooldown
+		gs.turn_timed = json_game_settings.get("turn_timed", false)
+		gs.turn_cooldown = json_game_settings.get("turn_cooldown", 0)
 		
 		return gs
 
