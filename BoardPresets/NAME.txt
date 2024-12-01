@@ -8,30 +8,142 @@
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 1,
-      "position_y": 7,
-      "type": 3
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 2,
-      "position_y": 10,
-      "type": 3
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 2,
-      "position_y": 9,
+      "position_x": 0,
+      "position_y": 0,
       "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 0,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 0,
+      "type": 7
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 0,
+      "position_y": 1,
+      "type": 10
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 1,
+      "type": 10
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 0,
+      "position_y": 2,
+      "type": 3
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 2,
+      "type": 3
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 2,
+      "type": 2
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 0,
+      "position_y": 3,
+      "type": 8
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 3,
+      "type": 5
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 0,
+      "position_y": 7,
+      "type": 5
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 8,
+      "type": 2
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 0,
+      "position_y": 8,
+      "type": 3
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 8,
+      "type": 3
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 10,
+      "type": 7
      },
      {
       "orientation": 180,
       "player": 0,
       "position_x": 0,
       "position_y": 10,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 10,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 0,
+      "position_y": 9,
       "type": 10
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 9,
+      "type": 10
+     },
+     {
+      "orientation": 0,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 5,
+      "type": 0
      }
     ]
    }

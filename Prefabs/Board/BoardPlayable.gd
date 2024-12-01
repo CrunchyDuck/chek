@@ -49,8 +49,13 @@ func deselect_cell():
 	_selected_cell = null
 
 func _attack_to_cell(source: Vector2i, destination: Vector2i) -> bool:
-	var killer = get_cell(source).occupying_piece
-	var victim = get_cell(destination).occupying_piece
+	var cs = get_cell(source)
+	var cd = get_cell(destination)
+	if cs == null or cd == null:
+		return false
+	
+	var killer = cs.occupying_piece
+	var victim = cd.occupying_piece
 	if killer == null or victim == null:
 		return false
 	killer.on_kill.emit(killer, victim)
