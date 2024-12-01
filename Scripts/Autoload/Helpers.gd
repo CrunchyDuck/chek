@@ -9,3 +9,13 @@ static func destroy_node(node: Node):
 	if p:
 		p.remove_child(node)
 	node.queue_free()
+
+static func disable_node(node: Node):
+	node.process_mode = Node.PROCESS_MODE_DISABLED
+	if node.has_method("hide"):
+		node.hide()
+
+static func enable_node(node: Node):
+	node.process_mode = Node.PROCESS_MODE_INHERIT
+	if node.has_method("show"):
+		node.show()
