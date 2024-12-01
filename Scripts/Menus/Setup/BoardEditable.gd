@@ -12,8 +12,10 @@ func _input(event: InputEvent):
 		if _cell:
 			spawn_piece(paint_piece.type, _cell.cell_coordinates, paint_piece.orientation, paint_piece.player)
 			GameController.board_state = serialize()
+			do_synchronize()
 	if Input.is_action_pressed("RMB"):
 		clear_cell(_cell)
+		do_synchronize()
 
 func set_board_size(new_size: Vector2i):
 	var _old_state = GameController.board_state
