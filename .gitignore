@@ -2,3 +2,5 @@
 .godot/
 /android/
 .DS_Store
+GodotSharp/
+Godot_v4.3-stable_mono_win64.exe

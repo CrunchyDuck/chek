@@ -11,7 +11,6 @@ func _init():
 	
 func _get_actions() -> Array[BoardPlayable.GameAction]:
 	var actions: Array[BoardPlayable.GameAction] = []
-	# This piece cannot be paralysed. Thus, I implement a lot of custom actions here.
 	var my_cell = coordinates
 	for p in owned_by_player.pieces:
 		var p_cell = p.coordinates
@@ -30,3 +29,6 @@ func _get_actions() -> Array[BoardPlayable.GameAction]:
 			elif target_cell.occupying_piece.owned_by != owned_by:
 				actions.append(BoardPlayable.GameAction.new(owned_by, BoardPlayable.eActionType.SwapPosition, my_cell, target_cell.cell_coordinates))
 	return actions
+
+func is_paralysed() -> bool:
+	return false

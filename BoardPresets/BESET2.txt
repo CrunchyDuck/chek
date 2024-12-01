@@ -325,68 +325,62 @@
 			"position_x": 4,
 			"position_y": 1,
 			"type": 0
-		 }
-		]
-	 },
-	 {
-		"actions_remaining": 0,
-		"id": 2,
-		"pieces": [
+		 },
 		 {
 			"orientation": 90,
-			"player": 2,
+			"player": 1,
 			"position_x": 7,
-			"position_y": 5,
+			"position_y": 7,
 			"type": 1
 		 },
 		 {
 			"orientation": 90,
-			"player": 2,
+			"player": 1,
 			"position_x": 7,
 			"position_y": 6,
 			"type": 1
 		 },
 		 {
 			"orientation": 90,
-			"player": 2,
+			"player": 1,
 			"position_x": 7,
-			"position_y": 7,
-			"type": 1
-		 },
-		 {
-			"orientation": 90,
-			"player": 2,
-			"position_x": 7,
-			"position_y": 8,
-			"type": 1
-		 },
-		 {
-			"orientation": 90,
-			"player": 2,
-			"position_x": 8,
-			"position_y": 8,
-			"type": 4
-		 },
-		 {
-			"orientation": 90,
-			"player": 2,
-			"position_x": 8,
 			"position_y": 5,
-			"type": 4
+			"type": 1
 		 },
 		 {
 			"orientation": 90,
-			"player": 2,
-			"position_x": 8,
-			"position_y": 7,
-			"type": 5
+			"player": 1,
+			"position_x": 7,
+			"position_y": 8,
+			"type": 1
 		 },
 		 {
 			"orientation": 90,
-			"player": 2,
+			"player": 1,
 			"position_x": 8,
 			"position_y": 6,
 			"type": 3
+		 },
+		 {
+			"orientation": 90,
+			"player": 1,
+			"position_x": 8,
+			"position_y": 8,
+			"type": 4
+		 },
+		 {
+			"orientation": 90,
+			"player": 1,
+			"position_x": 8,
+			"position_y": 5,
+			"type": 4
+		 },
+		 {
+			"orientation": 90,
+			"player": 1,
+			"position_x": 8,
+			"position_y": 7,
+			"type": 5
 		 }
 		]
 	 }
@@ -416,6 +410,6 @@
 	"victory_total_count": 0,
 	"victory_total_limit": false
  },
- "name": "BESET - WIP",
- "players": 3
+ "name": "BESET",
+ "players": 2
 }
