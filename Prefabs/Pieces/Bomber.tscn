@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://duqbktp7q6xcb"]
+[gd_scene load_steps=6 format=3 uid="uid://blh4mvwl8b060"]
 
-[ext_resource type="PackedScene" uid="uid://bb10ji0hrt2rp" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_qy33v"]
+[ext_resource type="PackedScene" path="res://Prefabs/Pieces/BasePiece.tscn" id="1_qy33v"]
 [ext_resource type="Shader" path="res://Shaders/PieceTeamColor.gdshader" id="2_fu6yh"]
 [ext_resource type="Texture2D" uid="uid://daqbd8jyxh8d6" path="res://Sprites/Pieces/Bomber.png" id="3_77q86"]
 [ext_resource type="Script" path="res://Scripts/Pieces/Bomber.gd" id="4_r3i80"]

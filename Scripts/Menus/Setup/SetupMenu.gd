@@ -58,7 +58,4 @@ func _load_scene(scene: Node):
 func _on_start():
 	if not GameController.can_start_game():
 		return
-	PrefabController.remove_networked_node.rpc(scene_preset.get_path())
-	PrefabController.remove_networked_node.rpc(scene_rules.get_path())
-	PrefabController.remove_networked_node.rpc(scene_board.get_path())
 	GameController.start_game.rpc(GameController.game_settings.serialize(), GameController.board_state.serialize())

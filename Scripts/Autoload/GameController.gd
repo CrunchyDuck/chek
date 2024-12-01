@@ -165,57 +165,6 @@ func disconnected():
 	print("disconnected from server")
 #endregion
 
-#region Board configurations
-func standard_board_setup() -> BoardBase.BoardState:
-	var board = BoardBase.BoardState.new()
-	board.size = Vector2i(8, 8)
-	var p1 = BoardBase.PlayerState.new(0)
-	var p2 = BoardBase.PlayerState.new(1)
-	
-	p1.add_piece(ChessPiece.ePieces.Pawn, Vector2i(0, 1), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Pawn, Vector2i(1, 1), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Pawn, Vector2i(2, 1), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Pawn, Vector2i(3, 1), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Pawn, Vector2i(4, 1), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Pawn, Vector2i(5, 1), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Pawn, Vector2i(6, 1), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Pawn, Vector2i(7, 1), ChessPiece.Orientation.South)
-	
-	p1.add_piece(ChessPiece.ePieces.Queen, Vector2i(3, 0), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.King, Vector2i(4, 0), ChessPiece.Orientation.South)
-	
-	p1.add_piece(ChessPiece.ePieces.Rook, Vector2i(0, 0), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Rook, Vector2i(7, 0), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Knight, Vector2i(1, 0), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Knight, Vector2i(6, 0), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Bishop, Vector2i(2, 0), ChessPiece.Orientation.South)
-	p1.add_piece(ChessPiece.ePieces.Bishop, Vector2i(5, 0), ChessPiece.Orientation.South)
-	
-	p2.add_piece(ChessPiece.ePieces.Pawn, Vector2i(0, 6), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Pawn, Vector2i(1, 6), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Pawn, Vector2i(2, 6), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Pawn, Vector2i(3, 6), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Pawn, Vector2i(4, 6), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Pawn, Vector2i(5, 6), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Pawn, Vector2i(6, 6), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Pawn, Vector2i(7, 6), ChessPiece.Orientation.North)
-	
-	p2.add_piece(ChessPiece.ePieces.Queen, Vector2i(3, 7), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.King, Vector2i(4, 7), ChessPiece.Orientation.North)
-	
-	p2.add_piece(ChessPiece.ePieces.Rook, Vector2i(0, 7), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Rook, Vector2i(7, 7), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Knight, Vector2i(1, 7), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Knight, Vector2i(6, 7), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Bishop, Vector2i(2, 7), ChessPiece.Orientation.North)
-	p2.add_piece(ChessPiece.ePieces.Bishop, Vector2i(5, 7), ChessPiece.Orientation.North)
-	
-	board.players.append(p2)
-	board.players.append(p1)
-	
-	return board
-#endregion
-
 #region Standard functions
 func can_start_game() -> bool:
 	var p_min = board_state.players.size()

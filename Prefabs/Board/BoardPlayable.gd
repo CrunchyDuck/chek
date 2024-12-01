@@ -55,10 +55,6 @@ func _attack_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 		return false
 	killer.on_kill.emit(killer, victim)
 	victim.on_killed.emit(killer, victim)
-	get_cell(destination).occupying_piece = null
-	if game_settings.divine_wind:
-		killer.on_killed.emit(killer, killer)
-		get_cell(source).occupying_piece = null
 	return true
 	
 func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:

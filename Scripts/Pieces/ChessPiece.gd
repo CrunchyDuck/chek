@@ -167,9 +167,11 @@ func _act_on_cell(cell: Vector2i) -> BoardPlayable.GameAction:
 		
 func _on_killed(killer: ChessPiece, victim: ChessPiece):
 	Helpers.destroy_node(self)
+	in_cell.occupying_piece = null
 
 func _on_kill(killer: ChessPiece, victim: ChessPiece):
-	pass
+	if GameController.game_settings.divine_wind:
+		_on_killed(self, self)
 	
 func serialize() -> BoardBase.PieceState:
 	var ps = BoardBase.PieceState.new(

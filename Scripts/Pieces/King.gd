@@ -2,7 +2,7 @@ extends ChessPiece
 
 var piece_description =\
 ColorControllers.color_text("Ineffective figurehead.\n", ColorControllers.description_color)\
-+ "Move and take any direction."
++ "Move and attack any direction."
 
 func _init():
 	piece_type = ePieces.King
