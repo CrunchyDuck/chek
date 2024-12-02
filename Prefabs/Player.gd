@@ -33,12 +33,14 @@ var pieces: Array:
 			return []
 		return board.pieces_by_game_id[game_id]
 
+var player_stats: Player.PlayerStats
+
 func _init():
 	players[self] = true
+	player_stats = Player.PlayerStats.new()
 	
 func _exit_tree() -> void:
 	players.erase(self)
-	
 	
 func can_act() -> bool:
 	for _piece in pieces:
@@ -89,8 +91,78 @@ func request_synchronize():
 func synchronize(data: Dictionary):
 	deserialize(data)
 
+@rpc("authority", "call_local", "reliable")
+func send_player_stats():
+	# only send the data for the player we own.
+	if network_id != GameController.player.network_id:
+		return
+	
+	# TODO: Fill in stats.
+	receive_player_stats.rpc(player_stats.serialize())
+
+@rpc("any_peer", "call_remote", "reliable")
+func receive_player_stats(stats: Dictionary):
+	player_stats = PlayerStats.deserialize(stats)
+
 enum PlayerType {
 	None,
 	Human,
 	AI,
 }
+
+	
+class PlayerStats:
+	var player_num: int = 0
+	var pieces_killed: int = 0
+	var pieces_lost: int = 0
+	var turns_taken: int = 0
+	var distance_moved: float = 0
+	var average_turn_time: float = 0
+	
+	# useless stats, randomly chosen
+	var mistakes: int = 0  # randomly chosen based on pieces lost
+	var tricks_pulled: int = 0  # Randomly chosen based on pieces killed
+	var lights_on: bool = false
+	var ventilation_on: bool = false
+	var times_turned_monitor_off: int = 0
+	var competence: float = 0  # Factors in various stats arbitrarily.
+	var happy: bool = false
+	var cheated: bool = false
+	
+	func serialize() -> Dictionary:
+		var d = {}
+		d.player_num = player_num
+		d.pieces_killed = pieces_killed
+		d.pieces_lost = pieces_lost
+		d.turns_taken = turns_taken
+		d.distance_moved = distance_moved
+		d.average_turn_time = average_turn_time
+		
+		d.mistakes = mistakes
+		d.tricks_pulled = tricks_pulled
+		d.lights_on = lights_on
+		d.ventilation_on = ventilation_on
+		d.times_turned_monitor_off = times_turned_monitor_off
+		d.competence = competence
+		d.happy = happy
+		d.cheated = cheated
+		return d
+	
+	static func deserialize(d: Dictionary) -> PlayerStats:
+		var ps = PlayerStats.new()
+		ps.player_num = d.player_num
+		ps.pieces_killed = d.pieces_killed
+		ps.pieces_lost = d.pieces_lost
+		ps.turns_taken = d.turns_taken
+		ps.distance_moved = d.distance_moved
+		ps.average_turn_time = d.average_turn_time
+		
+		ps.mistakes = d.mistakes
+		ps.tricks_pulled = d.tricks_pulled
+		ps.lights_on = d.lights_on
+		ps.ventilation_on = d.ventilation_on
+		ps.times_turned_monitor_off = d.times_turned_monitor_off
+		ps.competence = d.competence
+		ps.happy = d.happy
+		ps.cheated = d.cheated
+		return ps

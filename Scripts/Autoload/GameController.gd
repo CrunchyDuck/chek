@@ -342,14 +342,12 @@ func try_create_player(character_name: String, job_name: String):
 		print("Tried to create player that already exists.")
 	create_player(network_id, character_name, job_name)
 	
-	
 @rpc("any_peer", "call_local", "reliable")
 func player_loaded():
 	players_loaded += 1
 	if players_loaded == Player.players.size():
 		board.visible = true
 		Helpers.destroy_node(screen_central.get_node("GameLoading"))
-
 
 @rpc("authority", "call_local", "reliable")
 func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
