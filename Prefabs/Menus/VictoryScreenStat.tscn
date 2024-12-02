@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://4iac65m63fnv"]
+
+[node name="VictoryScreenStat" type="VBoxContainer"]
+offset_right = 109.0
+offset_bottom = 158.0
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "PLAYER NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Killed" type="Label" parent="."]
+layout_mode = 2
+text = "KILLED: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lost" type="Label" parent="."]
+layout_mode = 2
+text = "LOST: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Turns" type="Label" parent="."]
+layout_mode = 2
+text = "TURNS: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Distance" type="Label" parent="."]
+layout_mode = 2
+text = "DISTANCE: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TurnTime" type="Label" parent="."]
+layout_mode = 2
+text = "AVG DELAY: "
+horizontal_alignment = 1
+vertical_alignment = 1
