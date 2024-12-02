@@ -14,7 +14,7 @@ func _on_return():
 	pass
 
 func display_stats(victor: int, player_stats: Array[Player.PlayerStats]):
-	label_winner.text = ColorController.color_text("VICTORY COMMANDER " + str(victor), ColorController.player_primary_colors[victor])
+	label_winner.text = ColorController.color_text("VICTORY " + GameController.players_by_game_id[victor], ColorController.player_primary_colors[victor])
 	
 	var vss = PrefabController.get_prefab("Menus.VictoryScreenStat")
 	for p in player_stats:

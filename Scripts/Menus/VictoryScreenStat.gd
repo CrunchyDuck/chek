@@ -10,6 +10,9 @@ var stats: Player.PlayerStats
 var pid: int:
 	get:
 		return stats.player_num
+var player:
+	get:
+		return GameController.players_by_game_id[pid]
 var pcol: Color:
 	get:
 		return ColorController.player_primary_colors[pid]
@@ -18,6 +21,7 @@ const num_misc_to_display = 2
 
 func fill_stats(_stats: Player.PlayerStats):
 	self.stats = _stats
+	label_name.text = ColorController.color_text(player.name, pcol)
 	
 	add_killed()
 	add_lost()
