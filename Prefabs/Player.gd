@@ -38,6 +38,11 @@ var player_stats: Player.PlayerStats
 func _init():
 	players[self] = true
 	player_stats = Player.PlayerStats.new()
+	$/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPower/PowerCoordinator.powered_off.connect(\
+		func ():
+			if network_id == GameController.player.network_id:
+				player_stats.times_turned_monitor_off += 1
+	)
 	
 func _exit_tree() -> void:
 	players.erase(self)
@@ -97,7 +102,12 @@ func send_player_stats():
 	if network_id != GameController.player.network_id:
 		return
 	
-	# TODO: Fill in stats.
+	player_stats.mistakes = randi_range(0, player_stats.pieces_lost)
+	player_stats.tricks_pulled = randi_range(0, player_stats.pieces_killed)
+	player_stats.lights_on = $/root/MainScene/Console/MainLightButton/PowerCoordinator.on
+	player_stats.ventilation_on = $/root/MainScene/Console/Fan.on
+	player_stats.happy = true if randf() < 0.5 else false
+	player_stats.cheated = true if randf() < 0.5 else false
 	receive_player_stats.rpc(player_stats.serialize())
 
 @rpc("any_peer", "call_remote", "reliable")
@@ -125,7 +135,7 @@ class PlayerStats:
 	var lights_on: bool = false
 	var ventilation_on: bool = false
 	var times_turned_monitor_off: int = 0
-	var competence: float = 0  # Factors in various stats arbitrarily.
+	#var competence: float = 0  # Factors in various stats arbitrarily.
 	var happy: bool = false
 	var cheated: bool = false
 	
@@ -143,7 +153,7 @@ class PlayerStats:
 		d.lights_on = lights_on
 		d.ventilation_on = ventilation_on
 		d.times_turned_monitor_off = times_turned_monitor_off
-		d.competence = competence
+		#d.competence = competence
 		d.happy = happy
 		d.cheated = cheated
 		return d
@@ -162,7 +172,7 @@ class PlayerStats:
 		ps.lights_on = d.lights_on
 		ps.ventilation_on = d.ventilation_on
 		ps.times_turned_monitor_off = d.times_turned_monitor_off
-		ps.competence = d.competence
+		#ps.competence = d.competence
 		ps.happy = d.happy
 		ps.cheated = d.cheated
 		return ps

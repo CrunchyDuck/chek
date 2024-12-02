@@ -17,6 +17,9 @@ var console_on: bool = false
 
 var last_updated_state: bool = false
 
+signal powered_off()
+signal powered_on()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var power_lever: LeverBehavior = $"/root/MainScene/Console/Lever"
@@ -51,4 +54,8 @@ func try_change_state():
 		# Perform delay.
 		await get_tree().create_timer(delay).timeout
 	
+	if on:
+		powered_on.emit()
+	else:
+		powered_off.emit()
 	power_to.toggle_power(on)
