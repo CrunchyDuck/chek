@@ -104,6 +104,7 @@ func send_player_stats():
 	# only send the data for the player we own.
 	if network_id != GameController.player.network_id:
 		return
+	player_stats.player_num = game_id
 	
 	player_stats.mistakes = randi_range(0, player_stats.pieces_lost)
 	player_stats.tricks_pulled = randi_range(0, player_stats.pieces_killed)

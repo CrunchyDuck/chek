@@ -286,6 +286,7 @@ func perform_action(game_action_data: Dictionary) -> bool:
 		current_action = current_action.next_action
 		
 	if anything_performed:
+		players_by_game_id[action.player].turns_taken += 1
 		on_action(action)
 		return true
 	return false

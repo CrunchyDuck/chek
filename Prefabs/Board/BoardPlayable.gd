@@ -56,6 +56,8 @@ func _attack_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	
 	var killer = cs.occupying_piece
 	var victim = cd.occupying_piece
+	killer.owned_by_player.player_stats.pieces_killed += 1
+	victim.owned_by_player.player_stats.pieces_lost += 1
 	if killer == null or victim == null:
 		return false
 	killer.on_kill.emit(killer, victim)
@@ -76,6 +78,7 @@ func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	piece.coordinates = destination_cell.cell_coordinates
 	piece.position = cell_to_position(piece.coordinates)
 	
+	piece.owned_by_player.player_stats.distance_moved = (Vector2(source) - Vector2(destination)).length()
 	# Rotate piece if at the end of the board.
 	var cell_ahead = piece.coordinates + piece._rotate_to_orientation(Vector2i(0, 1))
 	if not is_coordinate_in_bounds(cell_ahead):
@@ -92,6 +95,10 @@ func _swap_cells(source: Vector2i, destination: Vector2i) -> bool:
 	var p2 = c2.occupying_piece
 	if p1 == null or p2 == null:
 		return false
+	
+	var dist = (Vector2(c1.cell_coordinates) - Vector2(c2.cell_coordinates)).length()
+	p1.owned_by_player.player_stats.distance_moved += dist
+	p2.owned_by_player.player_stats.distance_moved += dist
 	
 	c1.occupying_piece = null
 	c1.occupying_piece = p2
