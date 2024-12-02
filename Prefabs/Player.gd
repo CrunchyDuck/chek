@@ -37,8 +37,11 @@ var player_stats: Player.PlayerStats
 
 func _init():
 	players[self] = true
+	
+func _ready():
 	player_stats = Player.PlayerStats.new()
-	$/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPower/PowerCoordinator.powered_off.connect(\
+	var mon: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPower/PowerCoordinator"
+	mon.powered_off.connect(\
 		func ():
 			if network_id == GameController.player.network_id:
 				player_stats.times_turned_monitor_off += 1
