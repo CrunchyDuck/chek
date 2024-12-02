@@ -459,9 +459,6 @@ sound_up = NodePath("../SoundUp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/ScreenRightPower/Area3D"]
 shape = SubResource("CylinderShape3D_saesu")
 
-[node name="SecondaryLeftButton1" parent="Console/right_panel/RightScreenFrame" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0924191, 0.185447, -0.329195)
-
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton1" index="0"]
 event_name = "event:/SmallButtonDown"
 event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
@@ -482,9 +479,6 @@ sound_up = NodePath("../SoundUp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton1/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
-
-[node name="SecondaryLeftButton2" parent="Console/right_panel/RightScreenFrame" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0924191, 0.146816, -0.329195)
 
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton2" index="0"]
 event_name = "event:/SmallButtonDown"
@@ -507,9 +501,6 @@ sound_up = NodePath("../SoundUp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton2/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
 
-[node name="SecondaryLeftButton3" parent="Console/right_panel/RightScreenFrame" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0924191, 0.0627478, -0.329195)
-
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton3" index="0"]
 event_name = "event:/SmallButtonDown"
 event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
@@ -530,9 +521,6 @@ sound_up = NodePath("../SoundUp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton3/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
-
-[node name="SecondaryLeftButton4" parent="Console/right_panel/RightScreenFrame" index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0924191, -0.134863, -0.329195)
 
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton4" index="0"]
 event_name = "event:/SmallButtonDown"
@@ -555,9 +543,6 @@ sound_up = NodePath("../SoundUp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton4/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
 
-[node name="SecondaryLeftButton5" parent="Console/right_panel/RightScreenFrame" index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0924191, -0.173494, -0.329195)
-
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton5" index="0"]
 event_name = "event:/SmallButtonDown"
 event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
@@ -578,9 +563,6 @@ sound_up = NodePath("../SoundUp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton5/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
-
-[node name="SecondaryRightButton1" parent="Console/right_panel/RightScreenFrame" index="6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.325775, 0.185447, -0.0958387)
 
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton1" index="0"]
 event_name = "event:/SmallButtonDown"
@@ -603,9 +585,6 @@ sound_up = NodePath("../SoundUp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton1/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
 
-[node name="SecondaryRightButton2" parent="Console/right_panel/RightScreenFrame" index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.325775, 0.146816, -0.0958387)
-
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton2" index="0"]
 event_name = "event:/SmallButtonDown"
 event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
@@ -626,9 +605,6 @@ sound_up = NodePath("../SoundUp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton2/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
-
-[node name="SecondaryRightButton3" parent="Console/right_panel/RightScreenFrame" index="8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.325775, 0.0627478, -0.0958387)
 
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton3" index="0"]
 event_name = "event:/SmallButtonDown"
@@ -651,9 +627,6 @@ sound_up = NodePath("../SoundUp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton3/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
 
-[node name="SecondaryRightButton4" parent="Console/right_panel/RightScreenFrame" index="9"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.325775, -0.134863, -0.0958387)
-
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton4" index="0"]
 event_name = "event:/SmallButtonDown"
 event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
@@ -674,9 +647,6 @@ sound_up = NodePath("../SoundUp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton4/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
-
-[node name="SecondaryRightButton5" parent="Console/right_panel/RightScreenFrame" index="10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.325775, -0.173494, -0.0958387)
 
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton5" index="0"]
 event_name = "event:/SmallButtonDown"
