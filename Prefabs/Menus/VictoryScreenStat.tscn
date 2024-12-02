@@ -13,4 +13,3 @@ text = "PLAYER NAME"
 
 [node name="Subfield" type="RichTextLabel" parent="."]
 layout_mode = 2
-text = "KILLED: "
