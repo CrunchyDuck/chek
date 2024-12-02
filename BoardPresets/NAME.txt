@@ -8,148 +8,203 @@
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 0,
-      "position_y": 0,
-      "type": 9
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 2,
-      "position_y": 0,
-      "type": 9
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 1,
-      "position_y": 0,
+      "position_x": 7,
+      "position_y": 7,
       "type": 7
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 0,
-      "position_y": 1,
-      "type": 10
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 2,
-      "position_y": 1,
-      "type": 10
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 0,
-      "position_y": 2,
-      "type": 3
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 2,
-      "position_y": 2,
-      "type": 3
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 1,
-      "position_y": 2,
-      "type": 2
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 0,
-      "position_y": 3,
-      "type": 8
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 2,
-      "position_y": 3,
-      "type": 5
      },
      {
       "orientation": 180,
       "player": 0,
       "position_x": 0,
       "position_y": 7,
-      "type": 5
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 1,
-      "position_y": 8,
-      "type": 2
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 0,
-      "position_y": 8,
-      "type": 3
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 2,
-      "position_y": 8,
-      "type": 3
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 1,
-      "position_y": 10,
       "type": 7
      },
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 0,
-      "position_y": 10,
+      "position_x": 3,
+      "position_y": 7,
+      "type": 8
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 7,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 5,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 3,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 6,
       "type": 9
      },
      {
       "orientation": 180,
       "player": 0,
       "position_x": 2,
-      "position_y": 10,
-      "type": 9
+      "position_y": 7,
+      "type": 10
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 5,
+      "position_y": 7,
+      "type": 10
      },
      {
       "orientation": 180,
       "player": 0,
       "position_x": 0,
-      "position_y": 9,
-      "type": 10
+      "position_y": 6,
+      "type": 11
      },
      {
       "orientation": 180,
       "player": 0,
       "position_x": 2,
-      "position_y": 9,
-      "type": 10
+      "position_y": 6,
+      "type": 11
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 4,
+      "position_y": 6,
+      "type": 11
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 6,
+      "position_y": 6,
+      "type": 11
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 4,
+      "position_y": 7,
+      "type": 6
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 5,
+      "type": 12
      },
      {
       "orientation": 0,
       "player": 0,
+      "position_x": 2,
+      "position_y": 1,
+      "type": 10
+     }
+    ]
+   },
+   {
+    "actions_remaining": 0,
+    "id": 1,
+    "pieces": [
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 4,
+      "position_y": 0,
+      "type": 6
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 7,
+      "position_y": 1,
+      "type": 11
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 5,
+      "position_y": 1,
+      "type": 11
+     },
+     {
+      "orientation": 0,
+      "player": 1,
       "position_x": 1,
-      "position_y": 5,
-      "type": 0
+      "position_y": 1,
+      "type": 11
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 5,
+      "position_y": 0,
+      "type": 10
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 6,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 4,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 0,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 3,
+      "position_y": 0,
+      "type": 8
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 7,
+      "position_y": 0,
+      "type": 7
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 0,
+      "position_y": 0,
+      "type": 7
      }
     ]
    }
   ],
-  "size_x": 3,
-  "size_y": 11
+  "size_x": 8,
+  "size_y": 8
  },
  "complexity": 0,
  "game_settings": {
@@ -175,5 +230,5 @@
   "victory_total_limit": false
  },
  "name": "NAME",
- "players": 1
+ "players": 2
 }
