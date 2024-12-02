@@ -34,6 +34,7 @@ var pieces: Array:
 		return board.pieces_by_game_id[game_id]
 
 var player_stats: Player.PlayerStats
+var action_start_time: float = 0
 
 func _init():
 	players[self] = true
@@ -105,6 +106,7 @@ func send_player_stats():
 	if network_id != GameController.player.network_id:
 		return
 	player_stats.player_num = game_id
+	player_stats.average_turn_time = player_stats.total_turn_time / float(player_stats.turns_taken)
 	
 	player_stats.mistakes = randi_range(0, player_stats.pieces_lost)
 	player_stats.tricks_pulled = randi_range(0, player_stats.pieces_killed)
@@ -132,6 +134,7 @@ class PlayerStats:
 	var turns_taken: int = 0
 	var distance_moved: float = 0
 	var average_turn_time: float = 0
+	var total_turn_time: float = 0  # Just used to calculate average turn time
 	
 	# useless stats, randomly chosen
 	var mistakes: int = 0  # randomly chosen based on pieces lost
@@ -151,6 +154,7 @@ class PlayerStats:
 		d.turns_taken = turns_taken
 		d.distance_moved = distance_moved
 		d.average_turn_time = average_turn_time
+		d.total_turn_time = total_turn_time
 		
 		d.mistakes = mistakes
 		d.tricks_pulled = tricks_pulled
@@ -170,6 +174,7 @@ class PlayerStats:
 		ps.turns_taken = d.turns_taken
 		ps.distance_moved = d.distance_moved
 		ps.average_turn_time = d.average_turn_time
+		ps.total_turn_time = d.total_turn_time
 		
 		ps.mistakes = d.mistakes
 		ps.tricks_pulled = d.tricks_pulled

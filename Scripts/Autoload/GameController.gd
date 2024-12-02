@@ -299,18 +299,22 @@ func is_action_legal(action: BoardPlayable.GameAction):
 #endregion
 	
 #region Turn order
-func turn_order_sequential(action: BoardPlayable.GameAction):
-	var id = action.player
-	var p = players_by_game_id[id]
-	p.actions_remaining -= 1
-	
-	# Is turn finished?
-	if p.actions_remaining > 0:
-		return
+func turn_order_sequential(pid_just_acted: int):
+	# Progress this player's action state.
+	if pid_just_acted != -1:
+		var p = players_by_game_id[pid_just_acted]
+		p.actions_remaining -= 1
+		p.player_stats.total_turn_time += Time.get_ticks_msec() - p.action_start_time
+		
+		p.action_start_time = Time.get_ticks_msec()
+		# Is turn finished?
+		if p.actions_remaining > 0:
+			p.action_start_time = Time.get_ticks_msec()
+			return
 		
 	# Find next valid player
 	for i in range(Player.players.size()):
-		var pid = wrapi(int(id) + i + 1, 0, Player.players.size())
+		var pid = wrapi(int(pid_just_acted) + i + 1, 0, Player.players.size())
 		var next_player = players_by_game_id[pid]
 		if next_player.dead:
 			continue
@@ -320,7 +324,8 @@ func turn_order_sequential(action: BoardPlayable.GameAction):
 			MessageController.add_message(m)
 			continue
 			
-		next_player.actions_remaining += game_settings.turns_at_a_time
+		next_player.actions_remaining = game_settings.turns_at_a_time
+		next_player.action_start_time = Time.get_ticks_msec()
 		return
 	# TODO: Handle no player being able to act
 #endregion
@@ -329,7 +334,7 @@ func turn_order_sequential(action: BoardPlayable.GameAction):
 func on_action(action: BoardPlayable.GameAction):
 	# Progress turn order
 	if game_settings.turn_sequential:
-		turn_order_sequential(action)
+		turn_order_sequential(action.player)
 #endregion
 	
 #region RPCs
@@ -374,7 +379,7 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	load_board_state(board_state, players_by_game_id)
 	
 	# Set player states
-	players_by_game_id[0].actions_remaining = 1
+	turn_order_sequential(-1)
 	
 	# Wait until all players are loaded.
 	player_loaded.rpc()
