@@ -13,6 +13,7 @@ func _ready() -> void:
 func _on_return():
 	pass
 
+# TODO: Victory condition checking and call this
 func display_stats(victor: int, player_stats: Array[Player.PlayerStats]):
 	label_winner.text = ColorController.color_text("VICTORY " + GameController.players_by_game_id[victor], ColorController.player_primary_colors[victor])
 	
