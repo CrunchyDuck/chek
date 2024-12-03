@@ -329,7 +329,11 @@ func turn_order_sequential(pid_just_acted: int):
 		return
 	# TODO: Handle no player being able to act
 #endregion
-	
+
+#region Victory condition checking
+
+#endregion
+
 #region Events
 func on_action(action: BoardPlayable.GameAction):
 	# Progress turn order
