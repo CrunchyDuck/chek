@@ -8,10 +8,10 @@ func evaluate_victory(state: BoardBase.BoardState, rules: BoardBase.GameSettings
 func evaluate_defeat(state: BoardBase.BoardState, rules: BoardBase.GameSettings) -> Array[int]:
 	return []
 
-func _elimination_victory(state: BoardBase.BoardState):
+func _elimination_victory(state: BoardBase.BoardState) -> Array[int]:
 	if defeated.size() != state.players.size() - 1:
 		return []
 	for p in state.players:
-		if not defeated.has(p.game_id):
-			return [p.game_id]
+		if not defeated.has(p.id):
+			return [p.id]
 	return []
