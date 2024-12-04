@@ -249,16 +249,23 @@ func try_perform_action(game_action_data: Dictionary) -> void:
 		return
 	
 	# Try this action on the server
-	if perform_action(game_action_data):
-		perform_action.rpc(game_action_data)
+	if perform_turn(game_action_data):
+		perform_turn.rpc(game_action_data)
 
 @rpc("authority", "call_remote", "reliable")
-func perform_action(game_action_data: Dictionary) -> bool:
+func perform_turn(game_action_data: Dictionary) -> bool:
 	var action: BoardPlayable.GameAction = BoardPlayable.GameAction.deserialize(game_action_data)
 	# Check if action is allowed with GameController/Player object.
 	if not GameController.is_action_legal(action):
 		return false
 	
+	var anything_performed = perform_action_chain(action)
+	if anything_performed:
+		on_turn_taken(action)
+		return true
+	return false
+
+func perform_action_chain(action: BoardPlayable.GameAction) -> bool:
 	var anything_performed = false
 	var current_action = action
 	while current_action != null:
@@ -281,15 +288,11 @@ func perform_action(game_action_data: Dictionary) -> bool:
 				if not board._swap_cells(current_action.source, current_action.target):
 					break
 			_:
-				assert(false, "Unhandled eActionType type in perform_action")
+				assert(false, "Unhandled eActionType type in perform_action_chain")
 		anything_performed = true
 		current_action = current_action.next_action
-		
-	if anything_performed:
-		players_by_game_id[action.player].turns_taken += 1
-		on_action(action)
-		return true
-	return false
+	
+	return anything_performed
 
 func is_action_legal(action: BoardPlayable.GameAction):
 	var p = players_by_game_id[action.player]
@@ -304,6 +307,7 @@ func turn_order_sequential(pid_just_acted: int):
 	if pid_just_acted != -1:
 		var p = players_by_game_id[pid_just_acted]
 		p.actions_remaining -= 1
+		p.turns_taken += 1
 		p.player_stats.total_turn_time += Time.get_ticks_msec() - p.action_start_time
 		
 		p.action_start_time = Time.get_ticks_msec()
@@ -335,7 +339,7 @@ func turn_order_sequential(pid_just_acted: int):
 #endregion
 
 #region Events
-func on_action(action: BoardPlayable.GameAction):
+func on_turn_taken(action: BoardPlayable.GameAction):
 	# Progress turn order
 	if game_settings.turn_sequential:
 		turn_order_sequential(action.player)

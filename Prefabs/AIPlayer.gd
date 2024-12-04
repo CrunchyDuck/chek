@@ -25,6 +25,6 @@ func try_move():
 		var actions = piece._get_actions()
 		if actions.size() > 0:
 			var planned_action = actions[rng.randi_range(0, actions.size() - 1)]
-			if board.perform_action(planned_action):
+			if board.perform_turn(planned_action):
 				return
 	
