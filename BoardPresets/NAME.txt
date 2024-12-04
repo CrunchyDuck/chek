@@ -9,20 +9,20 @@
       "orientation": 180,
       "player": 0,
       "position_x": 7,
-      "position_y": 5,
-      "type": 7
-     },
-     {
-      "orientation": 180,
-      "player": 0,
-      "position_x": 0,
       "position_y": 7,
       "type": 7
      },
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 6,
+      "position_x": 1,
+      "position_y": 4,
+      "type": 7
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 5,
       "position_y": 6,
       "type": 9
      },
@@ -43,8 +43,8 @@
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 7,
-      "position_y": 4,
+      "position_x": 5,
+      "position_y": 7,
       "type": 10
      },
      {
@@ -64,14 +64,14 @@
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 2,
-      "position_y": 5,
+      "position_x": 4,
+      "position_y": 6,
       "type": 9
      },
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 5,
+      "position_x": 6,
       "position_y": 6,
       "type": 9
      },
@@ -106,15 +106,15 @@
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 6,
-      "position_y": 5,
+      "position_x": 7,
+      "position_y": 6,
       "type": 9
      },
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 0,
-      "position_y": 6,
+      "position_x": 1,
+      "position_y": 5,
       "type": 9
      }
     ]

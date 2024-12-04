@@ -1,11 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://c30ekpy0p3p1y"]
+[gd_scene load_steps=3 format=3 uid="uid://c30ekpy0p3p1y"]
 
 [ext_resource type="Script" path="res://Scripts/CustomNodes/VBoxRigid.gd" id="1_eelgp"]
+[ext_resource type="Texture2D" uid="uid://bbqu4jje3beex" path="res://Sprites/Pieces/Pawn.png" id="2_k2iny"]
 
 [node name="Settings" type="VBoxContainer"]
 custom_minimum_size = Vector2(650, 0)
 offset_right = 650.0
-offset_bottom = 83.0
+offset_bottom = 170.0
 script = ExtResource("1_eelgp")
 fixed_height = 25.0
 
@@ -46,6 +47,117 @@ text = "BACK"
 [node name="Padding" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
+
+[node name="Annihilation" type="Control" parent="."]
+custom_minimum_size = Vector2(650, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Annihilation"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 102.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "KILL ALL PIECES"
+vertical_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="Annihilation"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VCSacred" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(650, 25)
+layout_mode = 2
+
+[node name="SacredFields" type="VBoxContainer" parent="VCSacred"]
+custom_minimum_size = Vector2(325, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="AllSacredPiece" type="Control" parent="VCSacred/SacredFields"]
+custom_minimum_size = Vector2(650, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="VCSacred/SacredFields/AllSacredPiece"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 102.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "KILL ALL SACRED PIECE"
+vertical_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="VCSacred/SacredFields/AllSacredPiece"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite" type="TextureButton" parent="VCSacred/SacredFields/AllSacredPiece"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 30.0
+offset_right = 94.0
+offset_bottom = 64.0
+grow_horizontal = 2
+texture_normal = ExtResource("2_k2iny")
+stretch_mode = 0
+
+[node name="AnySacredPiece" type="Control" parent="VCSacred/SacredFields"]
+custom_minimum_size = Vector2(650, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VCSacred/SacredFields/AnySacredPiece"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 102.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "KILL ANY SACRED PIECE"
+vertical_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="VCSacred/SacredFields/AnySacredPiece"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="DivineWind" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
