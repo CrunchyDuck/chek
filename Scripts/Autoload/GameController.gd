@@ -319,7 +319,7 @@ func turn_order_sequential(pid_just_acted: int):
 	for i in range(Player.players.size()):
 		var pid = wrapi(int(pid_just_acted) + i + 1, 0, Player.players.size())
 		var next_player = players_by_game_id[pid]
-		if next_player.dead:
+		if victory_condition.defeated.has(pid):
 			continue
 		if not next_player.can_act():
 			var m = ColorController.color_text(next_player.character_name, next_player.color)
@@ -417,8 +417,8 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	load_board_state(board_state, players_by_game_id)
 	
 	# Set player states
-	turn_order_sequential(-1)
 	victory_condition = get_victory_condition(game_settings)
+	turn_order_sequential(-1)
 	
 	# Wait until all players are loaded.
 	player_loaded.rpc()
