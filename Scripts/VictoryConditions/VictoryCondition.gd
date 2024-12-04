@@ -1,14 +1,17 @@
 class_name VictoryCondition
-extends Node
 
-var sacred_piece_type: ChessPiece.ePieces
 var defeated: Array[int] = []
 
-func initialize(sacred_piece_type: ChessPiece.ePieces):
-	self.sacred_piece_type = sacred_piece_type
-
-func evaluate_victory(action: BoardPlayable.GameAction, state: BoardBase.BoardState, rules: BoardBase.GameSettings, players: Array[Player]) -> Array[int]:
+func evaluate_victory(state: BoardBase.BoardState, rules: BoardBase.GameSettings) -> Array[int]:
 	return []
 
-func evaluate_defeat(action: BoardPlayable.GameAction, state: BoardBase.BoardState, rules: BoardBase.GameSettings, players: Array[Player]) -> Array[int]:
+func evaluate_defeat(state: BoardBase.BoardState, rules: BoardBase.GameSettings) -> Array[int]:
+	return []
+
+func _elimination_victory(state: BoardBase.BoardState):
+	if defeated.size() != state.players.size() - 1:
+		return []
+	for p in state.players:
+		if not defeated.has(p.game_id):
+			return [p.game_id]
 	return []

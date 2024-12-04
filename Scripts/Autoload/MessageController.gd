@@ -46,3 +46,8 @@ func add_message(message: String):
 	node_message.fit_content = true
 	node_message_list.add_child(node_message)
 	
+@rpc("authority", "call_local", "reliable", 1)
+func system_message(content: String):
+	var t = ColorController.color_text("SYSTEM: ", ColorController.system_message_color)
+	t += ColorController.color_text(content, ColorController.system_message_body_color)
+	MessageController.add_message(t)

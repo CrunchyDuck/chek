@@ -444,6 +444,14 @@ class PlayerState:
 	func add_piece(piece: ChessPiece.ePieces, position: Vector2i, orientation: ChessPiece.Orientation):
 		pieces.append(PieceState.new(piece, position, orientation, id))
 		
+	func pieces_by_type() -> Dictionary:
+		var d = {}
+		for p in pieces:
+			if not d.has(p.type):
+				d[p.type] = []
+			d[p.type].append(p)
+		return d
+		
 	func serialize() -> Dictionary:
 		var d = {}
 		var _pieces = []

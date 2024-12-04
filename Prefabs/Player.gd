@@ -21,7 +21,7 @@ var actions_remaining: int = 0
 var character_name: String
 var job_name: String
 
-var dead: bool = false  # Dead players are out of the game
+var defeated: bool = false  # Dead players are out of the game
 var can_move: bool:
 	get:
 		return actions_remaining > 0

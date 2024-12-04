@@ -97,8 +97,9 @@ var board_state: BoardBase.BoardState:
 		confirm_start_with_extra_players = false
 		on_board_state_changed.emit(value)
 
-var players_loaded: int = 0
+var victory_condition: VictoryCondition
 
+var players_loaded: int = 0
 var confirm_start_with_extra_players: bool = false
 
 signal on_board_state_changed(new_state)
@@ -169,25 +170,23 @@ func disconnected():
 func can_start_game() -> bool:
 	var p_min = board_state.players.size()
 	var p_count = Player.players.size()
+	if not can_start_victory_condition():
+		return false
+	
 	if p_count == p_min:
 		return true
-		
 	elif p_count > p_min:
 		if confirm_start_with_extra_players:
 			return true
-		var t = ColorController.color_text("SYSTEM: ", ColorController.system_message_color)
-		var content = "Too many commanders. Press START again to confirm.\nRequired: {req}\nPresent: {have}"\
+		var message = "Too many commanders. Press START again to confirm.\nRequired: {req}\nPresent: {have}"\
 			.format({"req": str(p_min), "have": str(p_count)})
-		t += ColorController.color_text(content, ColorController.system_message_body_color)
-		MessageController.add_message(t)
+		MessageController.system_message(message)
 		confirm_start_with_extra_players = true
 		return false
-	
-	var t = ColorController.color_text("SYSTEM: ", ColorController.system_message_color)
+
 	var content = "Not enough commanders. Find more, or use state-of-art AI.\nRequired: {req}\nPresent: {have}"\
 		.format({"req": str(p_min), "have": str(p_count)})
-	t += ColorController.color_text(content, ColorController.system_message_body_color)
-	MessageController.add_message(t)
+	MessageController.system_message(content)
 	return false
 	
 func get_ip():
@@ -334,12 +333,39 @@ func turn_order_sequential(pid_just_acted: int):
 	# TODO: Handle no player being able to act
 #endregion
 
-#region Victory condition checking
+#region Victory conditions
+func can_start_victory_condition() -> bool:
+	var vic = get_victory_condition(game_settings)
+	if vic is VictoryPieceCapture:
+		return vic.can_start_game(board.serialize(), game_settings.victory_specific_type, true)
+	return false
+	
+func get_victory_condition(game_settings: BoardBase.GameSettings) -> VictoryCondition:
+	if game_settings.victory_specific_type:
+		return VictoryPieceCapture.new(board.serialize(), game_settings.victory_specific_type, true)
+	return null
 
+func perform_victory_and_defeat():
+	var defeated = victory_condition.evaluate_defeat(board.serialize(), game_settings)
+	for d in defeated:
+		var p = players_by_game_id[d]
+		if p.defeated:
+			continue
+		p.defeated = true
+		MessageController.system_message(p.character_name + " has been defeated!")
+		
+	var victory = victory_condition.evaluate_victory(board.serialize(), game_settings)
+	if victory.size() > 0:
+		var p = players_by_game_id[victory[0]]
+		MessageController.system_message(p.character_name + " is victorious!")
+		# TODO: Transition to victory screen
 #endregion
 
 #region Events
 func on_turn_taken(action: BoardPlayable.GameAction):
+	# Check for victory
+	perform_victory_and_defeat()
+	
 	# Progress turn order
 	if game_settings.turn_sequential:
 		turn_order_sequential(action.player)
@@ -381,13 +407,12 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	game_settings = BoardBase.GameSettings.deserialize(json_game_settings)
 	var board_state = BoardBase.BoardState.deserialize(json_board_state)
 	
-	# Spawn board on all clients
-	
 	# Initialize board with size and pieces
 	load_board_state(board_state, players_by_game_id)
 	
 	# Set player states
 	turn_order_sequential(-1)
+	victory_condition = get_victory_condition(game_settings)
 	
 	# Wait until all players are loaded.
 	player_loaded.rpc()
