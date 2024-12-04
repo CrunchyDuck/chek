@@ -315,15 +315,12 @@ class GameSettings:
 	var board_size: Vector2i = Vector2i(8, 8)
 	
 	#region Victory conditions
-	# Total number of pieces remaining
-	var victory_total_limit: bool = false
-	var victory_total_count: int = 0
+	var victory_annihilation: bool = true
 	
 	# Specific piece remaining
-	var victory_specific_limit: bool = false
-	var victory_specific_type: ChessPiece.ePieces = 0
-	var victory_lose_any: bool = false
-	var victory_lose_all: bool = false
+	var victory_lose_any_sacred: bool = false
+	var victory_lose_all_sacred: bool = false
+	var victory_sacred_type: ChessPiece.ePieces = 0
 	#endregion
 	
 	#region Turn rules
@@ -354,13 +351,11 @@ class GameSettings:
 		d.no_retreat = no_retreat
 		d.can_players_edit = can_players_edit
 		
-		d.victory_total_limit = victory_total_limit
-		d.victory_total_count = victory_total_count
-		
-		d.victory_specific_limit = victory_specific_limit
-		d.victory_specific_type = victory_specific_type
-		d.victory_lose_any = victory_lose_any
-		d.victory_lose_all = victory_lose_all
+		d.victory_annihilation = victory_annihilation
+	
+		d.victory_sacred_type = victory_sacred_type
+		d.victory_lose_any_sacred = victory_lose_any_sacred
+		d.victory_lose_all_sacred = victory_lose_all_sacred
 
 		d.turn_sequential = turn_sequential
 		d.turns_concurrent = turns_concurrent
@@ -386,13 +381,11 @@ class GameSettings:
 		gs.no_retreat = json_game_settings.get("no_retreat", false)
 		gs.can_players_edit = json_game_settings.get("can_players_edit", false)
 		
-		gs.victory_total_limit = json_game_settings.get("victory_total_limit", false)
-		gs.victory_total_count = json_game_settings.get("victory_total_count", 0)
-		
-		gs.victory_specific_limit = json_game_settings.get("victory_specific_limit", false)
-		gs.victory_specific_type = json_game_settings.get("victory_specific_type", 0)
-		gs.victory_lose_any = json_game_settings.get("victory_lose_any", false)
-		gs.victory_lose_all = json_game_settings.get("victory_lose_all", false)
+		gs.victory_annihilation = json_game_settings.get("victory_annihilation", true)
+	
+		gs.victory_sacred_type = json_game_settings.get("victory_sacred_type", 0)
+		gs.victory_lose_any_sacred = json_game_settings.get("victory_lose_any_sacred", false)
+		gs.victory_lose_all_sacred = json_game_settings.get("victory_lose_all_sacred", false)
 
 		gs.turn_sequential = json_game_settings.get("turn_sequential", true)
 		gs.turns_concurrent = json_game_settings.get("turns_concurrent", false)

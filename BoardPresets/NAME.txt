@@ -1,0 +1,262 @@
+{
+ "board_state": {
+  "players": [
+   {
+    "actions_remaining": 0,
+    "id": 0,
+    "pieces": [
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 7,
+      "position_y": 7,
+      "type": 7
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 0,
+      "position_y": 7,
+      "type": 7
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 5,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 7,
+      "type": 10
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 5,
+      "position_y": 7,
+      "type": 10
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 3,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 4,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 6,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 6,
+      "position_y": 7,
+      "type": 12
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 7,
+      "type": 12
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 4,
+      "position_y": 7,
+      "type": 6
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 3,
+      "position_y": 7,
+      "type": 8
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 7,
+      "position_y": 6,
+      "type": 9
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 0,
+      "position_y": 6,
+      "type": 9
+     }
+    ]
+   },
+   {
+    "actions_remaining": 0,
+    "id": 1,
+    "pieces": [
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 4,
+      "position_y": 0,
+      "type": 6
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 5,
+      "position_y": 0,
+      "type": 10
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 2,
+      "position_y": 0,
+      "type": 10
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 3,
+      "position_y": 0,
+      "type": 8
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 7,
+      "position_y": 0,
+      "type": 7
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 0,
+      "position_y": 0,
+      "type": 7
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 1,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 2,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 3,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 4,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 5,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 6,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 7,
+      "position_y": 1,
+      "type": 9
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 1,
+      "position_y": 0,
+      "type": 12
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 6,
+      "position_y": 0,
+      "type": 12
+     }
+    ]
+   }
+  ],
+  "size_x": 8,
+  "size_y": 8
+ },
+ "complexity": 0,
+ "game_settings": {
+  "board_size_x": 8,
+  "board_size_y": 8,
+  "can_players_edit": false,
+  "divine_wind": false,
+  "no_retreat": false,
+  "turn_bullet_chess": false,
+  "turn_bullet_limit": 0,
+  "turn_cooldown": 0,
+  "turn_queue": false,
+  "turn_queue_time": 0,
+  "turn_sequential": true,
+  "turn_timed": false,
+  "turns_at_a_time": 1,
+  "turns_concurrent": false,
+  "victory_lose_all": false,
+  "victory_lose_any": false,
+  "victory_specific_limit": false,
+  "victory_specific_type": 0,
+  "victory_total_count": 0,
+  "victory_total_limit": false
+ },
+ "name": "NAME",
+ "players": 2
+}

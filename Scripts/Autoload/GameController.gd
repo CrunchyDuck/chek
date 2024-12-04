@@ -338,11 +338,17 @@ func can_start_victory_condition() -> bool:
 	var vic = get_victory_condition(game_settings)
 	if vic is VictoryPieceCapture:
 		return vic.can_start_game(board.serialize(), game_settings.victory_specific_type, true)
+	if vic is VictoryAnnihilation:
+		return true
+	
+	MessageController.system_message("Unknown victory condition!")
 	return false
 	
 func get_victory_condition(game_settings: BoardBase.GameSettings) -> VictoryCondition:
-	if game_settings.victory_specific_type:
-		return VictoryPieceCapture.new(board.serialize(), game_settings.victory_specific_type, true)
+	if game_settings.victory_lose_all_sacred or game_settings.victory_lose_any_sacred:
+		return VictoryPieceCapture.new(board.serialize(), game_settings.victory_specific_type, game_settings.victory_lose_all_sacred)
+	if game_settings.victory_annihilation:
+		return VictoryAnnihilation.new()
 	return null
 
 func perform_victory_and_defeat():
