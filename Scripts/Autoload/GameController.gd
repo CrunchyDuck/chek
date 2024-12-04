@@ -307,7 +307,7 @@ func turn_order_sequential(pid_just_acted: int):
 	if pid_just_acted != -1:
 		var p = players_by_game_id[pid_just_acted]
 		p.actions_remaining -= 1
-		p.turns_taken += 1
+		p.player_stats.turns_taken += 1
 		p.player_stats.total_turn_time += Time.get_ticks_msec() - p.action_start_time
 		
 		p.action_start_time = Time.get_ticks_msec()
