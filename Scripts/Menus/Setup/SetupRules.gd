@@ -65,7 +65,7 @@ func update_buttons_clickable():
 	#for button in buttons.values():
 		#button.disabled = !state
 
-@rpc("any_peer", "call_local", "reliable", 0)
+@rpc("authority", "call_local", "reliable", 0)
 func load_settings(json_settings: Dictionary):
 	settings = BoardBase.GameSettings.deserialize(json_settings)
 	button_divine_wind.button_pressed = settings.divine_wind
