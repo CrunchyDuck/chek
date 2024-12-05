@@ -1,11 +1,15 @@
-class_name SetupMenu
+class_name SetupRules
 extends Control
 
+# TODO: Make checkboxes use a different colour when disable, so they're not invisible.
 var settings: BoardBase.GameSettings:
 	get:
 		return GameController.game_settings
 	set(value):
 		GameController.game_settings = value
+
+@onready
+var button_can_players_edit: CheckBox = $CanPlayersEdit/Checkbox
 
 @onready
 var button_divine_wind: CheckBox = $DivineWind/CheckBox
@@ -33,6 +37,7 @@ var rules_buttons: Array[BaseButton] = [
 ]
 
 func _ready() -> void:
+	button_can_players_edit.pressed.connect(func (): _on_change)
 	button_victory_all_sacred.pressed.connect(func (): _set_victory_condition(button_victory_all_sacred))
 	button_victory_any_sacred.pressed.connect(func (): _set_victory_condition(button_victory_any_sacred))
 	button_victory_annihilation.pressed.connect(func (): _set_victory_condition(button_victory_annihilation))
@@ -64,6 +69,8 @@ func _on_change():
 	
 func gather_settings() -> BoardBase.GameSettings:
 	var settings = BoardBase.GameSettings.new()
+	settings.can_players_edit = button_can_players_edit.button_pressed
+	
 	settings.victory_annihilation = button_victory_annihilation.button_pressed
 	settings.victory_lose_all_sacred = button_victory_all_sacred.button_pressed
 	settings.victory_lose_any_sacred = button_victory_any_sacred.button_pressed
@@ -74,6 +81,10 @@ func gather_settings() -> BoardBase.GameSettings:
 	return settings
 
 func update_buttons_clickable(clickable: bool):
+	if multiplayer.is_server():
+		button_can_players_edit.disabled = false
+	else:
+		button_can_players_edit.disabled = true
 	for button in rules_buttons:
 		button.disabled = !clickable
 
