@@ -50,17 +50,18 @@ func _ready():
 	previous_button.on_pressed.connect(_prev_scene)
 	next_button.on_pressed.connect(_next_scene)
 
-static func load_new_scene(prefab_path: String):
+static func load_new_scene(prefab_path: String) -> Node:
 	scene_index = 0
 	for c in instance.node_central_screen.get_children():
 		Helpers.destroy_node(c)
-	add_scene(prefab_path)
+	return add_scene(prefab_path)
 
-static func add_scene(prefab_path: String):
+static func add_scene(prefab_path: String) -> Node:
 	var p = PrefabController.get_prefab(prefab_path).instantiate()
 	instance.node_central_screen.add_child(p)
 	scene_list.append(p)
 	instance._update_lights()
+	return p
 
 func _update_lights():
 	if scene_index == 0:

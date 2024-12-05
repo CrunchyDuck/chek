@@ -364,8 +364,18 @@ func perform_victory_and_defeat():
 	var victory = victory_condition.evaluate_victory(board_playable.serialize(), game_settings)
 	if victory.size() > 0:
 		var p = players_by_game_id[victory[0]]
-		MessageController.system_message(p.character_name + " is victorious!")
-		# TODO: Transition to victory screen
+		on_victory(p)
+
+func on_victory(victor: Player):
+	MessageController.system_message(victor.character_name + " is victorious!")
+	
+	board_playable.interaction_allowed = false
+	
+	var vs: VictoryScreen = MainScreenController.add_scene("Menus.VictoryScreen")
+	vs.display_victor(victor.game_id)
+	if multiplayer.is_server():
+		for p in Player.players:
+			p.send_player_stats.rpc()
 #endregion
 
 #region Events

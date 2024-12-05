@@ -15,7 +15,13 @@ var color: Color:
 
 var player_type: Player.PlayerType = Player.PlayerType.None
 var network_id: int = -1
-var game_id: int = -1
+var _game_id: int = -1
+var game_id: int:
+	get:
+		return _game_id
+	set(value):
+		_game_id = value
+		player_stats.pid = _game_id
 var friendly: Array[int] = []
 var actions_remaining: int = 0
 var character_name: String
@@ -118,6 +124,8 @@ func send_player_stats():
 @rpc("any_peer", "call_remote", "reliable")
 func receive_player_stats(stats: Dictionary):
 	player_stats = PlayerStats.deserialize(stats)
+	if VictoryScreen.instance != null:
+		VictoryScreen.instance.display_stat(player_stats)
 
 enum PlayerType {
 	None,
@@ -127,6 +135,7 @@ enum PlayerType {
 
 	
 class PlayerStats:
+	var pid = -1
 	var player_num: int = 0
 	var pieces_killed: int = 0
 	var pieces_lost: int = 0
