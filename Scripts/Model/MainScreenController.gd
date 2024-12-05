@@ -65,6 +65,8 @@ static func add_scene(prefab_path: String) -> Node:
 	instance.node_central_screen.add_child(p)
 	instance.scene_list.append(p)
 	instance._update_lights()
+	if instance.scene_list.size() != 1:
+		Helpers.disable_node(p)
 	return p
 
 func _update_lights():

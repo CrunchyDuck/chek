@@ -12,6 +12,7 @@ var grid_stats: GridContainer = $CenterContainer/VBoxContainer/PlayerStats
 
 func _ready() -> void:
 	button_return.pressed.connect(_on_return)
+	label_winner.bbcode_enabled = true
 	instance = self
 	
 func _on_return():
