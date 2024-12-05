@@ -8,41 +8,50 @@ var settings: BoardBase.GameSettings:
 		GameController.game_settings = value
 
 @onready
-var button_start: Button = $Start
+var button_divine_wind: CheckBox = $DivineWind/CheckBox
 @onready
-var button_divine_wind: CheckBox = $Settings/DivineWind/CheckBox
-@onready
-var button_no_retreat: CheckBox = $Settings/NoRetreat/CheckBox
+var button_no_retreat: CheckBox = $NoRetreat/CheckBox
 
 @onready
-var button_next_screen: ScreenButton = $/root/MainScene/Console/front_panel/arrow_right
+var button_victory_annihilation: CheckBox = $Annihilation/CheckBox
+@onready
+var button_victory_all_sacred: CheckBox = $VCSacred/SacredFields/AllSacredPiece/CheckBox
+@onready
+var button_victory_any_sacred: CheckBox = $VCSacred/SacredFields/AnySacredPiece/CheckBox
+@onready
+var button_sacred_piece: SacredPieceSelector = $VCSacred/SacredFields/AnySacredPiece/PieceType
 
 func _ready() -> void:
-	button_start.pressed.connect(_on_start)
-	if not multiplayer.is_server():
-		button_start.disabled = true
-	
+	button_victory_all_sacred.pressed.connect(func (): _set_victory_condition(button_victory_all_sacred))
+	button_victory_any_sacred.pressed.connect(func (): _set_victory_condition(button_victory_any_sacred))
+	button_victory_annihilation.pressed.connect(func (): _set_victory_condition(button_victory_annihilation))
 	button_divine_wind.pressed.connect(_on_change)
 	button_no_retreat.pressed.connect(_on_change)
 	settings = gather_settings()
-	button_next_screen.on_pressed.connect(_next_screen)
 
 func _next_screen(button) -> void:
 	print("here")
 	# Move to board setup
 
+func _set_victory_condition(new_condition: CheckBox):
+	# Flick off all but the new condition
+	button_victory_all_sacred.set_pressed_no_signal(false)
+	button_victory_any_sacred.set_pressed_no_signal(false)
+	button_victory_annihilation.set_pressed_no_signal(false)
+	
+	new_condition.set_pressed_no_signal(true)
+	_on_change()
+
 func _on_change():
 	load_settings.rpc(gather_settings().serialize())
 	
-func _on_start():
-	settings = gather_settings()
-	
-	var jgs = settings.serialize()
-	var jbs = GameController.standard_board_setup().serialize()
-	GameController.start_game.rpc(jgs, jbs)
-	
 func gather_settings() -> BoardBase.GameSettings:
 	var settings = BoardBase.GameSettings.new()
+	settings.victory_annihilation = button_victory_annihilation.button_pressed
+	settings.victory_lose_all_sacred = button_victory_all_sacred.button_pressed
+	settings.victory_lose_any_sacred = button_victory_any_sacred.button_pressed
+	settings.victory_sacred_type = button_sacred_piece.current_piece
+	
 	settings.divine_wind = button_divine_wind.button_pressed
 	settings.no_retreat = button_no_retreat.button_pressed
 	return settings
