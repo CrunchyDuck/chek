@@ -110,8 +110,6 @@ func on_preset_button_pressed(json_preset: Dictionary):
 	
 @rpc("authority", "call_local", "reliable")
 func set_preset(json_preset: Dictionary):
-	print("here")
-	
 	if json_preset == {}:
 		_selected_preset = null
 		highlight_preset(null)

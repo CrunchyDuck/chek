@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://jak4nhe12qk3"]
+[gd_scene load_steps=3 format=3 uid="uid://bdff43e5tga7r"]
 
 [ext_resource type="PackedScene" uid="uid://ud4v6rltpdcx" path="res://Prefabs/PlayerSlot.tscn" id="1_bulfq"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="1_hn4vo"]
