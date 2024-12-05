@@ -12,8 +12,10 @@ custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 bbcode_enabled = true
 text = "PLAYER NAME"
+fit_content = true
 
 [node name="Subfield" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 bbcode_enabled = true
+fit_content = true
