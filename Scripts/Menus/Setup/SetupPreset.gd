@@ -60,7 +60,7 @@ func create_entry(preset: BoardBase.GamePreset):
 	p.get_node("Fields/Name").text = preset.name
 	p.get_node("Fields/Player").text = str(preset.players)
 	p.get_node("Fields/Complexity").text = str(preset.complexity)
-	p.get_node("Button").pressed.connect(func (): set_preset(preset.serialize()))
+	p.get_node("Button").pressed.connect(func (): on_preset_button_pressed(preset.serialize()))
 	node_preset_list.add_child(p)
 	buttons[preset] = p.get_node("Button")
 	presets[preset.name] = preset
@@ -94,23 +94,28 @@ func _on_game_settings_changed(new_settings: BoardBase.GameSettings):
 		return
 	update_buttons_clickable(new_settings.can_players_edit)
 
-func on_preset_button_pressed(preset: BoardBase.GamePreset):
+func on_preset_button_pressed(json_preset: Dictionary):
 	if multiplayer.is_server():
-		set_preset.rpc(preset.serialize())
+		set_preset.rpc(json_preset)
 	else:
-		client_set_preset.rpc_id(1, preset.serialize())
+		client_set_preset.rpc_id(1, json_preset)
 	
 @rpc("authority", "call_local", "reliable")
 func set_preset(json_preset: Dictionary):
+	print("here")
+	
 	if json_preset == {}:
 		_selected_preset = null
 		highlight_preset(null)
 		return
 	
 	var preset = BoardBase.GamePreset.deserialize(json_preset)
+	# We don't want this to change to false/true unless set so in the rules by the server
+	preset.game_settings.can_players_edit = GameController.game_settings.can_players_edit
 	GameController.board_state = preset.board_state
 	GameController.game_settings = preset.game_settings
 	
+	# TODO: Test sending a preset to a client that doesn't have it
 	if not presets.has(preset.name):
 		create_entry(preset)
 	var local_preset = presets[preset.name]
