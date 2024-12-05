@@ -71,3 +71,9 @@ func load_settings(json_settings: Dictionary):
 	button_divine_wind.button_pressed = settings.divine_wind
 	button_no_retreat.button_pressed = settings.no_retreat
 	
+	button_victory_any_sacred.button_pressed = settings.victory_lose_any_sacred
+	button_victory_all_sacred.button_pressed = settings.victory_lose_all_sacred
+	button_victory_annihilation.button_pressed = settings.victory_annihilation
+	button_sacred_piece.current_piece = settings.victory_sacred_type
+	button_sacred_piece._set_texture(settings.victory_sacred_type)
+	
