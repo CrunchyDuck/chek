@@ -11,11 +11,6 @@ offset_bottom = 195.0
 theme_override_constants/separation = 3
 script = ExtResource("1_munsu")
 
-[node name="Padding" type="Control" parent="."]
-visible = false
-custom_minimum_size = Vector2(650, 30)
-layout_mode = 2
-
 [node name="TitleVicCondition" type="Label" parent="."]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
@@ -136,10 +131,11 @@ texture_normal = ExtResource("2_k2iny")
 stretch_mode = 0
 script = ExtResource("3_b1tdg")
 
-[node name="TitleVicCondition2" type="Label" parent="."]
+[node name="TitleMod" type="Label" parent="."]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "MODIFIERS"
+text = "MODIFIER
+"
 horizontal_alignment = 1
 
 [node name="DivineWind" type="Control" parent="."]

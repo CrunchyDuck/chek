@@ -28,6 +28,7 @@ func _ready() -> void:
 	button_divine_wind.pressed.connect(_on_change)
 	button_no_retreat.pressed.connect(_on_change)
 	settings = gather_settings()
+	_set_victory_condition(button_victory_annihilation)
 
 func _next_screen(button) -> void:
 	print("here")
