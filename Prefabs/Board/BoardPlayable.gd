@@ -5,7 +5,9 @@ var _selected_cell: BoardCell = null
 
 func _input(event: InputEvent) -> void:
 	super(event)
-	
+	if not interaction_allowed:
+		return
+		
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index != MouseButton.MOUSE_BUTTON_LEFT:
 			deselect_cell()

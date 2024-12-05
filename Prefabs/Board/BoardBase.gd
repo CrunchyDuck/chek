@@ -2,6 +2,8 @@ class_name BoardBase
 extends Control
 
 #region Variables
+var interaction_allowed: bool = true
+
 const cell_size : Vector2i = Vector2i(64, 64)
 const coordinates_size: Vector2 = cell_size
 const cells_offset: Vector2 = cell_size / 2  # This allows their centered sprites to be positioned properly.
