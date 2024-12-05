@@ -428,6 +428,10 @@ unlit_texture = ExtResource("17_7mp7f")
 lit_texture = ExtResource("18_bhu72")
 material_index = 1
 
+[node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainNextButton" index="5" node_paths=PackedStringArray("power_to")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("../ButtonLight")
+
 [node name="ScreenMainPower" parent="Console/front_panel/frame_screen_main" index="5"]
 transform = Transform3D(0.0140006, 0, 0, 0, -6.11985e-10, -0.0140006, 0, 0.0140006, -6.11985e-10, 0.308025, -0.356165, 0.0275505)
 
@@ -489,6 +493,10 @@ target = NodePath("..")
 unlit_texture = ExtResource("17_7mp7f")
 lit_texture = ExtResource("18_bhu72")
 material_index = 1
+
+[node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousButton" index="5" node_paths=PackedStringArray("power_to")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("../ButtonLight")
 
 [node name="screen_main" parent="Console/front_panel" index="1"]
 surface_material_override/0 = ExtResource("12_elhe4")
