@@ -43,7 +43,7 @@ var current_palette_name: String:
 	get:
 		return palettes.keys()[_current_index]
 var palettes: Dictionary = {}
-var _current_index: int = 0
+var _current_index: int = 7  # I think this palette is the most clear.
 
 signal palette_updated
 
