@@ -18,10 +18,14 @@ func _ready():
 	stylebox_selected.bg_color = ColorController.preset_button_selected_color
 	read_presets()
 	create_entries()
-	update_buttons_clickable()
+	if multiplayer.is_server():
+		update_buttons_clickable(true)
+	else:
+		update_buttons_clickable(GameController.game_settings.can_players_edit)
 	GameController.on_board_state_changed.connect(func (s): select_button(null))
 	GameController.on_game_settings_changed.connect(func (s): select_button(null))
 	set_preset(presets[0])
+	GameController.on_game_settings_changed.connect(_on_game_settings_changed)
 
 func read_presets():
 	presets = []
@@ -75,12 +79,11 @@ func select_button(button: Button):
 	_selected_button.add_theme_stylebox_override("hover", stylebox_selected)
 	_selected_button.add_theme_stylebox_override("pressed", stylebox_selected)
 
-func update_buttons_clickable():
-	var state = false
-	if multiplayer.is_server():
-		state = true
-	else:
-		state = GameController.game_settings.can_players_edit
-		
+func update_buttons_clickable(enabled: bool):
 	for button in buttons.values():
-		button.disabled = !state
+		button.disabled = !enabled
+
+func _on_game_settings_changed(new_settings: BoardBase.GameSettings):
+	if multiplayer.is_server():
+		return
+	update_buttons_clickable(new_settings.can_players_edit)

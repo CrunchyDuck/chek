@@ -21,6 +21,17 @@ var button_victory_any_sacred: CheckBox = $VCSacred/SacredFields/AnySacredPiece/
 @onready
 var button_sacred_piece: SacredPieceSelector = $VCSacred/SacredFields/AnySacredPiece/PieceType
 
+@onready
+# This excludes the setting for if players can modify the game state
+var rules_buttons: Array[BaseButton] = [
+	button_divine_wind,
+	button_no_retreat,
+	button_victory_annihilation,
+	button_victory_all_sacred,
+	button_victory_any_sacred,
+	button_sacred_piece,
+]
+
 func _ready() -> void:
 	button_victory_all_sacred.pressed.connect(func (): _set_victory_condition(button_victory_all_sacred))
 	button_victory_any_sacred.pressed.connect(func (): _set_victory_condition(button_victory_any_sacred))
@@ -29,6 +40,11 @@ func _ready() -> void:
 	button_no_retreat.pressed.connect(_on_change)
 	settings = gather_settings()
 	_set_victory_condition(button_victory_annihilation)
+	
+	if multiplayer.is_server():
+		update_buttons_clickable(true)
+	else:
+		update_buttons_clickable(GameController.game_settings.can_players_edit)
 
 func _set_victory_condition(new_condition: CheckBox):
 	# Flick off all but the new condition
@@ -40,7 +56,11 @@ func _set_victory_condition(new_condition: CheckBox):
 	_on_change()
 
 func _on_change():
-	load_settings.rpc(gather_settings().serialize())
+	settings = gather_settings()
+	if multiplayer.is_server():
+		load_settings.rpc(gather_settings().serialize())
+	elif settings.can_players_edit:
+		client_load_settings.rpc_id(1, settings.serialize())
 	
 func gather_settings() -> BoardBase.GameSettings:
 	var settings = BoardBase.GameSettings.new()
@@ -53,17 +73,9 @@ func gather_settings() -> BoardBase.GameSettings:
 	settings.no_retreat = button_no_retreat.button_pressed
 	return settings
 
-# TODO: Stop peers clicking buttons unless allowed
-func update_buttons_clickable():
-	pass
-	#var state = false
-	#if multiplayer.is_server():
-		#state = true
-	#else:
-		#state = GameController.game_settings.can_players_edit
-		#
-	#for button in buttons.values():
-		#button.disabled = !state
+func update_buttons_clickable(clickable: bool):
+	for button in rules_buttons:
+		button.disabled = !clickable
 
 @rpc("authority", "call_local", "reliable", 0)
 func load_settings(json_settings: Dictionary):
@@ -77,3 +89,13 @@ func load_settings(json_settings: Dictionary):
 	button_sacred_piece.current_piece = settings.victory_sacred_type
 	button_sacred_piece._set_texture(settings.victory_sacred_type)
 	
+	if not multiplayer.is_server():
+		update_buttons_clickable(settings.can_players_edit)
+	
+@rpc("any_peer", "call_local", "reliable")
+func client_load_settings(json_settings: Dictionary):
+	if not multiplayer.is_server():
+		return
+	if not settings.can_players_edit:
+		return
+	load_settings.rpc(json_settings)

@@ -103,8 +103,8 @@ var victory_condition: VictoryCondition
 var players_loaded: int = 0
 var confirm_start_with_extra_players: bool = false
 
-signal on_board_state_changed(new_state)
-signal on_game_settings_changed(new_state)
+signal on_board_state_changed(new_state: BoardBase.BoardState)
+signal on_game_settings_changed(new_state: BoardBase.GameSettings)
 
 const max_players: int = 4
 
