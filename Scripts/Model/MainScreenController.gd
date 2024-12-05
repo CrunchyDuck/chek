@@ -40,8 +40,8 @@ var previous_power: PowerCoordinator = $"/root/MainScene/Console/front_panel/fra
 @onready
 var power: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPower/PowerCoordinator"
 
-static var scene_list: Array[Node] = []
-static var scene_index: int = 0
+var scene_list: Array[Node] = []
+var scene_index: int = 0
 
 func _init():
 	instance = self
@@ -49,30 +49,34 @@ func _init():
 func _ready():
 	previous_button.on_pressed.connect(_prev_scene)
 	next_button.on_pressed.connect(_next_scene)
+	add_scene("Menus.Start")
 
 static func load_new_scene(prefab_path: String) -> Node:
-	scene_index = 0
-	for c in instance.node_central_screen.get_children():
+	instance.scene_index = 0
+	for c in instance.scene_list:
+		if c == null:
+			continue
 		Helpers.destroy_node(c)
+	instance.scene_list = []
 	return add_scene(prefab_path)
 
 static func add_scene(prefab_path: String) -> Node:
 	var p = PrefabController.get_prefab(prefab_path).instantiate()
 	instance.node_central_screen.add_child(p)
-	scene_list.append(p)
+	instance.scene_list.append(p)
 	instance._update_lights()
 	return p
 
 func _update_lights():
-	if scene_index == 0:
-		next_power.set_self(false)
-	else:
-		next_power.set_self(true)
-	
-	if scene_index == scene_list.size() - 1:
-		previous_power.set_self(false)
-	else:
+	if scene_index != 0 and scene_list.size() > 1:
 		previous_power.set_self(true)
+	else:
+		previous_power.set_self(false)
+	
+	if scene_index != scene_list.size() - 1:
+		next_power.set_self(true)
+	else:
+		next_power.set_self(false)
 
 func _prev_scene():
 	if scene_list.size() == 0:

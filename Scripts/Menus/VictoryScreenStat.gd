@@ -31,7 +31,7 @@ func fill_stats(_stats: Player.PlayerStats):
 	
 	var miscs: Array[Callable] = [add_mistakes, add_tricks, add_lights_on, add_ventilation_on, add_monitor_off, add_happy, add_cheated]
 	for __ in range(num_misc_to_display):
-		var i = randi_range(0, miscs.size())
+		var i = randi_range(0, miscs.size() - 1)
 		var f = miscs.pop_at(i)
 		f.call()
 	
