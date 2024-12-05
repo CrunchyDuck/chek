@@ -37,7 +37,7 @@ var rules_buttons: Array[BaseButton] = [
 ]
 
 func _ready() -> void:
-	button_can_players_edit.pressed.connect(func (): _on_change)
+	button_can_players_edit.pressed.connect(_on_change)
 	button_victory_all_sacred.pressed.connect(func (): _set_victory_condition(button_victory_all_sacred))
 	button_victory_any_sacred.pressed.connect(func (): _set_victory_condition(button_victory_any_sacred))
 	button_victory_annihilation.pressed.connect(func (): _set_victory_condition(button_victory_annihilation))
@@ -63,7 +63,7 @@ func _set_victory_condition(new_condition: CheckBox):
 func _on_change():
 	settings = gather_settings()
 	if multiplayer.is_server():
-		load_settings.rpc(gather_settings().serialize())
+		load_settings.rpc(settings.serialize())
 	elif settings.can_players_edit:
 		client_load_settings.rpc_id(1, settings.serialize())
 	
@@ -85,6 +85,7 @@ func update_buttons_clickable(clickable: bool):
 		button_can_players_edit.disabled = false
 	else:
 		button_can_players_edit.disabled = true
+	
 	for button in rules_buttons:
 		button.disabled = !clickable
 
