@@ -9,7 +9,7 @@ var settings: BoardBase.GameSettings:
 		GameController.game_settings = value
 
 @onready
-var button_can_players_edit: CheckBox = $CanPlayersEdit/Checkbox
+var button_can_players_edit: CheckBox = $CanPlayersEdit/CheckBox
 
 @onready
 var button_divine_wind: CheckBox = $DivineWind/CheckBox
@@ -91,12 +91,13 @@ func update_buttons_clickable(clickable: bool):
 @rpc("authority", "call_local", "reliable", 0)
 func load_settings(json_settings: Dictionary):
 	settings = BoardBase.GameSettings.deserialize(json_settings)
-	button_divine_wind.button_pressed = settings.divine_wind
-	button_no_retreat.button_pressed = settings.no_retreat
+	button_can_players_edit.set_pressed_no_signal(settings.can_players_edit)
+	button_divine_wind.set_pressed_no_signal(settings.divine_wind)
+	button_no_retreat.set_pressed_no_signal(settings.no_retreat)
 	
-	button_victory_any_sacred.button_pressed = settings.victory_lose_any_sacred
-	button_victory_all_sacred.button_pressed = settings.victory_lose_all_sacred
-	button_victory_annihilation.button_pressed = settings.victory_annihilation
+	button_victory_any_sacred.set_pressed_no_signal(settings.victory_lose_any_sacred)
+	button_victory_all_sacred.set_pressed_no_signal(settings.victory_lose_all_sacred)
+	button_victory_annihilation.set_pressed_no_signal(settings.victory_annihilation)
 	button_sacred_piece.current_piece = settings.victory_sacred_type
 	button_sacred_piece._set_texture(settings.victory_sacred_type)
 	
