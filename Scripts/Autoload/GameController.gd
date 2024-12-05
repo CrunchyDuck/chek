@@ -38,7 +38,8 @@ var job_list = [
 ]
 
 var game_in_progress: bool = false
-var board: BoardPlayable
+var board_playable: BoardPlayable
+#var board_editable: BoardEditable
 var players_by_net_id: Dictionary:
 	get:
 		var d = {}
@@ -87,7 +88,7 @@ var game_settings: BoardBase.GameSettings:
 		confirm_start_with_extra_players = false
 		on_game_settings_changed.emit(value)
 
-# Used in setup
+# Last updated state
 var _board_state: BoardBase.BoardState = BoardBase.BoardState.new()
 var board_state: BoardBase.BoardState:
 	get:
@@ -229,13 +230,13 @@ func load_board_state(state: BoardBase.BoardState, players: Dictionary):
 		var p = players[player_num]
 		p.actions_remaining = state.players[player_num].actions_remaining
 	
-	# Initialize board, if necessary
-	if board == null:
-		board = PrefabController.get_prefab("Board.BoardPlayable").instantiate()
-		screen_central.add_child(board)
-		board.name = "Board"
-	board.visible = false  # Hide until fully loaded
-	board.load_state(state)
+	# Initialize board_playable, if necessary
+	if board_playable == null:
+		board_playable = PrefabController.get_prefab("Board.BoardPlayable").instantiate()
+		screen_central.add_child(board_playable)
+		board_playable.name = "Board"
+	board_playable.visible = false  # Hide until fully loaded
+	board_playable.load_state(state)
 	
 @rpc("any_peer", "call_local", "reliable")
 func try_perform_action(game_action_data: Dictionary) -> void:
@@ -270,21 +271,21 @@ func perform_action_chain(action: BoardPlayable.GameAction) -> bool:
 	while current_action != null:
 		match current_action.type:
 			BoardPlayable.eActionType.Move:
-				if not board._move_to_cell(current_action.source, current_action.target):
+				if not board_playable._move_to_cell(current_action.source, current_action.target):
 					break
 			BoardPlayable.eActionType.Attack:
-				if not board._attack_to_cell(current_action.source, current_action.target):
+				if not board_playable._attack_to_cell(current_action.source, current_action.target):
 					break
 			BoardPlayable.eActionType.AttackMove:
-				if not board._attack_to_cell(current_action.source, current_action.target):
+				if not board_playable._attack_to_cell(current_action.source, current_action.target):
 					break
 				anything_performed = true
-				if not board._move_to_cell(current_action.source, current_action.target):
+				if not board_playable._move_to_cell(current_action.source, current_action.target):
 					break
 			BoardPlayable.eActionType.Spawn:
 				pass
 			BoardPlayable.eActionType.SwapPosition:
-				if not board._swap_cells(current_action.source, current_action.target):
+				if not board_playable._swap_cells(current_action.source, current_action.target):
 					break
 			_:
 				assert(false, "Unhandled eActionType type in perform_action_chain")
@@ -337,7 +338,7 @@ func turn_order_sequential(pid_just_acted: int):
 func can_start_victory_condition() -> bool:
 	var vic = get_victory_condition(game_settings)
 	if vic is VictoryPieceCapture:
-		return vic.can_start_game(board.serialize(), game_settings.victory_specific_type, true)
+		return vic.can_start_game(board_state, game_settings.victory_sacred_type, true)
 	if vic is VictoryAnnihilation:
 		return true
 	
@@ -346,13 +347,13 @@ func can_start_victory_condition() -> bool:
 	
 func get_victory_condition(game_settings: BoardBase.GameSettings) -> VictoryCondition:
 	if game_settings.victory_lose_all_sacred or game_settings.victory_lose_any_sacred:
-		return VictoryPieceCapture.new(board.serialize(), game_settings.victory_specific_type, game_settings.victory_lose_all_sacred)
+		return VictoryPieceCapture.new(board_state, game_settings.victory_sacred_type, game_settings.victory_lose_all_sacred)
 	if game_settings.victory_annihilation:
 		return VictoryAnnihilation.new()
 	return null
 
 func perform_victory_and_defeat():
-	var defeated = victory_condition.evaluate_defeat(board.serialize(), game_settings)
+	var defeated = victory_condition.evaluate_defeat(board_playable.serialize(), game_settings)
 	for d in defeated:
 		var p = players_by_game_id[d]
 		if p.defeated:
@@ -360,7 +361,7 @@ func perform_victory_and_defeat():
 		p.defeated = true
 		MessageController.system_message(p.character_name + " has been defeated!")
 		
-	var victory = victory_condition.evaluate_victory(board.serialize(), game_settings)
+	var victory = victory_condition.evaluate_victory(board_playable.serialize(), game_settings)
 	if victory.size() > 0:
 		var p = players_by_game_id[victory[0]]
 		MessageController.system_message(p.character_name + " is victorious!")
@@ -392,7 +393,7 @@ func try_create_player(character_name: String, job_name: String):
 func player_loaded():
 	players_loaded += 1
 	if players_loaded == Player.players.size():
-		board.visible = true
+		board_playable.visible = true
 		Helpers.destroy_node(screen_central.get_node("GameLoading"))
 
 @rpc("authority", "call_local", "reliable")
@@ -413,7 +414,7 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	game_settings = BoardBase.GameSettings.deserialize(json_game_settings)
 	var board_state = BoardBase.BoardState.deserialize(json_board_state)
 	
-	# Initialize board with size and pieces
+	# Initialize board_playable with size and pieces
 	load_board_state(board_state, players_by_game_id)
 	
 	# Set player states

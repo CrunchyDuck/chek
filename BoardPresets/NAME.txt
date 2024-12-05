@@ -15,8 +15,8 @@
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 1,
-      "position_y": 4,
+      "position_x": 0,
+      "position_y": 7,
       "type": 7
      },
      {
@@ -113,8 +113,8 @@
      {
       "orientation": 180,
       "player": 0,
-      "position_x": 1,
-      "position_y": 5,
+      "position_x": 0,
+      "position_y": 6,
       "type": 9
      }
     ]
@@ -142,7 +142,7 @@
   "victory_annihilation": true,
   "victory_lose_all_sacred": false,
   "victory_lose_any_sacred": false,
-  "victory_sacred_type": 0
+  "victory_sacred_type": 6
  },
  "name": "NAME",
  "players": 1
