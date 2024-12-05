@@ -56,7 +56,6 @@ func can_act() -> bool:
 		var _actions = _piece._get_actions()
 		
 		if _actions.size() == 0:
-			print("here")
 			continue
 			
 		for _act in _actions:

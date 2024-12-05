@@ -30,10 +30,6 @@ func _ready() -> void:
 	settings = gather_settings()
 	_set_victory_condition(button_victory_annihilation)
 
-func _next_screen(button) -> void:
-	print("here")
-	# Move to board setup
-
 func _set_victory_condition(new_condition: CheckBox):
 	# Flick off all but the new condition
 	button_victory_all_sacred.set_pressed_no_signal(false)
