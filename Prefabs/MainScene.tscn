@@ -411,7 +411,7 @@ event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 [node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainNextButton" index="2" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
 script = ExtResource("13_b4upv")
 to_move = [NodePath("..")]
-move_distance = Vector3(0, 0, 0.005)
+move_distance = Vector3(0, 0, -0.005)
 area_press = NodePath("../Area3D")
 sound_down = NodePath("../SoundDown")
 sound_up = NodePath("../SoundUp")
@@ -473,7 +473,7 @@ event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 [node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousButton" index="2" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
 script = ExtResource("13_b4upv")
 to_move = [NodePath("..")]
-move_distance = Vector3(0, 0, 0.005)
+move_distance = Vector3(0, 0, -0.005)
 area_press = NodePath("../Area3D")
 sound_down = NodePath("../SoundDown")
 sound_up = NodePath("../SoundUp")
