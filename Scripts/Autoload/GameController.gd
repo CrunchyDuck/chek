@@ -404,11 +404,10 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 		p.friendly.append(p.game_id)
 		
 	for n in screen_central.get_children():
-		screen_central.remove_child(n)
-		n.queue_free()
+		Helpers.destroy_node(n)
 	screen_central.add_child(PrefabController.get_prefab("Menus.GameLoading").instantiate())
 
-	if multiplayer.is_server:
+	if multiplayer.is_server():
 		multiplayer.multiplayer_peer.refuse_new_connections = true
 		# TODO: Bot takeover on disconnect
 	game_settings = BoardBase.GameSettings.deserialize(json_game_settings)

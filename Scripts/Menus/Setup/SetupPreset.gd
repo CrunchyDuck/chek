@@ -66,14 +66,16 @@ func create_entry(preset: BoardBase.GamePreset):
 	presets[preset.name] = preset
 
 func highlight_preset(preset: BoardBase.GamePreset):
+	_selected_preset = preset
+	
 	if _selected_button:
 		_selected_button.remove_theme_stylebox_override("normal")
 		_selected_button.remove_theme_stylebox_override("focus")
 		_selected_button.remove_theme_stylebox_override("hover_pressed")
 		_selected_button.remove_theme_stylebox_override("hover")
 		_selected_button.remove_theme_stylebox_override("pressed")
+		_selected_button.remove_theme_stylebox_override("disabled")
 		
-	_selected_preset = preset
 	if _selected_preset == null:
 		_selected_button = null
 		return
@@ -84,6 +86,7 @@ func highlight_preset(preset: BoardBase.GamePreset):
 	_selected_button.add_theme_stylebox_override("hover_pressed", stylebox_selected)
 	_selected_button.add_theme_stylebox_override("hover", stylebox_selected)
 	_selected_button.add_theme_stylebox_override("pressed", stylebox_selected)
+	_selected_button.add_theme_stylebox_override("disabled", stylebox_selected)
 
 func update_buttons_clickable(enabled: bool):
 	for button in buttons.values():
