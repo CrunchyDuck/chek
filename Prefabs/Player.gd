@@ -5,7 +5,7 @@ static var players = {}
 
 var board: BoardPlayable:
 	get:
-		return GameController.board
+		return GameController.board_playable
 var color: Color:
 	get:
 		var id = game_id
