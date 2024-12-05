@@ -35,6 +35,11 @@ func _ready():
 		send = default_preset.serialize()
 	set_preset(send)
 
+func _exit_tree() -> void:
+	# When this object is destroyed, it has a frame where it will still respond to settings changes.
+	# But because it's not in the tree, it will not be able to find the multiplayer object.
+	GameController.on_game_settings_changed.disconnect(_on_game_settings_changed)
+	
 func read_presets() -> Array[BoardBase.GamePreset]:
 	var dir = DirAccess.open(presets_path)
 	

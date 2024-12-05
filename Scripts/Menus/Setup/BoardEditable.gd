@@ -4,7 +4,6 @@ extends BoardBase
 var paint_piece: BoardBase.PieceState
 var first_cycle: bool = true
 
-
 func _process(delta):
 	# I had so much fucking trouble gettin this to work.
 	# The issue lies in RPCs relying on the node path to run.
