@@ -233,7 +233,6 @@ func load_board_state(state: BoardBase.BoardState, players: Dictionary):
 	# Initialize board_playable, if necessary
 	if board_playable == null:
 		board_playable = MainScreenController.load_new_scene("Board.BoardPlayable")
-		screen_central.add_child(board_playable)
 		board_playable.name = "Board"
 	board_playable.visible = false  # Hide until fully loaded
 	board_playable.load_state(state)
