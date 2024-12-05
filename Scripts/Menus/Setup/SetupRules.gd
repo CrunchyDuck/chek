@@ -49,7 +49,8 @@ func _ready() -> void:
 	if multiplayer.is_server():
 		update_buttons_clickable(true)
 	else:
-		update_buttons_clickable(GameController.game_settings.can_players_edit)
+		update_buttons_clickable(false)
+		request_load_settings.rpc_id(1)
 
 func _set_victory_condition(new_condition: CheckBox):
 	# Flick off all but the new condition
@@ -112,3 +113,9 @@ func client_load_settings(json_settings: Dictionary):
 	if not settings.can_players_edit:
 		return
 	load_settings.rpc(json_settings)
+
+@rpc("any_peer", "call_remote", "reliable")
+func request_load_settings():
+	if not multiplayer.is_server():
+		return
+	load_settings.rpc_id(multiplayer.get_remote_sender_id(), settings.serialize())
