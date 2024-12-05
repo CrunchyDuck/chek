@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://d03uatxtsungl"]
+
+[ext_resource type="Texture2D" uid="uid://bmp455tdjo0r4" path="res://Sprites/Console/ArrowButtonUnlit.png" id="1_g0onh"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_g0onh")
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.5
