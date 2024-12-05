@@ -11,7 +11,7 @@ func _ready() -> void:
 	button_return.pressed.connect(_on_return)
 	
 func _on_return():
-	MainScreenController.load_scene("Menus.Setup.Main")
+	MainScreenController.load_new_scene("Menus.Setup.Main")
 
 # TODO: Victory condition checking and call this
 func display_stats(victor: int, player_stats: Array[Player.PlayerStats]):

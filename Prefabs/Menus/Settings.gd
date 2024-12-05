@@ -26,5 +26,4 @@ func _on_next_palette():
 	ColorControllers.next_palette()
 
 func _on_back():
-	$"..".add_child(PrefabController.get_prefab("Menus.Start").instantiate())
-	Helpers.destroy_node(self)
+	MainScreenController.load_new_scene("Menus.Start")

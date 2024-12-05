@@ -19,8 +19,8 @@ func _ready() -> void:
 		input_ip.text = GameController.public_ip
 
 func _on_back():
-	$"..".add_child(PrefabController.get_prefab("Menus.Start").instantiate())
-	Helpers.destroy_node(self)
+	MainScreenController.load_new_scene("Menus.Start")
+
 	
 func _on_done():
 	if not GameController.start_lobby(int(input_port.text)):

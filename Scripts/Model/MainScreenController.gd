@@ -30,12 +30,19 @@ var left_power: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_s
 @onready
 var power: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPower/PowerCoordinator"
 
+static var scene_list: Array[Node] = []
+static var scene_index: int = 0
+
 func _init():
 	instance = self
 
-static func load_scene(prefab_path: String):
+static func load_new_scene(prefab_path: String):
+	scene_index = 0
 	for c in instance.node_central_screen.get_children():
 		Helpers.destroy_node(c)
+	add_scene(prefab_path)
+
+static func add_scene(prefab_path: String):
 	var p = PrefabController.get_prefab(prefab_path).instantiate()
 	instance.node_central_screen.add_child(p)
-	
+	scene_list.append(p)

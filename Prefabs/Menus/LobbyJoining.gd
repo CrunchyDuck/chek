@@ -24,8 +24,7 @@ func _ready() -> void:
 
 func _on_back():
 	if info_page.visible:
-		$"..".add_child(PrefabController.get_prefab("Menus.Start").instantiate())
-		Helpers.destroy_node(self)
+		MainScreenController.load_new_scene("Menus.Start")
 		return
 	info_page.visible = true
 	connecting_page.visible = false
