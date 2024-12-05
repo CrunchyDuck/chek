@@ -2,9 +2,11 @@ class_name SetupPreset
 extends Node
 
 const presets_path: String = "res://BoardPresets"
-var presets: Array[BoardBase.GamePreset] = []
+# string Name: BoardBase.GamePreset
+var presets: Dictionary = {}
 
 var buttons: Dictionary = {}
+
 
 @onready
 var node_preset_list: VBoxContainer = $PresetsViewport/PresetList
@@ -13,32 +15,39 @@ var node_preset_list: VBoxContainer = $PresetsViewport/PresetList
 var stylebox_selected: StyleBoxFlat = load("res://Styles & Fonts/StyleboxPresetSelected.tres")
 
 var _selected_button: Button
+var _selected_preset: BoardBase.GamePreset
 
 func _ready():
 	stylebox_selected.bg_color = ColorController.preset_button_selected_color
-	read_presets()
-	create_entries()
+	presets = {}
+	create_entries(read_presets())
 	if multiplayer.is_server():
 		update_buttons_clickable(true)
 	else:
 		update_buttons_clickable(GameController.game_settings.can_players_edit)
-	GameController.on_board_state_changed.connect(func (s): select_button(null))
-	GameController.on_game_settings_changed.connect(func (s): select_button(null))
-	set_preset(presets[0])
+	GameController.on_board_state_changed.connect(func (s): highlight_preset(null))
+	GameController.on_game_settings_changed.connect(func (s): highlight_preset(null))
 	GameController.on_game_settings_changed.connect(_on_game_settings_changed)
+	
+	var send = {}
+	var default_preset = presets.get("UNINSPIRED", null)
+	if default_preset != null:
+		send = default_preset.serialize()
+	set_preset(send)
 
-func read_presets():
-	presets = []
+func read_presets() -> Array[BoardBase.GamePreset]:
 	var dir = DirAccess.open(presets_path)
 	
+	var ps: Array[BoardBase.GamePreset] = []
 	var files = dir.get_files()
 	for file in files:
 		var f = FileAccess.get_file_as_string(presets_path + "/" + file)
 		var j = JSON.parse_string(f)
 		var gp = BoardBase.GamePreset.deserialize(j)
-		presets.append(gp)
+		ps.append(gp)
+	return ps
 
-func create_entries():
+func create_entries(presets: Array[BoardBase.GamePreset]):
 	for n in node_preset_list.get_children():
 		node_preset_list.remove_child(n)
 	buttons = {}
@@ -51,17 +60,12 @@ func create_entry(preset: BoardBase.GamePreset):
 	p.get_node("Fields/Name").text = preset.name
 	p.get_node("Fields/Player").text = str(preset.players)
 	p.get_node("Fields/Complexity").text = str(preset.complexity)
-	p.get_node("Button").pressed.connect(func (): set_preset(preset))
+	p.get_node("Button").pressed.connect(func (): set_preset(preset.serialize()))
 	node_preset_list.add_child(p)
 	buttons[preset] = p.get_node("Button")
+	presets[preset.name] = preset
 
-func set_preset(preset: BoardBase.GamePreset):
-	GameController.board_state = preset.board_state
-	GameController.game_settings = preset.game_settings
-	select_button(buttons[preset])
-	# TODO: Synchronize which prefab is selected across users.
-
-func select_button(button: Button):
+func highlight_preset(preset: BoardBase.GamePreset):
 	if _selected_button:
 		_selected_button.remove_theme_stylebox_override("normal")
 		_selected_button.remove_theme_stylebox_override("focus")
@@ -69,10 +73,12 @@ func select_button(button: Button):
 		_selected_button.remove_theme_stylebox_override("hover")
 		_selected_button.remove_theme_stylebox_override("pressed")
 		
-	if button == null:
+	_selected_preset = preset
+	if _selected_preset == null:
+		_selected_button = null
 		return
 		
-	_selected_button = button
+	_selected_button = buttons[preset]
 	_selected_button.add_theme_stylebox_override("normal", stylebox_selected)
 	_selected_button.add_theme_stylebox_override("focus", stylebox_selected)
 	_selected_button.add_theme_stylebox_override("hover_pressed", stylebox_selected)
@@ -87,3 +93,42 @@ func _on_game_settings_changed(new_settings: BoardBase.GameSettings):
 	if multiplayer.is_server():
 		return
 	update_buttons_clickable(new_settings.can_players_edit)
+
+func on_preset_button_pressed(preset: BoardBase.GamePreset):
+	if multiplayer.is_server():
+		set_preset.rpc(preset.serialize())
+	else:
+		client_set_preset.rpc_id(1, preset.serialize())
+	
+@rpc("authority", "call_local", "reliable")
+func set_preset(json_preset: Dictionary):
+	if json_preset == {}:
+		_selected_preset = null
+		highlight_preset(null)
+		return
+	
+	var preset = BoardBase.GamePreset.deserialize(json_preset)
+	GameController.board_state = preset.board_state
+	GameController.game_settings = preset.game_settings
+	
+	if not presets.has(preset.name):
+		create_entry(preset)
+	var local_preset = presets[preset.name]
+	highlight_preset(local_preset)
+
+@rpc("any_peer", "call_remote", "reliable")
+func client_set_preset(json_preset: Dictionary):
+	if not multiplayer.is_server():
+		return
+	if not GameController.game_settings.can_players_edit:
+		return
+	set_preset.rpc(json_preset)
+	
+@rpc("any_peer", "call_remote", "reliable")
+func request_set_preset():
+	if not multiplayer.is_server():
+		return
+	var send = _selected_preset.serialize() if _selected_preset != null else {}
+	set_preset.rpc_id(multiplayer.get_remote_sender_id(), send)
+
+	
