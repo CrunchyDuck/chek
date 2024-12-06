@@ -400,6 +400,10 @@ func on_turn_taken(action: BoardPlayable.GameAction):
 	# Check for victory
 	perform_victory_and_defeat()
 	
+	# Don't progress if the game is over
+	if not game_in_progress:
+		return
+		
 	# Progress turn order
 	if game_settings.turn_sequential:
 		turn_order_sequential(action.player)
