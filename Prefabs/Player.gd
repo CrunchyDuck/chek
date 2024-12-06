@@ -51,9 +51,15 @@ var action_start_time: float = 0
 func _init():
 	player_stats = Player.PlayerStats.new()
 	players[self] = true
+
+func _ready():
+	GameController.on_game_start.connect(_on_game_start)
 	
 func _exit_tree() -> void:
 	players.erase(self)
+	
+func _on_game_start():
+	received_stats = null
 	
 func can_act() -> bool:
 	for _piece in pieces:
