@@ -58,7 +58,7 @@
       "orientation": 180,
       "player": 0,
       "position_x": 0,
-      "position_y": 7,
+      "position_y": 1,
       "type": 2
      },
      {
@@ -111,23 +111,10 @@
       "type": 6
      }
     ]
-   },
-   {
-    "actions_remaining": 0,
-    "id": 1,
-    "pieces": [
-     {
-      "orientation": 0,
-      "player": 1,
-      "position_x": 0,
-      "position_y": 1,
-      "type": 1
-     }
-    ]
    }
   ],
   "size_x": 8,
-  "size_y": 8
+  "size_y": 12
  },
  "complexity": 0,
  "game_settings": {
@@ -151,5 +138,5 @@
   "victory_sacred_type": 6
  },
  "name": "NAME",
- "players": 2
+ "players": 1
 }

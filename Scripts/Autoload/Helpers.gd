@@ -14,8 +14,12 @@ static func disable_node(node: Node):
 	node.process_mode = Node.PROCESS_MODE_DISABLED
 	if node.has_method("hide"):
 		node.hide()
+	if node.has_method("on_disable"):
+		node.on_disable()
 
 static func enable_node(node: Node):
 	node.process_mode = Node.PROCESS_MODE_INHERIT
 	if node.has_method("show"):
 		node.show()
+	if node.has_method("on_enable"):
+		node.on_enable()
