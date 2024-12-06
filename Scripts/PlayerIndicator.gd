@@ -21,7 +21,6 @@ func _ready():
 func _process(_delta):
 	var p = GameController.players_by_game_id.get(game_id, null)
 	
-	# TODO: Set off when dead.
 	if not power_coordinator.on or not GameController.game_in_progress or p == null or p.defeated:
 		set_indicator(IndicatorColor["Off"])
 	elif p.can_move:
@@ -35,5 +34,9 @@ func set_indicator(color: Array[Color]):
 	light.light_color = l
 	var material: Material = mesh_instance.get_active_material(0).duplicate()
 	material.albedo_color = m
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	if l == Color():
+		material.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
+	else:
+		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		
 	mesh_instance.set_surface_override_material(0, material)
