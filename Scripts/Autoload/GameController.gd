@@ -143,6 +143,7 @@ func _on_game_end():
 	players_loaded = 0
 	confirm_start_with_extra_players = false
 	multiplayer.multiplayer_peer.refuse_new_connections = false
+	board_playable = null
 		
 #region Server events
 func start_lobby(_port: int) -> bool:
