@@ -80,6 +80,7 @@ func _update_lights():
 	else:
 		next_power.set_self(false)
 
+# TODO: Disconnect the frame buttons when changing scene.
 func _prev_scene():
 	if scene_list.size() == 0:
 		return

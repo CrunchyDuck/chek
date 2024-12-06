@@ -106,6 +106,7 @@ func synchronize(data: Dictionary):
 func send_player_stats():
 	player_stats.name = character_name
 	player_stats.player_num = game_id
+	# TODO: This displays nan
 	player_stats.average_turn_time = player_stats.total_turn_time / float(player_stats.turns_taken)
 	
 	player_stats.mistakes = randi_range(0, player_stats.pieces_lost)

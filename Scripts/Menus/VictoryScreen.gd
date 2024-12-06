@@ -22,7 +22,9 @@ func _on_return():
 	MainScreenController.load_new_scene("Menus.Setup.Main")
 
 func display_victor(victor: int):
-	label_winner.text = ColorController.color_text("VICTORY " + GameController.players_by_game_id[victor].character_name, ColorController.player_primary_colors[victor])
+	var v_text = ColorController.color_text("VICTORY " + GameController.players_by_game_id[victor].character_name, ColorController.player_primary_colors[victor])
+	v_text = "[center]" + v_text + "[/center]"
+	label_winner.text = v_text
 
 # This being done locally on each client means what stats are visible will be different for each.
 # This is fine for now. Maybe fix later.
