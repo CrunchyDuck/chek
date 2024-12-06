@@ -63,10 +63,7 @@ var pieces_by_game_id: Dictionary:
 #region Built-in events
 func _ready():
 	node_play_field.clip_contents = true
-	screen_controller.up_button.on_pressed.connect(_move_clipping_up)
-	screen_controller.right_button.on_pressed.connect(_move_clipping_right)
-	screen_controller.down_button.on_pressed.connect(_move_clipping_down)
-	screen_controller.left_button.on_pressed.connect(_move_clipping_left)
+	connect_buttons()
 	node_x_coordinates.direction = Vector2(1, 0)
 	node_y_coordinates.direction = Vector2(0, 1)
 
@@ -80,6 +77,14 @@ func _process(delta):
 	# And I'm past my deadline. :)
 	_position_board()
 	pass
+
+func on_enable():
+	connect_buttons()
+	_set_button_activity()
+
+func on_disable():
+	_depower_buttons()
+	disconnect_buttons()
 #endregion
 
 #region Board editing functions
@@ -291,6 +296,20 @@ func _move_clipping_left():
 	var new_pos = clipping_position_min
 	new_pos.x -= 1
 	_move_clipping_position_min(new_pos)
+#endregion
+
+#region Scroll button control
+func connect_buttons():
+	screen_controller.up_button.on_pressed.connect(_move_clipping_up)
+	screen_controller.right_button.on_pressed.connect(_move_clipping_right)
+	screen_controller.down_button.on_pressed.connect(_move_clipping_down)
+	screen_controller.left_button.on_pressed.connect(_move_clipping_left)
+
+func disconnect_buttons():
+	screen_controller.up_button.on_pressed.disconnect(_move_clipping_up)
+	screen_controller.right_button.on_pressed.disconnect(_move_clipping_right)
+	screen_controller.down_button.on_pressed.disconnect(_move_clipping_down)
+	screen_controller.left_button.on_pressed.disconnect(_move_clipping_left)
 #endregion
 
 #region Networking functions
