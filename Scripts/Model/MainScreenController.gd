@@ -52,11 +52,11 @@ func _ready():
 	add_scene("Menus.Start")
 
 static func load_new_scene(prefab_path: String) -> Node:
-	instance.scene_index = 0
 	for c in instance.scene_list:
 		if c == null:
 			continue
 		Helpers.destroy_node(c)
+	instance.scene_index = 0
 	instance.scene_list = []
 	return add_scene(prefab_path)
 
@@ -82,7 +82,7 @@ func _update_lights():
 
 # TODO: Disconnect the frame buttons when changing scene.
 func _prev_scene():
-	if scene_list.size() == 0:
+	if scene_list.size() <= 1:
 		return
 	Helpers.disable_node(scene_list[scene_index])
 	scene_index = clampi(scene_index - 1, 0, scene_list.size() - 1)
@@ -90,7 +90,7 @@ func _prev_scene():
 	_update_lights()
 
 func _next_scene():
-	if scene_list.size() == 0:
+	if scene_list.size() <= 1:
 		return
 	Helpers.disable_node(scene_list[scene_index])
 	scene_index = clampi(scene_index + 1, 0, scene_list.size() - 1)
