@@ -8,6 +8,13 @@
      {
       "orientation": 180,
       "player": 0,
+      "position_x": 0,
+      "position_y": 5,
+      "type": 1
+     },
+     {
+      "orientation": 180,
+      "player": 0,
       "position_x": 1,
       "position_y": 6,
       "type": 1
@@ -55,10 +62,10 @@
       "type": 1
      },
      {
-      "orientation": 0,
+      "orientation": 180,
       "player": 0,
       "position_x": 0,
-      "position_y": 0,
+      "position_y": 7,
       "type": 2
      },
      {
@@ -109,13 +116,124 @@
       "position_x": 4,
       "position_y": 7,
       "type": 6
+     }
+    ]
+   },
+   {
+    "actions_remaining": 0,
+    "id": 1,
+    "pieces": [
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 0,
+      "position_y": 1,
+      "type": 1
      },
      {
-      "orientation": 180,
-      "player": 0,
+      "orientation": 0,
+      "player": 1,
+      "position_x": 1,
+      "position_y": 1,
+      "type": 1
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 2,
+      "position_y": 1,
+      "type": 1
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 3,
+      "position_y": 1,
+      "type": 1
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 4,
+      "position_y": 1,
+      "type": 1
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 5,
+      "position_y": 1,
+      "type": 1
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 6,
+      "position_y": 1,
+      "type": 1
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 7,
+      "position_y": 1,
+      "type": 1
+     },
+     {
+      "orientation": 0,
+      "player": 1,
       "position_x": 0,
-      "position_y": 7,
+      "position_y": 0,
       "type": 2
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 7,
+      "position_y": 0,
+      "type": 2
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 1,
+      "position_y": 0,
+      "type": 3
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 6,
+      "position_y": 0,
+      "type": 3
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 3,
+      "position_y": 0,
+      "type": 5
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 2,
+      "position_y": 0,
+      "type": 4
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 5,
+      "position_y": 0,
+      "type": 4
+     },
+     {
+      "orientation": 0,
+      "player": 1,
+      "position_x": 4,
+      "position_y": 0,
+      "type": 6
      }
     ]
    }
@@ -145,5 +263,5 @@
   "victory_sacred_type": 6
  },
  "name": "NAME",
- "players": 1
+ "players": 2
 }

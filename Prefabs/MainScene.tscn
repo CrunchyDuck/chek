@@ -393,7 +393,7 @@ lit_texture = ExtResource("16_ey2rd")
 material_index = 1
 
 [node name="ScreenMainNextButton" parent="Console/front_panel/frame_screen_main" index="4"]
-transform = Transform3D(1.78814e-07, -1.62921e-07, -1, 1.62921e-07, -1, 1.62921e-07, -1, -1.62921e-07, -1.19209e-07, 0.219, -0.348, 0.013)
+transform = Transform3D(1.62921e-07, -1.62921e-07, -1, 1.50996e-07, -1, 1.62921e-07, -1, -1.50996e-07, -1.62921e-07, 0.219496, -0.345212, 0.0129633)
 surface_material_override/1 = ExtResource("17_7mp7f")
 
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/ScreenMainNextButton" index="0"]
@@ -428,7 +428,39 @@ material_index = 1
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
 
-[node name="ScreenMainPower" parent="Console/front_panel/frame_screen_main" index="5"]
+[node name="SoundDown" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette" index="0"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette" index="1"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette" index="2" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, 0, -0.005)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundDown")
+sound_up = NodePath("../SoundUp")
+
+[node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette" index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette/Area3D"]
+shape = SubResource("BoxShape3D_gdqk0")
+
+[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette" index="4"]
+script = ExtResource("15_o2dwh")
+unlit_texture = ExtResource("12_05bwk")
+lit_texture = ExtResource("16_ey2rd")
+
+[node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette" index="5" node_paths=PackedStringArray("power_to")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("../ButtonLight")
+delay = 0.4
+self_on = true
+
+[node name="ScreenMainPower" parent="Console/front_panel/frame_screen_main" index="6"]
 transform = Transform3D(0.0140006, 0, 0, 0, -6.11985e-10, -0.0140006, 0, 0.0140006, -6.11985e-10, 0.308025, -0.356165, 0.0275505)
 
 [node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/ScreenMainPower/Button_001" index="0"]
@@ -459,7 +491,7 @@ event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
 event_name = "event:/SmallButtonUp"
 event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 
-[node name="ScreenMainPreviousButton" parent="Console/front_panel/frame_screen_main" index="6"]
+[node name="ScreenMainPreviousButton" parent="Console/front_panel/frame_screen_main" index="7"]
 surface_material_override/1 = ExtResource("17_7mp7f")
 
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousButton" index="0"]
@@ -493,6 +525,38 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousButton" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
+
+[node name="SoundDown" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette" index="0"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" type="FmodEventEmitter3D" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette" index="1"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PressButton" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette" index="2" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
+script = ExtResource("13_b4upv")
+to_move = [NodePath("..")]
+move_distance = Vector3(0, 0, -0.005)
+area_press = NodePath("../Area3D")
+sound_down = NodePath("../SoundDown")
+sound_up = NodePath("../SoundUp")
+
+[node name="Area3D" type="Area3D" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette" index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette/Area3D"]
+shape = SubResource("BoxShape3D_gdqk0")
+
+[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette" index="4"]
+script = ExtResource("15_o2dwh")
+unlit_texture = ExtResource("12_05bwk")
+lit_texture = ExtResource("16_ey2rd")
+
+[node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette" index="5" node_paths=PackedStringArray("power_to")]
+script = ExtResource("12_xq1ts")
+power_to = NodePath("../ButtonLight")
+delay = 0.4
+self_on = true
 
 [node name="screen_main" parent="Console/front_panel" index="1"]
 surface_material_override/0 = ExtResource("12_elhe4")

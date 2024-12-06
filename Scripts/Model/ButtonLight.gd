@@ -10,6 +10,8 @@ var lit_texture: StandardMaterial3D
 var material_index: int
 
 func toggle_power(state: bool):
+	if target == null:
+		return
 	if state:
 		target.set_surface_override_material(material_index, lit_texture)
 	else:
