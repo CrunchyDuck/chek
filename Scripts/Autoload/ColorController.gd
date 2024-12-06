@@ -43,12 +43,14 @@ var current_palette_name: String:
 	get:
 		return palettes.keys()[_current_index]
 var palettes: Dictionary = {}
+var palettes_primary_color: Dictionary = {}
 var _current_index: int = 7  # I think this palette is the most clear.`
 
 signal palette_updated
 
 func _ready():
 	_load_palettes()
+	#MainScreenController.instance.next_palette_button.on_pressed.connect()
 	
 func _input(event):
 	if event.is_action_pressed("PreviousPalette"):
@@ -64,7 +66,9 @@ func _load_palettes():
 		var parts = file.split(".")
 		if parts[-1] == "png":
 			var p = load(dir.get_current_dir() + "/" + file)
-			palettes[parts[0]] = load(dir.get_current_dir() + "/" + file)
+			palettes[parts[0]] = p
+			var pixel = p.get_image().get_pixel(7, 0)
+			palettes_primary_color[p] = pixel
 	
 	palette_updated.emit()
 
