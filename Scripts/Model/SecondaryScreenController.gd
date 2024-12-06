@@ -12,6 +12,7 @@ var left_button: Array[PressButton] = [
 	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryLeftButton4/PressButton",
 	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryLeftButton5/PressButton",
 ]
+var left_button_power: Array[PowerCoordinator] = []
 
 @onready
 var right_button: Array[PressButton] = [
@@ -21,6 +22,13 @@ var right_button: Array[PressButton] = [
 	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryRightButton4/PressButton",
 	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryRightButton5/PressButton",
 ]
+var right_button_power: Array[PowerCoordinator] = []
 
 @onready
 var power: PowerCoordinator = $"/root/MainScene/Console/right_panel/RightScreenFrame/ScreenRightPower/PowerCoordinator"
+
+func _ready():
+	for b in right_button:
+		right_button_power.append(b.get_node("../PowerCoordinator"))
+	for b in left_button:
+		left_button_power.append(b.get_node("../PowerCoordinator"))

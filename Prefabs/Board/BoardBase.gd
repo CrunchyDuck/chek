@@ -88,6 +88,7 @@ func on_disable():
 
 func _exit_tree() -> void:
 	_depower_buttons()
+	
 	disconnect_buttons()
 #endregion
 
@@ -304,12 +305,18 @@ func _move_clipping_left():
 
 #region Scroll button control
 func connect_buttons():
+	if not screen_controller.up_button.on_pressed.is_connected(_move_clipping_up):
+		return
+	
 	screen_controller.up_button.on_pressed.connect(_move_clipping_up)
 	screen_controller.right_button.on_pressed.connect(_move_clipping_right)
 	screen_controller.down_button.on_pressed.connect(_move_clipping_down)
 	screen_controller.left_button.on_pressed.connect(_move_clipping_left)
 
 func disconnect_buttons():
+	if not screen_controller.up_button.on_pressed.is_connected(_move_clipping_up):
+		return
+	
 	screen_controller.up_button.on_pressed.disconnect(_move_clipping_up)
 	screen_controller.right_button.on_pressed.disconnect(_move_clipping_right)
 	screen_controller.down_button.on_pressed.disconnect(_move_clipping_down)
