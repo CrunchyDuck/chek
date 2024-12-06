@@ -14,7 +14,10 @@ func _ready() -> void:
 	button_return.pressed.connect(_on_return)
 	label_winner.bbcode_enabled = true
 	instance = self
-	
+	for p in Player.players:
+		if p.received_stats != null:
+			display_stat(p.received_stats)
+
 func _on_return():
 	MainScreenController.load_new_scene("Menus.Setup.Main")
 

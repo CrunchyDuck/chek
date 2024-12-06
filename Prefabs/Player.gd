@@ -21,10 +21,15 @@ var game_id: int:
 		return _game_id
 	set(value):
 		_game_id = value
-		player_stats.pid = _game_id
 var friendly: Array[int] = []
 var actions_remaining: int = 0
-var character_name: String
+var _character_name: String = ""
+var character_name: String:
+	get:
+		return _character_name
+	set(value):
+		_character_name = value
+		player_stats.name = value
 var job_name: String
 
 var defeated: bool = false  # Dead players are out of the game
@@ -40,19 +45,12 @@ var pieces: Array:
 		return board.pieces_by_game_id[game_id]
 
 var player_stats: Player.PlayerStats
+var received_stats: Player.PlayerStats  # Stats received on the network.
 var action_start_time: float = 0
 
 func _init():
-	players[self] = true
-	
-func _ready():
 	player_stats = Player.PlayerStats.new()
-	var mon: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPower/PowerCoordinator"
-	mon.powered_off.connect(\
-		func ():
-			if network_id == GameController.player.network_id:
-				player_stats.times_turned_monitor_off += 1
-	)
+	players[self] = true
 	
 func _exit_tree() -> void:
 	players.erase(self)
@@ -105,25 +103,22 @@ func request_synchronize():
 func synchronize(data: Dictionary):
 	deserialize(data)
 
-@rpc("authority", "call_local", "reliable")
 func send_player_stats():
-	# only send the data for the player we own.
-	if network_id != GameController.player.network_id:
-		return
+	player_stats.name = character_name
 	player_stats.player_num = game_id
 	player_stats.average_turn_time = player_stats.total_turn_time / float(player_stats.turns_taken)
 	
 	player_stats.mistakes = randi_range(0, player_stats.pieces_lost)
 	player_stats.tricks_pulled = randi_range(0, player_stats.pieces_killed)
-	player_stats.lights_on = $/root/MainScene/Console/MainLightButton/PowerCoordinator.on
-	player_stats.ventilation_on = $/root/MainScene/Console/Fan.on
+	#player_stats.lights_on = $/root/MainScene/Console/MainLightButton/PowerCoordinator.on
+	#player_stats.ventilation_on = $/root/MainScene/Console/Fan.on
 	player_stats.happy = true if randf() < 0.5 else false
 	player_stats.cheated = true if randf() < 0.5 else false
 	receive_player_stats.rpc(player_stats.serialize())
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("authority", "call_local", "reliable")
 func receive_player_stats(stats: Dictionary):
-	player_stats = PlayerStats.deserialize(stats)
+	received_stats = PlayerStats.deserialize(stats)
 	if VictoryScreen.instance != null:
 		VictoryScreen.instance.display_stat(player_stats)
 
@@ -135,7 +130,7 @@ enum PlayerType {
 
 	
 class PlayerStats:
-	var pid = -1
+	var name = ""
 	var player_num: int = 0
 	var pieces_killed: int = 0
 	var pieces_lost: int = 0
@@ -147,15 +142,16 @@ class PlayerStats:
 	# useless stats, randomly chosen
 	var mistakes: int = 0  # randomly chosen based on pieces lost
 	var tricks_pulled: int = 0  # Randomly chosen based on pieces killed
-	var lights_on: bool = false
-	var ventilation_on: bool = false
-	var times_turned_monitor_off: int = 0
+	#var lights_on: bool = false
+	#var ventilation_on: bool = false
+	#var times_turned_monitor_off: int = 0
 	#var competence: float = 0  # Factors in various stats arbitrarily.
 	var happy: bool = false
 	var cheated: bool = false
 	
 	func serialize() -> Dictionary:
 		var d = {}
+		d.name = name
 		d.player_num = player_num
 		d.pieces_killed = pieces_killed
 		d.pieces_lost = pieces_lost
@@ -166,9 +162,9 @@ class PlayerStats:
 		
 		d.mistakes = mistakes
 		d.tricks_pulled = tricks_pulled
-		d.lights_on = lights_on
-		d.ventilation_on = ventilation_on
-		d.times_turned_monitor_off = times_turned_monitor_off
+		#d.lights_on = lights_on
+		#d.ventilation_on = ventilation_on
+		#d.times_turned_monitor_off = times_turned_monitor_off
 		#d.competence = competence
 		d.happy = happy
 		d.cheated = cheated
@@ -176,6 +172,7 @@ class PlayerStats:
 	
 	static func deserialize(d: Dictionary) -> PlayerStats:
 		var ps = PlayerStats.new()
+		ps.name = d.name
 		ps.player_num = d.player_num
 		ps.pieces_killed = d.pieces_killed
 		ps.pieces_lost = d.pieces_lost
@@ -186,9 +183,9 @@ class PlayerStats:
 		
 		ps.mistakes = d.mistakes
 		ps.tricks_pulled = d.tricks_pulled
-		ps.lights_on = d.lights_on
-		ps.ventilation_on = d.ventilation_on
-		ps.times_turned_monitor_off = d.times_turned_monitor_off
+		#ps.lights_on = d.lights_on
+		#ps.ventilation_on = d.ventilation_on
+		#ps.times_turned_monitor_off = d.times_turned_monitor_off
 		#ps.competence = d.competence
 		ps.happy = d.happy
 		ps.cheated = d.cheated

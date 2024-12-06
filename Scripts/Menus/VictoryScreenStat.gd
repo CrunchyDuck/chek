@@ -29,7 +29,7 @@ func fill_stats(_stats: Player.PlayerStats):
 	add_distance()
 	add_average_turn()
 	
-	var miscs: Array[Callable] = [add_mistakes, add_tricks, add_lights_on, add_ventilation_on, add_monitor_off, add_happy, add_cheated]
+	var miscs: Array[Callable] = [add_mistakes, add_tricks, add_happy, add_cheated]
 	for __ in range(num_misc_to_display):
 		var i = randi_range(0, miscs.size() - 1)
 		var f = miscs.pop_at(i)
@@ -75,20 +75,20 @@ func add_tricks():
 	l.text = "TRICKS: " + ColorController.color_text(str(stats.tricks_pulled), pcol)
 	add_child(l)
 
-func add_lights_on():
-	var l = label_subfield.duplicate()
-	l.text = "HAD LIGHT ON: " + ColorController.color_text(str(stats.lights_on), pcol)
-	add_child(l)
-
-func add_ventilation_on():
-	var l = label_subfield.duplicate()
-	l.text = "HAD VENT ON: " + ColorController.color_text(str(stats.ventilation_on), pcol)
-	add_child(l)
-
-func add_monitor_off():
-	var l = label_subfield.duplicate()
-	l.text = "TRNED OFF MONITOR: " + ColorController.color_text(str(stats.times_turned_monitor_off), pcol)
-	add_child(l)
+#func add_lights_on():
+	#var l = label_subfield.duplicate()
+	#l.text = "HAD LIGHT ON: " + ColorController.color_text(str(stats.lights_on), pcol)
+	#add_child(l)
+#
+#func add_ventilation_on():
+	#var l = label_subfield.duplicate()
+	#l.text = "HAD VENT ON: " + ColorController.color_text(str(stats.ventilation_on), pcol)
+	#add_child(l)
+#
+#func add_monitor_off():
+	#var l = label_subfield.duplicate()
+	#l.text = "TRNED OFF MONITOR: " + ColorController.color_text(str(stats.times_turned_monitor_off), pcol)
+	#add_child(l)
 
 func add_happy():
 	var l = label_subfield.duplicate()
