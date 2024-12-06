@@ -7,7 +7,7 @@ extends MeshInstance3D
 
 static var indicator_green: Array[Color] = [Color.hex(0x22ff00ff), Color.hex(0x22aa22ff)]
 static var indicator_red: Array[Color] = [Color.hex(0xff5500ff), Color.hex(0xaa2222ff)]
-static var indicator_off: Array[Color] = [Color(), Color.hex(0x333333ff)]
+static var indicator_off: Array[Color] = [Color(), Color.hex(0x666666ff)]
 
 static var IndicatorColor: Dictionary = {
 	"Green": indicator_green,
