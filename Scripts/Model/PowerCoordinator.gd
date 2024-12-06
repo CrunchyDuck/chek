@@ -28,7 +28,7 @@ func _ready() -> void:
 	
 	if power_switch:
 		power_switch.on_pressed.connect(func (): toggle_self())
-	if power_to:
+	if power_to != null:
 		power_to.toggle_power(on)
 
 func set_console(state):
@@ -58,4 +58,5 @@ func try_change_state():
 		powered_on.emit()
 	else:
 		powered_off.emit()
-	power_to.toggle_power(on)
+	if power_to != null:
+		power_to.toggle_power(on)

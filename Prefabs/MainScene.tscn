@@ -873,6 +873,10 @@ light_color = Color(0, 0, 0, 1)
 light_energy = 0.06
 light_cull_mask = 4294967293
 
+[node name="PowerCoordinator" type="Node" parent="Console/left_panel/indicator1_p1" index="1"]
+script = ExtResource("12_xq1ts")
+self_on = true
+
 [node name="indicator1_p1_001" parent="Console/left_panel" index="7"]
 layers = 2
 script = ExtResource("7_q5tya")
@@ -883,6 +887,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00418818, 0, 0.0481336)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.06
 light_cull_mask = 4294967293
+
+[node name="PowerCoordinator" type="Node" parent="Console/left_panel/indicator1_p1_001" index="1"]
+script = ExtResource("12_xq1ts")
+self_on = true
 
 [node name="indicator1_p1_002" parent="Console/left_panel" index="8"]
 layers = 2
@@ -895,6 +903,10 @@ light_color = Color(0, 0, 0, 1)
 light_energy = 0.06
 light_cull_mask = 4294967293
 
+[node name="PowerCoordinator" type="Node" parent="Console/left_panel/indicator1_p1_002" index="1"]
+script = ExtResource("12_xq1ts")
+self_on = true
+
 [node name="indicator1_p1_003" parent="Console/left_panel" index="9"]
 layers = 2
 script = ExtResource("7_q5tya")
@@ -905,6 +917,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00418818, 0, 0.0481336)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.06
 light_cull_mask = 4294967293
+
+[node name="PowerCoordinator" type="Node" parent="Console/left_panel/indicator1_p1_003" index="1"]
+script = ExtResource("12_xq1ts")
+self_on = true
 
 [node name="SoundDown" type="FmodEventEmitter3D" parent="Console/left_panel/NameFrame1/ScreenChatPower_004" index="2"]
 event_name = "event:/SmallButtonDown"

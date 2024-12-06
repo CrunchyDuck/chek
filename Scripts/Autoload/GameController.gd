@@ -106,6 +106,9 @@ var confirm_start_with_extra_players: bool = false
 signal on_board_state_changed(new_state: BoardBase.BoardState)
 signal on_game_settings_changed(new_state: BoardBase.GameSettings)
 
+signal on_game_start()
+signal on_game_end()
+
 const max_players: int = 4
 
 func _ready():
@@ -375,6 +378,8 @@ func on_victory(victor: Player):
 	if multiplayer.is_server():
 		for p in Player.players:
 			p.send_player_stats()
+	game_in_progress = false
+	on_game_end.emit()
 #endregion
 
 #region Events
@@ -407,7 +412,6 @@ func player_loaded():
 
 @rpc("authority", "call_local", "reliable")
 func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
-	game_in_progress = true
 	# make people like themselves
 	for p in Player.players:
 		p.friendly.append(p.game_id)
@@ -429,6 +433,8 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	victory_condition = get_victory_condition(game_settings)
 	turn_order_sequential(-1)
 	
+	on_game_start.emit()
+	game_in_progress = true
 	# Wait until all players are loaded.
 	player_loaded.rpc()
 #endregion
