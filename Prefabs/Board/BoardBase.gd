@@ -85,6 +85,10 @@ func on_enable():
 func on_disable():
 	_depower_buttons()
 	disconnect_buttons()
+
+func _exit_tree() -> void:
+	_depower_buttons()
+	disconnect_buttons()
 #endregion
 
 #region Board editing functions
