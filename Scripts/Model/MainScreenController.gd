@@ -36,14 +36,18 @@ var next_power: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_s
 @onready
 var previous_power: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPreviousButton/PowerCoordinator"
 
-@onready
-var next_palette_button: PressButton = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainNextPalette/PressButton"
-@onready
-var previous_palette_button: PressButton = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPreviousPalette/PressButton"
-@onready
-var next_palette_power: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainNextPalette/PowerCoordinator"
-@onready
-var previous_palette_power: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPreviousPalette/PowerCoordinator"
+var next_palette_button: PressButton:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainNextPalette/PressButton"
+var previous_palette_button: PressButton:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPreviousPalette/PressButton"
+var next_palette_power: PowerCoordinator:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainNextPalette/PowerCoordinator"
+var previous_palette_power: PowerCoordinator:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPreviousPalette/PowerCoordinator"
 
 @onready
 var power: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPower/PowerCoordinator"

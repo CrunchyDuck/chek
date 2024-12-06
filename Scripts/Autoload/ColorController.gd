@@ -36,7 +36,7 @@ const system_message_body_color = colors.secondary
 
 const preset_button_selected_color = colors.c3
 
-var current_palette: CompressedTexture2D:
+var current_palette: Texture2D:
 	get:
 		return palettes[current_palette_name]
 var current_palette_name: String:
@@ -50,7 +50,10 @@ signal palette_updated
 
 func _ready():
 	_load_palettes()
-	#MainScreenController.instance.next_palette_button.on_pressed.connect()
+	palette_updated.connect(_set_button_colors)
+	MainScreenController.instance.next_palette_button.on_pressed.connect(next_palette)
+	MainScreenController.instance.previous_palette_button.on_pressed.connect(previous_palette)
+	_set_button_colors()
 	
 func _input(event):
 	if event.is_action_pressed("PreviousPalette"):
@@ -82,6 +85,21 @@ func next_palette():
 	_current_index = wrapi(_current_index, 0, palettes.size())
 	palette_updated.emit()
 	pass
+
+func _set_button_colors():
+	var palette = palettes.values()[wrapi(_current_index - 1, 0, palettes.size())]
+	var color: Color = palettes_primary_color[palette]
+	var light = MainScreenController.instance.previous_palette_power.power_to
+	var nt: StandardMaterial3D = light.lit_texture.duplicate()
+	nt.emission = color
+	light.change_lit_texture(nt)
+	
+	palette = palettes.values()[wrapi(_current_index + 1, 0, palettes.size())]
+	color = palettes_primary_color[palette]
+	light = MainScreenController.instance.next_palette_power.power_to
+	nt = light.lit_texture.duplicate()
+	nt.emission = color
+	light.change_lit_texture(nt)
 	
 func color_by_player(content: String, game_id: int):
 	return color_text(content, ColorControllers.player_primary_colors[game_id])

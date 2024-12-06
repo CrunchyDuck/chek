@@ -449,10 +449,12 @@ sound_up = NodePath("../SoundUp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
 
-[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette" index="4"]
+[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette" index="4" node_paths=PackedStringArray("target")]
 script = ExtResource("15_o2dwh")
-unlit_texture = ExtResource("12_05bwk")
-lit_texture = ExtResource("16_ey2rd")
+target = NodePath("..")
+unlit_texture = ExtResource("17_7mp7f")
+lit_texture = ExtResource("18_bhu72")
+material_index = 1
 
 [node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainNextPalette" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
@@ -547,10 +549,12 @@ sound_up = NodePath("../SoundUp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette/Area3D"]
 shape = SubResource("BoxShape3D_gdqk0")
 
-[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette" index="4"]
+[node name="ButtonLight" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette" index="4" node_paths=PackedStringArray("target")]
 script = ExtResource("15_o2dwh")
-unlit_texture = ExtResource("12_05bwk")
-lit_texture = ExtResource("16_ey2rd")
+target = NodePath("..")
+unlit_texture = ExtResource("17_7mp7f")
+lit_texture = ExtResource("18_bhu72")
+material_index = 1
 
 [node name="PowerCoordinator" type="Node" parent="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
