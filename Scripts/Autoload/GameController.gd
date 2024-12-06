@@ -374,7 +374,7 @@ func on_victory(victor: Player):
 	vs.display_victor(victor.game_id)
 	if multiplayer.is_server():
 		for p in Player.players:
-			p.send_player_stats.rpc()
+			p.send_player_stats()
 #endregion
 
 #region Events
