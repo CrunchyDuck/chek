@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Menus/VictoryScreenStat.gd" id="1_a2oxh"]
 
 [node name="VictoryScreenStat" type="VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
 offset_right = 109.0
 offset_bottom = 158.0
 script = ExtResource("1_a2oxh")
@@ -10,6 +11,7 @@ script = ExtResource("1_a2oxh")
 [node name="Name" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "PLAYER NAME"
 fit_content = true

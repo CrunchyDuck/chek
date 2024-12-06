@@ -121,7 +121,7 @@ func send_player_stats():
 	player_stats.cheated = true if randf() < 0.5 else false
 	receive_player_stats.rpc(player_stats.serialize())
 
-@rpc("any_peer", "call_remote", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func receive_player_stats(stats: Dictionary):
 	player_stats = PlayerStats.deserialize(stats)
 	if VictoryScreen.instance != null:
