@@ -559,7 +559,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton1" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.3
 
 [node name="SecondaryLeftButton2" parent="Console/right_panel/RightScreenFrame" index="2"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -595,7 +595,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton2" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.3
 
 [node name="SecondaryLeftButton3" parent="Console/right_panel/RightScreenFrame" index="3"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -631,7 +631,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton3" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.4
 
 [node name="SecondaryLeftButton4" parent="Console/right_panel/RightScreenFrame" index="4"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -667,7 +667,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton4" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.5
 
 [node name="SecondaryLeftButton5" parent="Console/right_panel/RightScreenFrame" index="5"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -703,7 +703,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton5" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.6
 
 [node name="SecondaryRightButton1" parent="Console/right_panel/RightScreenFrame" index="6"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -739,7 +739,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton1" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.3
 
 [node name="SecondaryRightButton2" parent="Console/right_panel/RightScreenFrame" index="7"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -775,7 +775,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton2" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.3
 
 [node name="SecondaryRightButton3" parent="Console/right_panel/RightScreenFrame" index="8"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -811,7 +811,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton3" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.4
 
 [node name="SecondaryRightButton4" parent="Console/right_panel/RightScreenFrame" index="9"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -847,7 +847,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton4" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.5
 
 [node name="SecondaryRightButton5" parent="Console/right_panel/RightScreenFrame" index="10"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -883,7 +883,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton5" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 2.2
+delay = 0.6
 
 [node name="Area3D" type="Area3D" parent="Console/left_panel/frame_screen_chatbox/ScreenChatPower/Button_002" index="0"]
 
