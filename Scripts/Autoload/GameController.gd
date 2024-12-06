@@ -124,12 +124,25 @@ func _ready():
 	add_child(http)
 	http.request_completed.connect(_ip_response)
 	
+	on_game_end.connect(_on_game_end)
+	on_game_start.connect(_on_game_start)
+	
 func _get_references():
 	screen_central = $"/root/MainScene/ViewportCentralScreen/CentralScreen"
 	
 func _process(_delta: float) -> void:
 	if Engine.get_frames_drawn() % 600 == 0:
 		get_ip()
+	
+func _on_game_start():
+	game_in_progress = true
+	multiplayer.multiplayer_peer.refuse_new_connections = true
+	
+func _on_game_end():
+	game_in_progress = false
+	players_loaded = 0
+	confirm_start_with_extra_players = false
+	multiplayer.multiplayer_peer.refuse_new_connections = false
 		
 #region Server events
 func start_lobby(_port: int) -> bool:
@@ -141,7 +154,7 @@ func start_lobby(_port: int) -> bool:
 	multiplayer.multiplayer_peer = peer
 	create_player(1, character_name, job_name)  # Player for server
 	
-	GameController.screen_central.add_child(PrefabController.get_prefab("Menus.Setup.Main").instantiate())
+	MainScreenController.load_new_scene("Menus.Setup.Main")
 	MessageController.add_message("OPENED PORT " + str(port))
 	return true
 	
@@ -160,7 +173,7 @@ func join_lobby(_ip: String, _port: int) -> bool:
 func connected_to_server():
 	try_create_player.rpc_id(1, character_name, job_name)
 	PrefabController.request_refresh.rpc_id(1)
-	screen_central.add_child(PrefabController.get_prefab("Menus.Setup.Main").instantiate())
+	MainScreenController.load_new_scene("Menus.Setup.Main")
 
 func peer_disconnected(id: int):
 	Helpers.destroy_node(get_node("/root/GameController/Player" + str(id)))
@@ -378,7 +391,6 @@ func on_victory(victor: Player):
 	if multiplayer.is_server():
 		for p in Player.players:
 			p.send_player_stats()
-	game_in_progress = false
 	on_game_end.emit()
 #endregion
 
@@ -415,14 +427,10 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	# make people like themselves
 	for p in Player.players:
 		p.friendly.append(p.game_id)
-		
-	for n in screen_central.get_children():
-		Helpers.destroy_node(n)
-	screen_central.add_child(PrefabController.get_prefab("Menus.GameLoading").instantiate())
-
-	if multiplayer.is_server():
-		multiplayer.multiplayer_peer.refuse_new_connections = true
-		# TODO: Bot takeover on disconnect
+	
+	MainScreenController.load_new_scene("Menus.GameLoading")
+	
+	# TODO: Bot takeover on disconnect
 	game_settings = BoardBase.GameSettings.deserialize(json_game_settings)
 	var board_state = BoardBase.BoardState.deserialize(json_board_state)
 	
@@ -434,7 +442,6 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	turn_order_sequential(-1)
 	
 	on_game_start.emit()
-	game_in_progress = true
 	# Wait until all players are loaded.
 	player_loaded.rpc()
 #endregion
