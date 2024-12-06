@@ -305,7 +305,7 @@ func _move_clipping_left():
 
 #region Scroll button control
 func connect_buttons():
-	if not screen_controller.up_button.on_pressed.is_connected(_move_clipping_up):
+	if screen_controller.up_button.on_pressed.is_connected(_move_clipping_up):
 		return
 	
 	screen_controller.up_button.on_pressed.connect(_move_clipping_up)

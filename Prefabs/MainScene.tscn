@@ -559,7 +559,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryLeftButton1" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 0.3
+delay = 0.2
 
 [node name="SecondaryLeftButton2" parent="Console/right_panel/RightScreenFrame" index="2"]
 surface_material_override/1 = ExtResource("17_7mp7f")
@@ -739,7 +739,7 @@ material_index = 1
 [node name="PowerCoordinator" type="Node" parent="Console/right_panel/RightScreenFrame/SecondaryRightButton1" index="5" node_paths=PackedStringArray("power_to")]
 script = ExtResource("12_xq1ts")
 power_to = NodePath("../ButtonLight")
-delay = 0.3
+delay = 0.2
 
 [node name="SecondaryRightButton2" parent="Console/right_panel/RightScreenFrame" index="7"]
 surface_material_override/1 = ExtResource("17_7mp7f")
