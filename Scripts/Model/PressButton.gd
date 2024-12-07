@@ -5,6 +5,8 @@ extends Node
 var to_move: Array[Node3D]
 @export
 var move_distance: Vector3
+@export
+var cancel_press_area_movement = true
 
 @onready
 var area_press: Area3D = $PressArea
@@ -39,6 +41,8 @@ func press():
 	on_pressed.emit()
 	for node in to_move:
 		node.position += move_distance
+		if cancel_press_area_movement:
+			area_press.position -= move_distance
 
 func depress():
 	if not _pressed:
@@ -48,3 +52,5 @@ func depress():
 	on_depressed.emit()
 	for node in to_move:
 		node.position -= move_distance
+		if cancel_press_area_movement:
+			area_press.position += move_distance
