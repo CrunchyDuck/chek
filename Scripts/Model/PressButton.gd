@@ -5,13 +5,13 @@ extends Node
 var to_move: Array[Node3D]
 @export
 var move_distance: Vector3
-@export
-var area_press: Area3D
 
-@export
-var sound_down: FmodEventEmitter3D
-@export
-var sound_up: FmodEventEmitter3D
+@onready
+var area_press: Area3D = $PressArea
+@onready
+var sound_down: FmodEventEmitter3D = $SoundDown
+@onready
+var sound_up: FmodEventEmitter3D = $SoundUp
 
 var _pressed: bool = false
 
