@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/Model/SecondaryScreenController.gd" id="8_2w0tt"]
 [ext_resource type="Script" path="res://Scripts/Nameplate.gd" id="8_pahoh"]
 [ext_resource type="Script" path="res://Scripts/Model/FanBehavior.gd" id="9_lk3u4"]
-[ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/Console.tscn" id="11_1otxn"]
+[ext_resource type="PackedScene" uid="uid://bie752f60ea0j" path="res://Prefabs/ConsoleOld.tscn" id="11_1otxn"]
 [ext_resource type="Script" path="res://Scripts/Model/Clock.gd" id="11_uhiro"]
 [ext_resource type="Material" uid="uid://cf4ds4wf6klxv" path="res://Shaders/UnlitPlastic.tres" id="12_05bwk"]
 [ext_resource type="Material" uid="uid://d3wodpqknlqpy" path="res://Shaders/ScreenMaterial.tres" id="12_elhe4"]
@@ -1211,7 +1211,7 @@ delay = 0.5
 
 [node name="PressButton" type="Node" parent="Console/MainLightButton" index="7" node_paths=PackedStringArray("to_move", "area_press", "sound_down", "sound_up")]
 script = ExtResource("13_b4upv")
-to_move = [null, null]
+to_move = [NodePath("../Shaft"), NodePath("../Tip")]
 move_distance = Vector3(0, -0.4, 0)
 area_press = NodePath("../Area3D")
 sound_down = NodePath("../SoundButtonDown")
