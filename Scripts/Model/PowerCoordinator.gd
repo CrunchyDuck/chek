@@ -1,6 +1,8 @@
 class_name PowerCoordinator
 extends Node
 
+# If I wrote this now, I would instead make the power sources an array that needs their states ANDed together.
+# But I didn't, and it works as is, and I'm past my deadline.
 @export
 var power_to: Node  # A script that has a toggle_power(bool) function
 @export

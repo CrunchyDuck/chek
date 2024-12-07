@@ -1,26 +1,22 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8dcopqrhfesh"]
+[gd_scene load_steps=16 format=3 uid="uid://c8dcopqrhfesh"]
 
 [ext_resource type="PackedScene" uid="uid://cjomrnub2b5ro" path="res://Models/Console.glb" id="1_152u7"]
 [ext_resource type="Script" path="res://Scripts/Model/FanBehavior.gd" id="2_ftrym"]
 [ext_resource type="Script" path="res://Scripts/Nameplate.gd" id="3_c1d31"]
 [ext_resource type="Script" path="res://Scripts/Model/Clock.gd" id="4_c4kqq"]
 [ext_resource type="PackedScene" uid="uid://df37oviw8ith1" path="res://Prefabs/PressButton.tscn" id="5_urmc8"]
+[ext_resource type="Shape3D" uid="uid://yt1hd725eebm" path="res://Prefabs/CollisionShapes/WideScreenButton.tres" id="6_53xtf"]
 [ext_resource type="Script" path="res://Scripts/Model/PowerCoordinator.gd" id="6_gbmim"]
 [ext_resource type="Script" path="res://Scripts/Model/ButtonLight.gd" id="7_fpi41"]
 [ext_resource type="Material" uid="uid://cf4ds4wf6klxv" path="res://Shaders/UnlitPlastic.tres" id="8_ma4t8"]
 [ext_resource type="Material" uid="uid://dfbjfsu5p0c6d" path="res://Shaders/LitPlastic.tres" id="9_m0uko"]
 [ext_resource type="Material" uid="uid://d03uatxtsungl" path="res://Shaders/UnlitArrow.tres" id="10_j10pr"]
+[ext_resource type="Shape3D" uid="uid://xuy7tiuevu77" path="res://Prefabs/CollisionShapes/SmallRectangleButton.tres" id="10_suj8h"]
 [ext_resource type="Material" uid="uid://b54n4c1qctwhr" path="res://Shaders/LitArrow.tres" id="11_ca32k"]
+[ext_resource type="Shape3D" uid="uid://dq2df5raccu8x" path="res://Prefabs/CollisionShapes/SmallPowerButtonCylinder.tres" id="13_5k143"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eas82"]
 size = Vector3(0.4, 0.185, 0.5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_kuga1"]
-size = Vector3(0.055, 0.03, 0.05)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2nuju"]
-radius = 0.42
-height = 0.84
 
 [node name="Console" instance=ExtResource("1_152u7")]
 
@@ -69,7 +65,10 @@ script = ExtResource("4_c4kqq")
 
 [node name="PressButton" parent="front_panel/frame_screen_main/MainScreenDown" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
 to_move = [NodePath("..")]
-move_distance = Vector3(0, 0, -0.09)
+move_distance = Vector3(0, 0, -0.009)
+
+[node name="CollisionShape3D" parent="front_panel/frame_screen_main/MainScreenDown/PressButton/PressArea" index="0"]
+shape = ExtResource("6_53xtf")
 
 [node name="SoundDown" parent="front_panel/frame_screen_main/MainScreenDown/PressButton" index="1"]
 event_name = "event:/BigButtonDown"
@@ -92,8 +91,11 @@ lit_texture = ExtResource("9_m0uko")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/MainScreenLeft" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [NodePath("..")]
-move_distance = Vector3(0, 0, -0.09)
+to_move = [null]
+move_distance = Vector3(0, 0, -0.009)
+
+[node name="CollisionShape3D" parent="front_panel/frame_screen_main/MainScreenLeft/PressButton/PressArea" index="0"]
+shape = ExtResource("6_53xtf")
 
 [node name="SoundDown" parent="front_panel/frame_screen_main/MainScreenLeft/PressButton" index="1"]
 event_name = "event:/BigButtonDown"
@@ -116,8 +118,11 @@ lit_texture = ExtResource("9_m0uko")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/MainScreenRight" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [NodePath("..")]
-move_distance = Vector3(0, 0, -0.09)
+to_move = [null]
+move_distance = Vector3(0, 0, -0.009)
+
+[node name="CollisionShape3D" parent="front_panel/frame_screen_main/MainScreenRight/PressButton/PressArea" index="0"]
+shape = ExtResource("6_53xtf")
 
 [node name="SoundDown" parent="front_panel/frame_screen_main/MainScreenRight/PressButton" index="1"]
 event_name = "event:/BigButtonDown"
@@ -140,8 +145,11 @@ lit_texture = ExtResource("9_m0uko")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/MainScreenUp" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [NodePath("..")]
-move_distance = Vector3(0, 0, -0.09)
+to_move = [null]
+move_distance = Vector3(0, 0, -0.009)
+
+[node name="CollisionShape3D" parent="front_panel/frame_screen_main/MainScreenUp/PressButton/PressArea" index="0"]
+shape = ExtResource("6_53xtf")
 
 [node name="SoundDown" parent="front_panel/frame_screen_main/MainScreenUp/PressButton" index="1"]
 event_name = "event:/BigButtonDown"
@@ -164,12 +172,12 @@ lit_texture = ExtResource("9_m0uko")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/ScreenMainNextButton" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [NodePath("../../MainScreenDown")]
-move_distance = Vector3(0, 0, -0.09)
+to_move = [null]
+move_distance = Vector3(0, 0, -0.009)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/ScreenMainNextButton/PressButton/PressArea" index="0"]
 transform = Transform3D(0.99999, 0, -1.14397e-12, -1.59162e-12, 1, -1.58641e-12, 8.81073e-13, 7.10779e-16, 0.99999, -0.00179428, 0, 1.49012e-08)
-shape = SubResource("BoxShape3D_kuga1")
+shape = ExtResource("10_suj8h")
 
 [node name="SoundDown" parent="front_panel/frame_screen_main/ScreenMainNextButton/PressButton" index="1"]
 event_name = "event:/SmallButtonDown"
@@ -193,11 +201,11 @@ material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/ScreenMainNextPalette" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
 to_move = [NodePath("..")]
-move_distance = Vector3(0, 0, -0.09)
+move_distance = Vector3(0, 0, -0.009)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/ScreenMainNextPalette/PressButton/PressArea" index="0"]
 transform = Transform3D(0.99999, 0, -1.14397e-12, -1.59162e-12, 1, -1.58641e-12, 8.81073e-13, 7.10779e-16, 0.99999, -0.00179428, 0, 1.49012e-08)
-shape = SubResource("BoxShape3D_kuga1")
+shape = ExtResource("10_suj8h")
 
 [node name="SoundDown" parent="front_panel/frame_screen_main/ScreenMainNextPalette/PressButton" index="1"]
 event_name = "event:/SmallButtonDown"
@@ -220,12 +228,12 @@ lit_texture = ExtResource("11_ca32k")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/ScreenMainPower" index="2" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [NodePath("../Button_001")]
-move_distance = Vector3(0, 0, -0.09)
+to_move = [null]
+move_distance = Vector3(0, -0.004, 0)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/ScreenMainPower/PressButton/PressArea" index="0"]
 transform = Transform3D(0.99999, 0, -1.14397e-12, -1.59162e-12, 1, -1.58641e-12, 8.81073e-13, 7.10779e-16, 0.99999, -0.00179428, 0, 1.49012e-08)
-shape = SubResource("CapsuleShape3D_2nuju")
+shape = ExtResource("13_5k143")
 
 [node name="SoundDown" parent="front_panel/frame_screen_main/ScreenMainPower/PressButton" index="1"]
 event_name = "event:/SmallButtonDown"
@@ -237,18 +245,18 @@ event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 
 [node name="PowerCoordinator" type="Node" parent="front_panel/frame_screen_main/ScreenMainPower" index="3" node_paths=PackedStringArray("power_to", "power_switch")]
 script = ExtResource("6_gbmim")
-power_to = NodePath("../../../screen_main")
+power_to = NodePath("../../../MainScreen")
 power_switch = NodePath("../PressButton")
 delay = 1.5
 self_on = true
 
 [node name="PressButton" parent="front_panel/frame_screen_main/ScreenMainPreviousButton" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [NodePath("../../ScreenMainNextPalette")]
-move_distance = Vector3(0, 0, -0.09)
+to_move = [NodePath("..")]
+move_distance = Vector3(0, 0, -0.009)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/ScreenMainPreviousButton/PressButton/PressArea" index="0"]
 transform = Transform3D(0.99999, 0, -1.14397e-12, -1.59162e-12, 1, -1.58641e-12, 8.81073e-13, 7.10779e-16, 0.99999, -0.00179428, 0, 1.49012e-08)
-shape = SubResource("BoxShape3D_kuga1")
+shape = ExtResource("10_suj8h")
 
 [node name="SoundDown" parent="front_panel/frame_screen_main/ScreenMainPreviousButton/PressButton" index="1"]
 event_name = "event:/SmallButtonDown"
@@ -271,12 +279,12 @@ lit_texture = ExtResource("11_ca32k")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/ScreenMainPreviousPalette" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [NodePath("..")]
-move_distance = Vector3(0, 0, -0.09)
+to_move = [null]
+move_distance = Vector3(0, 0, -0.009)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/ScreenMainPreviousPalette/PressButton/PressArea" index="0"]
 transform = Transform3D(0.99999, 0, -1.14397e-12, -1.59162e-12, 1, -1.58641e-12, 8.81073e-13, 7.10779e-16, 0.99999, -0.00179428, 0, 1.49012e-08)
-shape = SubResource("BoxShape3D_kuga1")
+shape = ExtResource("10_suj8h")
 
 [node name="SoundDown" parent="front_panel/frame_screen_main/ScreenMainPreviousPalette/PressButton" index="1"]
 event_name = "event:/SmallButtonDown"
@@ -298,6 +306,24 @@ unlit_texture = ExtResource("10_j10pr")
 lit_texture = ExtResource("11_ca32k")
 material_index = 1
 
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenPower" index="2" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [null]
+move_distance = Vector3(0, -0.004, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenPower/PressButton/PressArea" index="0"]
+shape = ExtResource("13_5k143")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenPower/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenPower/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="Node" type="Node" parent="right_panel/RightScreenFrame/RightScreenPower" index="3"]
+script = ExtResource("6_gbmim")
+
 [editable path="front_panel/frame_screen_main/MainScreenDown/PressButton"]
 [editable path="front_panel/frame_screen_main/MainScreenLeft/PressButton"]
 [editable path="front_panel/frame_screen_main/MainScreenRight/PressButton"]
@@ -307,3 +333,4 @@ material_index = 1
 [editable path="front_panel/frame_screen_main/ScreenMainPower/PressButton"]
 [editable path="front_panel/frame_screen_main/ScreenMainPreviousButton/PressButton"]
 [editable path="front_panel/frame_screen_main/ScreenMainPreviousPalette/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenPower/PressButton"]
