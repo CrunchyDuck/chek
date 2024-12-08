@@ -402,6 +402,7 @@ class GameSettings:
 	var divine_wind: bool = false
 	var no_retreat: bool = false
 	var formation_broken: bool = false
+	var b_team: bool = false
 	
 	
 	var wrap_x: bool = false
@@ -415,6 +416,7 @@ class GameSettings:
 		d.divine_wind = divine_wind
 		d.no_retreat = no_retreat
 		d.formation_broken = formation_broken
+		d.b_team = b_team
 		
 		d.can_players_edit = can_players_edit
 		
@@ -448,6 +450,7 @@ class GameSettings:
 		gs.divine_wind = json_game_settings.get("divine_wind", false)
 		gs.no_retreat = json_game_settings.get("no_retreat", false)
 		gs.formation_broken = json_game_settings.get("formation_broken", false)
+		gs.b_team = json_game_settings.get("b_team", false)
 		
 		gs.can_players_edit = json_game_settings.get("can_players_edit", false)
 		

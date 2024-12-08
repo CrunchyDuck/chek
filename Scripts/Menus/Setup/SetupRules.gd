@@ -17,6 +17,8 @@ var button_divine_wind: CheckBox = $DivineWind/CheckBox
 var button_no_retreat: CheckBox = $NoRetreat/CheckBox
 @onready
 var button_formation_broken: CheckBox = $FormationBroken/CheckBox
+@onready
+var button_b_team: CheckBox = $BTeam/CheckBox
 
 @onready
 var button_victory_annihilation: CheckBox = $Annihilation/CheckBox
@@ -86,6 +88,7 @@ func gather_settings() -> BoardBase.GameSettings:
 	settings.divine_wind = button_divine_wind.button_pressed
 	settings.no_retreat = button_no_retreat.button_pressed
 	settings.formation_broken = button_formation_broken.button_pressed
+	settings.b_team = button_b_team.button_pressed
 	return settings
 
 func update_buttons_clickable(clickable: bool):

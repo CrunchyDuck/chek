@@ -37,7 +37,6 @@ Moves per turn customization
 knights can move in a line of 3 long
 fluxx chess/knightmare chess
 
-FORMATION BROKEN - Randomized start positions
 B TEAM - Piece types are randomized at the start of the round.
 ROUND EARTH - The left and right edges wrap around.
 NO GODS - Any player can move any piece
