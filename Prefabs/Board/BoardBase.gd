@@ -261,6 +261,7 @@ func _set_button_activity():
 	if clipping_position_max.y < grid_size.y:
 		screen_controller.down_power.set_self(true)
 	
+# TODO: These lights flicker. While I think it looks neat, I should make it more controlled.
 func _depower_buttons():
 	var p = screen_controller.up_power
 	p.set_self(false)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8dcopqrhfesh"]
+[gd_scene load_steps=22 format=3 uid="uid://c8dcopqrhfesh"]
 
 [ext_resource type="PackedScene" uid="uid://cjomrnub2b5ro" path="res://Models/Console.glb" id="1_152u7"]
 [ext_resource type="Script" path="res://Scripts/Model/FanBehavior.gd" id="2_ftrym"]
@@ -24,6 +24,9 @@ size = Vector3(0.4, 0.185, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d705l"]
 size = Vector3(2.5, 0.2, 4.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_m4g4d"]
+radius = 1.09622
 
 [node name="Console" instance=ExtResource("1_152u7")]
 
@@ -620,18 +623,12 @@ event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
 event_name = "event:/SmallButtonUp"
 event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 
-[node name="PowerCoordinator" type="Node" parent="left_panel/ChatFrame/ScreenChatPower" index="3" node_paths=PackedStringArray("power_to")]
+[node name="PowerCoordinator" type="Node" parent="left_panel/ChatFrame/ScreenChatPower" index="3" node_paths=PackedStringArray("power_to", "power_switch")]
 script = ExtResource("6_gbmim")
-power_to = NodePath("../ButtonLight")
+power_to = NodePath("../../../ChatScreen")
+power_switch = NodePath("../PressButton")
 delay = 0.9
 self_on = true
-
-[node name="ButtonLight" type="Node" parent="left_panel/ChatFrame/ScreenChatPower" index="4" node_paths=PackedStringArray("target")]
-script = ExtResource("7_fpi41")
-target = NodePath("../../../ChatScreen")
-unlit_texture = ExtResource("10_j10pr")
-lit_texture = ExtResource("11_ca32k")
-material_index = 1
 
 [node name="IndicatorP1" parent="left_panel" index="6"]
 layers = 2
@@ -776,6 +773,9 @@ surface_material_override/0 = ExtResource("17_11b2k")
 to_move = [NodePath("../Tip"), NodePath("../Shaft")]
 move_distance = Vector3(0, -0.779, 0)
 
+[node name="CollisionShape3D" parent="MainLightButton/PressButton/PressArea" index="0"]
+shape = SubResource("CylinderShape3D_m4g4d")
+
 [node name="PowerCoordinator" type="Node" parent="MainLightButton" index="4" node_paths=PackedStringArray("power_to", "power_switch")]
 script = ExtResource("6_gbmim")
 power_to = NodePath("..")
@@ -818,3 +818,4 @@ event_guid = "{1132a6b8-b4c7-467b-915d-eb83558d0e72}"
 [editable path="left_panel/NameFrame2/NameScreenPower2/PressButton"]
 [editable path="left_panel/NameFrame3/NameScreenPower3/PressButton"]
 [editable path="left_panel/NameFrame4/NameScreenPower4/PressButton"]
+[editable path="MainLightButton/PressButton"]

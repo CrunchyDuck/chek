@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=11 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/NameScreen.gd" id="7_6p3my"]
 [ext_resource type="Script" path="res://Scripts/Model/RightScreenController.gd" id="8_2w0tt"]
 [ext_resource type="PackedScene" uid="uid://c8dcopqrhfesh" path="res://Prefabs/Console.tscn" id="8_evsqn"]
+[ext_resource type="Material" path="res://Shaders/GlowInTheDarkArrow.tres" id="9_jk2ko"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noum3"]
 resource_local_to_scene = true
@@ -178,6 +179,9 @@ fov = 25.0
 [node name="CollisionShape3D" parent="Console/front_panel/frame_screen_main/ScreenMainNextButton/PressButton/PressArea" index="0"]
 editor_description = "This node says it's scaled, it seems to be lying to me."
 
+[node name="Arrow" parent="Console/Lever" index="1"]
+surface_material_override/0 = ExtResource("9_jk2ko")
+
 [node name="Handle" parent="Console/Lever" index="3"]
 surface_material_override/0 = SubResource("StandardMaterial3D_noum3")
 
@@ -217,3 +221,4 @@ bank_paths = ["res://FMODProject/Build//Master.bank"]
 [editable path="Console/left_panel/NameFrame2/NameScreenPower2/PressButton"]
 [editable path="Console/left_panel/NameFrame3/NameScreenPower3/PressButton"]
 [editable path="Console/left_panel/NameFrame4/NameScreenPower4/PressButton"]
+[editable path="Console/MainLightButton/PressButton"]
