@@ -86,6 +86,7 @@ func _move_to_cell(source: Vector2i, destination: Vector2i) -> bool:
 	# Rotate piece if at the end of the board.
 	var cell_ahead = piece.coordinates + piece._rotate_to_orientation(Vector2i(0, 1))
 	if not is_coordinate_in_bounds(cell_ahead):
+		piece.on_reached_end_of_board.emit()
 		piece.orientation = wrapi(piece.orientation + 180, 0, 360)
 	return true
 	

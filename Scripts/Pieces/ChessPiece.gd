@@ -80,6 +80,8 @@ var in_cell: BoardCell:
 signal on_kill(killer, victim)
 signal on_killed(killer, victim)
 
+signal on_reached_end_of_board()
+
 # TODO: Make pieces use different spite based on owner
 func Init(_coordinates: Vector2i, _orientation: ChessPiece.Orientation, _owned_by: int, _board: BoardBase) -> void:
 	self.coordinates = _coordinates
