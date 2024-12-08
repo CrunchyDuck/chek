@@ -177,6 +177,22 @@ static func randomize_piece_positions(state: BoardBase.BoardState) -> BoardBase.
 		
 	return state
 
+static func randomize_piece_types(state: BoardBase.BoardState) -> BoardBase.BoardState:
+	var pieces: Array[BoardBase.PieceState] = []
+	var blockers: Array[BoardBase.PieceState] = []
+	
+	for player in state.players:
+		for piece in player.pieces:
+			if piece.type == ChessPiece.ePieces.Blocker:
+				continue
+			pieces.append(piece)
+	
+	for p in pieces:
+		var i = randi_range(1, ChessPiece.ePieces.size() - 1)
+		p.type = i
+		
+	return state
+
 # TODO: Blockers don't seem to be loading in properly initially.
 func load_state(state: BoardBase.BoardState):
 	clear_pieces()

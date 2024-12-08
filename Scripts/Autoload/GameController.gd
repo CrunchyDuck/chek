@@ -363,8 +363,8 @@ func can_start_victory_condition() -> bool:
 	return false
 	
 func get_victory_condition(game_settings: BoardBase.GameSettings) -> VictoryCondition:
-	if game_settings.victory_lose_all_sacred or game_settings.victory_lose_any_sacred:
-		return VictoryPieceCapture.new(board_state, game_settings.victory_sacred_type, game_settings.victory_lose_all_sacred)
+	if game_settings.victory_all_sacred or game_settings.victory_any_sacred:
+		return VictoryPieceCapture.new(board_state, game_settings.victory_sacred_type, game_settings.victory_all_sacred)
 	if game_settings.victory_annihilation:
 		return VictoryAnnihilation.new()
 	return null
@@ -433,6 +433,8 @@ func server_start_game():
 		return
 	if game_settings.formation_broken:
 		board_state = BoardBase.randomize_piece_positions(board_state)
+	if game_settings.b_team:
+		board_state = BoardBase.randomize_piece_types(board_state)
 	GameController.start_game.rpc(game_settings.serialize(), board_state.serialize())
 
 @rpc("authority", "call_local", "reliable")
