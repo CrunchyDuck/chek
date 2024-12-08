@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8dcopqrhfesh"]
+[gd_scene load_steps=17 format=3 uid="uid://c8dcopqrhfesh"]
 
 [ext_resource type="PackedScene" uid="uid://cjomrnub2b5ro" path="res://Models/Console.glb" id="1_152u7"]
 [ext_resource type="Script" path="res://Scripts/Model/FanBehavior.gd" id="2_ftrym"]
@@ -14,6 +14,7 @@
 [ext_resource type="Shape3D" uid="uid://xuy7tiuevu77" path="res://Prefabs/CollisionShapes/SmallRectangleButton.tres" id="10_suj8h"]
 [ext_resource type="Material" uid="uid://b54n4c1qctwhr" path="res://Shaders/LitArrow.tres" id="11_ca32k"]
 [ext_resource type="Shape3D" uid="uid://dq2df5raccu8x" path="res://Prefabs/CollisionShapes/SmallPowerButtonCylinder.tres" id="13_5k143"]
+[ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="15_v06se"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eas82"]
 size = Vector3(0.4, 0.185, 0.5)
@@ -306,6 +307,276 @@ unlit_texture = ExtResource("10_j10pr")
 lit_texture = ExtResource("11_ca32k")
 material_index = 1
 
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonLeft1" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonLeft1/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonLeft1/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonLeft1/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft1" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.2
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft1" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonLeft2" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonLeft2/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonLeft2/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonLeft2/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft2" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.3
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft2" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonLeft3" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonLeft3/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonLeft3/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonLeft3/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft3" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.4
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft3" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonLeft4" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonLeft4/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonLeft4/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonLeft4/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft4" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.5
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft4" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonLeft5" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonLeft5/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonLeft5/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonLeft5/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft5" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.6
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonLeft5" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonRight1" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonRight1/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonRight1/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonRight1/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight1" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.2
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight1" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonRight2" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonRight2/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonRight2/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonRight2/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight2" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.3
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight2" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonRight3" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonRight3/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonRight3/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonRight3/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight3" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.4
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight3" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonRight4" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonRight4/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonRight4/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonRight4/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight4" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.5
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight4" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenButtonRight5" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("..")]
+move_distance = Vector3(0.01, 0, 0)
+
+[node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenButtonRight5/PressButton/PressArea" index="0"]
+shape = ExtResource("10_suj8h")
+
+[node name="SoundDown" parent="right_panel/RightScreenFrame/RightScreenButtonRight5/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="right_panel/RightScreenFrame/RightScreenButtonRight5/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight5" index="1" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.6
+
+[node name="ButtonLight" type="Node" parent="right_panel/RightScreenFrame/RightScreenButtonRight5" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("..")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
 [node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenPower" index="2" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
 to_move = [NodePath("../Button_003")]
 move_distance = Vector3(0, -0.004, 0)
@@ -328,6 +599,107 @@ power_switch = NodePath("../PressButton")
 delay = 2.0
 self_on = true
 
+[node name="PressButton" parent="left_panel/ChatFrame/ScreenChatPower" index="2" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("../Button_002")]
+move_distance = Vector3(0, -0.004, 0)
+
+[node name="CollisionShape3D" parent="left_panel/ChatFrame/ScreenChatPower/PressButton/PressArea" index="0"]
+shape = ExtResource("13_5k143")
+
+[node name="SoundDown" parent="left_panel/ChatFrame/ScreenChatPower/PressButton" index="1"]
+event_name = "event:/SmallButtonDown"
+event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
+
+[node name="SoundUp" parent="left_panel/ChatFrame/ScreenChatPower/PressButton" index="2"]
+event_name = "event:/SmallButtonUp"
+event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
+
+[node name="PowerCoordinator" type="Node" parent="left_panel/ChatFrame/ScreenChatPower" index="3" node_paths=PackedStringArray("power_to")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../ButtonLight")
+delay = 0.9
+self_on = true
+
+[node name="ButtonLight" type="Node" parent="left_panel/ChatFrame/ScreenChatPower" index="4" node_paths=PackedStringArray("target")]
+script = ExtResource("7_fpi41")
+target = NodePath("../../../ChatScreen")
+unlit_texture = ExtResource("10_j10pr")
+lit_texture = ExtResource("11_ca32k")
+material_index = 1
+
+[node name="IndicatorP1" parent="left_panel" index="6"]
+layers = 2
+script = ExtResource("15_v06se")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="left_panel/IndicatorP1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+light_color = Color(0, 0, 0, 1)
+light_energy = 0.06
+light_cull_mask = 4294967293
+
+[node name="PowerCoordinator" type="Node" parent="left_panel/IndicatorP1" index="1"]
+script = ExtResource("6_gbmim")
+self_on = true
+
+[node name="IndicatorP2" parent="left_panel" index="7"]
+layers = 2
+script = ExtResource("15_v06se")
+game_id = 1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="left_panel/IndicatorP2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+light_color = Color(0, 0, 0, 1)
+light_energy = 0.06
+light_cull_mask = 4294967293
+
+[node name="PowerCoordinator" type="Node" parent="left_panel/IndicatorP2" index="1"]
+script = ExtResource("6_gbmim")
+self_on = true
+
+[node name="IndicatorP3" parent="left_panel" index="8"]
+layers = 2
+script = ExtResource("15_v06se")
+game_id = 2
+
+[node name="OmniLight3D" type="OmniLight3D" parent="left_panel/IndicatorP3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+light_color = Color(0, 0, 0, 1)
+light_energy = 0.06
+light_cull_mask = 4294967293
+
+[node name="PowerCoordinator" type="Node" parent="left_panel/IndicatorP3" index="1"]
+script = ExtResource("6_gbmim")
+self_on = true
+
+[node name="IndicatorP4" parent="left_panel" index="9"]
+layers = 2
+script = ExtResource("15_v06se")
+game_id = 3
+
+[node name="OmniLight3D" type="OmniLight3D" parent="left_panel/IndicatorP4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+light_color = Color(0, 0, 0, 1)
+light_energy = 0.06
+light_cull_mask = 4294967293
+
+[node name="PowerCoordinator" type="Node" parent="left_panel/IndicatorP4" index="1"]
+script = ExtResource("6_gbmim")
+self_on = true
+
+[node name="PressButton" parent="left_panel/NameFrame1/NameScreenPower1" index="2" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
+to_move = [NodePath("../Button_007")]
+move_distance = Vector3(0, -0.004, 0)
+
+[node name="CollisionShape3D" parent="left_panel/NameFrame1/NameScreenPower1/PressButton/PressArea" index="0"]
+shape = ExtResource("13_5k143")
+
+[node name="PowerCoordinator" type="Node" parent="left_panel/NameFrame1/NameScreenPower1" index="3" node_paths=PackedStringArray("power_to", "power_switch")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("../../../NameScreen1")
+power_switch = NodePath("../PressButton")
+delay = 0.3
+self_on = true
+
 [editable path="front_panel/frame_screen_main/MainScreenDown/PressButton"]
 [editable path="front_panel/frame_screen_main/MainScreenLeft/PressButton"]
 [editable path="front_panel/frame_screen_main/MainScreenRight/PressButton"]
@@ -337,4 +709,16 @@ self_on = true
 [editable path="front_panel/frame_screen_main/ScreenMainPower/PressButton"]
 [editable path="front_panel/frame_screen_main/ScreenMainPreviousButton/PressButton"]
 [editable path="front_panel/frame_screen_main/ScreenMainPreviousPalette/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonLeft1/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonLeft2/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonLeft3/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonLeft4/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonLeft5/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonRight1/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonRight2/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonRight3/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonRight4/PressButton"]
+[editable path="right_panel/RightScreenFrame/RightScreenButtonRight5/PressButton"]
 [editable path="right_panel/RightScreenFrame/RightScreenPower/PressButton"]
+[editable path="left_panel/ChatFrame/ScreenChatPower/PressButton"]
+[editable path="left_panel/NameFrame1/NameScreenPower1/PressButton"]
