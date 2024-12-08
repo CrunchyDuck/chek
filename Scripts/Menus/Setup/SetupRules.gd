@@ -15,6 +15,8 @@ var button_can_players_edit: CheckBox = $CanPlayersEdit/CheckBox
 var button_divine_wind: CheckBox = $DivineWind/CheckBox
 @onready
 var button_no_retreat: CheckBox = $NoRetreat/CheckBox
+@onready
+var button_formation_broken: CheckBox = $FormationBroken/CheckBox
 
 @onready
 var button_victory_annihilation: CheckBox = $Annihilation/CheckBox
@@ -34,6 +36,7 @@ var rules_buttons: Array[BaseButton] = [
 	button_victory_all_sacred,
 	button_victory_any_sacred,
 	button_sacred_piece,
+	button_formation_broken,
 ]
 
 func _ready() -> void:
@@ -41,8 +44,11 @@ func _ready() -> void:
 	button_victory_all_sacred.pressed.connect(func (): _set_victory_condition(button_victory_all_sacred))
 	button_victory_any_sacred.pressed.connect(func (): _set_victory_condition(button_victory_any_sacred))
 	button_victory_annihilation.pressed.connect(func (): _set_victory_condition(button_victory_annihilation))
+	
 	button_divine_wind.pressed.connect(_on_change)
 	button_no_retreat.pressed.connect(_on_change)
+	button_formation_broken.pressed.connect(_on_change)
+	
 	settings = gather_settings()
 	_set_victory_condition(button_victory_annihilation)
 	
@@ -79,6 +85,7 @@ func gather_settings() -> BoardBase.GameSettings:
 	
 	settings.divine_wind = button_divine_wind.button_pressed
 	settings.no_retreat = button_no_retreat.button_pressed
+	settings.formation_broken = button_formation_broken.button_pressed
 	return settings
 
 func update_buttons_clickable(clickable: bool):

@@ -373,6 +373,9 @@ class GameSettings:
 	
 	var divine_wind: bool = false
 	var no_retreat: bool = false
+	var formation_broken: bool = false
+	
+	
 	var wrap_x: bool = false
 	var can_players_edit: bool = false
 	
@@ -380,8 +383,11 @@ class GameSettings:
 		var d = {}
 		d.board_size_x = board_size.x
 		d.board_size_y = board_size.y
+		
 		d.divine_wind = divine_wind
 		d.no_retreat = no_retreat
+		d.formation_broken = formation_broken
+		
 		d.can_players_edit = can_players_edit
 		
 		d.victory_annihilation = victory_annihilation
@@ -410,8 +416,11 @@ class GameSettings:
 		var x = json_game_settings.get("board_size_x", 8)
 		var y = json_game_settings.get("board_size_y", 8)
 		gs.board_size = Vector2i(x, y)
+		
 		gs.divine_wind = json_game_settings.get("divine_wind", false)
 		gs.no_retreat = json_game_settings.get("no_retreat", false)
+		gs.formation_broken = json_game_settings.get("formation_broken", false)
+		
 		gs.can_players_edit = json_game_settings.get("can_players_edit", false)
 		
 		gs.victory_annihilation = json_game_settings.get("victory_annihilation", true)

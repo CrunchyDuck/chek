@@ -65,12 +65,6 @@ BRAVE AND STUPID - If there is are pieces that can attack, one of them must atta
 DENIABLE OPS - Pieces are invisible on dark tiles.
 ALLIED ASSAULT - Players on the same team can control the each others units
 
-Bomber - Loyal. Psychologically degraded. Move and attack any direction. Explodes when attacking or attacked, decimating the tile it is on. Attack from safe distance.
-Hologram - Cutting edge illusion. Cannot attack. Move any direction. Swap places with friendly pieces
-Shifter - Untrustworthy. Liability. Alternate between cardinal and diagonal movement.
-Checker - Acrobatic foreigner. Move forward diagonals. Leap over and destroy those in the way. Promotion at end of board.
-Weaponized youth - Innocence, weaponized. Attacking this piece turns the attacker to the piece's team. Move and attack diagonals.
-
 War fatigue - Players do not spawn with pawns.
 Trench warfare - 2x15 board size, 2 players
 Cheker - Checkers, with wrapping edges
