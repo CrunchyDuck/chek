@@ -3,6 +3,7 @@ extends Node
 # TODO: Can only highlight your own pieces to see their moves.
 
 var name_list = [
+	"R. B. Ivy",
 	"N. Laska",
 	"C. Bolyek",
 	"A. Jaynee-Shiko",

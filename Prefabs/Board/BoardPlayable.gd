@@ -41,6 +41,8 @@ func select_cell(to_cell: BoardCell):
 	if _selected_cell.occupying_piece == null:
 		return
 	
+	if _selected_cell.occupying_piece.owned_by != GameController.player.game_id:
+		return
 	var actions = _selected_cell.occupying_piece._get_actions()
 	_selected_cell.occupying_piece.highlight_board_cells(actions)
 

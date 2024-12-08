@@ -771,7 +771,7 @@ surface_material_override/0 = ExtResource("17_11b2k")
 
 [node name="PressButton" parent="MainLightButton" index="3" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
 to_move = [NodePath("../Tip"), NodePath("../Shaft")]
-move_distance = Vector3(0, -0.779, 0)
+move_distance = Vector3(0, -0.6, 0)
 
 [node name="CollisionShape3D" parent="MainLightButton/PressButton/PressArea" index="0"]
 shape = SubResource("CylinderShape3D_m4g4d")
