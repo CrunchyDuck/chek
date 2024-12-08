@@ -36,7 +36,7 @@ var game_settings: BoardBase.GameSettings:
 		return GameController.game_settings
 
 @onready
-var screen_controller: MainScreenController = $"/root/MainScene/ViewportCentralScreen/MainScreenController"
+var screen_controller: MainScreenController = $"/root/MainScene/ViewportMainScreen/MainScreenController"
 @onready
 var node_play_field: Control = $PlayField
 @onready

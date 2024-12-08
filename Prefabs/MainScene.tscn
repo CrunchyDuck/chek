@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1qndkbei0x7l"]
+[gd_scene load_steps=10 format=3 uid="uid://b1qndkbei0x7l"]
 
 [ext_resource type="PackedScene" uid="uid://c1ws01dn2gocj" path="res://Prefabs/ColorPaletteLayer.tscn" id="1_h37ii"]
 [ext_resource type="Theme" uid="uid://dihhwegssrkam" path="res://Styles & Fonts/MainTheme.tres" id="4_qgfyp"]
@@ -8,6 +8,13 @@
 [ext_resource type="Script" path="res://Scripts/NameScreen.gd" id="7_6p3my"]
 [ext_resource type="Script" path="res://Scripts/Model/RightScreenController.gd" id="8_2w0tt"]
 [ext_resource type="PackedScene" uid="uid://c8dcopqrhfesh" path="res://Prefabs/Console.tscn" id="8_evsqn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noum3"]
+resource_local_to_scene = true
+albedo_color = Color(0.81, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.032, 0.64, 0.032, 1)
+emission_energy_multiplier = 0.3
 
 [node name="MainScene" type="Node"]
 
@@ -145,9 +152,10 @@ autowrap_mode = 0
 script = ExtResource("7_6p3my")
 game_id = 3
 
-[node name="ViewportRightScreen" type="SubViewport" parent="."]
+[node name="ViewportRightScreen" type="SubViewport" parent="." node_paths=PackedStringArray("target_mesh")]
 size = Vector2i(400, 400)
 script = ExtResource("5_roanu")
+target_mesh = NodePath("../Console/right_panel/RightScreen")
 
 [node name="ColorPalette" parent="ViewportRightScreen" instance=ExtResource("1_h37ii")]
 
@@ -169,6 +177,15 @@ fov = 25.0
 
 [node name="CollisionShape3D" parent="Console/front_panel/frame_screen_main/ScreenMainNextButton/PressButton/PressArea" index="0"]
 editor_description = "This node says it's scaled, it seems to be lying to me."
+
+[node name="Handle" parent="Console/Lever" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_noum3")
+
+[node name="Shaft" parent="Console/MainLightButton" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_noum3")
+
+[node name="Tip" parent="Console/MainLightButton" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_noum3")
 
 [node name="RoomLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50645, 1.33606)
@@ -196,4 +213,19 @@ bank_paths = ["res://FMODProject/Build//Master.bank"]
 [editable path="Console/front_panel/frame_screen_main/ScreenMainPower/PressButton"]
 [editable path="Console/front_panel/frame_screen_main/ScreenMainPreviousButton/PressButton"]
 [editable path="Console/front_panel/frame_screen_main/ScreenMainPreviousPalette/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonLeft1/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonLeft2/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonLeft3/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonLeft4/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonLeft5/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonRight1/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonRight2/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonRight3/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonRight4/PressButton"]
+[editable path="Console/right_panel/RightScreenFrame/RightScreenButtonRight5/PressButton"]
 [editable path="Console/right_panel/RightScreenFrame/RightScreenPower/PressButton"]
+[editable path="Console/left_panel/ChatFrame/ScreenChatPower/PressButton"]
+[editable path="Console/left_panel/NameFrame1/NameScreenPower1/PressButton"]
+[editable path="Console/left_panel/NameFrame2/NameScreenPower2/PressButton"]
+[editable path="Console/left_panel/NameFrame3/NameScreenPower3/PressButton"]
+[editable path="Console/left_panel/NameFrame4/NameScreenPower4/PressButton"]

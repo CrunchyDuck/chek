@@ -7,7 +7,7 @@ static var instance: MainScreenController
 var viewport: Viewport = $".."
 
 @onready
-var node_central_screen: Control = $"../CentralScreen"
+var node_central_screen: Control = $"../MainScreen"
 
 @onready
 var up_button: PressButton = $"/root/MainScene/Console/front_panel/frame_screen_main/MainScreenUp/PressButton"

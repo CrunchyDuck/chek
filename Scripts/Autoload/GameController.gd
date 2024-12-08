@@ -128,7 +128,7 @@ func _ready():
 	on_game_start.connect(_on_game_start)
 	
 func _get_references():
-	screen_central = $"/root/MainScene/ViewportCentralScreen/CentralScreen"
+	screen_central = $"/root/MainScene/ViewportMainScreen/MainScreen"
 	
 func _process(_delta: float) -> void:
 	if Engine.get_frames_drawn() % 600 == 0:

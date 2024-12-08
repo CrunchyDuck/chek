@@ -6,26 +6,26 @@ var viewport: Viewport = $".."
 
 @onready
 var left_button: Array[PressButton] = [
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryLeftButton1/PressButton",
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryLeftButton2/PressButton",
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryLeftButton3/PressButton",
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryLeftButton4/PressButton",
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryLeftButton5/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonLeft1/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonLeft2/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonLeft3/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonLeft4/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonLeft5/PressButton",
 ]
 var left_button_power: Array[PowerCoordinator] = []
 
 @onready
 var right_button: Array[PressButton] = [
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryRightButton1/PressButton",
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryRightButton2/PressButton",
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryRightButton3/PressButton",
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryRightButton4/PressButton",
-	$"/root/MainScene/Console/right_panel/RightScreenFrame/SecondaryRightButton5/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonRight1/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonRight2/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonRight3/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonRight4/PressButton",
+	$"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenButtonRight5/PressButton",
 ]
 var right_button_power: Array[PowerCoordinator] = []
 
 @onready
-var power: PowerCoordinator = $"/root/MainScene/Console/right_panel/RightScreenFrame/ScreenRightPower/PowerCoordinator"
+var power: PowerCoordinator = $"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenPower/PowerCoordinator"
 
 func _ready():
 	for b in right_button:
