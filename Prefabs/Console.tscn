@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c8dcopqrhfesh"]
+[gd_scene load_steps=21 format=3 uid="uid://c8dcopqrhfesh"]
 
 [ext_resource type="PackedScene" uid="uid://cjomrnub2b5ro" path="res://Models/Console.glb" id="1_152u7"]
 [ext_resource type="Script" path="res://Scripts/Model/FanBehavior.gd" id="2_ftrym"]
@@ -17,9 +17,13 @@
 [ext_resource type="Script" path="res://Scripts/PlayerIndicator.gd" id="15_v06se"]
 [ext_resource type="Script" path="res://Scripts/Model/LeverBehavior.gd" id="16_f86nk"]
 [ext_resource type="Material" path="res://Shaders/GlowInTheDark.tres" id="17_11b2k"]
+[ext_resource type="Script" path="res://Scripts/Model/MainLightButton.gd" id="18_5jww8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eas82"]
 size = Vector3(0.4, 0.185, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d705l"]
+size = Vector3(2.5, 0.2, 4.5)
 
 [node name="Console" instance=ExtResource("1_152u7")]
 
@@ -750,6 +754,18 @@ script = ExtResource("16_f86nk")
 [node name="Handle" parent="Lever" index="3"]
 surface_material_override/0 = ExtResource("17_11b2k")
 
+[node name="ClickArea" type="Area3D" parent="Lever" index="5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lever/ClickArea" index="0"]
+shape = SubResource("BoxShape3D_d705l")
+
+[node name="FlipSound" type="FmodEventEmitter3D" parent="Lever" index="6"]
+event_name = "event:/LargeSwitch"
+event_guid = "{613698f4-efcd-4274-9309-c97bbb704e8c}"
+
+[node name="MainLightButton" parent="." index="6"]
+script = ExtResource("18_5jww8")
+
 [node name="Shaft" parent="MainLightButton" index="1"]
 surface_material_override/0 = ExtResource("17_11b2k")
 
@@ -759,6 +775,23 @@ surface_material_override/0 = ExtResource("17_11b2k")
 [node name="PressButton" parent="MainLightButton" index="3" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
 to_move = [NodePath("../Tip"), NodePath("../Shaft")]
 move_distance = Vector3(0, -0.779, 0)
+
+[node name="PowerCoordinator" type="Node" parent="MainLightButton" index="4" node_paths=PackedStringArray("power_to", "power_switch")]
+script = ExtResource("6_gbmim")
+power_to = NodePath("..")
+power_switch = NodePath("../PressButton")
+
+[node name="RoomLight" type="OmniLight3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50645, 1.33606)
+light_energy = 0.2
+
+[node name="SoundSmallBlink" type="FmodEventEmitter3D" parent="RoomLight" index="0"]
+event_name = "event:/LightBlinkSmall"
+event_guid = "{c26df6c2-73cf-4e87-9edf-51b3680eaf76}"
+
+[node name="SoundBigBlink" type="FmodEventEmitter3D" parent="RoomLight" index="1"]
+event_name = "event:/LightBlinkBig"
+event_guid = "{1132a6b8-b4c7-467b-915d-eb83558d0e72}"
 
 [editable path="front_panel/frame_screen_main/MainScreenDown/PressButton"]
 [editable path="front_panel/frame_screen_main/MainScreenLeft/PressButton"]

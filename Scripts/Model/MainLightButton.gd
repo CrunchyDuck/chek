@@ -1,14 +1,14 @@
 extends Node3D
 
-@export
-var power_coordinator: PowerCoordinator
 @onready
 var node_shaft: MeshInstance3D = $Shaft
 @onready
 var node_tip: MeshInstance3D = $Tip
 
 @onready
-var light: OmniLight3D = $"../../RoomLight"
+var power_coordinator: PowerCoordinator = $PowerCoordinator
+@onready
+var light: OmniLight3D = $"../RoomLight"
 @onready
 var sound_blink_small: FmodEventEmitter3D = light.get_node("SoundSmallBlink")
 @onready

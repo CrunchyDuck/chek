@@ -187,18 +187,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_noum3")
 [node name="Tip" parent="Console/MainLightButton" index="2"]
 surface_material_override/0 = SubResource("StandardMaterial3D_noum3")
 
-[node name="RoomLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50645, 1.33606)
-light_energy = 0.2
-
-[node name="SoundSmallBlink" type="FmodEventEmitter3D" parent="RoomLight"]
-event_name = "event:/LightBlinkSmall"
-event_guid = "{c26df6c2-73cf-4e87-9edf-51b3680eaf76}"
-
-[node name="SoundBigBlink" type="FmodEventEmitter3D" parent="RoomLight"]
-event_name = "event:/LightBlinkBig"
-event_guid = "{1132a6b8-b4c7-467b-915d-eb83558d0e72}"
-
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
 bank_paths = ["res://FMODProject/Build//Master.bank"]
 
