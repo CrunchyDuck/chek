@@ -58,4 +58,4 @@ func _load_scene(scene: Node):
 func _on_start():
 	if not GameController.can_start_game():
 		return
-	GameController.start_game.rpc(GameController.game_settings.serialize(), GameController.board_state.serialize())
+	GameController.server_start_game()

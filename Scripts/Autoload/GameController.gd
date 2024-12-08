@@ -253,9 +253,6 @@ func load_board_state(state: BoardBase.BoardState, players: Dictionary):
 		board_playable = MainScreenController.load_new_scene("Board.BoardPlayable")
 		board_playable.name = "Board"
 	board_playable.visible = false  # Hide until fully loaded
-	if game_settings.formation_broken:
-		state = board_playable.randomize_piece_positions(state)
-		board_state = state	
 	board_playable.load_state(state)
 	
 @rpc("any_peer", "call_local", "reliable")
@@ -431,6 +428,13 @@ func player_loaded():
 		board_playable.visible = true
 		Helpers.destroy_node(screen_central.get_node("GameLoading"))
 
+func server_start_game():
+	if not multiplayer.is_server():
+		return
+	if game_settings.formation_broken:
+		board_state = BoardBase.randomize_piece_positions(board_state)
+	GameController.start_game.rpc(game_settings.serialize(), board_state.serialize())
+
 @rpc("authority", "call_local", "reliable")
 func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	# make people like themselves
@@ -441,7 +445,7 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	
 	# TODO: Bot takeover on disconnect
 	game_settings = BoardBase.GameSettings.deserialize(json_game_settings)
-	var board_state = BoardBase.BoardState.deserialize(json_board_state)
+	board_state = BoardBase.BoardState.deserialize(json_board_state)
 	
 	# Initialize board_playable with size and pieces
 	load_board_state(board_state, players_by_game_id)

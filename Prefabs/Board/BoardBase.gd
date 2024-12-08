@@ -150,7 +150,7 @@ func serialize() -> BoardBase.BoardState:
 func serialize_dict() -> Dictionary:
 	return serialize().serialize()
 
-func randomize_piece_positions(state: BoardBase.BoardState) -> BoardBase.BoardState:
+static func randomize_piece_positions(state: BoardBase.BoardState) -> BoardBase.BoardState:
 	var pieces: Array[BoardBase.PieceState] = []
 	var blockers: Array[BoardBase.PieceState] = []
 	var cells: Dictionary = {}
