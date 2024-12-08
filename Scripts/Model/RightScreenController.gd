@@ -1,4 +1,4 @@
-class_name SecondaryScreenController
+class_name RightScreenController
 extends Node
 
 @onready

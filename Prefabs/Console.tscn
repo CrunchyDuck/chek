@@ -91,7 +91,7 @@ lit_texture = ExtResource("9_m0uko")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/MainScreenLeft" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [null]
+to_move = [NodePath("..")]
 move_distance = Vector3(0, 0, -0.009)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/MainScreenLeft/PressButton/PressArea" index="0"]
@@ -118,7 +118,7 @@ lit_texture = ExtResource("9_m0uko")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/MainScreenRight" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [null]
+to_move = [NodePath("..")]
 move_distance = Vector3(0, 0, -0.009)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/MainScreenRight/PressButton/PressArea" index="0"]
@@ -145,7 +145,7 @@ lit_texture = ExtResource("9_m0uko")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/MainScreenUp" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [null]
+to_move = [NodePath("..")]
 move_distance = Vector3(0, 0, -0.009)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/MainScreenUp/PressButton/PressArea" index="0"]
@@ -172,7 +172,7 @@ lit_texture = ExtResource("9_m0uko")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/ScreenMainNextButton" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [null]
+to_move = [NodePath("..")]
 move_distance = Vector3(0, 0, -0.009)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/ScreenMainNextButton/PressButton/PressArea" index="0"]
@@ -228,7 +228,7 @@ lit_texture = ExtResource("11_ca32k")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/ScreenMainPower" index="2" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [null]
+to_move = [NodePath("../Button_001")]
 move_distance = Vector3(0, -0.004, 0)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/ScreenMainPower/PressButton/PressArea" index="0"]
@@ -279,7 +279,7 @@ lit_texture = ExtResource("11_ca32k")
 material_index = 1
 
 [node name="PressButton" parent="front_panel/frame_screen_main/ScreenMainPreviousPalette" index="0" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [null]
+to_move = [NodePath("..")]
 move_distance = Vector3(0, 0, -0.009)
 
 [node name="CollisionShape3D" parent="front_panel/frame_screen_main/ScreenMainPreviousPalette/PressButton/PressArea" index="0"]
@@ -307,7 +307,7 @@ lit_texture = ExtResource("11_ca32k")
 material_index = 1
 
 [node name="PressButton" parent="right_panel/RightScreenFrame/RightScreenPower" index="2" node_paths=PackedStringArray("to_move") instance=ExtResource("5_urmc8")]
-to_move = [null]
+to_move = [NodePath("../Button_003")]
 move_distance = Vector3(0, -0.004, 0)
 
 [node name="CollisionShape3D" parent="right_panel/RightScreenFrame/RightScreenPower/PressButton/PressArea" index="0"]
@@ -321,8 +321,12 @@ event_guid = "{8c86d579-ab80-4b06-bd10-6908f21254cc}"
 event_name = "event:/SmallButtonUp"
 event_guid = "{68f986d6-50b4-46de-83fa-47764dffa271}"
 
-[node name="Node" type="Node" parent="right_panel/RightScreenFrame/RightScreenPower" index="3"]
+[node name="PowerCoordinator" type="Node" parent="right_panel/RightScreenFrame/RightScreenPower" index="3" node_paths=PackedStringArray("power_to", "power_switch")]
 script = ExtResource("6_gbmim")
+power_to = NodePath("../../../RightScreen")
+power_switch = NodePath("../PressButton")
+delay = 2.0
+self_on = true
 
 [editable path="front_panel/frame_screen_main/MainScreenDown/PressButton"]
 [editable path="front_panel/frame_screen_main/MainScreenLeft/PressButton"]

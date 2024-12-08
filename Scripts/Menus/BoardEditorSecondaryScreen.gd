@@ -2,7 +2,7 @@ class_name BoardEditorSecondaryScreen
 extends Control
 
 @onready
-var screen_controller: SecondaryScreenController = $"/root/MainScene/ViewportRightScreen/SecondaryScreenController"
+var screen_controller: RightScreenController = $"/root/MainScene/ViewportRightScreen/RightScreenController"
 
 @onready
 var node_piece_position: Control = $Piece	

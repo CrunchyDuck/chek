@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Model/MainScreenController.gd" id="6_auddw"]
 [ext_resource type="PackedScene" uid="uid://bblrjt1jecw2y" path="res://Prefabs/ChatScreen.tscn" id="6_bnu3y"]
 [ext_resource type="Script" path="res://Scripts/NameScreen.gd" id="7_6p3my"]
-[ext_resource type="Script" path="res://Scripts/Model/SecondaryScreenController.gd" id="8_2w0tt"]
+[ext_resource type="Script" path="res://Scripts/Model/RightScreenController.gd" id="8_2w0tt"]
 [ext_resource type="PackedScene" uid="uid://c8dcopqrhfesh" path="res://Prefabs/Console.tscn" id="8_evsqn"]
 
 [node name="MainScene" type="Node"]
@@ -145,18 +145,18 @@ autowrap_mode = 0
 script = ExtResource("7_6p3my")
 game_id = 3
 
-[node name="ViewportSecondaryScreen" type="SubViewport" parent="."]
+[node name="ViewportRightScreen" type="SubViewport" parent="."]
 size = Vector2i(400, 400)
 script = ExtResource("5_roanu")
 
-[node name="ColorPalette" parent="ViewportSecondaryScreen" instance=ExtResource("1_h37ii")]
+[node name="ColorPalette" parent="ViewportRightScreen" instance=ExtResource("1_h37ii")]
 
-[node name="RightScreen" type="Control" parent="ViewportSecondaryScreen"]
+[node name="RightScreen" type="Control" parent="ViewportRightScreen"]
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 3
 anchors_preset = 0
 
-[node name="SecondaryScreenController" type="Node" parent="ViewportSecondaryScreen"]
+[node name="RightScreenController" type="Node" parent="ViewportRightScreen"]
 script = ExtResource("8_2w0tt")
 
 [node name="Camera3D" type="Camera3D" parent="."]
