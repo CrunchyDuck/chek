@@ -379,8 +379,8 @@ class GameSettings:
 	var victory_annihilation: bool = true
 	
 	# Specific piece remaining
-	var victory_lose_any_sacred: bool = false
-	var victory_lose_all_sacred: bool = false
+	var victory_any_sacred: bool = false
+	var victory_all_sacred: bool = false
 	var victory_sacred_type: ChessPiece.ePieces = 0
 	#endregion
 	
@@ -423,8 +423,8 @@ class GameSettings:
 		d.victory_annihilation = victory_annihilation
 	
 		d.victory_sacred_type = victory_sacred_type
-		d.victory_lose_any_sacred = victory_lose_any_sacred
-		d.victory_lose_all_sacred = victory_lose_all_sacred
+		d.victory_any_sacred = victory_any_sacred
+		d.victory_all_sacred = victory_all_sacred
 
 		d.turn_sequential = turn_sequential
 		d.turns_concurrent = turns_concurrent
@@ -457,8 +457,8 @@ class GameSettings:
 		gs.victory_annihilation = json_game_settings.get("victory_annihilation", true)
 	
 		gs.victory_sacred_type = json_game_settings.get("victory_sacred_type", 0)
-		gs.victory_lose_any_sacred = json_game_settings.get("victory_lose_any_sacred", false)
-		gs.victory_lose_all_sacred = json_game_settings.get("victory_lose_all_sacred", false)
+		gs.victory_any_sacred = json_game_settings.get("victory_any_sacred", false)
+		gs.victory_all_sacred = json_game_settings.get("victory_all_sacred", false)
 
 		gs.turn_sequential = json_game_settings.get("turn_sequential", true)
 		gs.turns_concurrent = json_game_settings.get("turns_concurrent", false)

@@ -15,31 +15,31 @@ var button_sacred_piece = $VCSacred/SacredFields/AnySacredPiece/PieceType
 
 @onready
 var vc_buttons: Dictionary = {
-	"button_victory_annihilation" = $Annihilation/CheckBox,
-	"button_victory_all_sacred" = $VCSacred/SacredFields/AllSacredPiece/Checkbox,
-	"button_victory_any_sacred" = $VCSacred/SacredFields/AnySacredPiece/Checkbox,
+	"victory_annihilation" = $Annihilation/CheckBox,
+	"victory_all_sacred" = $VCSacred/SacredFields/AllSacredPiece/CheckBox,
+	"victory_any_sacred" = $VCSacred/SacredFields/AnySacredPiece/CheckBox,
 }
 
 @onready
 var modifier_buttons: Dictionary = {
-	"button_divine_wind" = $DivineWind/CheckBox,
-	"button_no_retreat" = $NoRetreat/CheckBox,
-	"button_formation_broken" = $FormationBroke /CheckBox,
-	"button_b_team" = $BTeam/CheckBox,
+	"divine_wind" = $DivineWind/CheckBox,
+	"no_retreat" = $NoRetreat/CheckBox,
+	"formation_broken" = $FormationBroken/CheckBox,
+	"b_team" = $BTeam/CheckBox,
 }
 
 func _ready() -> void:
 	button_can_players_edit.pressed.connect(_on_change)
 	
-	vc_buttons.button_victory_all_sacred.pressed.connect(func (): _set_victory_condition(vc_buttons.button_victory_all_sacred))
-	vc_buttons.button_victory_any_sacred.pressed.connect(func (): _set_victory_condition(vc_buttons.button_victory_any_sacred))
-	vc_buttons.button_victory_annihilation.pressed.connect(func (): _set_victory_condition(vc_buttons.button_victory_annihilation))
+	vc_buttons.victory_all_sacred.pressed.connect(func (): _set_victory_condition(vc_buttons.victory_all_sacred))
+	vc_buttons.victory_any_sacred.pressed.connect(func (): _set_victory_condition(vc_buttons.victory_any_sacred))
+	vc_buttons.victory_annihilation.pressed.connect(func (): _set_victory_condition(vc_buttons.victory_annihilation))
 	
 	for b in modifier_buttons.values():
 		b.pressed.connect(_on_change)
 		
 	settings = gather_settings()
-	_set_victory_condition(vc_buttons.button_victory_annihilation)
+	_set_victory_condition(vc_buttons.victory_annihilation)
 	
 	if multiplayer.is_server():
 		update_buttons_clickable(true)
@@ -63,19 +63,16 @@ func _on_change():
 		client_load_settings.rpc_id(1, settings.serialize())
 	
 func gather_settings() -> BoardBase.GameSettings:
-	var settings = BoardBase.GameSettings.new()
+	var settings = {}
 	settings.can_players_edit = button_can_players_edit.button_pressed
 	
-	settings.victory_annihilation = vc_buttons.button_victory_annihilation.button_pressed
-	settings.victory_lose_all_sacred = vc_buttons.button_victory_all_sacred.button_pressed
-	settings.victory_lose_any_sacred = vc_buttons.button_victory_any_sacred.button_pressed
-	settings.victory_sacred_type = vc_buttons.button_sacred_piece.current_piece
+	for b in vc_buttons.keys():
+		settings[b] = vc_buttons[b].button_pressed
+	for b in modifier_buttons.keys():
+		settings[b] = modifier_buttons[b].button_pressed
 	
-	settings.divine_wind = modifier_buttons.button_divine_wind.button_pressed
-	settings.no_retreat = modifier_buttons.button_no_retreat.button_pressed
-	settings.formation_broken = modifier_buttons.button_formation_broken.button_pressed
-	settings.b_team = modifier_buttons.button_b_team.button_pressed
-	return settings
+	settings.victory_sacred_type = button_sacred_piece.current_piece
+	return BoardBase.GameSettings.deserialize(settings)
 
 func update_buttons_clickable(clickable: bool):
 	if multiplayer.is_server():
@@ -83,27 +80,27 @@ func update_buttons_clickable(clickable: bool):
 	else:
 		button_can_players_edit.disabled = true
 	
-	for button in modifier_buttons:
+	for button in modifier_buttons.values():
 		button.disabled = !clickable
 		
-	for button in vc_buttons:
+	for button in vc_buttons.values():
 		button.disabled = !clickable
 
 @rpc("authority", "call_local", "reliable", 0)
 func load_settings(json_settings: Dictionary):
-	settings = BoardBase.GameSettings.deserialize(json_settings)
-	button_can_players_edit.set_pressed_no_signal(settings.can_players_edit)
+	button_can_players_edit.set_pressed_no_signal(json_settings.can_players_edit)
 	for k in modifier_buttons.keys():
-		modifier_buttons[k].set_pressed_no_signal(settings[k])
+		modifier_buttons[k].set_pressed_no_signal(json_settings[k])
 	
 	for k in vc_buttons.keys():
-		vc_buttons[k].set_pressed_no_signal(settings[k])
+		vc_buttons[k].set_pressed_no_signal(json_settings[k])
 	
-	button_sacred_piece.current_piece = settings.victory_sacred_type
-	button_sacred_piece._set_texture(settings.victory_sacred_type)
+	button_sacred_piece.current_piece = json_settings.victory_sacred_type
+	button_sacred_piece._set_texture(json_settings.victory_sacred_type)
 	
 	if not multiplayer.is_server():
-		update_buttons_clickable(settings.can_players_edit)
+		update_buttons_clickable(json_settings.can_players_edit)
+	settings = BoardBase.GameSettings.deserialize(json_settings)
 	
 @rpc("any_peer", "call_local", "reliable")
 func client_load_settings(json_settings: Dictionary):
