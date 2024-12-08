@@ -9,7 +9,7 @@
       "orientation": 180,
       "player": 0,
       "position_x": 0,
-      "position_y": 5,
+      "position_y": 6,
       "type": 1
      },
      {
@@ -116,6 +116,27 @@
       "position_x": 4,
       "position_y": 7,
       "type": 6
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 0,
+      "position_y": 8,
+      "type": 1
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 1,
+      "position_y": 8,
+      "type": 1
+     },
+     {
+      "orientation": 180,
+      "player": 0,
+      "position_x": 2,
+      "position_y": 8,
+      "type": 1
      }
     ]
    },
@@ -239,14 +260,16 @@
    }
   ],
   "size_x": 8,
-  "size_y": 8
+  "size_y": 11
  },
  "complexity": 0,
  "game_settings": {
+  "b_team": false,
   "board_size_x": 8,
   "board_size_y": 8,
   "can_players_edit": false,
   "divine_wind": false,
+  "formation_broken": false,
   "no_retreat": false,
   "turn_bullet_chess": false,
   "turn_bullet_limit": 0,
@@ -255,11 +278,11 @@
   "turn_queue_time": 0,
   "turn_sequential": true,
   "turn_timed": false,
-  "turns_at_a_time": 1,
+  "turns_at_a_time": 0,
   "turns_concurrent": false,
+  "victory_all_sacred": false,
   "victory_annihilation": true,
-  "victory_lose_all_sacred": false,
-  "victory_lose_any_sacred": false,
+  "victory_any_sacred": false,
   "victory_sacred_type": 6
  },
  "name": "NAME",
