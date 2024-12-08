@@ -10,49 +10,36 @@ var settings: BoardBase.GameSettings:
 
 @onready
 var button_can_players_edit: CheckBox = $CanPlayersEdit/CheckBox
+@onready
+var button_sacred_piece = $VCSacred/SacredFields/AnySacredPiece/PieceType
 
 @onready
-var button_divine_wind: CheckBox = $DivineWind/CheckBox
-@onready
-var button_no_retreat: CheckBox = $NoRetreat/CheckBox
-@onready
-var button_formation_broken: CheckBox = $FormationBroken/CheckBox
-@onready
-var button_b_team: CheckBox = $BTeam/CheckBox
+var vc_buttons: Dictionary = {
+	"button_victory_annihilation" = $Annihilation/CheckBox,
+	"button_victory_all_sacred" = $VCSacred/SacredFields/AllSacredPiece/Checkbox,
+	"button_victory_any_sacred" = $VCSacred/SacredFields/AnySacredPiece/Checkbox,
+}
 
 @onready
-var button_victory_annihilation: CheckBox = $Annihilation/CheckBox
-@onready
-var button_victory_all_sacred: CheckBox = $VCSacred/SacredFields/AllSacredPiece/CheckBox
-@onready
-var button_victory_any_sacred: CheckBox = $VCSacred/SacredFields/AnySacredPiece/CheckBox
-@onready
-var button_sacred_piece: SacredPieceSelector = $VCSacred/SacredFields/AnySacredPiece/PieceType
-
-@onready
-# This excludes the setting for if players can modify the game state
-var rules_buttons: Array[BaseButton] = [
-	button_divine_wind,
-	button_no_retreat,
-	button_victory_annihilation,
-	button_victory_all_sacred,
-	button_victory_any_sacred,
-	button_sacred_piece,
-	button_formation_broken,
-]
+var modifier_buttons: Dictionary = {
+	"button_divine_wind" = $DivineWind/CheckBox,
+	"button_no_retreat" = $NoRetreat/CheckBox,
+	"button_formation_broken" = $FormationBroke /CheckBox,
+	"button_b_team" = $BTeam/CheckBox,
+}
 
 func _ready() -> void:
 	button_can_players_edit.pressed.connect(_on_change)
-	button_victory_all_sacred.pressed.connect(func (): _set_victory_condition(button_victory_all_sacred))
-	button_victory_any_sacred.pressed.connect(func (): _set_victory_condition(button_victory_any_sacred))
-	button_victory_annihilation.pressed.connect(func (): _set_victory_condition(button_victory_annihilation))
 	
-	button_divine_wind.pressed.connect(_on_change)
-	button_no_retreat.pressed.connect(_on_change)
-	button_formation_broken.pressed.connect(_on_change)
+	vc_buttons.button_victory_all_sacred.pressed.connect(func (): _set_victory_condition(vc_buttons.button_victory_all_sacred))
+	vc_buttons.button_victory_any_sacred.pressed.connect(func (): _set_victory_condition(vc_buttons.button_victory_any_sacred))
+	vc_buttons.button_victory_annihilation.pressed.connect(func (): _set_victory_condition(vc_buttons.button_victory_annihilation))
 	
+	for b in modifier_buttons.values():
+		b.pressed.connect(_on_change)
+		
 	settings = gather_settings()
-	_set_victory_condition(button_victory_annihilation)
+	_set_victory_condition(vc_buttons.button_victory_annihilation)
 	
 	if multiplayer.is_server():
 		update_buttons_clickable(true)
@@ -62,9 +49,8 @@ func _ready() -> void:
 
 func _set_victory_condition(new_condition: CheckBox):
 	# Flick off all but the new condition
-	button_victory_all_sacred.set_pressed_no_signal(false)
-	button_victory_any_sacred.set_pressed_no_signal(false)
-	button_victory_annihilation.set_pressed_no_signal(false)
+	for b in vc_buttons.values():
+		b.set_pressed_no_signal(false)
 	
 	new_condition.set_pressed_no_signal(true)
 	_on_change()
@@ -80,15 +66,15 @@ func gather_settings() -> BoardBase.GameSettings:
 	var settings = BoardBase.GameSettings.new()
 	settings.can_players_edit = button_can_players_edit.button_pressed
 	
-	settings.victory_annihilation = button_victory_annihilation.button_pressed
-	settings.victory_lose_all_sacred = button_victory_all_sacred.button_pressed
-	settings.victory_lose_any_sacred = button_victory_any_sacred.button_pressed
-	settings.victory_sacred_type = button_sacred_piece.current_piece
+	settings.victory_annihilation = vc_buttons.button_victory_annihilation.button_pressed
+	settings.victory_lose_all_sacred = vc_buttons.button_victory_all_sacred.button_pressed
+	settings.victory_lose_any_sacred = vc_buttons.button_victory_any_sacred.button_pressed
+	settings.victory_sacred_type = vc_buttons.button_sacred_piece.current_piece
 	
-	settings.divine_wind = button_divine_wind.button_pressed
-	settings.no_retreat = button_no_retreat.button_pressed
-	settings.formation_broken = button_formation_broken.button_pressed
-	settings.b_team = button_b_team.button_pressed
+	settings.divine_wind = modifier_buttons.button_divine_wind.button_pressed
+	settings.no_retreat = modifier_buttons.button_no_retreat.button_pressed
+	settings.formation_broken = modifier_buttons.button_formation_broken.button_pressed
+	settings.b_team = modifier_buttons.button_b_team.button_pressed
 	return settings
 
 func update_buttons_clickable(clickable: bool):
@@ -97,19 +83,22 @@ func update_buttons_clickable(clickable: bool):
 	else:
 		button_can_players_edit.disabled = true
 	
-	for button in rules_buttons:
+	for button in modifier_buttons:
+		button.disabled = !clickable
+		
+	for button in vc_buttons:
 		button.disabled = !clickable
 
 @rpc("authority", "call_local", "reliable", 0)
 func load_settings(json_settings: Dictionary):
 	settings = BoardBase.GameSettings.deserialize(json_settings)
 	button_can_players_edit.set_pressed_no_signal(settings.can_players_edit)
-	button_divine_wind.set_pressed_no_signal(settings.divine_wind)
-	button_no_retreat.set_pressed_no_signal(settings.no_retreat)
+	for k in modifier_buttons.keys():
+		modifier_buttons[k].set_pressed_no_signal(settings[k])
 	
-	button_victory_any_sacred.set_pressed_no_signal(settings.victory_lose_any_sacred)
-	button_victory_all_sacred.set_pressed_no_signal(settings.victory_lose_all_sacred)
-	button_victory_annihilation.set_pressed_no_signal(settings.victory_annihilation)
+	for k in vc_buttons.keys():
+		vc_buttons[k].set_pressed_no_signal(settings[k])
+	
 	button_sacred_piece.current_piece = settings.victory_sacred_type
 	button_sacred_piece._set_texture(settings.victory_sacred_type)
 	
