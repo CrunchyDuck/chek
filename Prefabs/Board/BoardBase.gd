@@ -150,6 +150,34 @@ func serialize() -> BoardBase.BoardState:
 func serialize_dict() -> Dictionary:
 	return serialize().serialize()
 
+func randomize_piece_positions(state: BoardBase.BoardState) -> BoardBase.BoardState:
+	var pieces: Array[BoardBase.PieceState] = []
+	var blockers: Array[BoardBase.PieceState] = []
+	var cells: Dictionary = {}
+	
+	for x in range(0, state.size.x-1):
+		for y in range(0, state.size.y-1):
+			cells[Vector2i(x, y)] = true
+	
+	for player in state.players:
+		for piece in player.pieces:
+			if piece.type == ChessPiece.ePieces.Blocker:
+				blockers.append(piece)
+			else:
+				pieces.append(piece)
+	
+	for b in blockers:
+		cells.erase(b.position)
+	
+	var cells_array = cells.keys()
+	for p in pieces:
+		var i = randi_range(0, cells_array.size() - 1)
+		var new_coord = cells_array.pop_at(i)
+		p.position = new_coord
+		
+	return state
+
+# TODO: Blockers don't seem to be loading in properly initially.
 func load_state(state: BoardBase.BoardState):
 	clear_pieces()
 	create_new_grid(state.size)

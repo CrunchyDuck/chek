@@ -253,6 +253,9 @@ func load_board_state(state: BoardBase.BoardState, players: Dictionary):
 		board_playable = MainScreenController.load_new_scene("Board.BoardPlayable")
 		board_playable.name = "Board"
 	board_playable.visible = false  # Hide until fully loaded
+	if game_settings.formation_broken:
+		state = board_playable.randomize_piece_positions(state)
+		board_state = state	
 	board_playable.load_state(state)
 	
 @rpc("any_peer", "call_local", "reliable")
