@@ -485,7 +485,7 @@ class GameSettings:
 
 		gs.turn_sequential = json_game_settings.get("turn_sequential", true)
 		gs.turns_concurrent = json_game_settings.get("turns_concurrent", false)
-		gs.turns_at_a_time = json_game_settings.get("turns_at_a_time", 0)
+		gs.turns_at_a_time = json_game_settings.get("turns_at_a_time", 1)
 		
 		gs.turn_bullet_chess = json_game_settings.get("turn_bullet_chess", false)
 		gs.turn_bullet_limit = json_game_settings.get("turn_bullet_limit", 0)
