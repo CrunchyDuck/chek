@@ -233,8 +233,10 @@ func position_to_cell(_global_pos: Vector2) -> BoardCell:
 	return grid[y][x]
 
 func get_cell(pos: Vector2i) -> BoardCell:
-	if game_settings.wrap_x:
+	if game_settings.round_earth:
 		pos.x = wrapi(pos.x, 0, grid_size.x)
+	if game_settings.polar_crossing:
+		pos.y = wrapi(pos.y, 0, grid_size.y)
 	
 	if not is_coordinate_in_bounds(pos):
 		return null
@@ -420,8 +422,9 @@ class GameSettings:
 	var formation_broken: bool = false
 	var b_team: bool = false
 	
+	var round_earth: bool = false
+	var polar_crossing: bool = false
 	
-	var wrap_x: bool = false
 	var can_players_edit: bool = false
 	
 	func serialize() -> Dictionary:
@@ -433,6 +436,8 @@ class GameSettings:
 		d.no_retreat = no_retreat
 		d.formation_broken = formation_broken
 		d.b_team = b_team
+		d.round_earth = round_earth
+		d.polar_crossing = polar_crossing
 		
 		d.can_players_edit = can_players_edit
 		
@@ -467,6 +472,8 @@ class GameSettings:
 		gs.no_retreat = json_game_settings.get("no_retreat", false)
 		gs.formation_broken = json_game_settings.get("formation_broken", false)
 		gs.b_team = json_game_settings.get("b_team", false)
+		gs.round_earth = json_game_settings.get("round_earth", false)
+		gs.polar_crossing = json_game_settings.get("polar_crossing", false)
 		
 		gs.can_players_edit = json_game_settings.get("can_players_edit", false)
 		

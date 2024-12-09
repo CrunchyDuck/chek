@@ -26,6 +26,8 @@ var modifier_buttons: Dictionary = {
 	"no_retreat" = $NoRetreat/CheckBox,
 	"formation_broken" = $FormationBroken/CheckBox,
 	"b_team" = $BTeam/CheckBox,
+	"round_earth" = $RoundEarth/CheckBox,
+	"polar_crossing" = $PolarCrossing/CheckBox,
 }
 
 func _ready() -> void:

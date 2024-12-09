@@ -19,6 +19,7 @@ func next_piece():
 		current_piece = wrapi(current_piece + 1, 0, ChessPiece.ePieces.size()) as ChessPiece.ePieces
 	elif last_button == MOUSE_BUTTON_RIGHT:
 		current_piece = wrapi(current_piece - 1, 0, ChessPiece.ePieces.size()) as ChessPiece.ePieces
+	
 	if current_piece == ChessPiece.ePieces.Blocker:
 		next_piece()
 		return
