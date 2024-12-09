@@ -32,8 +32,8 @@ Moves per turn customization
 knights can move in a line of 3 long
 fluxx chess/knightmare chess
 
-B TEAM - Piece types are randomized at the start of the round.
-ROUND EARTH - The left and right edges wrap around.
+-B TEAM - Piece types are randomized at the start of the round.
+-ROUND EARTH - The left and right edges wrap around.
 NO GODS - Any player can move any piece
 ADVANCED WARFARE - Piece take multiple attacks to be killed.
 -NO RETREAT - Pieces can only move forward or horizontal, till reaching the end; Then they turn around and repeat.
