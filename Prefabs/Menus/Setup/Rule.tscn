@@ -156,6 +156,7 @@ offset_top = -33.0
 offset_right = 94.0
 offset_bottom = 31.0
 grow_horizontal = 2
+button_mask = 3
 texture_normal = ExtResource("2_k2iny")
 stretch_mode = 0
 script = ExtResource("3_b1tdg")
