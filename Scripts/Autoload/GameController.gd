@@ -203,7 +203,7 @@ func can_start_game() -> bool:
 		confirm_start_with_extra_players = true
 		return false
 
-	var content = "Not enough commanders. Find more, or use state-of-art AI.\nRequired: {req}\nPresent: {have}"\
+	var content = "Not enough commanders. Find more.\nRequired: {req}\nPresent: {have}"\
 		.format({"req": str(p_min), "have": str(p_count)})
 	MessageController.system_message(content)
 	return false
