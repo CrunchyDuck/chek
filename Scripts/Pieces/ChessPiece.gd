@@ -153,7 +153,7 @@ func _can_attack(target_position: Vector2i) -> bool:
 	return target_cell != null\
 		and target_cell.occupying_piece != null\
 		and target_cell.occupying_piece.piece_type != ChessPiece.ePieces.Blocker\
-		and not friendly_to(target_cell.occupying_piece)
+		and (GameController.game_settings.greater_good or not friendly_to(target_cell.occupying_piece))
 
 # Try to move in a line, or attack what blocks that line.
 func _act_in_line(direction: Vector2i, max_distance: int = 50) -> Array[BoardPlayable.GameAction]:
