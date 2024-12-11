@@ -47,7 +47,7 @@ CIVIL WAR - Pieces are not removed from the board when captured, but relocated t
 RISKY DEPLOYMENT - Players place pieces one after the other
 SUMO - Pieces are not captured, instead they are knocked back. Knocking off the board eliminates.
 FIRING SQUAD - Pieces do not move when they kill other pieces
-FOREIGN GROUND - Fog of war
+-FOREIGN GROUND - Fog of war
 -GREATER GOOD - Own pieces can be captured
 COLD WAR - Each turn, choose a friendly piece to die.
 SIEGE - When not on spawn, if a piece cannot move, it dies.

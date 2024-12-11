@@ -426,6 +426,7 @@ class GameSettings:
 	var no_gods: bool = false
 	var greater_good: bool = false
 	var foreign_ground: bool = false
+	var brave_and_stupid: bool = false
 	
 	var can_players_edit: bool = false
 	
@@ -443,6 +444,7 @@ class GameSettings:
 		d.no_gods = no_gods
 		d.greater_good = greater_good
 		d.foreign_ground = foreign_ground
+		d.brave_and_stupid = brave_and_stupid
 		
 		d.can_players_edit = can_players_edit
 		
@@ -482,6 +484,7 @@ class GameSettings:
 		gs.no_gods = json_game_settings.get("no_gods", false)
 		gs.greater_good = json_game_settings.get("greater_good", false)
 		gs.foreign_ground = json_game_settings.get("foreign_ground", false)
+		gs.brave_and_stupid = json_game_settings.get("brave_and_stupid", false)
 		
 		gs.can_players_edit = json_game_settings.get("can_players_edit", false)
 		
