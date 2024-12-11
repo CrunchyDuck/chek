@@ -424,6 +424,7 @@ class GameSettings:
 	var round_earth: bool = false
 	var polar_crossing: bool = false
 	var no_gods: bool = false
+	var greater_good: bool = false
 	
 	var can_players_edit: bool = false
 	
@@ -439,6 +440,7 @@ class GameSettings:
 		d.round_earth = round_earth
 		d.polar_crossing = polar_crossing
 		d.no_gods = no_gods
+		d.greater_good = greater_good
 		
 		d.can_players_edit = can_players_edit
 		
@@ -476,6 +478,7 @@ class GameSettings:
 		gs.round_earth = json_game_settings.get("round_earth", false)
 		gs.polar_crossing = json_game_settings.get("polar_crossing", false)
 		gs.no_gods = json_game_settings.get("no_gods", false)
+		gs.greater_good = json_game_settings.get("greater_good", false)
 		
 		gs.can_players_edit = json_game_settings.get("can_players_edit", false)
 		
