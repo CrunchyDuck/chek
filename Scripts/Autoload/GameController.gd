@@ -104,6 +104,8 @@ var victory_condition: VictoryCondition
 var players_loaded: int = 0
 var confirm_start_with_extra_players: bool = false
 
+var stupid_players: Array[int] = []
+
 signal on_board_state_changed(new_state: BoardBase.BoardState)
 signal on_game_settings_changed(new_state: BoardBase.GameSettings)
 
@@ -134,17 +136,6 @@ func _get_references():
 func _process(_delta: float) -> void:
 	if Engine.get_frames_drawn() % 600 == 0:
 		get_ip()
-	
-func _on_game_start():
-	game_in_progress = true
-	multiplayer.multiplayer_peer.refuse_new_connections = true
-	
-func _on_game_end():
-	game_in_progress = false
-	players_loaded = 0
-	confirm_start_with_extra_players = false
-	multiplayer.multiplayer_peer.refuse_new_connections = false
-	board_playable = null
 		
 #region Server events
 func start_lobby(_port: int) -> bool:
@@ -264,6 +255,12 @@ func try_perform_action(game_action_data: Dictionary) -> void:
 	var player = players_by_game_id.get(game_action_data.player)
 	if not (player != null and player == players_by_net_id[multiplayer.get_remote_sender_id()]):
 		return
+		
+	var act = BoardPlayable.GameAction.deserialize(game_action_data)
+	if game_settings.brave_and_stupid:
+		if stupid_players.has(game_action_data.player):
+			if act.type != BoardPlayable.eActionType.Attack and act.type != BoardPlayable.eActionType.AttackMove:
+				return
 	
 	# Try this action on the server
 	if perform_turn(game_action_data):
@@ -316,10 +313,30 @@ func is_action_legal(action: BoardPlayable.GameAction):
 	if p.actions_remaining > 0:
 		return true
 	return false
+	
+func find_brave_and_stupid() -> Array[int]:
+	var stupid: Array[int] = [] 
+	var p_gid = board_playable.pieces_by_game_id
+	for gid in p_gid:
+		var pieces: Array = p_gid[gid]
+		for p in pieces:
+			var acts = p._get_actions()
+			var found_attack = false
+			for act in acts:
+				if act == null:
+					continue
+				if act.type == BoardPlayable.eActionType.Attack or act.type == BoardPlayable.eActionType.AttackMove:
+					found_attack = true
+					stupid.append(gid)
+					break
+			if found_attack:
+				break
+	return stupid
 #endregion
 	
 #region Turn order
 func turn_order_sequential(pid_just_acted: int):
+	# TODO: Handle no player being able to act
 	# Progress this player's action state.
 	if pid_just_acted != -1:
 		var p = players_by_game_id[pid_just_acted]
@@ -330,6 +347,7 @@ func turn_order_sequential(pid_just_acted: int):
 		p.action_start_time = Time.get_ticks_msec()
 		# Is turn finished?
 		if p.actions_remaining > 0:
+			on_turn_start(p)
 			p.action_start_time = Time.get_ticks_msec()
 			return
 		
@@ -347,8 +365,8 @@ func turn_order_sequential(pid_just_acted: int):
 			
 		next_player.actions_remaining = game_settings.turns_at_a_time
 		next_player.action_start_time = Time.get_ticks_msec()
+		on_turn_start(next_player)
 		return
-	# TODO: Handle no player being able to act
 #endregion
 
 #region Victory conditions
@@ -407,9 +425,27 @@ func on_turn_taken(action: BoardPlayable.GameAction):
 	if not game_in_progress:
 		return
 		
+	if game_settings.brave_and_stupid:
+		stupid_players = find_brave_and_stupid()
+		
 	# Progress turn order
 	if game_settings.turn_sequential:
 		turn_order_sequential(action.player)
+
+func on_turn_start(started_for: Player):
+	pass
+	
+func _on_game_start():
+	game_in_progress = true
+	multiplayer.multiplayer_peer.refuse_new_connections = true
+	
+func _on_game_end():
+	game_in_progress = false
+	players_loaded = 0
+	confirm_start_with_extra_players = false
+	multiplayer.multiplayer_peer.refuse_new_connections = false
+	board_playable = null
+	stupid_players = []
 #endregion
 	
 #region RPCs
