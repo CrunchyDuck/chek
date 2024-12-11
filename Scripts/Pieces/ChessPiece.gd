@@ -104,6 +104,9 @@ func highlight_board_cells(actions: Array[BoardPlayable.GameAction]):
 	for action in actions:
 		if action == null:
 			continue
+		if GameController.stupid_players.has(action.player):
+			if action.type != BoardPlayable.eActionType.Attack and action.type != BoardPlayable.eActionType.AttackMove:
+				continue
 		var target_cell = board.get_cell(action.target)
 		target_cell.contained_action = action
 
