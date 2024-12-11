@@ -48,7 +48,7 @@ RISKY DEPLOYMENT - Players place pieces one after the other
 SUMO - Pieces are not captured, instead they are knocked back. Knocking off the board eliminates.
 FIRING SQUAD - Pieces do not move when they kill other pieces
 FOREIGN GROUND - Fog of war
-GREATER GOOD - Own pieces can be captured
+-GREATER GOOD - Own pieces can be captured
 COLD WAR - Each turn, choose a friendly piece to die.
 SIEGE - When not on spawn, if a piece cannot move, it dies.
 COORDINATED - Every piece that can move, must move. Resets once all pieces have either moved or cannot move.
