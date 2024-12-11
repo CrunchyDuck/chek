@@ -398,6 +398,8 @@ func on_victory(victor: Player):
 
 #region Events
 func on_turn_taken(action: BoardPlayable.GameAction):
+	if game_settings.foreign_ground:
+		board_playable.apply_fog_of_war(player.game_id)
 	# Check for victory
 	perform_victory_and_defeat()
 	
@@ -455,6 +457,9 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	# Set player states
 	victory_condition = get_victory_condition(game_settings)
 	turn_order_sequential(-1)
+	
+	if game_settings.foreign_ground:
+		board_playable.apply_fog_of_war(player.game_id)
 	
 	on_game_start.emit()
 	# Wait until all players are loaded.

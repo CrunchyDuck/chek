@@ -125,6 +125,35 @@ func _swap_cells(source: Vector2i, destination: Vector2i) -> bool:
 		p2.orientation = wrapi(p2.orientation + 180, 0, 360)
 	return true
 
+func apply_fog_of_war(from_player: int):
+	var pieces_dict: Dictionary = pieces_by_game_id
+	var pieces: Array = []
+	# Hide pieces
+	for game_id in pieces_dict:
+		if game_id == from_player:
+			continue
+		pieces = pieces_dict[game_id]
+		for p in pieces:
+			p.visible = false
+	
+	pieces = pieces_dict[from_player]
+	for p in pieces:
+		# Reveal those adjacent to our pieces
+		for x in range(-1, 2):
+			for y in range(-1, 2):
+				var c = get_cell(p.coordinates + Vector2i(x, y))
+				if c == null or c.occupying_piece == null:
+					continue
+				c.occupying_piece.visible = true
+		# Reveal those we can attack.
+		var acts: Array[BoardPlayable.GameAction] = p._get_actions()
+		for act in acts:
+			if act == null:
+				continue
+			if act.type == BoardPlayable.eActionType.Attack or act.type == BoardPlayable.eActionType.AttackMove:
+				get_cell(act.target).occupying_piece.visible = true
+	
+
 class GameAction:
 	# Describes an action that to take place on the board.
 	var player: int
