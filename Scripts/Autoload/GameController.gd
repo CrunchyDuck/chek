@@ -113,6 +113,8 @@ signal on_game_start()
 signal on_game_end()
 
 signal on_turn_start(player: Player)
+signal on_turn_taken(player: Player, action)
+signal on_turn_end(player: Player)
 
 const max_players: int = 4
 
@@ -131,6 +133,8 @@ func _ready():
 	
 	on_game_end.connect(_on_game_end)
 	on_game_start.connect(_on_game_start)
+	
+	on_turn_taken.connect(_on_turn_taken)
 	
 func _get_references():
 	screen_central = $"/root/MainScene/ViewportMainScreen/MainScreen"
@@ -277,7 +281,7 @@ func perform_turn(game_action_data: Dictionary) -> bool:
 	
 	var anything_performed = perform_action_chain(action)
 	if anything_performed:
-		on_turn_taken(action)
+		on_turn_taken.emit(players_by_game_id[action.player], action)
 		return true
 	return false
 
@@ -417,7 +421,7 @@ func on_victory(victor: Player):
 #endregion
 
 #region Events
-func on_turn_taken(action: BoardPlayable.GameAction):
+func _on_turn_taken(action: BoardPlayable.GameAction):
 	if game_settings.foreign_ground:
 		board_playable.apply_fog_of_war(player.game_id)
 	# Check for victory
