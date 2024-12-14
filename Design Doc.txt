@@ -5,7 +5,7 @@ Up to 4 players
 Modes:
 
 Normal
-each player takes X turns one after the other (basically, normal chess)
+-each player takes X turns one after the other (basically, normal chess)
 each player takes X turns concurrently
 each player can take a turn every X time (move as fast as you can)
 players have X seconds to queue up moves. All moves then happen at once, earlier moves with higher priority. Moves are converted to attacks where possible, and vice-versa. Arrows indicate moves.
