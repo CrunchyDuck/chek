@@ -2,7 +2,7 @@ class_name SetupRules
 extends Control
 
 # TODO: Make checkboxes use a different colour when disable, so they're not invisible.
-var settings: BoardBase.GameSettings:
+var settings: GameSettings:
 	get:
 		return GameController.game_settings
 	set(value):
@@ -69,7 +69,7 @@ func _on_change():
 	elif settings.can_players_edit:
 		client_load_settings.rpc_id(1, settings.serialize())
 	
-func gather_settings() -> BoardBase.GameSettings:
+func gather_settings() -> GameSettings:
 	var settings = {}
 	settings.can_players_edit = button_can_players_edit.button_pressed
 	
@@ -79,7 +79,7 @@ func gather_settings() -> BoardBase.GameSettings:
 		settings[b] = modifier_buttons[b].button_pressed
 	
 	settings.victory_sacred_type = button_sacred_piece.current_piece
-	return BoardBase.GameSettings.deserialize(settings)
+	return GameSettings.deserialize(settings)
 
 func update_buttons_clickable(clickable: bool):
 	if multiplayer.is_server():
@@ -107,7 +107,7 @@ func load_settings(json_settings: Dictionary):
 	
 	if not multiplayer.is_server():
 		update_buttons_clickable(json_settings.can_players_edit)
-	settings = BoardBase.GameSettings.deserialize(json_settings)
+	settings = GameSettings.deserialize(json_settings)
 	
 @rpc("any_peer", "call_local", "reliable")
 func client_load_settings(json_settings: Dictionary):

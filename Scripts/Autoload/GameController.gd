@@ -78,13 +78,13 @@ var game_id: int:
 var character_name: String
 var job_name: String
 
-var _game_settings: BoardBase.GameSettings = BoardBase.GameSettings.new()
-var game_settings: BoardBase.GameSettings:
+var _game_settings: GameSettings = GameSettings.new()
+var game_settings: GameSettings:
 	get:
 		return _game_settings
 	set(value):
 		if value == null:
-			value = BoardBase.GameSettings.new()
+			value = GameSettings.new()
 		_game_settings = value
 		confirm_start_with_extra_players = false
 		on_game_settings_changed.emit(value)
@@ -107,7 +107,7 @@ var confirm_start_with_extra_players: bool = false
 var stupid_players: Array[int] = []
 
 signal on_board_state_changed(new_state: BoardBase.BoardState)
-signal on_game_settings_changed(new_state: BoardBase.GameSettings)
+signal on_game_settings_changed(new_state: GameSettings)
 
 signal on_game_start()
 signal on_game_end()
@@ -380,7 +380,7 @@ func can_start_victory_condition() -> bool:
 	MessageController.system_message("Unknown victory condition!")
 	return false
 	
-func get_victory_condition(game_settings: BoardBase.GameSettings) -> VictoryCondition:
+func get_victory_condition(game_settings: GameSettings) -> VictoryCondition:
 	if game_settings.victory_all_sacred or game_settings.victory_any_sacred:
 		return VictoryPieceCapture.new(board_state, game_settings.victory_sacred_type, game_settings.victory_all_sacred)
 	if game_settings.victory_annihilation:
@@ -484,7 +484,7 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	MainScreenController.load_new_scene("Menus.GameLoading")
 	
 	# TODO: Bot takeover on disconnect
-	game_settings = BoardBase.GameSettings.deserialize(json_game_settings)
+	game_settings = GameSettings.deserialize(json_game_settings)
 	board_state = BoardBase.BoardState.deserialize(json_board_state)
 	
 	# Initialize board_playable with size and pieces

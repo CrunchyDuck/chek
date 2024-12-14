@@ -18,7 +18,7 @@ var scene_preset: Node
 var scene_rules: Node
 var scene_board: Node
 
-var settings: BoardBase.GameSettings:
+var settings: GameSettings:
 	get:
 		return GameController.game_settings
 	set(value):

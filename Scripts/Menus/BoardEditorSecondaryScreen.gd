@@ -55,7 +55,7 @@ func _process(delta: float) -> void:
 	node_x.text = str(x)
 	node_y.text = str(y)
 
-func game_settings_changed(new_settings: BoardBase.GameSettings):
+func game_settings_changed(new_settings: GameSettings):
 	set_button_powers()
 
 func on_enable():

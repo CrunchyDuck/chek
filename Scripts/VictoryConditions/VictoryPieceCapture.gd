@@ -28,10 +28,10 @@ func _init(starting_state: BoardBase.BoardState, sacred_piece_type: ChessPiece.e
 			MessageController.add_message("Player " + str(p.id) + " has none of the sacred piece.")
 		player_sacred_count[p.id] = count
 
-func evaluate_victory(state: BoardBase.BoardState, rules: BoardBase.GameSettings) -> Array[int]:
+func evaluate_victory(state: BoardBase.BoardState, rules: GameSettings) -> Array[int]:
 	return _elimination_victory(state)
 
-func evaluate_defeat(state: BoardBase.BoardState, rules: BoardBase.GameSettings) -> Array[int]:
+func evaluate_defeat(state: BoardBase.BoardState, rules: GameSettings) -> Array[int]:
 	for p in state.players:
 		if defeated.has(p.id):
 			continue

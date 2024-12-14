@@ -97,7 +97,7 @@ func update_buttons_clickable(enabled: bool):
 	for button in buttons.values():
 		button.disabled = !enabled
 
-func _on_game_settings_changed(new_settings: BoardBase.GameSettings):
+func _on_game_settings_changed(new_settings: GameSettings):
 	if multiplayer.is_server():
 		return
 	update_buttons_clickable(new_settings.can_players_edit)
