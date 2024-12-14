@@ -100,6 +100,7 @@ var board_state: BoardBase.BoardState:
 		on_board_state_changed.emit(value)
 
 var victory_condition: VictoryCondition
+var turn_order: Callable  # Bit rough but it's fast to write
 
 var players_loaded: int = 0
 var confirm_start_with_extra_players: bool = false
@@ -319,6 +320,14 @@ func is_action_legal(action: BoardPlayable.GameAction):
 	if p.actions_remaining > 0:
 		return true
 	return false
+
+@rpc("any_peer", "call_local", "reliable")
+func skip_turn():
+	if not game_settings.patience:
+		return
+	var network_id = multiplayer.get_remote_sender_id()
+	var p = players_by_net_id[network_id]
+	turn_order.call(p.game_id)
 	
 func find_brave_and_stupid() -> Array[int]:
 	var stupid: Array[int] = [] 
@@ -346,14 +355,16 @@ func turn_order_sequential(pid_just_acted: int):
 	# Progress this player's action state.
 	if pid_just_acted != -1:
 		var p = players_by_game_id[pid_just_acted]
+		if p.actions_remaining <= 0:
+			return
 		p.actions_remaining -= 1
 		p.player_stats.turns_taken += 1
 		p.player_stats.total_turn_time += Time.get_ticks_msec() - p.action_start_time
 		
-		p.action_start_time = Time.get_ticks_msec()
 		# Is turn finished?
-		if p.actions_remaining > 0:
-			on_turn_start.emit(p)
+		if p.actions_remaining <= 0:
+			on_turn_end.emit(p)
+		else:
 			p.action_start_time = Time.get_ticks_msec()
 			return
 		
@@ -421,9 +432,9 @@ func on_victory(victor: Player):
 #endregion
 
 #region Events
-func _on_turn_taken(action: BoardPlayable.GameAction):
+func _on_turn_taken(player: Player, action: BoardPlayable.GameAction):
 	if game_settings.foreign_ground:
-		board_playable.apply_fog_of_war(player.game_id)
+		board_playable.apply_fog_of_war(self.player.game_id)
 	# Check for victory
 	perform_victory_and_defeat()
 	
@@ -435,8 +446,7 @@ func _on_turn_taken(action: BoardPlayable.GameAction):
 		stupid_players = find_brave_and_stupid()
 		
 	# Progress turn order
-	if game_settings.turn_sequential:
-		turn_order_sequential(action.player)
+	turn_order.call(action.player)
 
 func _on_turn_start(started_for: Player):
 	pass
@@ -498,12 +508,15 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	
 	# Set player states
 	victory_condition = get_victory_condition(game_settings)
-	turn_order_sequential(-1)
+	turn_order = turn_order_sequential
 	
 	if game_settings.foreign_ground:
 		board_playable.apply_fog_of_war(player.game_id)
+	if game_settings.patience:
+		add_child(PatienceModifier.new())
 	
 	on_game_start.emit()
+	turn_order.call(-1)
 	# Wait until all players are loaded.
 	player_loaded.rpc()
 #endregion
