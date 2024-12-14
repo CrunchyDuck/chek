@@ -427,6 +427,7 @@ class GameSettings:
 	var greater_good: bool = false
 	var foreign_ground: bool = false
 	var brave_and_stupid: bool = false
+	var ho_chi_minh: bool = false
 	
 	var can_players_edit: bool = false
 	
@@ -445,6 +446,7 @@ class GameSettings:
 		d.greater_good = greater_good
 		d.foreign_ground = foreign_ground
 		d.brave_and_stupid = brave_and_stupid
+		d.ho_chi_minh = ho_chi_minh
 		
 		d.can_players_edit = can_players_edit
 		
@@ -485,6 +487,7 @@ class GameSettings:
 		gs.greater_good = json_game_settings.get("greater_good", false)
 		gs.foreign_ground = json_game_settings.get("foreign_ground", false)
 		gs.brave_and_stupid = json_game_settings.get("brave_and_stupid", false)
+		gs.ho_chi_minh = json_game_settings.get("ho_chi_minh", false)
 		
 		gs.can_players_edit = json_game_settings.get("can_players_edit", false)
 		
