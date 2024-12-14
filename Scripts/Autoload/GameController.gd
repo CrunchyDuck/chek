@@ -112,6 +112,8 @@ signal on_game_settings_changed(new_state: GameSettings)
 signal on_game_start()
 signal on_game_end()
 
+signal on_turn_start(player: Player)
+
 const max_players: int = 4
 
 func _ready():
@@ -347,7 +349,7 @@ func turn_order_sequential(pid_just_acted: int):
 		p.action_start_time = Time.get_ticks_msec()
 		# Is turn finished?
 		if p.actions_remaining > 0:
-			on_turn_start(p)
+			on_turn_start.emit(p)
 			p.action_start_time = Time.get_ticks_msec()
 			return
 		
@@ -365,7 +367,7 @@ func turn_order_sequential(pid_just_acted: int):
 			
 		next_player.actions_remaining = game_settings.turns_at_a_time
 		next_player.action_start_time = Time.get_ticks_msec()
-		on_turn_start(next_player)
+		on_turn_start.emit(next_player)
 		return
 #endregion
 
@@ -432,7 +434,7 @@ func on_turn_taken(action: BoardPlayable.GameAction):
 	if game_settings.turn_sequential:
 		turn_order_sequential(action.player)
 
-func on_turn_start(started_for: Player):
+func _on_turn_start(started_for: Player):
 	pass
 	
 func _on_game_start():
