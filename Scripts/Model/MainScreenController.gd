@@ -49,6 +49,34 @@ var previous_palette_power: PowerCoordinator:
 	get:
 		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPreviousPalette/PowerCoordinator"
 
+var skip_button: PressButton:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainSkipButton/PressButton"
+var skip_power: PowerCoordinator:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainSkipButton/PowerCoordinator"
+
+var zoom_in_button: PressButton:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainZoomInButton/PressButton"
+var zoom_in_power: PowerCoordinator:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainZoomInButton/PowerCoordinator"
+
+var zoom_out_button: PressButton:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainZoomOutButton/PressButton"
+var zoom_out_power: PowerCoordinator:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainZoomOutButton/PowerCoordinator"
+
+var stop_button: PressButton:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainStopText/PressButton"
+var stop_power: PowerCoordinator:
+	get:
+		return $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainStopText/PowerCoordinator"
+
 @onready
 var power: PowerCoordinator = $"/root/MainScene/Console/front_panel/frame_screen_main/ScreenMainPower/PowerCoordinator"
 

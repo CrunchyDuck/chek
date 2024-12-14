@@ -179,6 +179,9 @@ fov = 25.0
 [node name="CollisionShape3D" parent="Console/front_panel/frame_screen_main/ScreenMainNextButton/PressButton/PressArea" index="0"]
 editor_description = "This node says it's scaled, it seems to be lying to me."
 
+[node name="PowerCoordinator" parent="Console/front_panel/frame_screen_main/ScreenMainSkipButton" index="1"]
+delay = 0.3
+
 [node name="Arrow" parent="Console/Lever" index="1"]
 surface_material_override/0 = ExtResource("9_jk2ko")
 
