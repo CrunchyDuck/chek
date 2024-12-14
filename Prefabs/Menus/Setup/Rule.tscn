@@ -471,7 +471,7 @@ offset_top = -11.5
 offset_right = 102.0
 offset_bottom = 11.5
 grow_vertical = 2
-text = "BRAVE & STUPID"
+text = "HO CHI MINH"
 vertical_alignment = 1
 
 [node name="CheckBox" type="CheckBox" parent="HoChiMinh"]

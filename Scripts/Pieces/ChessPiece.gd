@@ -162,6 +162,7 @@ func _can_attack(target_position: Vector2i) -> bool:
 func _act_in_line(direction: Vector2i, max_distance: int = 50) -> Array[BoardPlayable.GameAction]:
 	var actions: Array[BoardPlayable.GameAction] = []
 	var dist: int = 1
+	var pierce: int = 1 if GameController.game_settings.ho_chi_minh else 0
 	while dist <= max_distance:  # Arbitrary cap to prevent infinite loop
 		var target_cell = board.get_cell(coordinates + _rotate_to_orientation(direction * dist))
 		# Off the board.
@@ -170,11 +171,14 @@ func _act_in_line(direction: Vector2i, max_distance: int = 50) -> Array[BoardPla
 
 		# Will be replaced with a modifier check in the future.
 		if target_cell.occupying_piece != null:
+			# Can happen if we loop around.
+			if target_cell.occupying_piece == self:
+				break
+				
 			actions.append(_act_on_cell(target_cell.cell_coordinates))
-			break
-		# Can happen if we loop around.
-		if target_cell.occupying_piece == self:
-			break
+			if pierce <= 0:
+				break
+			pierce -= 1
 			
 		actions.append(_act_on_cell(target_cell.cell_coordinates))
 		
