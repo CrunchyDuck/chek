@@ -37,7 +37,7 @@ fluxx chess/knightmare chess
 ADVANCED WARFARE - Piece take multiple attacks to be killed.
 -NO GODS - Any player can move any piece
 -NO RETREAT - Pieces can only move forward or horizontal, till reaching the end; Then they turn around and repeat.
-HO CHI MINH - pieces can move through other pieces
+-HO CHI MINH - pieces can move through other pieces
 PATIENCE - Players may skip their turns.
 -DIVINE WIND - a capturing piece also dies
 Chained captures - Limitation???

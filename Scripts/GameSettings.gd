@@ -37,6 +37,7 @@ var greater_good: bool = false
 var foreign_ground: bool = false
 var brave_and_stupid: bool = false
 var ho_chi_minh: bool = false
+var patience: bool = false
 
 var can_players_edit: bool = false
 
@@ -56,6 +57,7 @@ func serialize() -> Dictionary:
 	d.foreign_ground = foreign_ground
 	d.brave_and_stupid = brave_and_stupid
 	d.ho_chi_minh = ho_chi_minh
+	d.patience = patience
 	
 	d.can_players_edit = can_players_edit
 	
@@ -97,6 +99,7 @@ static func deserialize(json_game_settings) -> GameSettings:
 	gs.foreign_ground = json_game_settings.get("foreign_ground", false)
 	gs.brave_and_stupid = json_game_settings.get("brave_and_stupid", false)
 	gs.ho_chi_minh = json_game_settings.get("ho_chi_minh", false)
+	gs.patience = json_game_settings.get("patience", false)
 	
 	gs.can_players_edit = json_game_settings.get("can_players_edit", false)
 	
