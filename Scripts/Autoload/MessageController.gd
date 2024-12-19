@@ -15,6 +15,7 @@ var node_input: LineEdit:
 # TODO: When the player logs in: add_message("POTENTATE: {name}")
 func _ready():
 	node_input.text_submitted.connect(_on_submit)
+	$"/root/MainScene/Console/Lever".switched_off.connect(_on_main_power_off)
 	
 func _on_submit(new_text: String):
 	var content = node_input.text
@@ -27,6 +28,10 @@ func _on_submit(new_text: String):
 		try_add_message.rpc_id(1, message)
 	else:
 		add_message(message)
+		
+func _on_main_power_off():
+	for c in node_message_list.get_children():
+		Helpers.destroy_node(c)
 	
 @rpc("any_peer", "call_local", "reliable", 1)
 func try_add_message(message: String):
