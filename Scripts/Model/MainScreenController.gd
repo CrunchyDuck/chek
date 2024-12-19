@@ -89,7 +89,8 @@ func _init():
 func _ready():
 	previous_button.on_pressed.connect(_prev_scene)
 	next_button.on_pressed.connect(_next_scene)
-	add_scene("Menus.Start")
+	$"/root/MainScene/Console/Lever".switched_off.connect(reset)
+	reset()
 
 static func load_new_scene(prefab_path: String) -> Node:
 	for c in instance.scene_list:
@@ -108,6 +109,12 @@ static func add_scene(prefab_path: String) -> Node:
 	if instance.scene_list.size() != 1:
 		Helpers.disable_node(p)
 	return p
+
+func reset():
+	for c in node_central_screen.get_children():
+		Helpers.destroy_node(c)
+	load_new_scene("Menus.Start")
+	_update_lights()
 
 func _update_lights():
 	if scene_index != 0 and scene_list.size() > 1:

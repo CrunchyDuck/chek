@@ -136,6 +136,7 @@ func _ready():
 	on_game_start.connect(_on_game_start)
 	
 	on_turn_taken.connect(_on_turn_taken)
+	$"/root/MainScene/Console/Lever".switched_off.connect(_on_main_power_off)
 	
 func _get_references():
 	screen_central = $"/root/MainScene/ViewportMainScreen/MainScreen"
@@ -432,6 +433,21 @@ func on_victory(victor: Player):
 #endregion
 
 #region Events
+func _on_main_power_off():
+	# Disconnect from the server and reset to default.
+	multiplayer.multiplayer_peer.close()
+	multiplayer.multiplayer_peer = null
+	game_in_progress = false
+	if board_playable:
+		Helpers.destroy_node(board_playable)
+		board_playable = null
+	board_state = null
+	game_settings = null
+	victory_condition = null
+	stupid_players = []
+	players_loaded = 0
+	confirm_start_with_extra_players = false
+
 func _on_turn_taken(player: Player, action: BoardPlayable.GameAction):
 	if game_settings.foreign_ground:
 		board_playable.apply_fog_of_war(self.player.game_id)

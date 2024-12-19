@@ -195,6 +195,8 @@ static func randomize_piece_types(state: BoardBase.BoardState) -> BoardBase.Boar
 
 # TODO: Blockers don't seem to be loading in properly initially.
 func load_state(state: BoardBase.BoardState):
+	if state == null:
+		return
 	clear_pieces()
 	create_new_grid(state.size)
 	for player in state.players:

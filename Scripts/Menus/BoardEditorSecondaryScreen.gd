@@ -50,10 +50,11 @@ func _ready():
 	set_button_powers()
 	
 	GameController.on_game_settings_changed.connect(game_settings_changed)
-	
+
 func _process(delta: float) -> void:
-	node_x.text = str(x)
-	node_y.text = str(y)
+	if GameController.board_state:
+		node_x.text = str(x)
+		node_y.text = str(y)
 
 func game_settings_changed(new_settings: GameSettings):
 	set_button_powers()
