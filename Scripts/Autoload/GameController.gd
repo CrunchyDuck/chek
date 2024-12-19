@@ -384,12 +384,6 @@ func get_turn_order(game_settings: GameSettings, victory_condition: VictoryCondi
 
 func perform_victory_and_defeat():
 	var defeated = victory_condition.evaluate_defeat(board_playable.serialize(), game_settings)
-	for d in defeated:
-		var p = players_by_game_id[d]
-		if p.defeated:
-			continue
-		p.defeated = true
-		MessageController.system_message(p.character_name + " has been defeated!")
 		
 	var victory = victory_condition.evaluate_victory(board_playable.serialize(), game_settings)
 	if victory.size() > 0:
@@ -444,6 +438,9 @@ func _on_game_end():
 	multiplayer.multiplayer_peer.refuse_new_connections = false
 	board_playable = null
 	stupid_players = []
+	for p in Player.players:
+		if p.network_id == -1:
+			Helpers.destroy_node(p)
 	
 func connected_to_server():
 	try_create_player.rpc_id(1, character_name, job_name)

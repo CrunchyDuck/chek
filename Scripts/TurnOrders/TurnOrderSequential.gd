@@ -14,7 +14,6 @@ func turn_taken(gid: int):
 	if current_player_class.game_id != gid:
 		print("Tried to progress the turn for player " + str(gid) + " while it is player " + str(current_player) + "'s turn")
 		return
-	# TODO: Handle no player being able to act
 	
 	# Progress this player's action state.
 	if players_by_gid.has(gid):
@@ -39,7 +38,7 @@ func find_next_valid_player(from_id: int):
 	for i in range(players.size()):
 		var next_id = wrapi(int(from_id) + i + 1, 0, players.size())
 		var next_player = players[next_id]
-		if victory_condition.defeated.has(next_player.game_id):
+		if next_player.defeated:
 			continue
 		if not next_player.can_act():
 			var m = ColorController.color_text(next_player.character_name, next_player.color)
@@ -53,6 +52,7 @@ func find_next_valid_player(from_id: int):
 		next_player.action_start_time = Time.get_ticks_msec()
 		on_turn_start.emit(next_player)
 		return
+	# TODO: Handle no player being able to act
 
 func remove_player(gid: int):
 	var should_progress_player = false

@@ -31,23 +31,26 @@ func _init(starting_state: BoardBase.BoardState, sacred_piece_type: ChessPiece.e
 func evaluate_victory(state: BoardBase.BoardState, rules: GameSettings) -> Array[int]:
 	return _elimination_victory(state)
 
-func evaluate_defeat(state: BoardBase.BoardState, rules: GameSettings) -> Array[int]:
+func evaluate_defeat(state: BoardBase.BoardState, rules: GameSettings):
 	for p in state.players:
-		if defeated.has(p.id):
+		var player = GameController.players_by_game_id[p.id]
+		if player.defeated:
 			continue
+			
 		# Check if the player has lost a relevant piece.
 		var pieces: Dictionary = p.pieces_by_type()
 		var num_remaining = pieces.get(sacred_piece_type, []).size()
 		
 		if lose_all_not_any:
 			if num_remaining == 0:
-				defeated.append(p.id)
+				player.defeated = true
+				MessageController.system_message(player.character_name + " has been defeated!")
 				continue
 		elif num_remaining < player_sacred_count[p.id]:
-			defeated.append(p.id)
+			MessageController.system_message(player.character_name + " has been defeated!")
+			player.defeated = true
 			continue
 		# In case the player gains a piece
 		player_sacred_count[p.id] = num_remaining
 		
 	last_state = state
-	return defeated
