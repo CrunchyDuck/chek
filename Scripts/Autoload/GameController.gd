@@ -395,7 +395,9 @@ func perform_victory_and_defeat():
 	if victory.size() > 0:
 		var p = players_by_game_id[victory[0]]
 		on_victory(p)
+#endregion
 
+#region Events
 func on_victory(victor: Player):
 	MessageController.system_message(victor.character_name + " is victorious!")
 	
@@ -407,9 +409,7 @@ func on_victory(victor: Player):
 		for p in Player.players:
 			p.send_player_stats()
 	on_game_end.emit()
-#endregion
-
-#region Events
+	
 func _on_main_power_off():
 	# Disconnect from the server and reset to default.
 	close_server()
@@ -451,9 +451,12 @@ func connected_to_server():
 	MainScreenController.load_new_scene("Menus.Setup.Main")
 
 func peer_disconnected(id: int):
+	var player = players_by_net_id[id]
+	player.defeated = true
+	player.human_controlled = false
+	player.network_id = -1
 	if turn_order != null:
-		turn_order.remove_player(players_by_net_id[id].game_id)
-	Helpers.destroy_node(get_node("/root/GameController/Player" + str(id)))
+		turn_order.remove_player(player.game_id)
 	
 func server_disconnected():
 	close_server()

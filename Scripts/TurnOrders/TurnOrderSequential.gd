@@ -10,15 +10,15 @@ func _init(players_by_game_id: Dictionary, victory_condition: VictoryCondition, 
 	self.turns_per_player = turns_per_player
 	find_next_valid_player(-1)
 
-func turn_taken(id: int):
-	if current_player != id:
-		print("Tried to progress the turn for player " + str(id) + " while it is player " + str(current_player) + "'s turn")
+func turn_taken(gid: int):
+	if current_player_class.game_id != gid:
+		print("Tried to progress the turn for player " + str(gid) + " while it is player " + str(current_player) + "'s turn")
 		return
 	# TODO: Handle no player being able to act
 	
 	# Progress this player's action state.
-	if players_by_gid.has(id):
-		var p = players_by_gid[id]
+	if players_by_gid.has(gid):
+		var p = players_by_gid[gid]
 		if p.actions_remaining <= 0:
 			return
 		p.actions_remaining -= 1
@@ -63,7 +63,6 @@ func remove_player(gid: int):
 		var p = players[i]
 		if p.game_id == gid:
 			p.actions_remaining = 0
-			p.defeated = true
 			players.pop_at(i)
 			break
 		

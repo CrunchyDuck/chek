@@ -32,6 +32,7 @@ var character_name: String:
 		player_stats.name = value
 var job_name: String
 
+var human_controlled = true  # False if the player leaves, or if it's an AI
 var defeated: bool = false  # Dead players are out of the game
 var can_move: bool:
 	get:
