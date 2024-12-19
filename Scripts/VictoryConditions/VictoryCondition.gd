@@ -7,7 +7,7 @@ func evaluate_defeat(state: BoardBase.BoardState, rules: GameSettings):
 	return []
 
 func _elimination_victory(state: BoardBase.BoardState) -> Array[int]:
-	var undefeated = []
+	var undefeated: Array[int] = []
 	for p in Player.players:
 		if not p.defeated:
 			undefeated.append(p)
