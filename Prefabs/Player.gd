@@ -54,10 +54,6 @@ func _init():
 
 func _ready():
 	GameController.on_game_start.connect(_on_game_start)
-	$"/root/MainScene/Console/Lever".switched_off.connect(on_main_power_off)
-	
-func on_main_power_off():
-	Helpers.destroy_node(self)
 	
 func _exit_tree() -> void:
 	players.erase(self)

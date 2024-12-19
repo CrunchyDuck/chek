@@ -124,6 +124,7 @@ func _ready():
 	PrefabController.register_networked_node("", get_path())
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
+	multiplayer.server_disconnected.connect(server_disconnected)
 	
 	character_name = name_list.pick_random()
 	job_name = job_list.pick_random()
@@ -171,17 +172,24 @@ func join_lobby(_ip: String, _port: int) -> bool:
 	multiplayer.multiplayer_peer = peer
 	return true
 
-func connected_to_server():
-	try_create_player.rpc_id(1, character_name, job_name)
-	PrefabController.request_refresh.rpc_id(1)
-	MainScreenController.load_new_scene("Menus.Setup.Main")
-
-func peer_disconnected(id: int):
-	Helpers.destroy_node(get_node("/root/GameController/Player" + str(id)))
+func close_server():
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
 	
-func disconnected():
-	# TODO: Player cleanup
-	print("disconnected from server")
+	for p in Player.players:
+		Helpers.destroy_node(p)
+		
+	game_in_progress = false
+	if board_playable:
+		Helpers.destroy_node(board_playable)
+		board_playable = null
+	board_state = null
+	game_settings = null
+	victory_condition = null
+	stupid_players = []
+	players_loaded = 0
+	confirm_start_with_extra_players = false
 #endregion
 
 #region Standard functions
@@ -435,18 +443,7 @@ func on_victory(victor: Player):
 #region Events
 func _on_main_power_off():
 	# Disconnect from the server and reset to default.
-	multiplayer.multiplayer_peer.close()
-	multiplayer.multiplayer_peer = null
-	game_in_progress = false
-	if board_playable:
-		Helpers.destroy_node(board_playable)
-		board_playable = null
-	board_state = null
-	game_settings = null
-	victory_condition = null
-	stupid_players = []
-	players_loaded = 0
-	confirm_start_with_extra_players = false
+	close_server()
 
 func _on_turn_taken(player: Player, action: BoardPlayable.GameAction):
 	if game_settings.foreign_ground:
@@ -478,6 +475,19 @@ func _on_game_end():
 	multiplayer.multiplayer_peer.refuse_new_connections = false
 	board_playable = null
 	stupid_players = []
+	
+func connected_to_server():
+	try_create_player.rpc_id(1, character_name, job_name)
+	PrefabController.request_refresh.rpc_id(1)
+	MainScreenController.load_new_scene("Menus.Setup.Main")
+
+func peer_disconnected(id: int):
+	Helpers.destroy_node(get_node("/root/GameController/Player" + str(id)))
+	
+func server_disconnected():
+	close_server()
+	MainScreenController.instance.reset()
+	MessageController.system_message("Disconnected from server")
 #endregion
 	
 #region RPCs
