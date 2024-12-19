@@ -100,7 +100,7 @@ var board_state: BoardBase.BoardState:
 		on_board_state_changed.emit(value)
 
 var victory_condition: VictoryCondition
-var turn_order: Callable  # Bit rough but it's fast to write
+var turn_order: TurnOrder
 
 var players_loaded: int = 0
 var confirm_start_with_extra_players: bool = false
@@ -187,6 +187,7 @@ func close_server():
 	board_state = null
 	game_settings = null
 	victory_condition = null
+	turn_order = null
 	stupid_players = []
 	players_loaded = 0
 	confirm_start_with_extra_players = false
@@ -336,7 +337,7 @@ func skip_turn():
 		return
 	var network_id = multiplayer.get_remote_sender_id()
 	var p = players_by_net_id[network_id]
-	turn_order.call(p.game_id)
+	turn_order.turn_taken(p.game_id)
 	
 func find_brave_and_stupid() -> Array[int]:
 	var stupid: Array[int] = [] 
@@ -357,43 +358,6 @@ func find_brave_and_stupid() -> Array[int]:
 				break
 	return stupid
 #endregion
-	
-#region Turn order
-func turn_order_sequential(pid_just_acted: int):
-	# TODO: Handle no player being able to act
-	# Progress this player's action state.
-	if pid_just_acted != -1:
-		var p = players_by_game_id[pid_just_acted]
-		if p.actions_remaining <= 0:
-			return
-		p.actions_remaining -= 1
-		p.player_stats.turns_taken += 1
-		p.player_stats.total_turn_time += Time.get_ticks_msec() - p.action_start_time
-		
-		# Is turn finished?
-		if p.actions_remaining <= 0:
-			on_turn_end.emit(p)
-		else:
-			p.action_start_time = Time.get_ticks_msec()
-			return
-		
-	# Find next valid player
-	for i in range(Player.players.size()):
-		var pid = wrapi(int(pid_just_acted) + i + 1, 0, Player.players.size())
-		var next_player = players_by_game_id[pid]
-		if victory_condition.defeated.has(pid):
-			continue
-		if not next_player.can_act():
-			var m = ColorController.color_text(next_player.character_name, next_player.color)
-			m += " cannot act. Skipping turn."
-			MessageController.add_message(m)
-			continue
-			
-		next_player.actions_remaining = game_settings.turns_at_a_time
-		next_player.action_start_time = Time.get_ticks_msec()
-		on_turn_start.emit(next_player)
-		return
-#endregion
 
 #region Victory conditions
 func can_start_victory_condition() -> bool:
@@ -411,6 +375,11 @@ func get_victory_condition(game_settings: GameSettings) -> VictoryCondition:
 		return VictoryPieceCapture.new(board_state, game_settings.victory_sacred_type, game_settings.victory_all_sacred)
 	if game_settings.victory_annihilation:
 		return VictoryAnnihilation.new()
+	return null
+	
+func get_turn_order(game_settings: GameSettings, victory_condition: VictoryCondition) -> TurnOrder:
+	if game_settings.turn_sequential:
+		return TurnOrderSequential.new(players_by_game_id, victory_condition, game_settings.turns_at_a_time)
 	return null
 
 func perform_victory_and_defeat():
@@ -459,7 +428,7 @@ func _on_turn_taken(player: Player, action: BoardPlayable.GameAction):
 		stupid_players = find_brave_and_stupid()
 		
 	# Progress turn order
-	turn_order.call(action.player)
+	turn_order.turn_taken(action.player)
 
 func _on_turn_start(started_for: Player):
 	pass
@@ -482,6 +451,8 @@ func connected_to_server():
 	MainScreenController.load_new_scene("Menus.Setup.Main")
 
 func peer_disconnected(id: int):
+	if turn_order != null:
+		turn_order.remove_player(id)
 	Helpers.destroy_node(get_node("/root/GameController/Player" + str(id)))
 	
 func server_disconnected():
@@ -532,17 +503,14 @@ func start_game(json_game_settings: Dictionary, json_board_state: Dictionary):
 	# Initialize board_playable with size and pieces
 	load_board_state(board_state, players_by_game_id)
 	
-	# Set player states
-	victory_condition = get_victory_condition(game_settings)
-	turn_order = turn_order_sequential
-	
 	if game_settings.foreign_ground:
 		board_playable.apply_fog_of_war(player.game_id)
 	if game_settings.patience:
 		add_child(PatienceModifier.new())
 	
+	victory_condition = get_victory_condition(game_settings)
+	turn_order = get_turn_order(game_settings, victory_condition)
 	on_game_start.emit()
-	turn_order.call(-1)
 	# Wait until all players are loaded.
 	player_loaded.rpc()
 #endregion
