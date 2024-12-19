@@ -63,8 +63,9 @@ func remove_player(gid: int):
 		var p = players[i]
 		if p.game_id == gid:
 			p.actions_remaining = 0
+			p.defeated = true
 			players.pop_at(i)
-			return
+			break
 		
 	if should_progress_player:
 		find_next_valid_player(current_player - 1)

@@ -452,7 +452,7 @@ func connected_to_server():
 
 func peer_disconnected(id: int):
 	if turn_order != null:
-		turn_order.remove_player(id)
+		turn_order.remove_player(players_by_net_id[id].game_id)
 	Helpers.destroy_node(get_node("/root/GameController/Player" + str(id)))
 	
 func server_disconnected():
