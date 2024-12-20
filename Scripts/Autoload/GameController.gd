@@ -121,7 +121,9 @@ const max_players: int = 4
 
 func _ready():
 	_get_references()
-	PrefabController.register_networked_node("", get_path())
+	# I'm not sure why I registered this originally - Maybe just insurance.
+	# In any case it was causing GameController to be deleted at the end of some games.
+	#PrefabController.register_networked_node("", get_path())
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.server_disconnected.connect(server_disconnected)
@@ -160,7 +162,6 @@ func start_lobby(_port: int) -> bool:
 	MessageController.add_message("OPENED PORT " + str(port))
 	return true
 	
-# TODO: On join, synchronize game_state and board_state
 func join_lobby(_ip: String, _port: int) -> bool:
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_client(_ip, _port)
