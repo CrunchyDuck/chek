@@ -4,6 +4,7 @@
 custom_minimum_size = Vector2(400, 400)
 offset_right = 400.0
 offset_bottom = 400.0
+theme_override_constants/separation = 20
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 2
@@ -17,6 +18,8 @@ theme_override_font_sizes/font_size = 25
 text = "SUBTITLE"
 
 [node name="Description" type="Label" parent="."]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "rule description"
+autowrap_mode = 3
