@@ -8,6 +8,8 @@ var settings: GameSettings:
 	set(value):
 		GameController.game_settings = value
 
+var node_rule_info: Control = null
+
 @onready
 var button_can_players_edit: CheckBox = $CanPlayersEdit/CheckBox
 @onready
@@ -37,6 +39,7 @@ var modifier_buttons: Dictionary = {
 }
 
 func _ready() -> void:
+	visibility_changed.connect(_on_visibility_changed)
 	button_can_players_edit.pressed.connect(_on_change)
 	
 	vc_buttons.victory_all_sacred.pressed.connect(func (): _set_victory_condition(vc_buttons.victory_all_sacred))
@@ -54,6 +57,13 @@ func _ready() -> void:
 	else:
 		update_buttons_clickable(false)
 		request_load_settings.rpc_id(1)
+
+func _on_visibility_changed():
+	if visible:
+		node_rule_info = PrefabController.get_prefab("Menus.Setup.RuleInfo").instantiate()
+		GameController.screen_secondary.add_child(node_rule_info)
+	else:
+		Helpers.destroy_node(node_rule_info)
 
 func _set_victory_condition(new_condition: CheckBox):
 	# Flick off all but the new condition
