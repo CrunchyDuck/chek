@@ -177,8 +177,9 @@ func close_server():
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
 	
-	for p in Player.players:
-		Helpers.destroy_node(p)
+	var to_destroy = Player.players.duplicate()
+	for p in to_destroy:
+		PrefabController.remove_networked_node(p.get_path())
 		
 	game_in_progress = false
 	if board_playable:

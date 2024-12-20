@@ -62,7 +62,7 @@ func register_networked_node(prefab_path: String, node_path: String) -> void:
 
 @rpc("authority", "call_local", "reliable")
 func remove_networked_node(node_path: String) -> void:
-	var node = networked_nodes[node_path]
+	var node: Node = get_node(node_path)
 	networked_nodes.erase(node_path)
 	Helpers.destroy_node(node)
 
