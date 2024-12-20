@@ -56,6 +56,10 @@ func _process(delta: float) -> void:
 		node_x.text = str(x)
 		node_y.text = str(y)
 
+func _exit_tree() -> void:
+	disconnect_buttons()
+	depower_buttons()
+
 func game_settings_changed(new_settings: GameSettings):
 	set_button_powers()
 
