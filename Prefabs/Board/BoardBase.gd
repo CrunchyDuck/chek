@@ -142,6 +142,9 @@ func serialize() -> BoardBase.BoardState:
 		
 	for piece in node_pieces.get_children():
 		var p = piece.serialize()
+		# Create players up to the ID needed.
+		for id in range(players.size(), p.player + 1):
+			players.append(BoardBase.PlayerState.new(id))
 		players[p.player].pieces.append(p)
 	
 	bs.players = players
