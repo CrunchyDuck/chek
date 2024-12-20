@@ -1,6 +1,7 @@
 class_name RightScreenController
 extends Node
 
+static var instance
 @onready
 var viewport: Viewport = $".."
 @onready
@@ -30,6 +31,7 @@ var right_button_power: Array[PowerCoordinator] = []
 var power: PowerCoordinator = $"/root/MainScene/Console/right_panel/RightScreenFrame/RightScreenPower/PowerCoordinator"
 
 func _ready():
+	instance = self
 	for b in right_button:
 		right_button_power.append(b.get_node("../PowerCoordinator"))
 	for b in left_button:

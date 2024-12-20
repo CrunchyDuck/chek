@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c30ekpy0p3p1y"]
+[gd_scene load_steps=6 format=3 uid="uid://c30ekpy0p3p1y"]
 
 [ext_resource type="Script" path="res://Scripts/Menus/Setup/SetupRules.gd" id="1_munsu"]
 [ext_resource type="PackedScene" uid="uid://bykhpsds5rg2d" path="res://Prefabs/Menus/NumberSelector.tscn" id="2_5kr1t"]
 [ext_resource type="Texture2D" uid="uid://bbqu4jje3beex" path="res://Sprites/Pieces/Pawn.png" id="2_k2iny"]
 [ext_resource type="Script" path="res://Scripts/Menus/Setup/SacredPieceSelector.gd" id="3_b1tdg"]
+[ext_resource type="PackedScene" uid="uid://cy0osgxejumeq" path="res://Prefabs/Menus/Setup/RuleInfoHover.tscn" id="3_j3fbk"]
 
 [node name="Settings" type="VBoxContainer"]
 custom_minimum_size = Vector2(650, 0)
@@ -62,7 +63,7 @@ offset_top = -11.5
 offset_right = 199.0
 offset_bottom = 11.5
 grow_vertical = 2
-text = "NUMBER OF TURNS"
+text = "NUMBER OF MOVES"
 vertical_alignment = 1
 
 [node name="NumberSelector" parent="TurnCount" instance=ExtResource("2_5kr1t")]
@@ -73,6 +74,11 @@ anchor_right = 1.0
 offset_left = -75.0
 offset_right = 75.0
 grow_horizontal = 0
+
+[node name="RuleInfoHover" parent="TurnCount" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "NUMBER OF MOVES"
+rule_description = "How many moves can be made before a player's turn ends"
 
 [node name="TurnQueueTime" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)

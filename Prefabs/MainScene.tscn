@@ -164,6 +164,7 @@ target_mesh = NodePath("../Console/right_panel/RightScreen")
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 3
 anchors_preset = 0
+theme = ExtResource("4_qgfyp")
 
 [node name="RightScreenController" type="Node" parent="ViewportRightScreen"]
 script = ExtResource("8_2w0tt")
