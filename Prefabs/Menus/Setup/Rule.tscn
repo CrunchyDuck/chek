@@ -294,6 +294,11 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="TurnQueue" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "TURNS ARE QUEUED"
+rule_description = "Commanders queue up actions for a period of time. They then all happen at once."
+
 [node name="TitleVicCondition" type="Label" parent="."]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -330,6 +335,11 @@ offset_top = -12.0
 offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="RuleInfoHover" parent="Annihilation" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "ANNIHILATION DEFEAT"
+rule_description = "Commanders are defeated when they lose all pieces."
 
 [node name="VCSacred" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(650, 30)
@@ -371,6 +381,11 @@ offset_right = 12.0
 offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="RuleInfoHover" parent="VCSacred/SacredFields/AllSacredPiece" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "ALL SACRED DEFEAT"
+rule_description = "Commanders are defeated when all of the sacred piece are lost"
 
 [node name="AnySacredPiece" type="Control" parent="VCSacred/SacredFields"]
 custom_minimum_size = Vector2(650, 25)
@@ -417,6 +432,16 @@ texture_normal = ExtResource("2_k2iny")
 stretch_mode = 0
 script = ExtResource("3_b1tdg")
 
+[node name="RuleInfoHover" parent="VCSacred/SacredFields/AnySacredPiece/PieceType" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "SACRED PIECE"
+rule_description = "The sacred piece the commander must protect"
+
+[node name="RuleInfoHover" parent="VCSacred/SacredFields/AnySacredPiece" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "ANY SACRED DEFEAT"
+rule_description = "Commanders are defeated when any of the sacred pieces are lost"
+
 [node name="TitleMod" type="Label" parent="."]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -455,6 +480,12 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="DivineWind" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "DIVINE WIND"
+rule_description = "Any piece that kills is also killed.
+An honorable sacrifice."
+
 [node name="NoRetreat" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -483,6 +514,12 @@ offset_top = -12.0
 offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="RuleInfoHover" parent="NoRetreat" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "NO RETREAT"
+rule_description = "Pieces may not move backwards. Pieces may turn around at the end of the board.
+Cowardice is bred out at a young age."
 
 [node name="FormationBroken" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -513,6 +550,12 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="FormationBroken" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "FORMATION BROKEN"
+rule_description = "Pieces spawn in random positions.
+In the heart of battle, it's every man for himself."
+
 [node name="BTeam" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -542,6 +585,12 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="BTeam" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "B TEAM"
+rule_description = "Piece types are randomized.
+After so many years, even the nobles become soldiers."
+
 [node name="RoundEarth" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -570,6 +619,12 @@ offset_top = -12.0
 offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="RuleInfoHover" parent="RoundEarth" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "ROUND EARTH"
+rule_description = "Left and right edges of the board wrap around.
+The western front becomes the eastern front."
 
 [node name="PolarCrossing" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)

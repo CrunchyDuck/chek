@@ -1,8 +1,8 @@
 extends Control
 
-@export
+@export_multiline
 var rule_name: String
-@export
+@export_multiline
 var rule_description: String
 
 var rule_info: Control:
