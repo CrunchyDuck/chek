@@ -655,6 +655,12 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="PolarCrossing" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "POLAR CROSSING"
+rule_description = "Top and bottom edges of the board wrap around.
+\"Betrayal\" implies there was ever any trust."
+
 [node name="NoGods" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -683,6 +689,12 @@ offset_top = -12.0
 offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="RuleInfoHover" parent="NoGods" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "NO GODS"
+rule_description = "Any commander can move any piece.
+It is best to be on the winning side."
 
 [node name="GreaterGood" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -713,6 +725,12 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="GreaterGood" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "GREATER GOOD"
+rule_description = "Commanders may take friendly pieces.
+The families will understand. They will have to."
+
 [node name="ForeignGround" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -741,6 +759,12 @@ offset_top = -12.0
 offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="RuleInfoHover" parent="ForeignGround" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "FOREIGN GROUND"
+rule_description = "Your pieces can only see adjacent pieces, or those they can attack.
+\"Ambush\" is a matter of perspective."
 
 [node name="BraveAndStupid" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -771,6 +795,12 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="BraveAndStupid" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "BRAVE & STUPID"
+rule_description = "If any pieces can take a piece this turn, they must.
+Restraint does not earn accolades."
+
 [node name="HoChiMinh" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -800,6 +830,12 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="HoChiMinh" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "HO CHI MINH"
+rule_description = "Pieces may pass through other pieces, once.
+An elaborate network; Too elaborate."
+
 [node name="Patience" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -828,3 +864,9 @@ offset_top = -12.0
 offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="RuleInfoHover" parent="Patience" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "PATIENCE"
+rule_description = "Commanders may skip their turn.
+All I have to do is nothing. Why is it so difficult?"
