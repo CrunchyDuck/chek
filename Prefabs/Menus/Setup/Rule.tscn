@@ -107,6 +107,11 @@ grow_horizontal = 0
 increment_amount = 2
 number = 10
 
+[node name="RuleInfoHover" parent="TurnQueueTime" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "QUEUE DURATION"
+rule_description = "How many seconds the queue lasts for"
+
 [node name="TurnCooldownTime" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -132,6 +137,11 @@ offset_left = -75.0
 offset_right = 75.0
 grow_horizontal = 0
 number = 3
+
+[node name="RuleInfoHover" parent="TurnCooldownTime" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "COOLDOWN TIME"
+rule_description = "How long must commanders wait after taking their turn"
 
 [node name="TurnsAre" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -179,6 +189,11 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="TurnSequential" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "TURNS ARE SEQUENTIAL"
+rule_description = "Commanders take turns one after the other"
+
 [node name="TurnConcurrent" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -209,6 +224,11 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="RuleInfoHover" parent="TurnConcurrent" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "TURNS ARE CONCURRENT"
+rule_description = "Commanders all take their turns at the same time"
+
 [node name="TurnCooldown" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -238,6 +258,11 @@ offset_top = -12.0
 offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="RuleInfoHover" parent="TurnCooldown" instance=ExtResource("3_j3fbk")]
+layout_mode = 1
+rule_name = "TURNS ARE TIMED"
+rule_description = "Commanders "
 
 [node name="TurnQueue" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
