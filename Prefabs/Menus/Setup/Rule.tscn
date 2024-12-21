@@ -78,7 +78,7 @@ grow_horizontal = 0
 [node name="RuleInfoHover" parent="TurnCount" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "NUMBER OF MOVES"
-rule_description = "How many moves can be made before a player's turn ends"
+rule_description = "How many moves can be made before a player's turn ends."
 
 [node name="TurnQueueTime" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -110,7 +110,7 @@ number = 10
 [node name="RuleInfoHover" parent="TurnQueueTime" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "QUEUE DURATION"
-rule_description = "How many seconds the queue lasts for"
+rule_description = "How many seconds the queue lasts for."
 
 [node name="TurnCooldownTime" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -141,7 +141,7 @@ number = 3
 [node name="RuleInfoHover" parent="TurnCooldownTime" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "COOLDOWN TIME"
-rule_description = "How long must commanders wait after taking their turn"
+rule_description = "How long must commanders wait after taking their turn."
 
 [node name="TurnsAre" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -192,7 +192,8 @@ grow_vertical = 2
 [node name="RuleInfoHover" parent="TurnSequential" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "TURNS ARE SEQUENTIAL"
-rule_description = "Commanders take turns one after the other"
+rule_description = "Commanders take turns one after the other.
+An arrangement. To our benefit, one hopes."
 
 [node name="TurnConcurrent" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -227,7 +228,8 @@ grow_vertical = 2
 [node name="RuleInfoHover" parent="TurnConcurrent" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "TURNS ARE CONCURRENT"
-rule_description = "Commanders all take their turns at the same time"
+rule_description = "Commanders all take their turns at the same time.
+\"Rules\" of engagement. The victor decides such things."
 
 [node name="TurnCooldown" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -262,7 +264,8 @@ grow_vertical = 2
 [node name="RuleInfoHover" parent="TurnCooldown" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "TURNS ARE TIMED"
-rule_description = "Commanders "
+rule_description = "Commanders may take their turn after a delay.
+The chain of command is slow. But it offers deniability."
 
 [node name="TurnQueue" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -297,7 +300,8 @@ grow_vertical = 2
 [node name="RuleInfoHover" parent="TurnQueue" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "TURNS ARE QUEUED"
-rule_description = "Commanders queue up actions for a period of time. They then all happen at once."
+rule_description = "Commanders queue up actions for a period of time. They then all happen at once.
+Of mice and men, I would choose the rodent."
 
 [node name="TitleVicCondition" type="Label" parent="."]
 custom_minimum_size = Vector2(0, 50)
@@ -385,7 +389,7 @@ grow_vertical = 2
 [node name="RuleInfoHover" parent="VCSacred/SacredFields/AllSacredPiece" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "ALL SACRED DEFEAT"
-rule_description = "Commanders are defeated when all of the sacred piece are lost"
+rule_description = "Commanders are defeated when all of the sacred piece are lost."
 
 [node name="AnySacredPiece" type="Control" parent="VCSacred/SacredFields"]
 custom_minimum_size = Vector2(650, 25)
@@ -435,12 +439,12 @@ script = ExtResource("3_b1tdg")
 [node name="RuleInfoHover" parent="VCSacred/SacredFields/AnySacredPiece/PieceType" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "SACRED PIECE"
-rule_description = "The sacred piece the commander must protect"
+rule_description = "The sacred piece the commander must protect."
 
 [node name="RuleInfoHover" parent="VCSacred/SacredFields/AnySacredPiece" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
 rule_name = "ANY SACRED DEFEAT"
-rule_description = "Commanders are defeated when any of the sacred pieces are lost"
+rule_description = "Commanders are defeated when any of the sacred pieces are lost."
 
 [node name="TitleMod" type="Label" parent="."]
 custom_minimum_size = Vector2(0, 50)
@@ -484,7 +488,7 @@ grow_vertical = 2
 layout_mode = 1
 rule_name = "DIVINE WIND"
 rule_description = "Any piece that kills is also killed.
-An honorable sacrifice."
+They will be remembered. For a while."
 
 [node name="NoRetreat" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -554,7 +558,7 @@ grow_vertical = 2
 layout_mode = 1
 rule_name = "FORMATION BROKEN"
 rule_description = "Pieces spawn in random positions.
-In the heart of battle, it's every man for himself."
+Foe, or ally. In grave, it matters little."
 
 [node name="BTeam" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -624,7 +628,7 @@ grow_vertical = 2
 layout_mode = 1
 rule_name = "ROUND EARTH"
 rule_description = "Left and right edges of the board wrap around.
-The western front becomes the eastern front."
+The eastern front becomes the western front."
 
 [node name="PolarCrossing" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
