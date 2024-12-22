@@ -87,23 +87,20 @@ func _ready() -> void:
 		update_buttons_clickable(false)
 		request_load_settings.rpc_id(1)
 
-func _enter_tree() -> void:
-	MainScreenController.instance.down_button.on_pressed.connect(increment_scroll)
-	MainScreenController.instance.up_button.on_pressed.connect(decrement_scroll)
-	update_button_lights()
-
-func _exit_tree() -> void:
-	MainScreenController.instance.down_button.on_pressed.disconnect(increment_scroll)
-	MainScreenController.instance.up_button.on_pressed.disconnect(decrement_scroll)
-	MainScreenController.instance.down_power.set_self(false)
-	MainScreenController.instance.up_power.set_self(false)
-
 func _on_visibility_changed():
+	# TODO: exit tree
 	if visible:
 		node_rule_info = PrefabController.get_prefab("Menus.Setup.RuleInfo").instantiate()
 		GameController.screen_secondary.add_child(node_rule_info)
+		MainScreenController.instance.down_button.on_pressed.connect(increment_scroll)
+		MainScreenController.instance.up_button.on_pressed.connect(decrement_scroll)
+		update_button_lights()
 	else:
 		Helpers.destroy_node(node_rule_info)
+		MainScreenController.instance.down_button.on_pressed.disconnect(increment_scroll)
+		MainScreenController.instance.up_button.on_pressed.disconnect(decrement_scroll)
+		MainScreenController.instance.down_power.set_self(false)
+		MainScreenController.instance.up_power.set_self(false)
 
 func _set_victory_condition(new_condition: CheckBox):
 	# Flick off all but the new condition
