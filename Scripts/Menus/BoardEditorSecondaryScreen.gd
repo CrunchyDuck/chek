@@ -48,17 +48,19 @@ func _ready():
 	node_description.bbcode_enabled = true
 	connect_buttons()
 	set_button_powers()
-	
-	GameController.on_game_settings_changed.connect(game_settings_changed)
 
 func _process(delta: float) -> void:
 	if GameController.board_state:
 		node_x.text = str(x)
 		node_y.text = str(y)
 
+func _enter_tree() -> void:
+	GameController.on_game_settings_changed.connect(game_settings_changed)
+
 func _exit_tree() -> void:
 	disconnect_buttons()
 	depower_buttons()
+	GameController.on_game_settings_changed.disconnect(game_settings_changed)
 
 func game_settings_changed(new_settings: GameSettings):
 	set_button_powers()

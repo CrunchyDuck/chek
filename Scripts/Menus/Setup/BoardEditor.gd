@@ -24,3 +24,6 @@ func _on_change_visibility():
 		editor_screen.editor = board
 		editor_screen.set_piece(ChessPiece.piece_prefabs[ChessPiece.ePieces.Pawn])
 		editor_screen.set_player(0)
+
+func _exit_tree() -> void:
+	Helpers.destroy_node(editor_screen)
