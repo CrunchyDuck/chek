@@ -184,19 +184,19 @@ editor_description = "This node says it's scaled, it seems to be lying to me."
 delay = 0.3
 
 [node name="PressButton" parent="Console/right_panel/RightScreenFrame/RightScreenButtonLeft1" index="0"]
-move_distance = Vector3(0.008, 0, 0)
+move_distance = Vector3(0.006, 0, 0)
 
 [node name="PressButton" parent="Console/right_panel/RightScreenFrame/RightScreenButtonLeft2" index="0"]
-move_distance = Vector3(0.008, 0, 0)
+move_distance = Vector3(0.006, 0, 0)
 
 [node name="PressButton" parent="Console/right_panel/RightScreenFrame/RightScreenButtonLeft3" index="0"]
-move_distance = Vector3(0.008, 0, 0)
+move_distance = Vector3(0.006, 0, 0)
 
 [node name="PressButton" parent="Console/right_panel/RightScreenFrame/RightScreenButtonLeft4" index="0"]
-move_distance = Vector3(0.008, 0, 0)
+move_distance = Vector3(0.006, 0, 0)
 
 [node name="PressButton" parent="Console/right_panel/RightScreenFrame/RightScreenButtonLeft5" index="0"]
-move_distance = Vector3(0.008, 0, 0)
+move_distance = Vector3(0.006, 0, 0)
 
 [node name="Arrow" parent="Console/Lever" index="1"]
 surface_material_override/0 = ExtResource("9_jk2ko")

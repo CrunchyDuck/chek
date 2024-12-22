@@ -9,6 +9,7 @@ var power_to: Node  # A script that has a toggle_power(bool) function
 var power_switch: PressButton
 @export
 var delay: float
+var first_on: bool = true  # The first time powering on from total depower has a delay.
 
 var on: bool:
 	get:
@@ -35,6 +36,8 @@ func _ready() -> void:
 
 func set_console(state):
 	console_on = state
+	if console_on:
+		first_on = true
 	try_change_state()
 
 func toggle_self():
@@ -52,7 +55,8 @@ func try_change_state():
 		return
 	
 	last_updated_state = on
-	if on:
+	if on and first_on:
+		first_on = false
 		# Perform delay.
 		await get_tree().create_timer(delay).timeout
 	

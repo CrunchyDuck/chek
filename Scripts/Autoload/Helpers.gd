@@ -2,7 +2,7 @@ class_name Helpers
 extends Node
 
 # Removes a node from the tree and then destroys it.
-static func destroy_node(node: Node):
+static func destroy_node(node):
 	if node == null:
 		return
 	var p = node.get_parent()
