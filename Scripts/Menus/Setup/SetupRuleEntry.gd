@@ -17,6 +17,9 @@ var label_name: Label:
 
 func _ready():
 	mouse_entered.connect(_on_mouse_entered)
+	var l = get_node_or_null("../Label")
+	if l:
+		l.text = rule_name
 
 func _on_mouse_entered():
 	if rule_info == null:

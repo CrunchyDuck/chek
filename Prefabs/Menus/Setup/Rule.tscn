@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c30ekpy0p3p1y"]
+[gd_scene load_steps=7 format=3 uid="uid://c30ekpy0p3p1y"]
 
 [ext_resource type="Script" path="res://Scripts/Menus/Setup/SetupRules.gd" id="1_munsu"]
-[ext_resource type="PackedScene" uid="uid://bykhpsds5rg2d" path="res://Prefabs/Menus/NumberSelector.tscn" id="2_5kr1t"]
 [ext_resource type="Texture2D" uid="uid://bbqu4jje3beex" path="res://Sprites/Pieces/Pawn.png" id="2_k2iny"]
+[ext_resource type="PackedScene" uid="uid://dt88ogx8ugs1n" path="res://Prefabs/Menus/Setup/RuleEntryCheckbox.tscn" id="2_y1wsv"]
 [ext_resource type="Script" path="res://Scripts/Menus/Setup/SacredPieceSelector.gd" id="3_b1tdg"]
 [ext_resource type="PackedScene" uid="uid://cy0osgxejumeq" path="res://Prefabs/Menus/Setup/RuleInfoHover.tscn" id="3_j3fbk"]
+[ext_resource type="PackedScene" uid="uid://w80lc738fwho" path="res://Prefabs/Menus/Setup/RuleEntryNumber.tscn" id="3_l4dwc"]
 
 [node name="Settings" type="VBoxContainer"]
 custom_minimum_size = Vector2(650, 0)
@@ -13,34 +14,18 @@ offset_bottom = 195.0
 theme_override_constants/separation = 0
 script = ExtResource("1_munsu")
 
-[node name="CanPlayersEdit" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="CanPlayersEdit" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanPlayersEdit"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
+[node name="Label" parent="CanPlayersEdit" index="0"]
 text = "CAN CLIENTS EDIT SETTINGS"
-vertical_alignment = 1
 
-[node name="CheckBox" type="CheckBox" parent="CanPlayersEdit"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="RuleInfoHover" parent="CanPlayersEdit" index="1"]
+rule_name = "CAN PLAYERS EDIT"
+rule_description = "Can other commanders edit the rules and board."
+
+[node name="CheckBox" parent="CanPlayersEdit" index="2"]
+mouse_filter = 1
 
 [node name="TitleTurnRules" type="Label" parent="."]
 custom_minimum_size = Vector2(0, 50)
@@ -50,98 +35,38 @@ text = "TURN RULES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TurnCount" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="TurnCount" parent="." instance=ExtResource("3_l4dwc")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TurnCount"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 199.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "NUMBER OF MOVES"
-vertical_alignment = 1
+[node name="RuleInfoHover" parent="TurnCount" index="1"]
+rule_name = "TURN COUNT"
 
-[node name="NumberSelector" parent="TurnCount" instance=ExtResource("2_5kr1t")]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -75.0
-offset_right = 75.0
-grow_horizontal = 0
-
-[node name="RuleInfoHover" parent="TurnCount" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "NUMBER OF MOVES"
-rule_description = "How many moves can be made before a player's turn ends."
-
-[node name="TurnQueueTime" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="TurnQueueTime" parent="." instance=ExtResource("3_l4dwc")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TurnQueueTime"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 199.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "QUEUE DURATION"
-vertical_alignment = 1
+[node name="Label" parent="TurnQueueTime" index="0"]
+text = "TURN QUEUE DURATION"
 
-[node name="NumberSelector" parent="TurnQueueTime" instance=ExtResource("2_5kr1t")]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -75.0
-offset_right = 75.0
-grow_horizontal = 0
+[node name="RuleInfoHover" parent="TurnQueueTime" index="1"]
+rule_name = "QUEUE TIME"
+rule_description = "How many seconds the queue lasts for."
+
+[node name="NumberSelector" parent="TurnQueueTime" index="2"]
 increment_amount = 2
 number = 10
 
-[node name="RuleInfoHover" parent="TurnQueueTime" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "QUEUE DURATION"
-rule_description = "How many seconds the queue lasts for."
-
-[node name="TurnCooldownTime" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="TurnCooldownTime" parent="." instance=ExtResource("3_l4dwc")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TurnCooldownTime"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 199.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "COOLDOWN TIME"
-vertical_alignment = 1
+[node name="Label" parent="TurnCooldownTime" index="0"]
+text = "TURN COOLDOWN TIME"
 
-[node name="NumberSelector" parent="TurnCooldownTime" instance=ExtResource("2_5kr1t")]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -75.0
-offset_right = 75.0
-grow_horizontal = 0
-number = 3
-
-[node name="RuleInfoHover" parent="TurnCooldownTime" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "COOLDOWN TIME"
+[node name="RuleInfoHover" parent="TurnCooldownTime" index="1"]
+rule_name = "TURN COOLDOWN TIME"
 rule_description = "How long must commanders wait after taking their turn."
+
+[node name="NumberSelector" parent="TurnCooldownTime" index="2"]
+number = 3
 
 [node name="TurnsAre" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
@@ -159,147 +84,51 @@ grow_vertical = 2
 text = "TURNS ARE:"
 vertical_alignment = 1
 
-[node name="TurnSequential" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="TurnSequential" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TurnSequential"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 20.0
-offset_top = -11.5
-offset_right = 208.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "SEQUENTIAL"
-vertical_alignment = 1
+[node name="Label" parent="TurnSequential" index="0"]
+offset_left = 32.0
+offset_right = 134.0
 
-[node name="CheckBox" type="CheckBox" parent="TurnSequential"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="TurnSequential" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "TURNS ARE SEQUENTIAL"
+[node name="RuleInfoHover" parent="TurnSequential" index="1"]
+rule_name = "SEQUENTIAL"
 rule_description = "Commanders take turns one after the other.
 An arrangement. To our benefit, one hopes."
 
-[node name="TurnConcurrent" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="TurnConcurrent" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TurnConcurrent"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 20.0
-offset_top = -11.5
-offset_right = 219.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "CONCURRENT"
-vertical_alignment = 1
+[node name="Label" parent="TurnConcurrent" index="0"]
+offset_left = 32.0
+offset_right = 134.0
 
-[node name="CheckBox" type="CheckBox" parent="TurnConcurrent"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="TurnConcurrent" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "TURNS ARE CONCURRENT"
+[node name="RuleInfoHover" parent="TurnConcurrent" index="1"]
+rule_name = "CONCURRENT"
 rule_description = "Commanders all take their turns at the same time.
 \"Rules\" of engagement. The victor decides such things."
 
-[node name="TurnCooldown" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="TurnCooldown" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TurnCooldown"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 20.0
-offset_top = -11.5
-offset_right = 219.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "TIMED COOLDOWN"
-vertical_alignment = 1
+[node name="Label" parent="TurnCooldown" index="0"]
+offset_left = 32.0
+offset_right = 134.0
 
-[node name="CheckBox" type="CheckBox" parent="TurnCooldown"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="TurnCooldown" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "TURNS ARE TIMED"
+[node name="RuleInfoHover" parent="TurnCooldown" index="1"]
+rule_name = "COOLDOWN"
 rule_description = "Commanders may take their turn after a delay.
 The chain of command is slow. But it offers deniability."
 
-[node name="TurnQueue" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="TurnQueue" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TurnQueue"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 20.0
-offset_top = -11.5
-offset_right = 219.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "QUEUED"
-vertical_alignment = 1
+[node name="Label" parent="TurnQueue" index="0"]
+offset_left = 32.0
+offset_right = 134.0
 
-[node name="CheckBox" type="CheckBox" parent="TurnQueue"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="TurnQueue" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "TURNS ARE QUEUED"
+[node name="RuleInfoHover" parent="TurnQueue" index="1"]
+rule_name = "QUEUED"
 rule_description = "Commanders queue up actions for a period of time. They then all happen at once.
 Of mice and men, I would choose the rodent."
 
@@ -311,39 +140,13 @@ text = "FAILURE CONDITION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Annihilation" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="Annihilation" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Annihilation"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "LOSE ALL PIECES"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="Annihilation"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="Annihilation" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "ANNIHILATION DEFEAT"
-rule_description = "Commanders are defeated when they lose all pieces."
+[node name="RuleInfoHover" parent="Annihilation" index="1"]
+rule_name = "ANNIHILATION"
+rule_description = "Commanders are defeated when they lose all pieces.
+If they fail, there is no home to return to."
 
 [node name="VCSacred" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(650, 30)
@@ -355,71 +158,21 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 0
 
-[node name="AllSacredPiece" type="Control" parent="VCSacred/SacredFields"]
-custom_minimum_size = Vector2(650, 25)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label" type="Label" parent="VCSacred/SacredFields/AllSacredPiece"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "LOSE ALL SACRED PIECE"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="VCSacred/SacredFields/AllSacredPiece"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="VCSacred/SacredFields/AllSacredPiece" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "ALL SACRED DEFEAT"
-rule_description = "Commanders are defeated when all of the sacred piece are lost."
-
-[node name="AnySacredPiece" type="Control" parent="VCSacred/SacredFields"]
-custom_minimum_size = Vector2(650, 25)
+[node name="AllSacredPiece" parent="VCSacred/SacredFields" instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VCSacred/SacredFields/AnySacredPiece"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "LOSE ANY SACRED PIECE"
-vertical_alignment = 1
+[node name="RuleInfoHover" parent="VCSacred/SacredFields/AllSacredPiece" index="1"]
+rule_name = "LOSE ALL SACRED PIECE"
+rule_description = "Commanders are defeated when all of the sacred piece are lost.
+Without leadership, they are nothing."
 
-[node name="CheckBox" type="CheckBox" parent="VCSacred/SacredFields/AnySacredPiece"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="AnySacredPiece" parent="VCSacred/SacredFields" instance=ExtResource("2_y1wsv")]
+layout_mode = 2
+
+[node name="RuleInfoHover" parent="VCSacred/SacredFields/AnySacredPiece" index="1"]
+rule_name = "LOSE ANY SACRED PIECE"
+rule_description = "Commanders are defeated when any of the sacred pieces are lost.
+A well oiled machine; Useless without its cog."
 
 [node name="PieceType" type="TextureButton" parent="VCSacred/SacredFields/AnySacredPiece"]
 layout_mode = 1
@@ -438,13 +191,7 @@ script = ExtResource("3_b1tdg")
 
 [node name="RuleInfoHover" parent="VCSacred/SacredFields/AnySacredPiece/PieceType" instance=ExtResource("3_j3fbk")]
 layout_mode = 1
-rule_name = "SACRED PIECE"
 rule_description = "The sacred piece the commander must protect."
-
-[node name="RuleInfoHover" parent="VCSacred/SacredFields/AnySacredPiece" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
-rule_name = "ANY SACRED DEFEAT"
-rule_description = "Commanders are defeated when any of the sacred pieces are lost."
 
 [node name="TitleMod" type="Label" parent="."]
 custom_minimum_size = Vector2(0, 50)
@@ -455,422 +202,122 @@ text = "MODIFIER
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DivineWind" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="DivineWind" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="DivineWind"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "DIVINE WIND"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="DivineWind"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="DivineWind" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="DivineWind" index="1"]
 rule_name = "DIVINE WIND"
 rule_description = "Any piece that kills is also killed.
 They will be remembered. For a while."
 
-[node name="NoRetreat" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="NoRetreat" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="NoRetreat"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "NO RETREAT"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="NoRetreat"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="NoRetreat" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="NoRetreat" index="1"]
 rule_name = "NO RETREAT"
 rule_description = "Pieces may not move backwards. Pieces may turn around at the end of the board.
 Cowardice is bred out at a young age."
 
-[node name="FormationBroken" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="FormationBroken" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="FormationBroken"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "FORMATION BROKEN"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="FormationBroken"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="FormationBroken" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="FormationBroken" index="1"]
 rule_name = "FORMATION BROKEN"
 rule_description = "Pieces spawn in random positions.
 Foe, or ally. In grave, it matters little."
 
-[node name="BTeam" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="BTeam" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BTeam"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "B TEAM"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="BTeam"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="BTeam" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="BTeam" index="1"]
 rule_name = "B TEAM"
 rule_description = "Piece types are randomized.
 After so many years, even the nobles become soldiers."
 
-[node name="RoundEarth" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="RoundEarth" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="RoundEarth"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "ROUND EARTH"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="RoundEarth"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="RoundEarth" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="RoundEarth" index="1"]
 rule_name = "ROUND EARTH"
 rule_description = "Left and right edges of the board wrap around.
 The eastern front becomes the western front."
 
-[node name="PolarCrossing" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="PolarCrossing" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PolarCrossing"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "POLAR CROSSING"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="PolarCrossing"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="PolarCrossing" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="PolarCrossing" index="1"]
 rule_name = "POLAR CROSSING"
 rule_description = "Top and bottom edges of the board wrap around.
 \"Betrayal\" implies there was ever any trust."
 
-[node name="NoGods" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="NoGods" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="NoGods"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "NO GODS"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="NoGods"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="NoGods" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="NoGods" index="1"]
 rule_name = "NO GODS"
 rule_description = "Any commander can move any piece.
 It is best to be on the winning side."
 
-[node name="GreaterGood" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="GreaterGood" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GreaterGood"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "GREATER GOOD"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="GreaterGood"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="GreaterGood" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="GreaterGood" index="1"]
 rule_name = "GREATER GOOD"
 rule_description = "Commanders may take friendly pieces.
 The families will understand. They will have to."
 
-[node name="ForeignGround" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="ForeignGround" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ForeignGround"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "FOREIGN GROUND"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="ForeignGround"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="ForeignGround" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="ForeignGround" index="1"]
 rule_name = "FOREIGN GROUND"
 rule_description = "Your pieces can only see adjacent pieces, or those they can attack.
 \"Ambush\" is a matter of perspective."
 
-[node name="BraveAndStupid" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="BraveAndStupid" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BraveAndStupid"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "BRAVE & STUPID"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="BraveAndStupid"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="BraveAndStupid" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="BraveAndStupid" index="1"]
 rule_name = "BRAVE & STUPID"
 rule_description = "If any pieces can take a piece this turn, they must.
 Restraint does not earn accolades."
 
-[node name="HoChiMinh" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="HoChiMinh" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HoChiMinh"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "HO CHI MINH"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="HoChiMinh"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="HoChiMinh" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="HoChiMinh" index="1"]
 rule_name = "HO CHI MINH"
 rule_description = "Pieces may pass through other pieces, once.
 An elaborate network; Too elaborate."
 
-[node name="Patience" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+[node name="Patience" parent="." instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Patience"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 102.0
-offset_bottom = 11.5
-grow_vertical = 2
-text = "PATIENCE"
-vertical_alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="Patience"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="RuleInfoHover" parent="Patience" instance=ExtResource("3_j3fbk")]
-layout_mode = 1
+[node name="RuleInfoHover" parent="Patience" index="1"]
 rule_name = "PATIENCE"
 rule_description = "Commanders may skip their turn.
 All I have to do is nothing. Why is it so difficult?"
+
+[editable path="CanPlayersEdit"]
+[editable path="TurnCount"]
+[editable path="TurnQueueTime"]
+[editable path="TurnCooldownTime"]
+[editable path="TurnSequential"]
+[editable path="TurnConcurrent"]
+[editable path="TurnCooldown"]
+[editable path="TurnQueue"]
+[editable path="Annihilation"]
+[editable path="VCSacred/SacredFields/AllSacredPiece"]
+[editable path="VCSacred/SacredFields/AnySacredPiece"]
+[editable path="DivineWind"]
+[editable path="NoRetreat"]
+[editable path="FormationBroken"]
+[editable path="BTeam"]
+[editable path="RoundEarth"]
+[editable path="PolarCrossing"]
+[editable path="NoGods"]
+[editable path="GreaterGood"]
+[editable path="ForeignGround"]
+[editable path="BraveAndStupid"]
+[editable path="HoChiMinh"]
+[editable path="Patience"]

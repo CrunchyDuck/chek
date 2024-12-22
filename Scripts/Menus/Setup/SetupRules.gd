@@ -1,6 +1,7 @@
 class_name SetupRules
 extends Control
 
+# TODO: Make checkboxes clickable anywhere on their line
 # TODO: Make checkboxes use a different colour when disable, so they're not invisible.
 var settings: GameSettings:
 	get:
