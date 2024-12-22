@@ -1,3 +1,4 @@
+class_name NumberSelector
 extends Control
 
 @export
@@ -12,6 +13,8 @@ var number_label: Label = $Number
 @onready
 var right_arrow: Button = $RightArrow
 
+signal on_change
+
 func _ready():
 	left_arrow.pressed.connect(decrement)
 	right_arrow.pressed.connect(increment)
@@ -20,7 +23,9 @@ func _ready():
 func decrement():
 	number = max(number - increment_amount, 0)
 	number_label.text = str(number)
+	on_change.emit()
 
 func increment():
 	number = number + increment_amount
 	number_label.text = str(number)
+	on_change.emit()

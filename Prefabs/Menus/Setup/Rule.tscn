@@ -106,6 +106,7 @@ layout_mode = 2
 rule_name = "TURN COUNT"
 
 [node name="TurnQueueTime" parent="." instance=ExtResource("3_l4dwc")]
+visible = false
 layout_mode = 2
 
 [node name="Label" parent="TurnQueueTime" index="0"]
@@ -120,6 +121,7 @@ increment_amount = 2
 number = 10
 
 [node name="TurnCooldownTime" parent="." instance=ExtResource("3_l4dwc")]
+visible = false
 layout_mode = 2
 
 [node name="Label" parent="TurnCooldownTime" index="0"]

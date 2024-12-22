@@ -17,6 +17,21 @@ var button_can_players_edit: CheckBox = $CanPlayersEdit/CheckBox
 var button_sacred_piece = $VCSacred/SacredFields/AnySacredPiece/PieceType
 
 @onready
+var turn_rule_selectors: Dictionary = {
+	"turns_at_a_time": $TurnCount/NumberSelector,
+	"turn_queue_time": $TurnQueueTime/NumberSelector,
+	"turn_cooldown_time": $TurnCooldownTime/NumberSelector,
+}
+
+@onready
+var turn_rules: Dictionary = {
+	"turn_sequential": $TurnSequential/CheckBox,
+	"turn_concurrent": $TurnConcurrent/CheckBox,
+	"turn_queue": $TurnQueue/CheckBox,
+	"turn_cooldown": $TurnCooldown/CheckBox,
+}
+
+@onready
 var vc_buttons: Dictionary = {
 	"victory_annihilation" = $Annihilation/CheckBox,
 	"victory_all_sacred" = $VCSacred/SacredFields/AllSacredPiece/CheckBox,
@@ -47,11 +62,21 @@ func _ready() -> void:
 	vc_buttons.victory_any_sacred.pressed.connect(func (): _set_victory_condition(vc_buttons.victory_any_sacred))
 	vc_buttons.victory_annihilation.pressed.connect(func (): _set_victory_condition(vc_buttons.victory_annihilation))
 	
+	turn_rules.turn_sequential.pressed.connect(func (): _set_turn_rule(turn_rules.turn_sequential))
+	turn_rules.turn_concurrent.pressed.connect(func (): _set_turn_rule(turn_rules.turn_concurrent))
+	turn_rules.turn_cooldown.pressed.connect(func (): _set_turn_rule(turn_rules.turn_cooldown))
+	turn_rules.turn_queue.pressed.connect(func (): _set_turn_rule(turn_rules.turn_queue))
+	
+	turn_rule_selectors.turns_at_a_time.on_change.connect(_on_change)
+	turn_rule_selectors.turn_cooldown_time.on_change.connect(_on_change)
+	turn_rule_selectors.turn_queue_time.on_change.connect(_on_change)
+	
 	for b in modifier_buttons.values():
 		b.pressed.connect(_on_change)
 		
 	settings = gather_settings()
 	_set_victory_condition(vc_buttons.victory_annihilation)
+	_set_turn_rule(turn_rules.turn_sequential)
 	
 	if multiplayer.is_server():
 		update_buttons_clickable(true)
@@ -74,6 +99,28 @@ func _set_victory_condition(new_condition: CheckBox):
 	new_condition.set_pressed_no_signal(true)
 	_on_change()
 
+func _set_turn_rule(new_rule: CheckBox):
+	# Flick off all but the new condition
+	for b in turn_rules.values():
+		b.set_pressed_no_signal(false)
+	
+	new_rule.set_pressed_no_signal(true)
+	
+	if new_rule == turn_rules.turn_cooldown:
+		turn_rule_selectors.turns_at_a_time.get_parent().visible = false
+		turn_rule_selectors.turn_queue_time.get_parent().visible = false
+		turn_rule_selectors.turn_cooldown_time.get_parent().visible = true
+	elif new_rule == turn_rules.turn_queue:
+		turn_rule_selectors.turns_at_a_time.get_parent().visible = false
+		turn_rule_selectors.turn_queue_time.get_parent().visible = true
+		turn_rule_selectors.turn_cooldown_time.get_parent().visible = false
+	else:
+		turn_rule_selectors.turns_at_a_time.get_parent().visible = true
+		turn_rule_selectors.turn_queue_time.get_parent().visible = false
+		turn_rule_selectors.turn_cooldown_time.get_parent().visible = false
+	
+	_on_change()
+
 func _on_change():
 	settings = gather_settings()
 	if multiplayer.is_server():
@@ -85,6 +132,10 @@ func gather_settings() -> GameSettings:
 	var settings = {}
 	settings.can_players_edit = button_can_players_edit.button_pressed
 	
+	for s in turn_rule_selectors.keys():
+		settings[s] = turn_rule_selectors[s].number
+	for b in turn_rules.keys():
+		settings[b] = turn_rules[b].button_pressed
 	for b in vc_buttons.keys():
 		settings[b] = vc_buttons[b].button_pressed
 	for b in modifier_buttons.keys():
@@ -101,16 +152,25 @@ func update_buttons_clickable(clickable: bool):
 	
 	for button in modifier_buttons.values():
 		button.disabled = !clickable
-		
 	for button in vc_buttons.values():
 		button.disabled = !clickable
+	for button in turn_rules.values():
+		button.disabled = !clickable
+	for selector in turn_rule_selectors.values():
+		selector.left_arrow.disabled = !clickable
+		selector.right_arrow.disabled = !clickable
 
 @rpc("authority", "call_local", "reliable", 0)
 func load_settings(json_settings: Dictionary):
 	button_can_players_edit.set_pressed_no_signal(json_settings.can_players_edit)
+	
+	for k in turn_rule_selectors.keys():
+		turn_rule_selectors[k].number = json_settings[k]
+		turn_rule_selectors[k].number_label.text = str(json_settings[k])
+	for k in turn_rules.keys():
+		turn_rules[k].set_pressed_no_signal(json_settings[k])
 	for k in modifier_buttons.keys():
 		modifier_buttons[k].set_pressed_no_signal(json_settings[k])
-	
 	for k in vc_buttons.keys():
 		vc_buttons[k].set_pressed_no_signal(json_settings[k])
 	
