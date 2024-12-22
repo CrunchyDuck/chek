@@ -35,39 +35,6 @@ text = "TURN RULES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TurnCount" parent="." instance=ExtResource("3_l4dwc")]
-layout_mode = 2
-
-[node name="RuleInfoHover" parent="TurnCount" index="1"]
-rule_name = "TURN COUNT"
-
-[node name="TurnQueueTime" parent="." instance=ExtResource("3_l4dwc")]
-layout_mode = 2
-
-[node name="Label" parent="TurnQueueTime" index="0"]
-text = "TURN QUEUE DURATION"
-
-[node name="RuleInfoHover" parent="TurnQueueTime" index="1"]
-rule_name = "QUEUE TIME"
-rule_description = "How many seconds the queue lasts for."
-
-[node name="NumberSelector" parent="TurnQueueTime" index="2"]
-increment_amount = 2
-number = 10
-
-[node name="TurnCooldownTime" parent="." instance=ExtResource("3_l4dwc")]
-layout_mode = 2
-
-[node name="Label" parent="TurnCooldownTime" index="0"]
-text = "TURN COOLDOWN TIME"
-
-[node name="RuleInfoHover" parent="TurnCooldownTime" index="1"]
-rule_name = "TURN COOLDOWN TIME"
-rule_description = "How long must commanders wait after taking their turn."
-
-[node name="NumberSelector" parent="TurnCooldownTime" index="2"]
-number = 3
-
 [node name="TurnsAre" type="Control" parent="."]
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
@@ -131,6 +98,39 @@ offset_right = 134.0
 rule_name = "QUEUED"
 rule_description = "Commanders queue up actions for a period of time. They then all happen at once.
 Of mice and men, I would choose the rodent."
+
+[node name="TurnCount" parent="." instance=ExtResource("3_l4dwc")]
+layout_mode = 2
+
+[node name="RuleInfoHover" parent="TurnCount" index="1"]
+rule_name = "TURN COUNT"
+
+[node name="TurnQueueTime" parent="." instance=ExtResource("3_l4dwc")]
+layout_mode = 2
+
+[node name="Label" parent="TurnQueueTime" index="0"]
+text = "TURN QUEUE DURATION"
+
+[node name="RuleInfoHover" parent="TurnQueueTime" index="1"]
+rule_name = "QUEUE TIME"
+rule_description = "How many seconds the queue lasts for."
+
+[node name="NumberSelector" parent="TurnQueueTime" index="2"]
+increment_amount = 2
+number = 10
+
+[node name="TurnCooldownTime" parent="." instance=ExtResource("3_l4dwc")]
+layout_mode = 2
+
+[node name="Label" parent="TurnCooldownTime" index="0"]
+text = "TURN COOLDOWN TIME"
+
+[node name="RuleInfoHover" parent="TurnCooldownTime" index="1"]
+rule_name = "TURN COOLDOWN TIME"
+rule_description = "How long must commanders wait after taking their turn."
+
+[node name="NumberSelector" parent="TurnCooldownTime" index="2"]
+number = 3
 
 [node name="TitleVicCondition" type="Label" parent="."]
 custom_minimum_size = Vector2(0, 50)
@@ -299,13 +299,13 @@ rule_description = "Commanders may skip their turn.
 All I have to do is nothing. Why is it so difficult?"
 
 [editable path="CanPlayersEdit"]
-[editable path="TurnCount"]
-[editable path="TurnQueueTime"]
-[editable path="TurnCooldownTime"]
 [editable path="TurnSequential"]
 [editable path="TurnConcurrent"]
 [editable path="TurnCooldown"]
 [editable path="TurnQueue"]
+[editable path="TurnCount"]
+[editable path="TurnQueueTime"]
+[editable path="TurnCooldownTime"]
 [editable path="Annihilation"]
 [editable path="VCSacred/SacredFields/AllSacredPiece"]
 [editable path="VCSacred/SacredFields/AnySacredPiece"]
