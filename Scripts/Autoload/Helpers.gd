@@ -10,14 +10,22 @@ static func destroy_node(node: Node):
 		p.remove_child(node)
 	node.queue_free()
 
+static func disable_node_tree(node: Node):
+	disable_node(node)
+	for child in node.get_children():
+		disable_node_tree(child)
+
+static func enable_node_tree(node: Node):
+	enable_node(node)
+	for child in node.get_children():
+		enable_node_tree(child)
+
 static func disable_node(node: Node):
 	if node.has_method("hide"):
 		node.hide()
 	if node.has_method("on_disable"):
 		node.on_disable()
 	node.process_mode = Node.PROCESS_MODE_DISABLED
-	for child in node.get_children():
-		disable_node(child)
 
 static func enable_node(node: Node):
 	if node.has_method("show"):
@@ -25,5 +33,3 @@ static func enable_node(node: Node):
 	if node.has_method("on_enable"):
 		node.on_enable()
 	node.process_mode = Node.PROCESS_MODE_INHERIT
-	for child in node.get_children():
-		enable_node(child)

@@ -107,7 +107,7 @@ static func add_scene(prefab_path: String) -> Node:
 	instance.scene_list.append(p)
 	instance._update_lights()
 	if instance.scene_list.size() != 1:
-		Helpers.disable_node(p)
+		Helpers.disable_node_tree(p)
 	return p
 
 func reset():
@@ -131,16 +131,16 @@ func _update_lights():
 func _prev_scene():
 	if scene_list.size() <= 1:
 		return
-	Helpers.disable_node(scene_list[scene_index])
+	Helpers.disable_node_tree(scene_list[scene_index])
 	scene_index = clampi(scene_index - 1, 0, scene_list.size() - 1)
-	Helpers.enable_node(scene_list[scene_index])
+	Helpers.enable_node_tree(scene_list[scene_index])
 	_update_lights()
 
 func _next_scene():
 	if scene_list.size() <= 1:
 		return
-	Helpers.disable_node(scene_list[scene_index])
+	Helpers.disable_node_tree(scene_list[scene_index])
 	scene_index = clampi(scene_index + 1, 0, scene_list.size() - 1)
-	Helpers.enable_node(scene_list[scene_index])
+	Helpers.enable_node_tree(scene_list[scene_index])
 	_update_lights()
 	
