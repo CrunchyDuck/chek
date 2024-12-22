@@ -105,21 +105,20 @@ func _set_turn_rule(new_rule: CheckBox):
 		b.set_pressed_no_signal(false)
 	
 	new_rule.set_pressed_no_signal(true)
+	_update_turn_selector_hiding()
+	_on_change()
+
+func _update_turn_selector_hiding():
+	turn_rule_selectors.turns_at_a_time.get_parent().visible = false
+	turn_rule_selectors.turn_queue_time.get_parent().visible = false
+	turn_rule_selectors.turn_cooldown_time.get_parent().visible = false
 	
-	if new_rule == turn_rules.turn_cooldown:
-		turn_rule_selectors.turns_at_a_time.get_parent().visible = false
-		turn_rule_selectors.turn_queue_time.get_parent().visible = false
+	if turn_rules.turn_cooldown.button_pressed:
 		turn_rule_selectors.turn_cooldown_time.get_parent().visible = true
-	elif new_rule == turn_rules.turn_queue:
-		turn_rule_selectors.turns_at_a_time.get_parent().visible = false
+	elif turn_rules.turn_queue.button_pressed:
 		turn_rule_selectors.turn_queue_time.get_parent().visible = true
-		turn_rule_selectors.turn_cooldown_time.get_parent().visible = false
 	else:
 		turn_rule_selectors.turns_at_a_time.get_parent().visible = true
-		turn_rule_selectors.turn_queue_time.get_parent().visible = false
-		turn_rule_selectors.turn_cooldown_time.get_parent().visible = false
-	
-	_on_change()
 
 func _on_change():
 	settings = gather_settings()
@@ -169,6 +168,7 @@ func load_settings(json_settings: Dictionary):
 		turn_rule_selectors[k].number_label.text = str(json_settings[k])
 	for k in turn_rules.keys():
 		turn_rules[k].set_pressed_no_signal(json_settings[k])
+	_update_turn_selector_hiding()
 	for k in modifier_buttons.keys():
 		modifier_buttons[k].set_pressed_no_signal(json_settings[k])
 	for k in vc_buttons.keys():
