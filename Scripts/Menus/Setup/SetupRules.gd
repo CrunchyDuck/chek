@@ -11,6 +11,9 @@ var settings: GameSettings:
 
 var node_rule_info: Control = null
 
+var scroll_index: int = 0
+var scroll_max: int = 1
+
 @onready
 var button_can_players_edit: CheckBox = $CanPlayersEdit/CheckBox
 @onready
@@ -83,6 +86,17 @@ func _ready() -> void:
 	else:
 		update_buttons_clickable(false)
 		request_load_settings.rpc_id(1)
+
+func _enter_tree() -> void:
+	MainScreenController.instance.down_button.on_pressed.connect(increment_scroll)
+	MainScreenController.instance.up_button.on_pressed.connect(decrement_scroll)
+	update_button_lights()
+
+func _exit_tree() -> void:
+	MainScreenController.instance.down_button.on_pressed.disconnect(increment_scroll)
+	MainScreenController.instance.up_button.on_pressed.disconnect(decrement_scroll)
+	MainScreenController.instance.down_power.set_self(false)
+	MainScreenController.instance.up_power.set_self(false)
 
 func _on_visibility_changed():
 	if visible:
@@ -158,6 +172,29 @@ func update_buttons_clickable(clickable: bool):
 	for selector in turn_rule_selectors.values():
 		selector.left_arrow.disabled = !clickable
 		selector.right_arrow.disabled = !clickable
+		
+func increment_scroll():
+	set_scroll(scroll_index + 1)
+
+func decrement_scroll():
+	set_scroll(scroll_index - 1)
+		
+func set_scroll(scroll_to: int):
+	scroll_index = clampi(scroll_to, 0, scroll_max)
+	position.y = scroll_index * -get_parent().size.y
+	
+	update_button_lights()
+
+func update_button_lights():
+	if scroll_index > 0:
+		MainScreenController.instance.up_power.set_self(true)
+	else:
+		MainScreenController.instance.up_power.set_self(false)
+		
+	if scroll_index < scroll_max:
+		MainScreenController.instance.down_power.set_self(true)
+	else:
+		MainScreenController.instance.down_power.set_self(false)
 
 @rpc("authority", "call_local", "reliable", 0)
 func load_settings(json_settings: Dictionary):

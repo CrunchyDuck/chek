@@ -10,7 +10,7 @@
 [node name="Settings" type="VBoxContainer"]
 custom_minimum_size = Vector2(650, 0)
 offset_right = 650.0
-offset_bottom = 195.0
+offset_bottom = 700.0
 theme_override_constants/separation = 0
 script = ExtResource("1_munsu")
 
