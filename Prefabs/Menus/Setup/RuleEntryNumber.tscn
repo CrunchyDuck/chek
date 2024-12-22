@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://w80lc738fwho"]
+
+[ext_resource type="PackedScene" uid="uid://bykhpsds5rg2d" path="res://Prefabs/Menus/NumberSelector.tscn" id="1_28sa5"]
+[ext_resource type="PackedScene" uid="uid://cy0osgxejumeq" path="res://Prefabs/Menus/Setup/RuleInfoHover.tscn" id="2_xyi7j"]
+
+[node name="TurnCount" type="Control"]
+custom_minimum_size = Vector2(650, 25)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 199.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "NUMBER OF MOVES"
+vertical_alignment = 1
+
+[node name="NumberSelector" parent="." instance=ExtResource("1_28sa5")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -75.0
+offset_right = 75.0
+grow_horizontal = 0
+
+[node name="RuleInfoHover" parent="." instance=ExtResource("2_xyi7j")]
+layout_mode = 1
+rule_name = "NUMBER OF MOVES"
+rule_description = "How many moves can be made before a player's turn ends."
