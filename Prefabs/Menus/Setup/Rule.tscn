@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://di4tag362jx3j" path="res://Prefabs/Menus/Setup/RuleEntryCheckbox.tscn" id="2_y1wsv"]
 [ext_resource type="Script" path="res://Scripts/Menus/Setup/SacredPieceSelector.gd" id="3_b1tdg"]
 [ext_resource type="PackedScene" uid="uid://cy0osgxejumeq" path="res://Prefabs/Menus/Setup/RuleInfoHover.tscn" id="3_j3fbk"]
-[ext_resource type="PackedScene" path="res://Prefabs/Menus/Setup/RuleEntryNumber.tscn" id="3_l4dwc"]
+[ext_resource type="PackedScene" uid="uid://d1yo1476gt8d0" path="res://Prefabs/Menus/Setup/RuleEntryNumber.tscn" id="3_l4dwc"]
 
 [node name="Settings" type="VBoxContainer"]
 custom_minimum_size = Vector2(650, 0)
@@ -100,7 +100,6 @@ rule_description = "Commanders queue up actions for a period of time. They then 
 Of mice and men, I would choose the rodent."
 
 [node name="TurnCount" parent="." instance=ExtResource("3_l4dwc")]
-custom_minimum_size = Vector2(650, 32)
 layout_mode = 2
 
 [node name="RuleInfoHover" parent="TurnCount" index="1"]
@@ -108,7 +107,6 @@ rule_name = "TURN COUNT"
 
 [node name="TurnQueueTime" parent="." instance=ExtResource("3_l4dwc")]
 visible = false
-custom_minimum_size = Vector2(650, 32)
 layout_mode = 2
 
 [node name="Label" parent="TurnQueueTime" index="0"]
@@ -124,7 +122,6 @@ number = 10
 
 [node name="TurnCooldownTime" parent="." instance=ExtResource("3_l4dwc")]
 visible = false
-custom_minimum_size = Vector2(650, 32)
 layout_mode = 2
 
 [node name="Label" parent="TurnCooldownTime" index="0"]
