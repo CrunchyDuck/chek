@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Scripts/Menus/Setup/SetupRules.gd" id="1_munsu"]
 [ext_resource type="Texture2D" uid="uid://bbqu4jje3beex" path="res://Sprites/Pieces/Pawn.png" id="2_k2iny"]
-[ext_resource type="PackedScene" uid="uid://dt88ogx8ugs1n" path="res://Prefabs/Menus/Setup/RuleEntryCheckbox.tscn" id="2_y1wsv"]
+[ext_resource type="PackedScene" uid="uid://di4tag362jx3j" path="res://Prefabs/Menus/Setup/RuleEntryCheckbox.tscn" id="2_y1wsv"]
 [ext_resource type="Script" path="res://Scripts/Menus/Setup/SacredPieceSelector.gd" id="3_b1tdg"]
 [ext_resource type="PackedScene" uid="uid://cy0osgxejumeq" path="res://Prefabs/Menus/Setup/RuleInfoHover.tscn" id="3_j3fbk"]
-[ext_resource type="PackedScene" uid="uid://w80lc738fwho" path="res://Prefabs/Menus/Setup/RuleEntryNumber.tscn" id="3_l4dwc"]
+[ext_resource type="PackedScene" path="res://Prefabs/Menus/Setup/RuleEntryNumber.tscn" id="3_l4dwc"]
 
 [node name="Settings" type="VBoxContainer"]
 custom_minimum_size = Vector2(650, 0)
@@ -28,15 +28,15 @@ rule_description = "Can other commanders edit the rules and board."
 mouse_filter = 1
 
 [node name="TitleTurnRules" type="Label" parent="."]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 45
 text = "TURN RULES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TurnsAre" type="Control" parent="."]
-custom_minimum_size = Vector2(650, 25)
+custom_minimum_size = Vector2(650, 32)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="TurnsAre"]
@@ -100,6 +100,7 @@ rule_description = "Commanders queue up actions for a period of time. They then 
 Of mice and men, I would choose the rodent."
 
 [node name="TurnCount" parent="." instance=ExtResource("3_l4dwc")]
+custom_minimum_size = Vector2(650, 32)
 layout_mode = 2
 
 [node name="RuleInfoHover" parent="TurnCount" index="1"]
@@ -107,6 +108,7 @@ rule_name = "TURN COUNT"
 
 [node name="TurnQueueTime" parent="." instance=ExtResource("3_l4dwc")]
 visible = false
+custom_minimum_size = Vector2(650, 32)
 layout_mode = 2
 
 [node name="Label" parent="TurnQueueTime" index="0"]
@@ -122,6 +124,7 @@ number = 10
 
 [node name="TurnCooldownTime" parent="." instance=ExtResource("3_l4dwc")]
 visible = false
+custom_minimum_size = Vector2(650, 32)
 layout_mode = 2
 
 [node name="Label" parent="TurnCooldownTime" index="0"]
@@ -135,9 +138,9 @@ rule_description = "How long must commanders wait after taking their turn."
 number = 3
 
 [node name="TitleVicCondition" type="Label" parent="."]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 45
 text = "FAILURE CONDITION"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -168,6 +171,14 @@ rule_name = "LOSE ALL SACRED PIECE"
 rule_description = "Commanders are defeated when all of the sacred piece are lost.
 Without leadership, they are nothing."
 
+[node name="CheckBox" parent="VCSacred/SacredFields/AllSacredPiece" index="2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -12.0
+offset_right = 12.0
+grow_horizontal = 2
+
 [node name="AnySacredPiece" parent="VCSacred/SacredFields" instance=ExtResource("2_y1wsv")]
 layout_mode = 2
 
@@ -175,6 +186,14 @@ layout_mode = 2
 rule_name = "LOSE ANY SACRED PIECE"
 rule_description = "Commanders are defeated when any of the sacred pieces are lost.
 A well oiled machine; Useless without its cog."
+
+[node name="CheckBox" parent="VCSacred/SacredFields/AnySacredPiece" index="2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -12.0
+offset_right = 12.0
+grow_horizontal = 2
 
 [node name="PieceType" type="TextureButton" parent="VCSacred/SacredFields/AnySacredPiece"]
 layout_mode = 1
@@ -196,9 +215,9 @@ layout_mode = 1
 rule_description = "The sacred piece the commander must protect."
 
 [node name="TitleMod" type="Label" parent="."]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 45
 text = "MODIFIER
 "
 horizontal_alignment = 1
